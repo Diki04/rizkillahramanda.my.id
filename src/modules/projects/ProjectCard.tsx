@@ -26,7 +26,7 @@ export function ProjectCard({ project, onOpenModal }: ProjectCardProps) {
         {/* Thumbnail */}
         <div
           onClick={() => onOpenModal(project)}
-          className="relative aspect-video w-full overflow-hidden rounded-xl border border-white/[0.08] bg-navy-950 cursor-pointer group/img"
+          className="relative aspect-video w-full overflow-hidden rounded-xl border border-slate-200 dark:border-white/[0.08] bg-slate-100 dark:bg-navy-950 cursor-pointer group/img"
         >
           <Image
             src={project.image}
@@ -36,7 +36,7 @@ export function ProjectCard({ project, onOpenModal }: ProjectCardProps) {
             className="object-cover transition-transform duration-500 group-hover/img:scale-105"
           />
           <div className="absolute inset-0 bg-navy-950/40 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-navy-900/90 text-white font-mono text-xs border border-white/[0.1]">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-navy-900/90 text-white font-mono text-xs border border-white/[0.1] shadow-lg">
               <Eye className="w-3.5 h-3.5 text-accent-blue" />
               Detail
             </span>
@@ -50,11 +50,11 @@ export function ProjectCard({ project, onOpenModal }: ProjectCardProps) {
         <div>
           <h3
             onClick={() => onOpenModal(project)}
-            className="text-base font-semibold text-white group-hover:text-accent-blue transition-colors cursor-pointer"
+            className="text-base font-semibold text-slate-900 dark:text-white group-hover:text-sky-500 dark:group-hover:text-accent-blue transition-colors cursor-pointer"
           >
             {project.title}
           </h3>
-          <p className="text-xs text-slate-400 mt-2 line-clamp-2 leading-relaxed">
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 line-clamp-2 leading-relaxed">
             {isEn ? project.description.en : project.description.id}
           </p>
         </div>
@@ -66,7 +66,7 @@ export function ProjectCard({ project, onOpenModal }: ProjectCardProps) {
             return (
               <span
                 key={tag}
-                className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-mono bg-navy-950/80 text-slate-300 border border-white/[0.06] hover:border-white/[0.15] transition-colors"
+                className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-mono bg-slate-100 dark:bg-navy-950/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/[0.06] hover:border-sky-400/40 transition-colors"
               >
                 <TechIcon className="w-3 h-3 shrink-0" style={{ color }} />
                 <span>{tag}</span>
@@ -74,7 +74,7 @@ export function ProjectCard({ project, onOpenModal }: ProjectCardProps) {
             );
           })}
           {project.tags.length > 4 && (
-            <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-navy-950/50 text-slate-500">
+            <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-slate-100 dark:bg-navy-950/50 text-slate-500">
               +{project.tags.length - 4}
             </span>
           )}
@@ -82,7 +82,7 @@ export function ProjectCard({ project, onOpenModal }: ProjectCardProps) {
       </div>
 
       {/* Action Footer */}
-      <div className="flex items-center gap-2 pt-4 mt-4 border-t border-white/[0.06]">
+      <div className="flex items-center gap-2 pt-4 mt-4 border-t border-slate-200 dark:border-white/[0.06]">
         {project.demoUrl && (
           <a
             href={project.demoUrl}
@@ -105,7 +105,7 @@ export function ProjectCard({ project, onOpenModal }: ProjectCardProps) {
           <Button
             variant="outline"
             size="sm"
-            className="w-full text-xs border-white/[0.1]"
+            className="w-full text-xs border-slate-200 dark:border-white/[0.1]"
           >
             <Github className="w-3.5 h-3.5 mr-1" />
             <span>{t('sourceCode')}</span>

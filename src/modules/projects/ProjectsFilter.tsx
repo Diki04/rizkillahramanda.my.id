@@ -31,7 +31,7 @@ export function ProjectsFilter({
   return (
     <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
       {/* Category Tabs */}
-      <div className="flex flex-wrap items-center gap-1.5 p-1 rounded-xl bg-navy-900/60 border border-white/[0.08] backdrop-blur-sm">
+      <div className="flex flex-wrap items-center gap-1.5 p-1 rounded-xl bg-slate-100 dark:bg-navy-900/60 border border-slate-200 dark:border-white/[0.08] backdrop-blur-sm">
         {categories.map((cat) => {
           const active = activeCategory === cat.id;
           return (
@@ -41,8 +41,8 @@ export function ProjectsFilter({
               className={cn(
                 'px-3.5 py-1.5 rounded-lg text-xs font-mono font-medium transition-all duration-200',
                 active
-                  ? 'bg-navy-800 text-accent-blue shadow-sm shadow-cyan-950/40 border border-accent-blue/30 font-semibold'
-                  : 'text-slate-400 hover:text-white hover:bg-navy-800/40'
+                  ? 'bg-white dark:bg-navy-800 text-sky-600 dark:text-accent-blue shadow-sm border border-slate-200 dark:border-accent-blue/30 font-semibold'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-navy-800/40'
               )}
             >
               {cat.label}
@@ -53,13 +53,13 @@ export function ProjectsFilter({
 
       {/* Search Input */}
       <div className="relative w-full sm:w-64">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-500" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder="Cari proyek atau teknologi..."
-          className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-navy-900/80 border border-white/[0.08] text-xs font-mono text-slate-200 placeholder-slate-500 focus:outline-none focus:border-accent-blue/50 focus:ring-1 focus:ring-accent-blue/50 transition-all"
+          className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-white dark:bg-navy-900/80 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-sky-500/50 focus:ring-1 focus:ring-sky-500/50 transition-all"
         />
       </div>
     </div>

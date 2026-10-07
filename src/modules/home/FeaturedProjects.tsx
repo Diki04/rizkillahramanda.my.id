@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
@@ -9,7 +9,9 @@ import { SpotlightCard } from '@/common/components/SpotlightCard';
 import { Badge } from '@/common/components/Badge';
 import { Button } from '@/common/components/Button';
 import { mockProjects } from '@/services/data/mock-projects';
-import { ArrowUpRight, Github, ExternalLink } from 'lucide-react';
+import { Project } from '@/types';
+import { ProjectModal } from '@/modules/projects/ProjectModal';
+import { ArrowUpRight, Github, ExternalLink, Eye } from 'lucide-react';
 import { getTechIcon } from '@/common/utils/techIcons';
 import { ScrollReveal } from '@/common/components/ScrollReveal';
 
@@ -17,6 +19,7 @@ export function FeaturedProjects() {
   const t = useTranslations('projects');
   const locale = useLocale();
   const isEn = locale === 'en';
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const featured = mockProjects.filter((p) => p.featured).slice(0, 3);
 
@@ -30,10 +33,10 @@ export function FeaturedProjects() {
               <span className="font-mono text-xs uppercase tracking-wider text-accent-blue font-semibold">
                 {t('featured')}
               </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white mt-1">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-1">
                 {t('title')}
               </h2>
-              <p className="text-sm sm:text-base text-slate-400 mt-1 max-w-xl">
+              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-1 max-w-xl">
                 {t('subtitle')}
               </p>
             </div>
@@ -50,11 +53,12 @@ export function FeaturedProjects() {
             {featured.map((project) => (
               <SpotlightCard
                 key={project.id}
-                className="flex flex-col h-full p-5 justify-between"
+                className="flex flex-col h-full p-5 justify-between cursor-pointer group"
+                onClick={() => setSelectedProject(project)}
               >
                 <div className="space-y-4">
                   {/* Project Image Banner */}
-                  <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-white/[0.08] bg-navy-950">
+                  <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-slate-200 dark:border-white/[0.08] bg-slate-100 dark:bg-navy-950 group/img">
                     <Image
                       src={project.image}
                       alt={project.title}
@@ -62,17 +66,23 @@ export function FeaturedProjects() {
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute top-2.5 right-2.5">
+                    <div className="absolute inset-0 bg-navy-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-navy-900/90 text-white font-mono text-xs border border-white/[0.1] shadow-lg">
+                        <Eye className="w-3.5 h-3.5 text-accent-blue" />
+                        Lihat Detail
+                      </span>
+                    </div>
+                    <div className="absolute top-2.5 right-2.5 z-10">
                       <Badge variant="accent">{project.category}</Badge>
                     </div>
                   </div>
 
                   {/* Title & Description */}
                   <div>
-                    <h3 className="text-lg font-semibold text-white group-hover:text-accent-blue transition-colors">
+                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white group-hover:text-accent-blue transition-colors">
                       {project.title}
                     </h3>
-                    <p className="text-xs text-slate-400 mt-2 line-clamp-3 leading-relaxed">
+                    <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 line-clamp-3 leading-relaxed">
                       {isEn ? project.description.en : project.description.id}
                     </p>
                   </div>
@@ -84,7 +94,7 @@ export function FeaturedProjects() {
                       return (
                         <span
                           key={tag}
-                          className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-mono bg-navy-950/80 text-slate-300 border border-white/[0.06] hover:border-white/[0.15] transition-colors"
+                          className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 dark:bg-navy-950/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/[0.06] hover:border-sky-400/30 transition-colors"
                         >
                           <TechIcon className="w-3 h-3 shrink-0" style={{ color }} />
                           <span>{tag}</span>
@@ -95,41 +105,53 @@ export function FeaturedProjects() {
                 </div>
 
                 {/* Card Actions */}
-                <div className="flex items-center gap-2 pt-5 mt-4 border-t border-white/[0.06]">
+                <div
+                  className="flex items-center gap-2 pt-5 mt-4 border-t border-slate-200 dark:border-white/[0.06]"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <Button
+                    onClick={() => setSelectedProject(project)}
+                    variant="secondary"
+                    size="sm"
+                    className="flex-1 text-xs"
+                  >
+                    <Eye className="w-3.5 h-3.5 mr-1.5" />
+                    <span>Detail</span>
+                  </Button>
                   {project.demoUrl && (
                     <a
                       href={project.demoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1"
                     >
-                      <Button variant="secondary" size="sm" className="w-full text-xs">
-                        <ExternalLink className="w-3.5 h-3.5 mr-1.5" />
-                        <span>{t('liveDemo')}</span>
+                      <Button variant="outline" size="sm" className="text-xs">
+                        <ExternalLink className="w-3.5 h-3.5" />
                       </Button>
                     </a>
                   )}
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={project.demoUrl ? '' : 'w-full'}
-                  >
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="w-full text-xs border-white/[0.1]"
+                  {project.githubUrl && (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      <Github className="w-3.5 h-3.5 mr-1.5" />
-                      <span>{t('sourceCode')}</span>
-                    </Button>
-                  </a>
+                      <Button variant="outline" size="sm" className="text-xs">
+                        <Github className="w-3.5 h-3.5" />
+                      </Button>
+                    </a>
+                  )}
                 </div>
               </SpotlightCard>
             ))}
           </div>
         </div>
       </Container>
+
+      {/* Project Detail Modal */}
+      <ProjectModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
     </ScrollReveal>
   );
 }
