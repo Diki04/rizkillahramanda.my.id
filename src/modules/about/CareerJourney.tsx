@@ -1,6 +1,7 @@
 import React from 'react';
 import { SpotlightCard } from '@/common/components/SpotlightCard';
 import { Briefcase, Code, Terminal, GitCommit } from 'lucide-react';
+import { getTechIcon } from '@/common/utils/techIcons';
 
 export function CareerJourney() {
   const milestones = [
@@ -47,14 +48,18 @@ export function CareerJourney() {
                   {m.description}
                 </p>
                 <div className="flex flex-wrap gap-1.5 pt-1">
-                  {m.tags.map((t) => (
-                    <span
-                      key={t}
-                      className="px-2 py-0.5 rounded text-[10px] font-mono bg-navy-950/80 text-slate-400 border border-white/[0.06]"
-                    >
-                      {t}
-                    </span>
-                  ))}
+                  {m.tags.map((t) => {
+                    const { icon: TechIcon, color } = getTechIcon(t);
+                    return (
+                      <span
+                        key={t}
+                        className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-mono bg-navy-950/80 text-slate-300 border border-white/[0.06] hover:border-white/[0.15] transition-colors"
+                      >
+                        <TechIcon className="w-3 h-3 shrink-0" style={{ color }} />
+                        <span>{t}</span>
+                      </span>
+                    );
+                  })}
                 </div>
               </div>
             </div>
