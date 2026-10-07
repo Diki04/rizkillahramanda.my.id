@@ -16,7 +16,7 @@ export function CareerJourney() {
       year: '2025',
       role: 'Frontend Engineering & Open Source',
       description:
-        'Membangun puluhan proyek web open-source di GitHub (@Diki04), menyelesaikan sertifikasi fundamental front-end dan machine learning di Dicoding.',
+        'Membangun puluhan proyek web open-source di GitHub (@Diki04), meraih pencapaian kompetensi front-end dan machine learning di Dicoding.',
       tags: ['React.js', 'TypeScript', 'Tailwind CSS', 'Git'],
     },
     {
