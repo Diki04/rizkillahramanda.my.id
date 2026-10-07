@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl';
 import { SpotlightCard } from '@/common/components/SpotlightCard';
 import { mockSkills } from '@/services/data/mock-profile';
 import { Layout, Server, Cpu, Wrench } from 'lucide-react';
+import { getTechIcon } from '@/common/utils/techIcons';
 
 export function SkillsMatrix() {
   const t = useTranslations('about');
@@ -53,19 +54,26 @@ export function SkillsMatrix() {
               </div>
 
               <div className="flex flex-wrap gap-2">
-                {cat.skills.map((skill) => (
-                  <div
-                    key={skill.name}
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-navy-950/80 border border-white/[0.06] hover:border-accent-blue/30 transition-colors"
-                  >
-                    <span className="text-xs font-mono text-slate-200">
-                      {skill.name}
-                    </span>
-                    <span className="text-[10px] font-mono text-accent-blue/80">
-                      • {skill.level}
-                    </span>
-                  </div>
-                ))}
+                {cat.skills.map((skill) => {
+                  const { icon: TechIcon, color } = getTechIcon(skill.name);
+                  return (
+                    <div
+                      key={skill.name}
+                      className="group/skill flex items-center gap-2 px-3 py-1.5 rounded-lg bg-navy-950/80 border border-white/[0.06] hover:border-white/[0.15] hover:bg-navy-900/90 transition-all duration-150"
+                    >
+                      <TechIcon
+                        className="w-3.5 h-3.5 shrink-0 transition-transform group-hover/skill:scale-110"
+                        style={{ color }}
+                      />
+                      <span className="text-xs font-mono text-slate-200">
+                        {skill.name}
+                      </span>
+                      <span className="text-[10px] font-mono text-accent-blue/80">
+                        • {skill.level}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
             </SpotlightCard>
           );
