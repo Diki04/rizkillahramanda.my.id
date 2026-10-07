@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-export const revalidate = 3600; // Cache for 1 hour
+export const revalidate = 60; // Fresh telemetry every 60 seconds
 
 export async function GET() {
   const username = process.env.NEXT_PUBLIC_GITHUB_USERNAME || 'Diki04';
@@ -10,14 +10,16 @@ export async function GET() {
       fetch(`https://api.github.com/users/${username}`, {
         headers: {
           'User-Agent': 'portfolio-app',
+          ...(process.env.GITHUB_TOKEN ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {}),
         },
-        next: { revalidate: 3600 },
+        next: { revalidate: 60 },
       }),
       fetch(`https://api.github.com/users/${username}/repos?per_page=100`, {
         headers: {
           'User-Agent': 'portfolio-app',
+          ...(process.env.GITHUB_TOKEN ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {}),
         },
-        next: { revalidate: 3600 },
+        next: { revalidate: 60 },
       }),
     ]);
 
@@ -51,7 +53,7 @@ export async function GET() {
       },
     });
   } catch (error) {
-    // Return graceful fallback data so website never breaks
+    // Return graceful fallback data so website never breaks if rate limited
     return NextResponse.json({
       success: true,
       data: {
