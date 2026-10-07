@@ -14,14 +14,12 @@ import { BackToTop } from '@/common/components/BackToTop';
 import { CommandPalette } from '@/common/components/CommandPalette';
 import { RadialGradientBackground } from '@/common/components/RadialGradientBackground';
 
-// Lazy load heavy canvas fluid background and custom cursor
-const SmoothFluidBackground = dynamic(
-  () => import('@/common/components/SmoothFluidBackground').then((mod) => mod.SmoothFluidBackground),
-  { ssr: false }
-);
-
-const CustomCursor = dynamic(
-  () => import('@/common/components/CustomCursor').then((mod) => mod.CustomCursor),
+// Lazy load background showcase with multi-page preview options
+const DynamicBackgroundShowcase = dynamic(
+  () =>
+    import('@/common/components/DynamicBackgroundShowcase').then(
+      (mod) => mod.DynamicBackgroundShowcase
+    ),
   { ssr: false }
 );
 
@@ -74,10 +72,9 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
             <LayoutProvider>
-              <CustomCursor />
               <ScrollProgressBar />
               <RadialGradientBackground />
-              <SmoothFluidBackground />
+              <DynamicBackgroundShowcase />
               <CommandPalette />
               <AppShell>{children}</AppShell>
               <BackToTop />
