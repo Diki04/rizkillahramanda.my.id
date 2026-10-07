@@ -58,12 +58,15 @@ Key principles:
 │   │   │   ├── contents/page.tsx
 │   │   │   ├── chat/page.tsx
 │   │   │   ├── contact/page.tsx
+│   │   │   ├── admin/page.tsx         # Admin Management Portal (Projects & Certificates CRUD)
 │   │   │   ├── not-found.tsx
 │   │   │   └── error.tsx
 │   │   └── api/
 │   │       ├── github/route.ts
 │   │       ├── wakatime/route.ts
-│   │       └── chat/route.ts
+│   │       ├── chat/route.ts
+│   │       ├── projects/route.ts      # Projects CRUD & image upload
+│   │       └── achievements/route.ts  # Certificates CRUD & image upload
 │   ├── common/
 │   │   ├── components/
 │   │   │   ├── Button.tsx
@@ -85,7 +88,8 @@ Key principles:
 │   │   ├── achievements/
 │   │   ├── contents/
 │   │   ├── chat/
-│   │   └── contact/
+│   │   ├── contact/
+│   │   └── admin/                 # Admin forms, project/certificate editors & image uploader
 │   ├── services/
 │   │   ├── supabase/
 │   │   ├── github/
@@ -135,6 +139,11 @@ Key principles:
    - Reads coding time breakdown by language and daily totals.
 4. **i18n System**:
    - Full dictionary translation in Indonesian and English for all routes.
+5. **Admin Management & Supabase Storage**:
+   - Dedicated Admin Portal at `/admin` protected by Passcode / Admin Auth.
+   - Allows creating, updating, and deleting portfolio projects (title, tech stack, github link, demo link, description, cover image).
+   - Allows creating, updating, and deleting certificates/achievements (title, issuer, date, verify URL, credential image).
+   - Image upload integration with Supabase Storage bucket (`portfolio-assets`) + local preview fallback.
 
 ---
 
