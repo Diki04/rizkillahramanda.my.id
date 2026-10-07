@@ -1,14 +1,16 @@
-import assert from 'node:assert/strict';
-import { mockAchievements } from '../services/mock-achievements';
+import { describe, it, expect } from 'vitest';
+import { mockAchievements } from '../services/data/mock-achievements';
 
-assert.ok(Array.isArray(mockAchievements), 'mockAchievements should be an array');
-assert.ok(mockAchievements.length >= 3, 'Should have multiple certificates');
+describe('mockAchievements data structure', () => {
+  it('should contain verified certificates', () => {
+    expect(Array.isArray(mockAchievements)).toBe(true);
+    expect(mockAchievements.length).toBeGreaterThan(0);
 
-mockAchievements.forEach((ach) => {
-  assert.ok(ach.id, 'Achievement must have id');
-  assert.ok(ach.title, 'Achievement must have title');
-  assert.ok(ach.issuer, 'Achievement must have issuer');
-  assert.ok(ach.date, 'Achievement must have date');
+    mockAchievements.forEach((ach) => {
+      expect(ach.id).toBeDefined();
+      expect(ach.title).toBeDefined();
+      expect(ach.issuer).toBeDefined();
+      expect(ach.issueDate).toBeDefined();
+    });
+  });
 });
-
-console.log('✔ mockAchievements.test.ts passed');

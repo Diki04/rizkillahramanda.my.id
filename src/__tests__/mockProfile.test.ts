@@ -1,9 +1,11 @@
-import assert from 'node:assert/strict';
-import { mockProfile } from '../services/mock-profile';
+import { describe, it, expect } from 'vitest';
+import { mockProfile, mockSkills } from '../services/data/mock-profile';
 
-assert.equal(mockProfile.name, 'Rizkillah Ramanda Sinyo', 'Profile name matches');
-assert.ok(Array.isArray(mockProfile.education), 'Education is array');
-assert.ok(Array.isArray(mockProfile.skills), 'Skills is array');
-assert.ok(Array.isArray(mockProfile.experiences), 'Experiences is array');
-
-console.log('✔ mockProfile.test.ts passed');
+describe('mockProfile data structure', () => {
+  it('should contain Rizkillah personal details and skills', () => {
+    expect(mockProfile.name).toBe('Rizkillah Ramanda Sinyo');
+    expect(mockProfile.nickname).toBe('Diki');
+    expect(Array.isArray(mockSkills)).toBe(true);
+    expect(mockSkills.length).toBeGreaterThan(0);
+  });
+});

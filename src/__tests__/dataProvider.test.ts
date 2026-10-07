@@ -1,16 +1,16 @@
-import assert from 'node:assert/strict';
-import { getProjects, getAchievements } from '../services/supabase/dataProvider';
+import { describe, it, expect } from 'vitest';
+import { dataProvider } from '../services/supabase/dataProvider';
 
-async function runTest() {
-  const projects = await getProjects();
-  assert.ok(Array.isArray(projects), 'getProjects should return an array');
-  assert.ok(projects.length > 0, 'getProjects returns items via fallback');
+describe('dataProvider hybrid resilient fallback', () => {
+  it('should retrieve projects fallback array when offline', async () => {
+    const projects = await dataProvider.getProjects();
+    expect(Array.isArray(projects)).toBe(true);
+    expect(projects.length).toBeGreaterThan(0);
+  });
 
-  const achievements = await getAchievements();
-  assert.ok(Array.isArray(achievements), 'getAchievements should return an array');
-  assert.ok(achievements.length > 0, 'getAchievements returns items via fallback');
-
-  console.log('✔ dataProvider.test.ts passed');
-}
-
-runTest();
+  it('should retrieve achievements fallback array when offline', async () => {
+    const achievements = await dataProvider.getAchievements();
+    expect(Array.isArray(achievements)).toBe(true);
+    expect(achievements.length).toBeGreaterThan(0);
+  });
+});
