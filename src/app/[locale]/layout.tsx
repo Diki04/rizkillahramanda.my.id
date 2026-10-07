@@ -5,6 +5,7 @@ import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import '../globals.css';
+import { ThemeProvider } from '@/common/contexts/ThemeContext';
 import { LayoutProvider } from '@/common/contexts/LayoutContext';
 import { AppShell } from '@/common/layouts/AppShell';
 import { SmoothFluidBackground } from '@/common/components/SmoothFluidBackground';
@@ -49,17 +50,19 @@ export default async function RootLayout({
   return (
     <html lang={locale} className="dark">
       <body
-        className={`${inter.variable} ${mono.variable} font-sans bg-navy-950 text-slate-100 antialiased min-h-screen flex flex-col relative selection:bg-sky-500/20 selection:text-sky-300`}
+        className={`${inter.variable} ${mono.variable} font-sans bg-slate-50 text-slate-900 dark:bg-navy-950 dark:text-slate-100 antialiased min-h-screen flex flex-col relative selection:bg-sky-500/20 selection:text-sky-300 transition-colors duration-300`}
       >
         <NextIntlClientProvider messages={messages}>
-          <LayoutProvider>
-            <ScrollProgressBar />
-            <RadialGradientBackground />
-            <SmoothFluidBackground />
-            <CommandPalette />
-            <AppShell>{children}</AppShell>
-            <BackToTop />
-          </LayoutProvider>
+          <ThemeProvider>
+            <LayoutProvider>
+              <ScrollProgressBar />
+              <RadialGradientBackground />
+              <SmoothFluidBackground />
+              <CommandPalette />
+              <AppShell>{children}</AppShell>
+              <BackToTop />
+            </LayoutProvider>
+          </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>
