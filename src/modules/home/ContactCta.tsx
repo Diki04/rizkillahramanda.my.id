@@ -3,14 +3,18 @@
 import React from 'react';
 import { Container } from '@/common/components/Container';
 import { Button } from '@/common/components/Button';
+import { ScrollReveal } from '@/common/components/ScrollReveal';
 import { Link } from '@/i18n/routing';
 import { Mail, MessageSquare, ArrowUpRight, Sparkles } from 'lucide-react';
 
 export function ContactCta() {
   return (
-    <section id="contact-cta" className="py-20 border-t border-white/[0.08] min-h-[60vh] flex flex-col justify-center relative overflow-hidden">
+    <ScrollReveal
+      id="contact-cta"
+      className="py-20 border-t border-white/[0.08] min-h-[50vh] flex flex-col justify-center relative overflow-hidden"
+    >
       <Container size="xl">
-        <div className="relative rounded-3xl border border-white/[0.1] bg-gradient-to-b from-navy-900/60 to-navy-950/80 p-8 sm:p-12 md:p-16 text-center overflow-hidden">
+        <div className="relative rounded-3xl border border-white/[0.1] bg-gradient-to-b from-navy-900/60 to-navy-950/80 p-8 sm:p-12 md:p-14 text-center overflow-hidden">
           {/* Subtle glow background */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -20,11 +24,11 @@ export function ContactCta() {
               <span>Available for New Projects</span>
             </div>
 
-            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.1]">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
               Let&apos;s build something <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">impactful</span> together.
             </h2>
 
-            <p className="text-base sm:text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl mx-auto">
               Interested in collaborating on a web project, discussing machine learning research, or just saying hello? I am always open to new connections.
             </p>
 
@@ -46,6 +50,6 @@ export function ContactCta() {
           </div>
         </div>
       </Container>
-    </section>
+    </ScrollReveal>
   );
 }

@@ -11,6 +11,7 @@ import { Button } from '@/common/components/Button';
 import { mockProjects } from '@/services/data/mock-projects';
 import { ArrowUpRight, Github, ExternalLink } from 'lucide-react';
 import { getTechIcon } from '@/common/utils/techIcons';
+import { ScrollReveal } from '@/common/components/ScrollReveal';
 
 export function FeaturedProjects() {
   const t = useTranslations('projects');
@@ -20,19 +21,19 @@ export function FeaturedProjects() {
   const featured = mockProjects.filter((p) => p.featured).slice(0, 3);
 
   return (
-    <section id="projects" className="py-20 min-h-[calc(100vh-5rem)] flex flex-col justify-center">
+    <ScrollReveal id="projects" className="py-20 min-h-[calc(100vh-5rem)] flex flex-col justify-center">
       <Container size="xl">
         <div className="flex flex-col gap-10">
           {/* Section Header */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
-              <span className="font-mono text-xs sm:text-sm uppercase tracking-wider text-accent-blue font-semibold">
+              <span className="font-mono text-xs uppercase tracking-wider text-accent-blue font-semibold">
                 {t('featured')}
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white mt-1.5">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white mt-1">
                 {t('title')}
               </h2>
-              <p className="text-base sm:text-lg text-slate-400 mt-2 max-w-2xl">
+              <p className="text-sm sm:text-base text-slate-400 mt-1 max-w-xl">
                 {t('subtitle')}
               </p>
             </div>
@@ -129,6 +130,6 @@ export function FeaturedProjects() {
           </div>
         </div>
       </Container>
-    </section>
+    </ScrollReveal>
   );
 }

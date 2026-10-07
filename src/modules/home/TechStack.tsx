@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Container } from '@/common/components/Container';
 import { Badge } from '@/common/components/Badge';
+import { ScrollReveal } from '@/common/components/ScrollReveal';
 import {
   SiReact,
   SiNextdotjs,
@@ -268,7 +269,7 @@ export function TechStack() {
   });
 
   return (
-    <section id="tech-stack" className="py-20 border-y border-white/[0.08] bg-navy-950/40 relative">
+    <ScrollReveal id="tech-stack" className="py-20 border-y border-white/[0.08] bg-navy-950/40 relative">
       <Container size="xl">
         <div className="flex flex-col gap-8">
           {/* Section Header */}
@@ -278,10 +279,10 @@ export function TechStack() {
                 <Sparkles className="w-4 h-4" />
                 <span>Verified Stack</span>
               </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
                 Engineering Stack & Tooling
               </h2>
-              <p className="text-base sm:text-lg text-slate-400 max-w-2xl">
+              <p className="text-sm sm:text-base text-slate-400 max-w-xl">
                 Official libraries, frameworks, and developer tools powering my fullstack applications and AI research.
               </p>
             </div>
@@ -363,6 +364,6 @@ export function TechStack() {
           )}
         </div>
       </Container>
-    </section>
+    </ScrollReveal>
   );
 }

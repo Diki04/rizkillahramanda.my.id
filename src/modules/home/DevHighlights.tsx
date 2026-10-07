@@ -5,13 +5,17 @@ import { Container } from '@/common/components/Container';
 import { SpotlightCard } from '@/common/components/SpotlightCard';
 import { DeveloperSetup } from './DeveloperSetup';
 import { QuoteCard } from './QuoteCard';
+import { ScrollReveal } from '@/common/components/ScrollReveal';
 import { Link } from '@/i18n/routing';
-import { ArrowUpRight, GitBranch, Clock, Sparkles } from 'lucide-react';
+import { ArrowUpRight, GitBranch, Sparkles } from 'lucide-react';
 import { SiGithub } from 'react-icons/si';
 
 export function DevHighlights() {
   return (
-    <section id="highlights" className="py-20 border-t border-white/[0.08] min-h-[calc(100vh-5rem)] flex flex-col justify-center">
+    <ScrollReveal
+      id="highlights"
+      className="py-20 border-t border-white/[0.08] min-h-[calc(100vh-5rem)] flex flex-col justify-center"
+    >
       <Container size="xl">
         <div className="flex flex-col gap-10">
           {/* Header */}
@@ -21,10 +25,10 @@ export function DevHighlights() {
                 <Sparkles className="w-4 h-4" />
                 <span>Workflow & Philosophy</span>
               </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
                 Developer Environment & Philosophy
               </h2>
-              <p className="text-base sm:text-lg text-slate-400 mt-2 max-w-2xl">
+              <p className="text-sm sm:text-base text-slate-400 mt-1 max-w-xl">
                 The setup, engineering habits, and continuous metrics that drive high-quality software craftsmanship.
               </p>
             </div>
@@ -89,6 +93,6 @@ export function DevHighlights() {
           </div>
         </div>
       </Container>
-    </section>
+    </ScrollReveal>
   );
 }
