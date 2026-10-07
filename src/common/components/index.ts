@@ -19,3 +19,5 @@ export { Toast } from './Toast';
 export { Modal } from './Modal';
 export { Divider } from './Divider';
 export { RadialGradientBackground } from './RadialGradientBackground';
+export { LayoutToggle } from './LayoutToggle';
+export { AmbientAudioPlayer } from './AmbientAudioPlayer';
