@@ -69,7 +69,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser.
 
 ## 🔒 Admin Access
 - Navigate to `/admin` or press `Ctrl+K` -> "Admin Portal".
-- Enter the default administrative passcode: `admin123`.
+- Enter the administrative passcode configured in your environment variable (`ADMIN_SECRET_KEY`).
 
 ---
 
