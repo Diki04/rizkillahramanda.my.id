@@ -4,10 +4,7 @@ import { Mail, ArrowUpRight } from 'lucide-react';
 export function DirectEmailButton() {
   const email = 'rizkillahramanda@gmail.com';
   const subject = encodeURIComponent('Collaboration Inquiry via Portfolio');
-  const body = encodeURIComponent('Hi Rizkillah,
-
-I would love to connect with you regarding...
-');
+  const body = encodeURIComponent('Hi Rizkillah, I would love to connect with you regarding a project or opportunity.');
 
   return (
     <a
