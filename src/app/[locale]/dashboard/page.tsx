@@ -1,19 +1,36 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import { Container } from '../../../common/components/Container';
 import { Breadcrumb } from '../../../common/components/Breadcrumb';
-import { GitHubStats } from '../../../modules/dashboard/GitHubStats';
-import { WakatimeStats } from '../../../modules/dashboard/WakatimeStats';
-import { MonkeytypeStats } from '../../../modules/dashboard/MonkeytypeStats';
-import { CodewarsStats } from '../../../modules/dashboard/CodewarsStats';
+
+const GitHubStats = dynamic(
+  () => import('../../../modules/dashboard/GitHubStats').then((mod) => mod.GitHubStats),
+  { ssr: true }
+);
+
+const MonkeytypeStats = dynamic(
+  () => import('../../../modules/dashboard/MonkeytypeStats').then((mod) => mod.MonkeytypeStats),
+  { ssr: true }
+);
+
+const CodewarsStats = dynamic(
+  () => import('../../../modules/dashboard/CodewarsStats').then((mod) => mod.CodewarsStats),
+  { ssr: true }
+);
+
+const WakatimeStats = dynamic(
+  () => import('../../../modules/dashboard/WakatimeStats').then((mod) => mod.WakatimeStats),
+  { ssr: true }
+);
 
 export default function DashboardPage() {
   return (
     <Container className="py-16">
       <Breadcrumb items={[{ label: 'Dashboard' }]} />
       <div className="mb-12">
-        <span className="font-mono text-xs uppercase tracking-wider text-sky-400">Telemetry</span>
-        <h1 className="text-3xl font-extrabold text-white mt-1">Developer Metrics Dashboard</h1>
-        <p className="text-slate-400 text-sm mt-2 max-w-2xl">
+        <span className="font-mono text-xs uppercase tracking-wider text-sky-500 dark:text-sky-400 font-semibold">Telemetry</span>
+        <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Developer Metrics Dashboard</h1>
+        <p className="text-slate-600 dark:text-slate-400 text-sm mt-2 max-w-2xl">
           Live statistics from GitHub, code editor telemetry from Wakatime, typing velocity, and problem-solving benchmarks.
         </p>
       </div>
