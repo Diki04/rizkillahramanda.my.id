@@ -13,6 +13,7 @@ import { ScrollProgressBar } from '@/common/components/ScrollProgressBar';
 import { BackToTop } from '@/common/components/BackToTop';
 import { CommandPalette } from '@/common/components/CommandPalette';
 import { RadialGradientBackground } from '@/common/components/RadialGradientBackground';
+import { CustomCursor } from '@/common/components/CustomCursor';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -55,6 +56,7 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
             <LayoutProvider>
+              <CustomCursor />
               <ScrollProgressBar />
               <RadialGradientBackground />
               <SmoothFluidBackground />

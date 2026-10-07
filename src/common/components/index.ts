@@ -28,3 +28,4 @@ export { DecryptedText } from './DecryptedText';
 export { RotatingText } from './RotatingText';
 export { SectionNavigator } from './SectionNavigator';
 export { ScrollReveal } from './ScrollReveal';
+export { CustomCursor } from './CustomCursor';
