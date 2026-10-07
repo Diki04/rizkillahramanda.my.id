@@ -9,7 +9,7 @@ import { Plus, Edit2, Trash2, Check, X, FolderGit2 } from 'lucide-react';
 
 interface ProjectManagerProps {
   projects: Project[];
-  secretKey: string;
+  secretKey?: string;
   onRefresh: () => void;
 }
 
@@ -76,7 +76,6 @@ export function ProjectManager({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          secretKey,
           project: projectToSave,
         }),
       });
@@ -106,7 +105,6 @@ export function ProjectManager({
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          secretKey,
           id,
         }),
       });
