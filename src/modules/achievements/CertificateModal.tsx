@@ -21,22 +21,22 @@ export function CertificateModal({ achievement, onClose }: CertificateModalProps
   return (
     <div
       onClick={onClose}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-navy-950/80 backdrop-blur-md animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 dark:bg-navy-950/80 backdrop-blur-md animate-in fade-in duration-200"
     >
       <div
-        className="relative w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-2xl border border-white/[0.12] bg-navy-900 p-6 shadow-2xl shadow-cyan-950/40 text-left"
+        className="relative w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-2xl border border-slate-200 dark:border-white/[0.12] bg-white dark:bg-navy-900 p-6 shadow-2xl shadow-sky-950/20 dark:shadow-cyan-950/40 text-left transition-all"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-lg bg-navy-800 text-slate-400 hover:text-white border border-white/[0.08] transition-colors"
+          className="absolute top-4 right-4 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-navy-800 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white border border-slate-200 dark:border-white/[0.08] transition-colors"
           aria-label="Close modal"
         >
           <X className="w-5 h-5" />
         </button>
 
         <div className="space-y-6">
-          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-white/[0.08] bg-navy-950">
+          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-slate-200 dark:border-white/[0.08] bg-slate-100 dark:bg-navy-950">
             <Image
               src={achievement.image}
               alt={achievement.title}
@@ -49,15 +49,15 @@ export function CertificateModal({ achievement, onClose }: CertificateModalProps
           </div>
 
           <div className="space-y-2">
-            <h3 className="text-xl font-bold text-white">{achievement.title}</h3>
-            <div className="flex items-center gap-4 text-xs font-mono text-slate-400">
-              <span className="flex items-center gap-1.5 text-slate-300">
+            <h3 className="text-xl font-bold text-slate-900 dark:text-white">{achievement.title}</h3>
+            <div className="flex items-center gap-4 text-xs font-mono text-slate-500 dark:text-slate-400">
+              <span className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
                 <Award className="w-3.5 h-3.5 text-accent-blue" />
                 {achievement.issuer}
               </span>
               <span>•</span>
               <span className="flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5 text-slate-500" />
+                <Calendar className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
                 {achievement.issueDate}
               </span>
             </div>

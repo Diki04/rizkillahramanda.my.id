@@ -26,7 +26,7 @@ export function CertificateCard({
         {/* Certificate Preview Image */}
         <div
           onClick={() => onOpenModal(achievement)}
-          className="relative aspect-video w-full overflow-hidden rounded-xl border border-white/[0.08] bg-navy-950 cursor-pointer group/img"
+          className="relative aspect-video w-full overflow-hidden rounded-xl border border-slate-200 dark:border-white/[0.08] bg-slate-100 dark:bg-navy-950 cursor-pointer group/img"
         >
           <Image
             src={achievement.image}
@@ -36,7 +36,7 @@ export function CertificateCard({
             className="object-cover transition-transform duration-500 group-hover/img:scale-105"
           />
           <div className="absolute inset-0 bg-navy-950/40 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-navy-900/90 text-white font-mono text-xs border border-white/[0.1]">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-navy-900/90 text-white font-mono text-xs border border-white/[0.1] shadow-lg">
               <Eye className="w-3.5 h-3.5 text-accent-blue" />
               {t('viewCertificate')}
             </span>
@@ -50,16 +50,16 @@ export function CertificateCard({
         <div>
           <h3
             onClick={() => onOpenModal(achievement)}
-            className="text-base font-semibold text-white group-hover:text-accent-blue transition-colors cursor-pointer"
+            className="text-base font-semibold text-slate-900 dark:text-white group-hover:text-sky-500 dark:group-hover:text-accent-blue transition-colors cursor-pointer"
           >
             {achievement.title}
           </h3>
-          <div className="flex items-center justify-between text-xs font-mono text-slate-400 mt-2">
-            <span className="flex items-center gap-1.5 text-slate-300">
-              <Award className="w-3.5 h-3.5 text-accent-blue" />
+          <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 mt-2">
+            <span className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+              <Award className="w-3.5 h-3.5 text-sky-500" />
               {achievement.issuer}
             </span>
-            <span className="flex items-center gap-1 text-slate-500">
+            <span className="flex items-center gap-1 text-slate-400 dark:text-slate-500">
               <Calendar className="w-3 h-3" />
               {achievement.issueDate}
             </span>
@@ -68,7 +68,7 @@ export function CertificateCard({
       </div>
 
       {/* Footer Actions */}
-      <div className="pt-4 mt-4 border-t border-white/[0.06] flex items-center gap-2">
+      <div className="pt-4 mt-4 border-t border-slate-200 dark:border-white/[0.06] flex items-center gap-2">
         {achievement.credentialUrl && (
           <a
             href={achievement.credentialUrl}
