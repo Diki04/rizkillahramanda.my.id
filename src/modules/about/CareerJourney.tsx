@@ -1,6 +1,6 @@
 import React from 'react';
 import { SpotlightCard } from '@/common/components/SpotlightCard';
-import { Briefcase, Code, Terminal, GitCommit } from 'lucide-react';
+import { Briefcase } from 'lucide-react';
 import { getTechIcon } from '@/common/utils/techIcons';
 
 export function CareerJourney() {
@@ -30,7 +30,7 @@ export function CareerJourney() {
 
   return (
     <div className="space-y-4">
-      <h3 className="text-xl font-bold text-white flex items-center gap-2">
+      <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
         <Briefcase className="w-5 h-5 text-accent-blue" />
         <span>Perjalanan & Milestone</span>
       </h3>
@@ -43,8 +43,8 @@ export function CareerJourney() {
                 {m.year}
               </div>
               <div className="space-y-1.5 flex-1">
-                <h4 className="text-base font-semibold text-white">{m.role}</h4>
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <h4 className="text-base font-semibold text-slate-900 dark:text-white">{m.role}</h4>
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                   {m.description}
                 </p>
                 <div className="flex flex-wrap gap-1.5 pt-1">
@@ -53,7 +53,7 @@ export function CareerJourney() {
                     return (
                       <span
                         key={t}
-                        className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-mono bg-navy-950/80 text-slate-300 border border-white/[0.06] hover:border-white/[0.15] transition-colors"
+                        className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-mono bg-slate-100 dark:bg-navy-950/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/[0.06] hover:border-sky-400/30 transition-colors"
                       >
                         <TechIcon className="w-3 h-3 shrink-0" style={{ color }} />
                         <span>{t}</span>

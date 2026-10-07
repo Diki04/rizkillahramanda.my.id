@@ -37,7 +37,7 @@ export function SkillsMatrix() {
 
   return (
     <div className="space-y-4">
-      <h3 className="text-xl font-bold text-white flex items-center gap-2">
+      <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
         <span>{t('skillsTitle')}</span>
       </h3>
 
@@ -46,11 +46,11 @@ export function SkillsMatrix() {
           const Icon = cat.icon;
           return (
             <SpotlightCard key={cat.id} className="p-5 space-y-4">
-              <div className="flex items-center gap-2.5 border-b border-white/[0.06] pb-3">
-                <div className="p-1.5 rounded-lg bg-navy-950 border border-white/[0.08] text-accent-blue">
+              <div className="flex items-center gap-2.5 border-b border-slate-200 dark:border-white/[0.06] pb-3">
+                <div className="p-1.5 rounded-lg bg-slate-100 dark:bg-navy-950 border border-slate-200 dark:border-white/[0.08] text-accent-blue">
                   <Icon className="w-4 h-4" />
                 </div>
-                <h4 className="font-semibold text-sm text-white">{cat.label}</h4>
+                <h4 className="font-semibold text-sm text-slate-900 dark:text-white">{cat.label}</h4>
               </div>
 
               <div className="flex flex-wrap gap-2">
@@ -59,16 +59,16 @@ export function SkillsMatrix() {
                   return (
                     <div
                       key={skill.name}
-                      className="group/skill flex items-center gap-2 px-3 py-1.5 rounded-lg bg-navy-950/80 border border-white/[0.06] hover:border-white/[0.15] hover:bg-navy-900/90 transition-all duration-150"
+                      className="group/skill flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-navy-950/80 border border-slate-200 dark:border-white/[0.06] hover:border-sky-400/40 hover:bg-slate-200/60 dark:hover:bg-navy-900/90 transition-all duration-150"
                     >
                       <TechIcon
                         className="w-3.5 h-3.5 shrink-0 transition-transform group-hover/skill:scale-110"
                         style={{ color }}
                       />
-                      <span className="text-xs font-mono text-slate-200">
+                      <span className="text-xs font-mono text-slate-700 dark:text-slate-200">
                         {skill.name}
                       </span>
-                      <span className="text-[10px] font-mono text-accent-blue/80">
+                      <span className="text-[10px] font-mono text-sky-600 dark:text-accent-blue/80 font-medium">
                         • {skill.level}
                       </span>
                     </div>

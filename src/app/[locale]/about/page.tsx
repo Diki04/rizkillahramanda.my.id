@@ -11,9 +11,9 @@ export default function AboutPage() {
     <Container className="py-16">
       <Breadcrumb items={[{ label: 'About & Journey' }]} />
       <div className="mb-12">
-        <span className="font-mono text-xs uppercase tracking-wider text-sky-400">About Me</span>
-        <h1 className="text-3xl font-extrabold text-white mt-1">Engineering Journey & Profile</h1>
-        <p className="text-slate-400 text-sm mt-2 max-w-2xl">
+        <span className="font-mono text-xs uppercase tracking-wider text-sky-500 dark:text-sky-400 font-semibold">About Me</span>
+        <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Engineering Journey & Profile</h1>
+        <p className="text-slate-600 dark:text-slate-400 text-sm mt-2 max-w-2xl">
           An overview of my academic foundation at Universitas Riau, hands-on industry apprenticeships, technical skillset, and personal workstation.
         </p>
       </div>
@@ -23,8 +23,8 @@ export default function AboutPage() {
         <Education />
         <SkillsMatrix />
         <section>
-          <h2 className="text-xl font-bold text-white mb-2">Development Environment</h2>
-          <p className="text-xs text-slate-400">My daily driver hardware and software development setup.</p>
+          <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Development Environment</h2>
+          <p className="text-xs text-slate-500 dark:text-slate-400">My daily driver hardware and software development setup.</p>
           <DeveloperSetup />
         </section>
       </div>
