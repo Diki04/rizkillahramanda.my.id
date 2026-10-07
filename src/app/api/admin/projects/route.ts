@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { dataProvider } from '@/services/supabase/dataProvider';
-
-const ADMIN_SECRET = process.env.ADMIN_SECRET_KEY || 'admin123';
+import { verifyRequestAuth, isValidPasscode } from '@/services/auth/adminAuth';
 
 export async function GET() {
   try {
@@ -18,15 +17,16 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { project, secretKey } = body;
+    const isAuthorized = verifyRequestAuth(request) || (body.secretKey && isValidPasscode(body.secretKey));
 
-    if (secretKey !== ADMIN_SECRET) {
+    if (!isAuthorized) {
       return NextResponse.json(
-        { success: false, error: 'Unauthorized: Invalid Admin Secret Key' },
+        { success: false, error: 'Unauthorized: Sesi admin tidak valid atau telah berakhir.' },
         { status: 401 }
       );
     }
 
+    const { project } = body;
     if (!project || !project.id || !project.title) {
       return NextResponse.json(
         { success: false, error: 'Invalid project payload' },
@@ -54,15 +54,16 @@ export async function POST(request: Request) {
 export async function DELETE(request: Request) {
   try {
     const body = await request.json();
-    const { id, secretKey } = body;
+    const isAuthorized = verifyRequestAuth(request) || (body.secretKey && isValidPasscode(body.secretKey));
 
-    if (secretKey !== ADMIN_SECRET) {
+    if (!isAuthorized) {
       return NextResponse.json(
-        { success: false, error: 'Unauthorized: Invalid Admin Secret Key' },
+        { success: false, error: 'Unauthorized: Sesi admin tidak valid atau telah berakhir.' },
         { status: 401 }
       );
     }
 
+    const { id } = body;
     if (!id) {
       return NextResponse.json(
         { success: false, error: 'Missing project ID' },
