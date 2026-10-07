@@ -1,20 +1,11 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-
-interface Orb {
-  x: number;
-  y: number;
-  radius: number;
-  vx: number;
-  vy: number;
-  color: string;
-  phase: number;
-  phaseSpeed: number;
-}
+import { useTheme } from '@/common/contexts/ThemeContext';
 
 export function SmoothFluidBackground() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const { theme } = useTheme();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -23,210 +14,290 @@ export function SmoothFluidBackground() {
     const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
 
-    let animFrameId: number;
+    let animId: number;
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    // Mouse coordinates with spring lerp
-    const mouse = {
-      x: width / 2,
-      y: height / 2,
-      targetX: width / 2,
-      targetY: height / 2,
-      speed: 0,
-      active: false,
-    };
+    // Grid resolution for wave equation
+    const cols = 90;
+    const rows = 55;
+    let cellW = width / cols;
+    let cellH = height / rows;
+
+    // Buffer 1 and Buffer 2 for 2D wave heightfield simulation
+    let buffer1 = new Float32Array(cols * rows);
+    let buffer2 = new Float32Array(cols * rows);
+    const damping = 0.975;
+
+    // Active ripples pool for continuous smooth mouse wake
+    interface Ripple {
+      x: number;
+      y: number;
+      radius: number;
+      maxRadius: number;
+      intensity: number;
+      speed: number;
+    }
+    const ripples: Ripple[] = [];
 
     let prevMouseX = width / 2;
     let prevMouseY = height / 2;
+    let mouseSpeed = 0;
+    let isMouseActive = false;
+    let time = 0;
 
     const handleResize = () => {
       if (!canvas) return;
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
+      cellW = width / cols;
+      cellH = height / rows;
+      buffer1 = new Float32Array(cols * rows);
+      buffer2 = new Float32Array(cols * rows);
+    };
+
+    const addDisturbance = (clientX: number, clientY: number, power = 18) => {
+      const col = Math.floor((clientX / width) * cols);
+      const row = Math.floor((clientY / height) * rows);
+      const radius = 3;
+
+      for (let r = -radius; r <= radius; r++) {
+        for (let c = -radius; c <= radius; c++) {
+          const targetCol = col + c;
+          const targetRow = row + r;
+          if (
+            targetCol > 0 &&
+            targetCol < cols - 1 &&
+            targetRow > 0 &&
+            targetRow < rows - 1
+          ) {
+            const dist = Math.sqrt(c * c + r * r);
+            if (dist <= radius) {
+              const falloff = 1 - dist / radius;
+              buffer1[targetRow * cols + targetCol] += power * falloff;
+            }
+          }
+        }
+      }
+
+      // Also trigger a smooth visual ripple ring
+      if (ripples.length < 18) {
+        ripples.push({
+          x: clientX,
+          y: clientY,
+          radius: 4,
+          maxRadius: Math.min(width, height) * 0.45,
+          intensity: Math.min(power * 0.04, 0.65),
+          speed: 2.2 + mouseSpeed * 0.08,
+        });
+      }
     };
 
     const handleMouseMove = (e: MouseEvent) => {
-      mouse.active = true;
-      mouse.targetX = e.clientX;
-      mouse.targetY = e.clientY;
-
+      isMouseActive = true;
       const dx = e.clientX - prevMouseX;
       const dy = e.clientY - prevMouseY;
-      mouse.speed = Math.min(Math.sqrt(dx * dx + dy * dy), 40);
+      mouseSpeed = Math.min(Math.sqrt(dx * dx + dy * dy), 35);
+
+      // Deposit water ripple impulse
+      addDisturbance(e.clientX, e.clientY, 12 + mouseSpeed * 0.8);
+
       prevMouseX = e.clientX;
       prevMouseY = e.clientY;
     };
 
     const handleMouseLeave = () => {
-      mouse.active = false;
-      mouse.targetX = width / 2;
-      mouse.targetY = height / 2;
-      mouse.speed = 0;
+      isMouseActive = false;
     };
 
     window.addEventListener('resize', handleResize, { passive: true });
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     document.addEventListener('mouseleave', handleMouseLeave);
 
-    // Thick, vibrant, high-contrast ambient orbs
-    const orbs: Orb[] = [
-      {
-        x: width * 0.25,
-        y: height * 0.25,
-        radius: Math.min(width, height) * 0.48,
-        vx: 0.18,
-        vy: 0.14,
-        color: 'rgba(56, 189, 248, 0.26)', // Electric Cyan (Thick)
-        phase: 0,
-        phaseSpeed: 0.007,
-      },
-      {
-        x: width * 0.78,
-        y: height * 0.35,
-        radius: Math.min(width, height) * 0.52,
-        vx: -0.16,
-        vy: 0.18,
-        color: 'rgba(37, 99, 235, 0.24)', // Royal Blue (Thick)
-        phase: Math.PI / 2,
-        phaseSpeed: 0.006,
-      },
-      {
-        x: width * 0.45,
-        y: height * 0.8,
-        radius: Math.min(width, height) * 0.55,
-        vx: 0.2,
-        vy: -0.16,
-        color: 'rgba(99, 102, 241, 0.20)', // Deep Indigo / Violet (Thick)
-        phase: Math.PI,
-        phaseSpeed: 0.007,
-      },
-      {
-        x: width * 0.85,
-        y: height * 0.88,
-        radius: Math.min(width, height) * 0.42,
-        vx: -0.18,
-        vy: -0.12,
-        color: 'rgba(14, 165, 233, 0.18)', // Sky Blue (Thick)
-        phase: Math.PI * 1.5,
-        phaseSpeed: 0.008,
-      },
-    ];
-
     const render = () => {
+      time += 0.02;
       ctx.clearRect(0, 0, width, height);
 
-      // Smooth mouse lerp
-      mouse.x += (mouse.targetX - mouse.x) * 0.055;
-      mouse.y += (mouse.targetY - mouse.y) * 0.055;
-      mouse.speed *= 0.92;
+      const isDark = document.documentElement.classList.contains('dark');
 
-      // 1. Draw floating thick orbs
-      for (let i = 0; i < orbs.length; i++) {
-        const orb = orbs[i];
-        orb.phase += orb.phaseSpeed;
+      // 1. Natural idle ambient water currents (gentle organic swelling)
+      for (let c = 2; c < cols - 2; c += 4) {
+        for (let r = 2; r < rows - 2; r += 4) {
+          const wave =
+            Math.sin(c * 0.15 + time * 0.8) *
+            Math.cos(r * 0.18 + time * 0.6) *
+            0.45;
+          buffer1[r * cols + c] += wave;
+        }
+      }
 
-        orb.x += orb.vx + Math.sin(orb.phase) * 0.45;
-        orb.y += orb.vy + Math.cos(orb.phase * 0.85) * 0.45;
+      // 2. Wave equation propagation: update heightfield
+      for (let r = 1; r < rows - 1; r++) {
+        const rowOffset = r * cols;
+        for (let c = 1; c < cols - 1; c++) {
+          const idx = rowOffset + c;
+          const val =
+            (buffer1[idx - 1] +
+              buffer1[idx + 1] +
+              buffer1[idx - cols] +
+              buffer1[idx + cols]) /
+              2 -
+            buffer2[idx];
+          buffer2[idx] = val * damping;
+        }
+      }
 
-        // Bounce gently inside canvas bounds
-        if (orb.x < -orb.radius * 0.4) orb.vx = Math.abs(orb.vx);
-        if (orb.x > width + orb.radius * 0.4) orb.vx = -Math.abs(orb.vx);
-        if (orb.y < -orb.radius * 0.4) orb.vy = Math.abs(orb.vy);
-        if (orb.y > height + orb.radius * 0.4) orb.vy = -Math.abs(orb.vy);
+      // Swap buffers
+      const temp = buffer1;
+      buffer1 = buffer2;
+      buffer2 = temp;
 
-        // Magnetic attraction to cursor
-        if (mouse.active) {
-          const dx = mouse.x - orb.x;
-          const dy = mouse.y - orb.y;
-          orb.x += dx * 0.0025;
-          orb.y += dy * 0.0025;
+      // 3. Render organic water ripple mesh lines (horizontal water contours)
+      ctx.lineWidth = 1.2;
+      const strokeAlpha = isDark ? 0.22 : 0.15;
+      const primaryColor = isDark
+        ? `rgba(56, 189, 248, ${strokeAlpha})`
+        : `rgba(14, 165, 233, ${strokeAlpha})`;
+      const peakColor = isDark
+        ? 'rgba(125, 211, 252, 0.45)'
+        : 'rgba(2, 132, 199, 0.35)';
+
+      for (let r = 2; r < rows - 2; r += 2) {
+        ctx.beginPath();
+        const yBase = r * cellH;
+
+        for (let c = 0; c < cols; c++) {
+          const idx = r * cols + c;
+          const displacement = buffer1[idx] * 2.2;
+          const x = c * cellW;
+          const y = yBase + displacement;
+
+          if (c === 0) {
+            ctx.moveTo(x, y);
+          } else {
+            // Smooth bezier through wave points
+            const prevX = (c - 1) * cellW;
+            const prevIdx = r * cols + (c - 1);
+            const prevY = yBase + buffer1[prevIdx] * 2.2;
+            const midX = (prevX + x) / 2;
+            const midY = (prevY + y) / 2;
+            ctx.quadraticCurveTo(prevX, prevY, midX, midY);
+          }
         }
 
-        const radGrad = ctx.createRadialGradient(
-          orb.x,
-          orb.y,
-          0,
-          orb.x,
-          orb.y,
-          orb.radius
-        );
-        radGrad.addColorStop(0, orb.color);
-        radGrad.addColorStop(0.45, orb.color.replace(/[\d\.]+\)$/, '0.08)'));
-        radGrad.addColorStop(1, 'rgba(7, 10, 18, 0)');
+        ctx.strokeStyle = primaryColor;
+        ctx.stroke();
+      }
 
-        ctx.fillStyle = radGrad;
+      // 4. Render concentric expanding water droplets / wake ripples
+      for (let i = ripples.length - 1; i >= 0; i--) {
+        const rp = ripples[i];
+        rp.radius += rp.speed;
+        rp.intensity *= 0.965;
+
+        if (rp.intensity <= 0.01 || rp.radius >= rp.maxRadius) {
+          ripples.splice(i, 1);
+          continue;
+        }
+
+        // Draw refractive liquid ring
+        const ringGrad = ctx.createRadialGradient(
+          rp.x,
+          rp.y,
+          Math.max(0, rp.radius - 24),
+          rp.x,
+          rp.y,
+          rp.radius
+        );
+
+        if (isDark) {
+          ringGrad.addColorStop(0, 'rgba(56, 189, 248, 0)');
+          ringGrad.addColorStop(
+            0.6,
+            `rgba(56, 189, 248, ${rp.intensity * 0.28})`
+          );
+          ringGrad.addColorStop(
+            0.85,
+            `rgba(125, 211, 252, ${rp.intensity * 0.45})`
+          );
+          ringGrad.addColorStop(1, 'rgba(56, 189, 248, 0)');
+        } else {
+          ringGrad.addColorStop(0, 'rgba(14, 165, 233, 0)');
+          ringGrad.addColorStop(
+            0.6,
+            `rgba(14, 165, 233, ${rp.intensity * 0.22})`
+          );
+          ringGrad.addColorStop(
+            0.85,
+            `rgba(2, 132, 199, ${rp.intensity * 0.35})`
+          );
+          ringGrad.addColorStop(1, 'rgba(14, 165, 233, 0)');
+        }
+
+        ctx.fillStyle = ringGrad;
         ctx.beginPath();
-        ctx.arc(orb.x, orb.y, orb.radius, 0, Math.PI * 2);
+        ctx.arc(rp.x, rp.y, rp.radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Thin caustic rim line
+        ctx.strokeStyle = isDark
+          ? `rgba(186, 230, 253, ${rp.intensity * 0.5})`
+          : `rgba(3, 105, 161, ${rp.intensity * 0.35})`;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(rp.x, rp.y, rp.radius * 0.95, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      // 5. Cursor liquid spotlight glow
+      if (isMouseActive) {
+        const mouseGlow = ctx.createRadialGradient(
+          prevMouseX,
+          prevMouseY,
+          0,
+          prevMouseX,
+          prevMouseY,
+          180
+        );
+        if (isDark) {
+          mouseGlow.addColorStop(0, 'rgba(56, 189, 248, 0.18)');
+          mouseGlow.addColorStop(0.5, 'rgba(14, 165, 233, 0.08)');
+          mouseGlow.addColorStop(1, 'rgba(7, 10, 18, 0)');
+        } else {
+          mouseGlow.addColorStop(0, 'rgba(56, 189, 248, 0.14)');
+          mouseGlow.addColorStop(0.5, 'rgba(14, 165, 233, 0.06)');
+          mouseGlow.addColorStop(1, 'rgba(255, 255, 255, 0)');
+        }
+
+        ctx.fillStyle = mouseGlow;
+        ctx.beginPath();
+        ctx.arc(prevMouseX, prevMouseY, 180, 0, Math.PI * 2);
         ctx.fill();
       }
 
-      // 2. High-Contrast Mouse Hover Following Aura
-      if (mouse.active) {
-        const dynamicRadius = Math.min(width, height) * 0.38 + mouse.speed * 4;
-
-        // Core bright spotlight
-        const coreGrad = ctx.createRadialGradient(
-          mouse.x,
-          mouse.y,
-          0,
-          mouse.x,
-          mouse.y,
-          dynamicRadius * 0.4
-        );
-        coreGrad.addColorStop(0, 'rgba(56, 189, 248, 0.45)'); // Bright luminous electric cyan
-        coreGrad.addColorStop(0.5, 'rgba(56, 189, 248, 0.20)');
-        coreGrad.addColorStop(1, 'rgba(56, 189, 248, 0)');
-
-        ctx.fillStyle = coreGrad;
-        ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, dynamicRadius * 0.4, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Broad outer glow
-        const outerGrad = ctx.createRadialGradient(
-          mouse.x,
-          mouse.y,
-          0,
-          mouse.x,
-          mouse.y,
-          dynamicRadius
-        );
-        outerGrad.addColorStop(0, 'rgba(37, 99, 235, 0.28)'); // Royal Blue
-        outerGrad.addColorStop(0.4, 'rgba(99, 102, 241, 0.16)'); // Indigo
-        outerGrad.addColorStop(0.75, 'rgba(14, 165, 233, 0.06)'); // Sky Blue
-        outerGrad.addColorStop(1, 'rgba(7, 10, 18, 0)');
-
-        ctx.fillStyle = outerGrad;
-        ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, dynamicRadius, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      animFrameId = requestAnimationFrame(render);
+      animId = requestAnimationFrame(render);
     };
 
-    render();
+    animId = requestAnimationFrame(render);
 
     return () => {
-      cancelAnimationFrame(animFrameId);
+      cancelAnimationFrame(animId);
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, []);
+  }, [theme]);
 
   return (
     <>
-      {/* High-Contrast Canvas Fluid Glow */}
       <canvas
         ref={canvasRef}
-        className="pointer-events-none fixed inset-0 z-0 h-full w-full opacity-95 transition-opacity duration-700"
+        className="pointer-events-none fixed inset-0 z-0 h-full w-full opacity-90 transition-opacity duration-500"
         aria-hidden="true"
       />
-      {/* High-tech micro dot matrix pattern overlay */}
+      {/* Subtle depth overlay */}
       <div
-        className="pointer-events-none fixed inset-0 z-0 h-full w-full opacity-[0.25] [background-image:radial-gradient(rgba(255,255,255,0.25)_1px,transparent_1px)] [background-size:24px_24px]"
+        className="pointer-events-none fixed inset-0 z-0 h-full w-full opacity-[0.18] [background-image:radial-gradient(rgba(56,189,248,0.2)_1px,transparent_1px)] [background-size:32px_32px]"
         aria-hidden="true"
       />
     </>
