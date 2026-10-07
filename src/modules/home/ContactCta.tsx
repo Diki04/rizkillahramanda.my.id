@@ -20,11 +20,11 @@ export function ContactCta() {
               <span>Available for New Projects</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.1]">
               Let&apos;s build something <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">impactful</span> together.
             </h2>
 
-            <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto">
               Interested in collaborating on a web project, discussing machine learning research, or just saying hello? I am always open to new connections.
             </p>
 

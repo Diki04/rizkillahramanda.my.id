@@ -274,14 +274,14 @@ export function TechStack() {
           {/* Section Header */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div className="space-y-2">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-sky-400/20 bg-sky-400/10 text-sky-400 text-xs font-mono font-medium">
-                <Sparkles className="w-3.5 h-3.5" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-400/20 bg-sky-400/10 text-sky-400 text-xs font-mono font-medium">
+                <Sparkles className="w-4 h-4" />
                 <span>Verified Stack</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
                 Engineering Stack & Tooling
               </h2>
-              <p className="text-sm text-slate-400 max-w-xl">
+              <p className="text-base sm:text-lg text-slate-400 max-w-2xl">
                 Official libraries, frameworks, and developer tools powering my fullstack applications and AI research.
               </p>
             </div>

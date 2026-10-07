@@ -17,14 +17,14 @@ export function DevHighlights() {
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-sky-400/20 bg-sky-400/10 text-sky-400 text-xs font-mono font-medium mb-2">
-                <Sparkles className="w-3.5 h-3.5" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-400/20 bg-sky-400/10 text-sky-400 text-xs font-mono font-medium mb-2">
+                <Sparkles className="w-4 h-4" />
                 <span>Workflow & Philosophy</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
                 Developer Environment & Philosophy
               </h2>
-              <p className="text-sm text-slate-400 mt-1 max-w-xl">
+              <p className="text-base sm:text-lg text-slate-400 mt-2 max-w-2xl">
                 The setup, engineering habits, and continuous metrics that drive high-quality software craftsmanship.
               </p>
             </div>

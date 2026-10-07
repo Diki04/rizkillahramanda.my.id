@@ -26,13 +26,13 @@ export function FeaturedProjects() {
           {/* Section Header */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
-              <span className="font-mono text-xs uppercase tracking-wider text-accent-blue font-semibold">
+              <span className="font-mono text-xs sm:text-sm uppercase tracking-wider text-accent-blue font-semibold">
                 {t('featured')}
               </span>
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white mt-1">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white mt-1.5">
                 {t('title')}
               </h2>
-              <p className="text-sm text-slate-400 mt-1 max-w-xl">
+              <p className="text-base sm:text-lg text-slate-400 mt-2 max-w-2xl">
                 {t('subtitle')}
               </p>
             </div>

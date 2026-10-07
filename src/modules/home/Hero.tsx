@@ -56,12 +56,12 @@ export function Hero() {
 
             {/* Main Greeting & Name with DecryptedText */}
             <div className="space-y-3">
-              <div className="flex items-center gap-2 text-accent-blue font-mono text-sm tracking-wide font-semibold">
-                <Terminal className="w-4 h-4" />
+              <div className="flex items-center gap-2 text-accent-blue font-mono text-base tracking-wide font-semibold">
+                <Terminal className="w-5 h-5" />
                 <span>{t('greeting')}</span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight text-white leading-[1.05]">
                 <DecryptedText
                   text={mockProfile.name}
                   speed={35}
@@ -72,26 +72,26 @@ export function Hero() {
               </h1>
 
               {/* Dynamic Rotating Role */}
-              <div className="text-xl sm:text-2xl font-bold font-mono text-sky-400">
+              <div className="text-2xl sm:text-3xl md:text-4xl font-extrabold font-mono text-sky-400">
                 <RotatingText texts={roles} interval={3400} />
               </div>
 
               {/* Badges / University & Location */}
-              <div className="flex flex-wrap items-center gap-3 pt-1 text-sm text-slate-400 font-mono">
-                <span className="inline-flex items-center gap-1.5 text-slate-300">
-                  <GraduationCap className="w-4 h-4 text-accent-blue" />
+              <div className="flex flex-wrap items-center gap-3 pt-2 text-base text-slate-400 font-mono">
+                <span className="inline-flex items-center gap-2 text-slate-200">
+                  <GraduationCap className="w-5 h-5 text-accent-blue" />
                   {mockProfile.university}
                 </span>
                 <span className="text-slate-600">•</span>
-                <span className="inline-flex items-center gap-1.5 text-slate-400">
-                  <MapPin className="w-3.5 h-3.5 text-slate-500" />
+                <span className="inline-flex items-center gap-2 text-slate-400">
+                  <MapPin className="w-4 h-4 text-slate-500" />
                   {mockProfile.location}
                 </span>
               </div>
             </div>
 
             {/* Summary Bio */}
-            <p className="text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed">
+            <p className="text-lg sm:text-xl text-slate-300 max-w-2xl leading-relaxed">
               {isEn ? mockProfile.headline.en : mockProfile.headline.id}
             </p>
 
