@@ -13,7 +13,7 @@ export default function NotFound() {
         Page Lost in Cyberspace
       </h1>
       <p className="text-slate-400 max-w-md mb-6 text-sm">
-        The destination coordinate you navigated to doesn't exist or has migrated to another endpoint.
+        The destination coordinate you navigated to does not exist or has migrated to another endpoint.
       </p>
       <div className="flex gap-4 mb-4">
         <Link href="/">
