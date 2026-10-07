@@ -1,8 +1,16 @@
-import assert from 'node:assert/strict';
+import { describe, it, expect } from 'vitest';
 import { slugify } from '../common/utils/slugify';
 
-assert.equal(slugify('Hello World!'), 'hello-world', 'Should lowercase and dash spaces');
-assert.equal(slugify('Next.js 14 & Tailwind CSS'), 'nextjs-14-tailwind-css', 'Should strip punctuation');
-assert.equal(slugify('  Spaced  Out  '), 'spaced-out', 'Should trim edge whitespaces');
+describe('slugify utility', () => {
+  it('should lowercase and replace spaces with hyphens', () => {
+    expect(slugify('Hello World!')).toBe('hello-world');
+  });
 
-console.log('✔ slugify.test.ts passed');
+  it('should strip special characters and punctuation', () => {
+    expect(slugify('Next.js 14 & Tailwind CSS')).toBe('nextjs-14-tailwind-css');
+  });
+
+  it('should trim edge whitespaces', () => {
+    expect(slugify('  Spaced  Out  ')).toBe('spaced-out');
+  });
+});

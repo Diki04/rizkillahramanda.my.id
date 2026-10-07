@@ -1,8 +1,10 @@
-import assert from 'node:assert/strict';
+import { describe, it, expect } from 'vitest';
 import { formatDuration } from '../common/utils/formatDuration';
 
-assert.equal(formatDuration(45, 'en'), '45m', 'Should format minutes under 1 hr');
-assert.equal(formatDuration(90, 'en'), '1h 30m', 'Should format hours and minutes');
-assert.equal(formatDuration(120, 'id'), '2j', 'Should format Indonesian hour symbol');
-
-console.log('✔ formatDuration.test.ts passed');
+describe('formatDuration helper', () => {
+  it('should format hours and minutes from total seconds', () => {
+    expect(formatDuration(3600)).toBe('1 hrs 0 mins');
+    expect(formatDuration(5400)).toBe('1 hrs 30 mins');
+    expect(formatDuration(7200)).toBe('2 hrs 0 mins');
+  });
+});

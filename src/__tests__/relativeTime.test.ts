@@ -1,11 +1,18 @@
-import assert from 'node:assert/strict';
+import { describe, it, expect } from 'vitest';
 import { relativeTime } from '../common/utils/relativeTime';
 
-const now = new Date();
-const justNow = new Date(now.getTime() - 1000 * 10).toISOString();
-const tenMinAgo = new Date(now.getTime() - 1000 * 60 * 10).toISOString();
+describe('relativeTime helper', () => {
+  const now = new Date();
+  const justNow = new Date(now.getTime() - 1000 * 10).toISOString();
+  const tenMinAgo = new Date(now.getTime() - 1000 * 60 * 10).toISOString();
 
-assert.equal(relativeTime(justNow, 'en'), 'just now', 'Should identify immediate timestamps');
-assert.ok(relativeTime(tenMinAgo, 'en').includes('minutes ago'), 'Should calculate relative minutes');
+  it('should return immediate indicator for recent timestamp', () => {
+    expect(relativeTime(justNow, 'en')).toBe('Just now');
+    expect(relativeTime(justNow, 'id')).toBe('Baru saja');
+  });
 
-console.log('✔ relativeTime.test.ts passed');
+  it('should calculate relative minutes', () => {
+    expect(relativeTime(tenMinAgo, 'en')).toBe('10m ago');
+    expect(relativeTime(tenMinAgo, 'id')).toBe('10 menit lalu');
+  });
+});

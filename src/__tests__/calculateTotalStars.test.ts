@@ -1,13 +1,17 @@
-import assert from 'node:assert/strict';
+import { describe, it, expect } from 'vitest';
 import { calculateTotalStars } from '../common/utils/calculateTotalStars';
 
-const repos = [
-  { stargazers_count: 5 },
-  { stargazers_count: 12 },
-  { stargazers_count: 3 },
-];
+describe('calculateTotalStars aggregator', () => {
+  it('should correctly sum repository stars', () => {
+    const repos = [
+      { stargazers_count: 5 },
+      { stargazers_count: 12 },
+      { stargazers_count: 3 },
+    ];
+    expect(calculateTotalStars(repos)).toBe(20);
+  });
 
-assert.equal(calculateTotalStars(repos), 20, 'Should correctly sum repository stars');
-assert.equal(calculateTotalStars([]), 0, 'Should return 0 for empty repos');
-
-console.log('✔ calculateTotalStars.test.ts passed');
+  it('should return 0 for empty array', () => {
+    expect(calculateTotalStars([])).toBe(0);
+  });
+});

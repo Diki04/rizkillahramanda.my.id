@@ -1,11 +1,14 @@
-import assert from 'node:assert/strict';
+import { describe, it, expect } from 'vitest';
 import { formatDate } from '../common/utils/formatDate';
 
-const sampleDate = '2024-03-15T00:00:00.000Z';
-const formattedEn = formatDate(sampleDate, 'en');
-const formattedId = formatDate(sampleDate, 'id');
+describe('formatDate helper', () => {
+  const sampleDate = '2024-03-15T00:00:00.000Z';
 
-assert.ok(formattedEn.includes('2024'), 'English date contains year 2024');
-assert.ok(formattedId.includes('2024'), 'Indonesian date contains year 2024');
+  it('should format English dates', () => {
+    expect(formatDate(sampleDate, 'en')).toContain('2024');
+  });
 
-console.log('✔ formatDate.test.ts passed');
+  it('should format Indonesian dates', () => {
+    expect(formatDate(sampleDate, 'id')).toContain('2024');
+  });
+});

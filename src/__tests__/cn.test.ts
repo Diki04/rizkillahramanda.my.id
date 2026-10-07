@@ -1,9 +1,16 @@
-import assert from 'node:assert/strict';
+import { describe, it, expect } from 'vitest';
 import { cn } from '../common/utils/cn';
 
-// Test suite for cn utility
-assert.equal(cn('px-2', 'py-1'), 'px-2 py-1', 'Should join classes');
-assert.equal(cn('px-2', false && 'hidden', 'text-white'), 'px-2 text-white', 'Should filter falsy values');
-assert.equal(cn('px-2', 'px-4'), 'px-4', 'Should resolve Tailwind conflicts');
+describe('cn utility', () => {
+  it('should join classes cleanly', () => {
+    expect(cn('px-2', 'py-1')).toBe('px-2 py-1');
+  });
 
-console.log('✔ cn.test.ts passed');
+  it('should filter falsy values', () => {
+    expect(cn('px-2', false && 'hidden', 'text-white')).toBe('px-2 text-white');
+  });
+
+  it('should resolve tailwind conflicting classes', () => {
+    expect(cn('px-2', 'px-4')).toBe('px-4');
+  });
+});

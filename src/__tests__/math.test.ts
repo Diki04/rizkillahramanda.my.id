@@ -1,9 +1,14 @@
-import assert from 'node:assert/strict';
+import { describe, it, expect } from 'vitest';
 import { clamp, lerp } from '../common/utils/math';
 
-assert.equal(clamp(5, 0, 10), 5, 'Should keep number in bounds');
-assert.equal(clamp(-2, 0, 10), 0, 'Should clamp minimum');
-assert.equal(clamp(15, 0, 10), 10, 'Should clamp maximum');
-assert.equal(lerp(0, 100, 0.5), 50, 'Should interpolate midpoint');
+describe('math utilities', () => {
+  it('should clamp numbers within specified range', () => {
+    expect(clamp(5, 0, 10)).toBe(5);
+    expect(clamp(-2, 0, 10)).toBe(0);
+    expect(clamp(15, 0, 10)).toBe(10);
+  });
 
-console.log('✔ math.test.ts passed');
+  it('should interpolate values via lerp', () => {
+    expect(lerp(0, 100, 0.5)).toBe(50);
+  });
+});

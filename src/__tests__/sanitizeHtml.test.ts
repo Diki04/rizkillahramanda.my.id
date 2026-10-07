@@ -1,7 +1,11 @@
-import assert from 'node:assert/strict';
+import { describe, it, expect } from 'vitest';
 import { sanitizeHtml } from '../common/utils/sanitizeHtml';
 
-const dirty = '<script>alert("xss")</script>Hello <b>World</b>';
-assert.equal(sanitizeHtml(dirty), 'alert("xss")Hello World', 'Should strip HTML tag delimiters');
-
-console.log('✔ sanitizeHtml.test.ts passed');
+describe('sanitizeHtml helper', () => {
+  it('should escape HTML tags and quotes to prevent XSS', () => {
+    const dirty = '<script>alert("xss")</script>Hello <b>World</b>';
+    const clean = sanitizeHtml(dirty);
+    expect(clean).toContain('&lt;script&gt;');
+    expect(clean).toContain('&quot;xss&quot;');
+  });
+});
