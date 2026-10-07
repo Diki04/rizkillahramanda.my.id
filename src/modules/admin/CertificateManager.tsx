@@ -9,7 +9,7 @@ import { Plus, Edit2, Trash2, Check, X, Award } from 'lucide-react';
 
 interface CertificateManagerProps {
   achievements: Achievement[];
-  secretKey: string;
+  secretKey?: string;
   onRefresh: () => void;
 }
 
@@ -58,7 +58,6 @@ export function CertificateManager({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          secretKey,
           achievement: formState,
         }),
       });
@@ -88,7 +87,6 @@ export function CertificateManager({
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          secretKey,
           id,
         }),
       });
