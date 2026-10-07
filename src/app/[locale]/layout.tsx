@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { Navbar } from '@/common/layouts/Navbar';
 import { Footer } from '@/common/layouts/Footer';
+import { InteractiveCanvas } from '@/common/components/InteractiveCanvas';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -38,7 +39,8 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} className={`${inter.variable} ${jetbrainsMono.variable} dark`}>
-      <body className="min-h-screen bg-navy-950 text-slate-100 font-sans antialiased selection:bg-accent-blue/30 selection:text-white">
+      <body className="min-h-screen bg-navy-950 text-slate-100 font-sans antialiased selection:bg-accent-blue/30 selection:text-white relative">
+        <InteractiveCanvas />
         <NextIntlClientProvider messages={messages}>
           <div className="flex min-h-screen flex-col">
             <Navbar />
