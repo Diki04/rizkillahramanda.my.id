@@ -181,4 +181,24 @@ export const dataProvider = {
       return { success: false, error: err.message };
     }
   },
+
+  async deleteMessage(id: string): Promise<{ success: boolean; error?: string }> {
+    if (!isSupabaseConfigured || !supabase) {
+      return { success: true };
+    }
+
+    try {
+      const { error } = await supabase
+        .from('guestbook_messages')
+        .delete()
+        .eq('id', id);
+
+      if (error) {
+        return { success: false, error: error.message };
+      }
+      return { success: true };
+    } catch (err: any) {
+      return { success: false, error: err.message };
+    }
+  },
 };

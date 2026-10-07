@@ -154,17 +154,72 @@
   },
   "admin": {
     "title": "Admin Management Portal",
-    "subtitle": "Manage portfolio projects and certificates with Supabase",
+    "subtitle": "Manage portfolio projects, certificates, and guestbook moderation with Supabase",
     "passcode": "Admin Passcode",
     "login": "Login to Portal",
     "logout": "Log Out",
+    "sessionActive": "Authenticated Session (Active)",
+    "checkingSession": "Checking admin session status...",
     "projectsTab": "Manage Projects",
     "achievementsTab": "Manage Certificates",
     "addProject": "Add New Project",
     "addAchievement": "Add New Certificate",
     "save": "Save Changes",
     "delete": "Delete",
-    "edit": "Edit"
+    "edit": "Edit",
+    "cancel": "Cancel",
+    "tabs": {
+      "overview": "Overview",
+      "projects": "Project Portfolio",
+      "achievements": "Certifications & Honors",
+      "messages": "Guestbook Moderation",
+      "settings": "System & Settings"
+    },
+    "kpi": {
+      "totalProjects": "Total Projects",
+      "featuredProjects": "Featured Projects",
+      "totalAchievements": "Total Credentials",
+      "guestbookMessages": "Guestbook Entries",
+      "databaseStatus": "Database Status",
+      "activeSession": "Admin Session",
+      "verified": "Verified"
+    },
+    "overview": {
+      "title": "Executive Summary & Telemetry",
+      "subtitle": "Real-time status of all website entities, database integrations, and recent updates.",
+      "quickActions": "Quick Actions",
+      "recentProjects": "Recent Projects",
+      "recentAchievements": "Recent Certifications",
+      "recentMessages": "Recent Guestbook Entries",
+      "viewAll": "View All",
+      "liveDb": "Direct Connection",
+      "systemHealth": "System Health"
+    },
+    "messages": {
+      "title": "Guestbook Moderation",
+      "subtitle": "Manage and moderate greetings and feedback submitted via the Guestbook page.",
+      "empty": "No guestbook messages yet.",
+      "deleteConfirm": "Are you sure you want to delete this message?",
+      "delete": "Delete Message",
+      "author": "Author",
+      "date": "Date",
+      "message": "Message Content"
+    },
+    "settings": {
+      "title": "System Diagnostics & Data Integration",
+      "subtitle": "Supabase connection status, local storage fallback, and administrative data utilities.",
+      "dbConnection": "Supabase Connection",
+      "dbConnected": "Connected to Supabase Cloud (Live Production)",
+      "dbFallback": "Hybrid Local Fallback Mode (Operational)",
+      "exportData": "Backup & Export Data (JSON)",
+      "exportDesc": "Download full snapshots of projects and achievements in JSON format for offline backup.",
+      "downloadJson": "Download Backup JSON",
+      "cachePurge": "Refresh Cached Data",
+      "cachePurgeDesc": "Reload all records directly from the database to ensure synchronicity.",
+      "refreshNow": "Refresh Now",
+      "successRefreshed": "Data successfully refreshed!",
+      "successExport": "JSON backup file successfully generated!"
+    }
   },
   "common": {
     "backToHome": "Back to Home",

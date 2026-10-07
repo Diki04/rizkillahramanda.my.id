@@ -21,6 +21,8 @@ export interface Project {
   createdAt: string;
 }
 
+export type AchievementCategory = 'certificate' | 'award' | 'course';
+
 export interface Achievement {
   id: string;
   title: string;
@@ -28,7 +30,7 @@ export interface Achievement {
   issueDate: string;
   credentialUrl?: string;
   image: string;
-  category: 'certificate' | 'award' | 'course';
+  category: AchievementCategory;
 }
 
 export interface SkillItem {

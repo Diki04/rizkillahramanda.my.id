@@ -153,18 +153,73 @@
     "getInTouchDesc": "Terbuka untuk kolaborasi proyek, diskusi teknis, dan peluang kerja."
   },
   "admin": {
-    "title": "Admin Management Portal",
-    "subtitle": "Kelola portofolio proyek dan sertifikat dengan Supabase",
+    "title": "Portal Manajemen Admin",
+    "subtitle": "Kelola portofolio proyek, sertifikat, dan moderasi buku tamu dengan Supabase",
     "passcode": "Kunci Rahasia Admin",
     "login": "Masuk ke Panel",
     "logout": "Keluar",
+    "sessionActive": "Sesi Terotentikasi (Aktif)",
+    "checkingSession": "Memeriksa status sesi admin...",
     "projectsTab": "Kelola Portofolio",
     "achievementsTab": "Kelola Sertifikat",
     "addProject": "Tambah Proyek Baru",
     "addAchievement": "Tambah Sertifikat Baru",
-    "save": "Simpan",
+    "save": "Simpan Perubahan",
     "delete": "Hapus",
-    "edit": "Ubah"
+    "edit": "Ubah",
+    "cancel": "Batal",
+    "tabs": {
+      "overview": "Ikhtisar",
+      "projects": "Portofolio Proyek",
+      "achievements": "Sertifikat & Prestasi",
+      "messages": "Buku Tamu",
+      "settings": "Sistem & Pengaturan"
+    },
+    "kpi": {
+      "totalProjects": "Total Proyek",
+      "featuredProjects": "Proyek Unggulan",
+      "totalAchievements": "Total Pencapaian",
+      "guestbookMessages": "Pesan Buku Tamu",
+      "databaseStatus": "Status Basis Data",
+      "activeSession": "Sesi Admin",
+      "verified": "Terverifikasi"
+    },
+    "overview": {
+      "title": "Ringkasan Eksekutif & Telemetri",
+      "subtitle": "Status real-time dari seluruh entitas website, integrasi data, dan aktivitas terkini.",
+      "quickActions": "Aksi Cepat",
+      "recentProjects": "Proyek Terbaru",
+      "recentAchievements": "Sertifikat Terbaru",
+      "recentMessages": "Pesan Tamu Terbaru",
+      "viewAll": "Lihat Semua",
+      "liveDb": "Koneksi Langsung",
+      "systemHealth": "Kesehatan Sistem"
+    },
+    "messages": {
+      "title": "Moderasi Pesan Buku Tamu",
+      "subtitle": "Daftar salam dan ulasan dari pengunjung yang masuk melalui halaman Buku Tamu.",
+      "empty": "Belum ada pesan dari pengunjung.",
+      "deleteConfirm": "Apakah Anda yakin ingin menghapus pesan ini?",
+      "delete": "Hapus Pesan",
+      "author": "Pengirim",
+      "date": "Tanggal",
+      "message": "Isi Pesan"
+    },
+    "settings": {
+      "title": "Diagnostik Sistem & Integrasi Data",
+      "subtitle": "Status konektivitas Supabase, pengaturan fallback lokal, dan utilitas data.",
+      "dbConnection": "Koneksi Supabase",
+      "dbConnected": "Terhubung ke Supabase Cloud (Live Production)",
+      "dbFallback": "Mode Hybrid Fallback Lokal (Siap digunakan)",
+      "exportData": "Cadangkan & Ekspor Data (JSON)",
+      "exportDesc": "Unduh seluruh data proyek dan sertifikat dalam format JSON untuk arsip mandiri.",
+      "downloadJson": "Unduh Cadangan JSON",
+      "cachePurge": "Segarkan Data Cache",
+      "cachePurgeDesc": "Muat ulang seluruh data langsung dari database untuk memastikan konsistensi data terbaru.",
+      "refreshNow": "Segarkan Sekarang",
+      "successRefreshed": "Data berhasil dimuat ulang!",
+      "successExport": "Berkas cadangan JSON berhasil diunduh!"
+    }
   },
   "common": {
     "backToHome": "Kembali ke Beranda",
