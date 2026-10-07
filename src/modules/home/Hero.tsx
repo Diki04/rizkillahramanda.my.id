@@ -7,7 +7,7 @@ import { Link } from '@/i18n/routing';
 import { Container } from '@/common/components/Container';
 import { Button } from '@/common/components/Button';
 import { SpotlightCard } from '@/common/components/SpotlightCard';
-import { DecryptedText } from '@/common/components/DecryptedText';
+import { TypewriterText } from '@/common/components/TypewriterText';
 import { RotatingText } from '@/common/components/RotatingText';
 import { ScrollReveal } from '@/common/components/ScrollReveal';
 import { mockProfile } from '@/services/data/mock-profile';
@@ -63,12 +63,16 @@ export function Hero() {
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
-                <DecryptedText
-                  text={mockProfile.name}
-                  speed={35}
-                  maxIterations={8}
-                  animateOn="mount"
-                  className="cursor-default"
+                <TypewriterText
+                  words={[
+                    mockProfile.name,
+                    'Rizkillah Ramanda',
+                    'Rizkillah R. Sinyo',
+                  ]}
+                  typingSpeed={80}
+                  deletingSpeed={45}
+                  pauseDuration={2400}
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-sky-600 to-blue-600 dark:from-white dark:via-sky-200 dark:to-sky-400"
                 />
               </h1>
 

@@ -61,32 +61,41 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
     >
       {/* Top Profile Card */}
       <div className="space-y-6">
-        <div className="group flex items-start gap-4 pb-6 border-b border-slate-200 dark:border-white/[0.08]">
-          <div className="relative">
-            <div className="w-14 h-14 rounded-2xl overflow-hidden border-2 border-slate-200 dark:border-white/[0.12] bg-slate-100 dark:bg-navy-900 shadow-xl group-hover:border-sky-400/50 group-hover:shadow-[0_0_16px_rgba(56,189,248,0.3)] transition-all duration-300">
-              <Image
-                src={mockProfile.avatar}
-                alt={mockProfile.name}
-                width={56}
-                height={56}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                priority
-              />
+        <div className="group flex items-center gap-4 p-3.5 -mx-2 rounded-2xl border border-transparent hover:border-slate-200 dark:hover:border-white/[0.08] hover:bg-slate-50/90 dark:hover:bg-white/[0.03] hover:shadow-lg hover:shadow-sky-500/5 transition-all duration-300 pb-5 border-b border-slate-200 dark:border-white/[0.08]">
+          <div className="relative shrink-0">
+            <div className="p-0.5 rounded-2xl bg-gradient-to-tr from-sky-500 via-blue-500 to-emerald-400 shadow-md group-hover:shadow-[0_0_22px_rgba(56,189,248,0.45)] group-hover:scale-105 transition-all duration-300">
+              <div className="w-[72px] h-[72px] rounded-[14px] overflow-hidden bg-slate-100 dark:bg-navy-900 relative">
+                <Image
+                  src={mockProfile.avatar}
+                  alt={mockProfile.name}
+                  width={72}
+                  height={72}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  priority
+                />
+              </div>
             </div>
-            <span className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-emerald-500 border-2 border-white dark:border-navy-950 animate-pulse" />
+            <span
+              title="Online & Ready"
+              className="absolute -bottom-1 -right-1 w-4.5 h-4.5 rounded-full bg-emerald-500 border-2 border-white dark:border-navy-950 animate-pulse shadow-sm"
+            />
           </div>
 
-          <div className="flex-1 min-w-0">
+          <div className="flex-1 min-w-0 space-y-1">
             <div className="flex items-center gap-1.5">
-              <h2 className="text-base font-bold text-slate-900 dark:text-white truncate tracking-tight group-hover:text-sky-500 dark:group-hover:text-sky-300 transition-colors">
-                {mockProfile.nickname}
+              <h2 className="text-base font-extrabold text-slate-900 dark:text-white truncate tracking-tight group-hover:text-sky-500 dark:group-hover:text-sky-300 transition-colors">
+                {mockProfile.name}
               </h2>
               <BadgeCheck className="w-4 h-4 text-sky-500 shrink-0" />
             </div>
-            <p className="text-xs font-mono text-slate-500 dark:text-slate-400 truncate">
-              @Diki04
-            </p>
-            <div className="flex items-center gap-1.5 text-xs font-mono text-slate-500 dark:text-slate-500 mt-1">
+
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-sky-50 dark:bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-200/80 dark:border-sky-500/20 text-[10px] font-mono font-medium">
+                Full-Stack & ML
+              </span>
+            </div>
+
+            <div className="flex items-center gap-1.5 text-xs font-mono text-slate-500 dark:text-slate-400 pt-0.5">
               <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
               <span className="truncate">Pekanbaru, ID 🇮🇩</span>
             </div>

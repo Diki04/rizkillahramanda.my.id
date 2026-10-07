@@ -28,3 +28,4 @@ export { RotatingText } from './RotatingText';
 export { SectionNavigator } from './SectionNavigator';
 export { ScrollReveal, ScrollItem } from './ScrollReveal';
 export { CustomCursor } from './CustomCursor';
+export { TypewriterText } from './TypewriterText';
