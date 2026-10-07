@@ -51,7 +51,7 @@ export function DevHighlights() {
           {/* Bento Grid Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             {/* Left 7 Columns: Workstation Specs */}
-            <div className="lg:col-span-7 flex flex-col justify-between p-6 rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-white/80 dark:bg-navy-900/30">
+            <div className="lg:col-span-7 flex flex-col justify-between p-6 rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-white/80 dark:bg-navy-900/30 hover:-translate-y-1 hover:shadow-xl hover:shadow-sky-500/5 hover:border-sky-400/30 transition-all duration-300">
               <div className="space-y-2 mb-4">
                 <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
                   <GitBranch className="w-4 h-4 text-sky-500" />

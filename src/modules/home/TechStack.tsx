@@ -326,29 +326,29 @@ export function TechStack() {
               return (
                 <div
                   key={tech.name}
-                  className="group relative flex flex-col items-center justify-center p-4 rounded-xl border border-slate-200 dark:border-white/[0.06] bg-white/80 dark:bg-navy-900/30 hover:bg-slate-50 dark:hover:bg-navy-900/80 hover:border-sky-400/30 dark:hover:border-white/[0.15] transition-all duration-200 text-center cursor-default overflow-hidden shadow-xs hover:shadow-md"
+                  className="group relative flex flex-col items-center justify-center p-4 rounded-2xl border border-slate-200 dark:border-white/[0.07] bg-white/80 dark:bg-navy-900/40 hover:bg-white dark:hover:bg-navy-850 hover:border-sky-400/50 dark:hover:border-white/[0.22] hover:-translate-y-1.5 hover:shadow-xl hover:shadow-sky-500/10 active:scale-95 transition-all duration-300 text-center cursor-default overflow-hidden shadow-xs"
                 >
-                  {/* Subtle hover backlight */}
+                  {/* Dynamic Brand Color Glow Background */}
                   <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none"
+                    className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-300 pointer-events-none blur-xl"
                     style={{ backgroundColor: tech.brandColor }}
                   />
 
-                  {/* Icon */}
-                  <div className="relative p-2.5 rounded-xl bg-slate-100 dark:bg-navy-950/80 border border-slate-200 dark:border-white/[0.04] mb-2.5 group-hover:scale-110 transition-transform duration-200">
+                  {/* Icon with Hover Scale & Rotation */}
+                  <div className="relative p-3 rounded-2xl bg-slate-100 dark:bg-navy-950/80 border border-slate-200 dark:border-white/[0.06] mb-2.5 group-hover:scale-115 group-hover:rotate-3 transition-transform duration-300 shadow-xs">
                     <Icon
-                      className="w-6 h-6 transition-colors duration-200"
+                      className="w-6 h-6 transition-all duration-300 group-hover:drop-shadow-[0_0_8px_currentColor]"
                       style={{ color: tech.brandColor }}
                     />
                   </div>
 
                   {/* Name */}
-                  <span className="font-mono text-xs font-semibold text-slate-800 dark:text-slate-200 truncate w-full">
+                  <span className="font-mono text-xs font-semibold text-slate-800 dark:text-slate-200 truncate w-full group-hover:text-sky-600 dark:group-hover:text-sky-300 transition-colors">
                     {tech.name}
                   </span>
 
                   {/* Level Pill */}
-                  <span className="text-[10px] font-mono text-slate-500 mt-1">
+                  <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-1">
                     {tech.level}
                   </span>
                 </div>

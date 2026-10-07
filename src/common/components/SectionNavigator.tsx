@@ -1,22 +1,26 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useLocale } from 'next-intl';
 
 interface Section {
   id: string;
-  label: string;
+  labelEn: string;
+  labelId: string;
   index: string;
 }
 
 const SECTIONS: Section[] = [
-  { id: 'hero', label: 'Overview', index: '01' },
-  { id: 'tech-stack', label: 'Tech Stack', index: '02' },
-  { id: 'projects', label: 'Featured Work', index: '03' },
-  { id: 'highlights', label: 'Dev Highlights', index: '04' },
-  { id: 'contact-cta', label: 'Get In Touch', index: '05' },
+  { id: 'hero', labelEn: 'Overview', labelId: 'Ikhtisar', index: '01' },
+  { id: 'tech-stack', labelEn: 'Tech Stack', labelId: 'Tumpukan Teknologi', index: '02' },
+  { id: 'projects', labelEn: 'Featured Work', labelId: 'Portofolio Pilihan', index: '03' },
+  { id: 'highlights', labelEn: 'Dev Highlights', labelId: 'Sorotan Rekayasa', index: '04' },
+  { id: 'contact-cta', labelEn: 'Get In Touch', labelId: 'Hubungi Saya', index: '05' },
 ];
 
 export function SectionNavigator() {
+  const locale = useLocale();
+  const isEn = locale === 'en';
   const [activeId, setActiveId] = useState<string>('hero');
   const [mounted, setMounted] = useState(false);
 
@@ -60,12 +64,13 @@ export function SectionNavigator() {
     >
       {SECTIONS.map((section) => {
         const isActive = activeId === section.id;
+        const currentLabel = isEn ? section.labelEn : section.labelId;
         return (
           <button
             key={section.id}
             onClick={() => scrollTo(section.id)}
             className="group flex items-center gap-2.5 py-1 focus:outline-none"
-            title={`${section.index} // ${section.label}`}
+            title={`${section.index} // ${currentLabel}`}
           >
             {/* Label Tooltip */}
             <span
@@ -73,7 +78,7 @@ export function SectionNavigator() {
                 isActive ? 'text-sky-500 dark:text-sky-400 border-sky-400/40' : 'text-slate-600 dark:text-slate-400'
               }`}
             >
-              {`${section.index} // ${section.label}`}
+              {`${section.index} // ${currentLabel}`}
             </span>
 
             {/* Navigation Dot */}
