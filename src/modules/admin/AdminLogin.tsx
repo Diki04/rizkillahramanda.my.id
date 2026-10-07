@@ -7,7 +7,7 @@ import { Button } from '@/common/components/Button';
 import { Shield, KeyRound, AlertCircle } from 'lucide-react';
 
 interface AdminLoginProps {
-  onSuccess: (secret: string) => void;
+  onSuccess: () => void;
 }
 
 export function AdminLogin({ onSuccess }: AdminLoginProps) {
@@ -23,31 +23,24 @@ export function AdminLogin({ onSuccess }: AdminLoginProps) {
     setLoading(true);
     setError(null);
 
-    // Verify key with an authorized call
-    if (passcode.trim() === 'admin123') {
-      onSuccess(passcode.trim());
-      setLoading(false);
-      return;
-    }
-
     try {
-      // Test payload against projects API
-      const res = await fetch('/api/admin/projects', {
+      const res = await fetch('/api/admin/auth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          secretKey: passcode.trim(),
-          project: { id: 'test', title: 'test' },
+          passcode: passcode.trim(),
         }),
       });
 
-      if (res.status === 401) {
-        setError('Kunci rahasia admin salah. Silakan coba lagi.');
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        setError(data.error || 'Kunci rahasia admin salah. Silakan coba lagi.');
       } else {
-        onSuccess(passcode.trim());
+        onSuccess();
       }
     } catch {
-      setError('Gagal memverifikasi passcode.');
+      setError('Gagal memverifikasi passcode. Periksa koneksi server.');
     } finally {
       setLoading(false);
     }
@@ -85,7 +78,7 @@ export function AdminLogin({ onSuccess }: AdminLoginProps) {
                 required
                 value={passcode}
                 onChange={(e) => setPasscode(e.target.value)}
-                placeholder="Masukkan passcode (default: admin123)"
+                placeholder="Masukkan passcode admin..."
                 className="w-full pl-9 pr-3.5 py-2.5 rounded-xl bg-navy-950 border border-white/[0.08] text-xs font-mono text-white placeholder-slate-500 focus:outline-none focus:border-accent-blue/50 focus:ring-1 focus:ring-accent-blue/50 transition-all"
               />
             </div>
