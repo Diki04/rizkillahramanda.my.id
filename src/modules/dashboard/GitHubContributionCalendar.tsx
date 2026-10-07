@@ -25,57 +25,71 @@ export function GitHubContributionCalendar() {
       .catch((err) => console.error('Error fetching live contributions:', err));
   }, []);
 
-  // Compute 52 weeks of contributions
-  const { weeks, totalContributions, currentStreak, longestStreak } = useMemo(() => {
+  // Compute weeks of contributions
+  const { weeks, totalContributions, currentStreak, longestStreak, monthLabels } = useMemo(() => {
     if (liveContributions && liveContributions.length > 0) {
       // Use live GitHub data
-      const recent = liveContributions.slice(-364);
       const resultWeeks: DayCell[][] = [];
       let total = 0;
       let currentDayStreak = 0;
       let maxStreak = 0;
       let streak = 0;
 
-      for (let i = 0; i < recent.length; i += 7) {
-        const week = recent.slice(i, i + 7);
+      for (let i = 0; i < liveContributions.length; i += 7) {
+        const week = liveContributions.slice(i, i + 7);
         resultWeeks.push(week);
-        week.forEach((d) => {
-          total += d.count;
-          if (d.count > 0) {
-            streak++;
-            if (streak > maxStreak) maxStreak = streak;
-          } else {
-            streak = 0;
-          }
-        });
       }
 
+      liveContributions.forEach((d) => {
+        total += d.count;
+        if (d.count > 0) {
+          streak++;
+          if (streak > maxStreak) maxStreak = streak;
+        } else {
+          streak = 0;
+        }
+      });
+
       // Check current streak from the end
-      for (let i = recent.length - 1; i >= 0; i--) {
-        if (recent[i].count > 0) {
+      for (let i = liveContributions.length - 1; i >= 0; i--) {
+        if (liveContributions[i].count > 0) {
           currentDayStreak++;
         } else if (currentDayStreak > 0) {
           break;
         }
       }
 
+      const labels: string[] = [];
+      let lastMonth = -1;
+      resultWeeks.forEach((week) => {
+        if (week.length > 0) {
+          const d = new Date(week[0].date);
+          const m = d.getMonth();
+          if (m !== lastMonth) {
+            labels.push(d.toLocaleDateString('en-US', { month: 'short' }));
+            lastMonth = m;
+          }
+        }
+      });
+
       return {
         weeks: resultWeeks,
-        totalContributions: total || 668,
-        currentStreak: currentDayStreak || 18,
-        longestStreak: maxStreak || 38,
+        totalContributions: total || 844,
+        currentStreak: currentDayStreak || 3,
+        longestStreak: maxStreak || 32,
+        monthLabels: labels.length > 0 ? labels : ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
       };
     }
 
     // High-activity fallback
     const today = new Date();
     const resultWeeks: DayCell[][] = [];
-    let total = 0;
+    let total = 844;
     const totalDays = 52 * 7;
     const startDate = new Date(today);
     startDate.setDate(startDate.getDate() - totalDays);
 
-    let maxStreak = 38;
+    let maxStreak = 32;
 
     for (let w = 0; w < 52; w++) {
       const currentWeek: DayCell[] = [];
@@ -105,8 +119,6 @@ export function GitHubContributionCalendar() {
         else if (count >= 2) level = 2;
         else if (count >= 1) level = 1;
 
-        total += count;
-
         currentWeek.push({
           date: dateStr,
           count,
@@ -119,15 +131,11 @@ export function GitHubContributionCalendar() {
     return {
       weeks: resultWeeks,
       totalContributions: total,
-      currentStreak: 18,
+      currentStreak: 3,
       longestStreak: maxStreak,
+      monthLabels: ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
     };
   }, [liveContributions]);
-
-  const months = [
-    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
-  ];
 
   const getLevelColor = (level: number) => {
     switch (level) {
@@ -197,8 +205,8 @@ export function GitHubContributionCalendar() {
         <div className="min-w-[720px] space-y-2">
           {/* Month Headers */}
           <div className="flex text-[10px] font-mono text-slate-500 pl-7 justify-between pr-2">
-            {months.map((m) => (
-              <span key={m}>{m}</span>
+            {monthLabels.map((m, idx) => (
+              <span key={`${m}-${idx}`}>{m}</span>
             ))}
           </div>
 
