@@ -30,3 +30,4 @@ export { ScrollReveal, ScrollItem } from './ScrollReveal';
 export { CustomCursor } from './CustomCursor';
 export { TypewriterText } from './TypewriterText';
 export { ThreeLanyard } from './ThreeLanyard';
+export { ReactBitsLanyard } from './ReactBitsLanyard';
