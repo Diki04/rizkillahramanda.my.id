@@ -13,6 +13,7 @@ import {
   Keyboard,
   Coffee,
   ArrowUpRight,
+  ArrowLeft,
   QrCode,
   Check,
   Copy,
@@ -90,29 +91,35 @@ export default function LinksPage() {
   ];
 
   return (
-    <div className="min-h-screen py-10 px-4 sm:px-6 flex flex-col items-center justify-start">
-      <div className="w-full max-w-lg space-y-8">
-        {/* Top Floating Controls */}
-        <div className="flex items-center justify-between">
+    <div className="min-h-screen py-6 sm:py-12 px-3 sm:px-6 flex flex-col items-center justify-center">
+      <div className="w-full max-w-lg bg-white/90 dark:bg-navy-900/90 backdrop-blur-xl border border-slate-200/90 dark:border-white/[0.1] rounded-3xl shadow-2xl p-6 sm:p-8 space-y-7 relative">
+        {/* Top Controls: Back button + ThemeToggle + Share + QR */}
+        <div className="flex items-center justify-between border-b border-slate-100 dark:border-white/[0.08] pb-4">
+          <Link
+            href="/"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-white/[0.08] bg-slate-50 dark:bg-navy-950 text-xs font-mono text-slate-700 dark:text-slate-300 hover:text-sky-500 hover:border-sky-400 transition-all"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Beranda</span>
+          </Link>
+
           <div className="flex items-center gap-2">
             <ThemeToggle />
             <button
               onClick={handleCopyLink}
               title="Salin Tautan"
-              className="p-2 rounded-xl border border-slate-200 dark:border-white/[0.08] bg-white/80 dark:bg-navy-900/80 text-slate-700 dark:text-slate-300 hover:text-sky-500 hover:border-sky-400 transition-all flex items-center gap-1.5 text-xs font-mono"
+              className="p-2 rounded-xl border border-slate-200 dark:border-white/[0.08] bg-slate-50 dark:bg-navy-950 text-slate-700 dark:text-slate-300 hover:text-sky-500 hover:border-sky-400 transition-all flex items-center gap-1.5 text-xs font-mono"
             >
               {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Share2 className="w-4 h-4" />}
-              <span>{copied ? 'Tersalin' : 'Bagikan'}</span>
+            </button>
+            <button
+              onClick={() => setShowQrModal(true)}
+              title="Tampilkan Kode QR"
+              className="p-2 rounded-xl border border-slate-200 dark:border-white/[0.08] bg-slate-50 dark:bg-navy-950 text-slate-700 dark:text-slate-300 hover:text-sky-500 hover:border-sky-400 transition-all"
+            >
+              <QrCode className="w-4 h-4" />
             </button>
           </div>
-
-          <button
-            onClick={() => setShowQrModal(true)}
-            title="Tampilkan Kode QR"
-            className="p-2 rounded-xl border border-slate-200 dark:border-white/[0.08] bg-white/80 dark:bg-navy-900/80 text-slate-700 dark:text-slate-300 hover:text-sky-500 hover:border-sky-400 transition-all"
-          >
-            <QrCode className="w-5 h-5" />
-          </button>
         </div>
 
         {/* Profile Bio Section */}

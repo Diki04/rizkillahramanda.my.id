@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { usePathname } from 'next/navigation';
 import { useLayout } from '@/common/contexts/LayoutContext';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
@@ -9,6 +10,16 @@ import { MobileHeader } from './MobileHeader';
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const { layoutMode } = useLayout();
+  const pathname = usePathname();
+  const isLinksPage = pathname?.endsWith('/links') || pathname?.includes('/links');
+
+  if (isLinksPage) {
+    return (
+      <div className="min-h-screen relative z-10 w-full flex flex-col justify-center">
+        {children}
+      </div>
+    );
+  }
 
   if (layoutMode === 'sidebar') {
     return (
