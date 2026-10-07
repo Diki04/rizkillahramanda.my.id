@@ -1,0 +1,106 @@
+{
+  "nav": {
+    "home": "Beranda",
+    "about": "Tentang",
+    "projects": "Portofolio",
+    "dashboard": "Dashboard",
+    "achievements": "Sertifikasi",
+    "chat": "Buku Tamu",
+    "contact": "Kontak",
+    "admin": "Admin"
+  },
+  "hero": {
+    "status": "Terbuka untuk kolaborasi & proyek",
+    "greeting": "Halo, saya",
+    "role": "Software Engineer & Mahasiswa Teknik Informatika",
+    "university": "Universitas Riau",
+    "summary": "Fokus pada pengembangan aplikasi web performa tinggi, clean monolith architecture, state management skalabel, dan machine learning.",
+    "viewProjects": "Lihat Portofolio",
+    "contactMe": "Hubungi Saya",
+    "downloadCv": "Unduh CV"
+  },
+  "about": {
+    "title": "Tentang Saya",
+    "subtitle": "Perjalanan di bidang rekayasa perangkat lunak dan komputasi",
+    "bioTitle": "Biografi Singkat",
+    "educationTitle": "Pendidikan",
+    "degree": "S1 Teknik Informatika",
+    "skillsTitle": "Keahlian Teknis & Alat",
+    "frontendCategory": "Front-End & UI",
+    "backendCategory": "Back-End & Database",
+    "mlCategory": "Machine Learning & AI",
+    "toolsCategory": "DevOps & Perkakas"
+  },
+  "projects": {
+    "title": "Portofolio & Proyek",
+    "subtitle": "Karya rekayasa perangkat lunak, aplikasi web, dan model kecerdasan buatan pilihan",
+    "filterAll": "Semua",
+    "filterFullstack": "Full-Stack",
+    "filterFrontend": "Front-End",
+    "filterMl": "Machine Learning",
+    "liveDemo": "Demo Langsung",
+    "sourceCode": "Kode Sumber",
+    "featured": "Unggulan"
+  },
+  "dashboard": {
+    "title": "Developer Dashboard",
+    "subtitle": "Statistik aktivitas pengkodean real-time dari GitHub & Wakatime",
+    "githubStats": "Statistik GitHub",
+    "publicRepos": "Repositori Publik",
+    "followers": "Pengikut",
+    "following": "Mengikuti",
+    "totalStars": "Total Bintang",
+    "wakatimeStats": "Statistik Wakatime",
+    "totalHours": "Total Jam Koding",
+    "dailyAverage": "Rata-rata Harian",
+    "topLanguages": "Bahasa Pemrograman Terbanyak"
+  },
+  "achievements": {
+    "title": "Sertifikasi & Penghargaan",
+    "subtitle": "Validasi kompetensi profesional dan pencapaian akademik",
+    "issuedBy": "Diterbitkan oleh",
+    "issuedDate": "Tahun",
+    "verifyCredential": "Verifikasi Sertifikat"
+  },
+  "chat": {
+    "title": "Buku Tamu & Pesan",
+    "subtitle": "Tinggalkan salam, pesan singkat, atau ulasan untuk saya",
+    "namePlaceholder": "Nama Anda",
+    "messagePlaceholder": "Tuliskan pesan Anda di sini...",
+    "sendButton": "Kirim Pesan",
+    "sending": "Mengirim...",
+    "emptyState": "Belum ada pesan. Jadilah yang pertama meninggalkan pesan!"
+  },
+  "contact": {
+    "title": "Hubungi Saya",
+    "subtitle": "Mari diskusikan peluang proyek, kolaborasi riset, atau sekadar bertukar sapa",
+    "emailLabel": "Email Langsung",
+    "locationLabel": "Lokasi",
+    "socialsLabel": "Jaringan Profesional",
+    "formName": "Nama Lengkap",
+    "formEmail": "Alamat Email",
+    "formMessage": "Pesan",
+    "formSubmit": "Kirim Pesan",
+    "copied": "Disalin ke papan klip!"
+  },
+  "admin": {
+    "title": "Admin Management Portal",
+    "subtitle": "Kelola portofolio proyek dan sertifikat dengan Supabase",
+    "passcode": "Kunci Rahasia Admin",
+    "login": "Masuk ke Panel",
+    "logout": "Keluar",
+    "projectsTab": "Kelola Portofolio",
+    "achievementsTab": "Kelola Sertifikat",
+    "addProject": "Tambah Proyek Baru",
+    "addAchievement": "Tambah Sertifikat Baru",
+    "save": "Simpan",
+    "delete": "Hapus",
+    "edit": "Ubah"
+  },
+  "common": {
+    "backToHome": "Kembali ke Beranda",
+    "pageNotFound": "Halaman Tidak Ditemukan",
+    "errorOccurred": "Terjadi Kesalahan Sistem",
+    "tryAgain": "Coba Lagi"
+  }
+}

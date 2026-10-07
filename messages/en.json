@@ -1,0 +1,106 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "dashboard": "Dashboard",
+    "achievements": "Achievements",
+    "chat": "Guestbook",
+    "contact": "Contact",
+    "admin": "Admin"
+  },
+  "hero": {
+    "status": "Available for opportunities & projects",
+    "greeting": "Hi, I am",
+    "role": "Software Engineer & Informatics Student",
+    "university": "Universitas Riau",
+    "summary": "Specializing in high-performance web applications, clean monolithic architectures, scalable state management, and applied machine learning.",
+    "viewProjects": "View Projects",
+    "contactMe": "Get In Touch",
+    "downloadCv": "Download CV"
+  },
+  "about": {
+    "title": "About Me",
+    "subtitle": "My journey in software engineering and computational sciences",
+    "bioTitle": "Brief Biography",
+    "educationTitle": "Education",
+    "degree": "B.Sc. in Informatics Engineering",
+    "skillsTitle": "Technical Skills & Toolkit",
+    "frontendCategory": "Front-End & UI",
+    "backendCategory": "Back-End & Database",
+    "mlCategory": "Machine Learning & AI",
+    "toolsCategory": "DevOps & Tooling"
+  },
+  "projects": {
+    "title": "Projects & Portfolio",
+    "subtitle": "Featured software engineering work, web apps, and machine learning models",
+    "filterAll": "All",
+    "filterFullstack": "Full-Stack",
+    "filterFrontend": "Front-End",
+    "filterMl": "Machine Learning",
+    "liveDemo": "Live Demo",
+    "sourceCode": "Source Code",
+    "featured": "Featured"
+  },
+  "dashboard": {
+    "title": "Developer Dashboard",
+    "subtitle": "Real-time coding activity statistics from GitHub & Wakatime",
+    "githubStats": "GitHub Statistics",
+    "publicRepos": "Public Repositories",
+    "followers": "Followers",
+    "following": "Following",
+    "totalStars": "Total Stars",
+    "wakatimeStats": "Wakatime Statistics",
+    "totalHours": "Total Coding Hours",
+    "dailyAverage": "Daily Average",
+    "topLanguages": "Top Languages"
+  },
+  "achievements": {
+    "title": "Certifications & Honors",
+    "subtitle": "Professional validations and academic milestones",
+    "issuedBy": "Issued by",
+    "issuedDate": "Year",
+    "verifyCredential": "Verify Credential"
+  },
+  "chat": {
+    "title": "Guestbook & Messages",
+    "subtitle": "Leave a greeting, thought, or note for me",
+    "namePlaceholder": "Your Name",
+    "messagePlaceholder": "Write your message here...",
+    "sendButton": "Send Message",
+    "sending": "Sending...",
+    "emptyState": "No messages yet. Be the first to leave a message!"
+  },
+  "contact": {
+    "title": "Contact Me",
+    "subtitle": "Let us discuss project opportunities, research collaboration, or just say hello",
+    "emailLabel": "Direct Email",
+    "locationLabel": "Location",
+    "socialsLabel": "Professional Networks",
+    "formName": "Full Name",
+    "formEmail": "Email Address",
+    "formMessage": "Message",
+    "formSubmit": "Send Message",
+    "copied": "Copied to clipboard!"
+  },
+  "admin": {
+    "title": "Admin Management Portal",
+    "subtitle": "Manage portfolio projects and certificates with Supabase",
+    "passcode": "Admin Passcode",
+    "login": "Login to Portal",
+    "logout": "Log Out",
+    "projectsTab": "Manage Projects",
+    "achievementsTab": "Manage Certificates",
+    "addProject": "Add New Project",
+    "addAchievement": "Add New Certificate",
+    "save": "Save Changes",
+    "delete": "Delete",
+    "edit": "Edit"
+  },
+  "common": {
+    "backToHome": "Back to Home",
+    "pageNotFound": "Page Not Found",
+    "errorOccurred": "An Unexpected Error Occurred",
+    "tryAgain": "Try Again"
+  }
+}
