@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { mockProjects } from '../../../services/mock-projects';
+import { mockProjects } from '@/services/data/mock-projects';
 
 export async function GET() {
   const siteUrl = 'https://rizkillahramanda.my.id';
@@ -17,9 +17,9 @@ export async function GET() {
         (proj) => `
     <item>
       <title><![CDATA[${proj.title}]]></title>
-      <link>${proj.link || siteUrl}</link>
-      <guid>${siteUrl}/projects/${proj.id}</guid>
-      <description><![CDATA[${proj.description}]]></description>
+      <link>${proj.demoUrl || proj.githubUrl || siteUrl}</link>
+      <guid>${siteUrl}/projects/${proj.slug || proj.id}</guid>
+      <description><![CDATA[${typeof proj.description === 'string' ? proj.description : proj.description?.en || ''}]]></description>
       <category>${proj.category}</category>
     </item>`
       )
