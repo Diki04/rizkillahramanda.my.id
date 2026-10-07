@@ -2,7 +2,7 @@
 
 ## Accessing the Portal
 - Navigate to: `/admin` (or press `Ctrl+K` / `Cmd+K` and select "Admin Portal").
-- Default Passcode: `admin123` (configured via `ADMIN_SECRET_KEY` environment variable).
+- Passcode: Configured via `ADMIN_SECRET_KEY` in your environment variables (`.env.local`).
 
 ## Adding a New Project
 1. Select the **Projects** tab.
