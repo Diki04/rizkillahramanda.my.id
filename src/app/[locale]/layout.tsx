@@ -5,8 +5,8 @@ import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import '../globals.css';
-import { Navbar } from '@/common/layouts/Navbar';
-import { Footer } from '@/common/layouts/Footer';
+import { LayoutProvider } from '@/common/contexts/LayoutContext';
+import { AppShell } from '@/common/layouts/AppShell';
 import { InteractiveCanvas } from '@/common/components/InteractiveCanvas';
 import { ScrollProgressBar } from '@/common/components/ScrollProgressBar';
 import { BackToTop } from '@/common/components/BackToTop';
@@ -52,14 +52,14 @@ export default async function RootLayout({
         className={`${inter.variable} ${mono.variable} font-sans bg-navy-950 text-slate-100 antialiased min-h-screen flex flex-col relative selection:bg-sky-500/20 selection:text-sky-300`}
       >
         <NextIntlClientProvider messages={messages}>
-          <ScrollProgressBar />
-          <RadialGradientBackground />
-          <InteractiveCanvas />
-          <CommandPalette />
-          <Navbar />
-          <main className="flex-1 relative z-10">{children}</main>
-          <Footer />
-          <BackToTop />
+          <LayoutProvider>
+            <ScrollProgressBar />
+            <RadialGradientBackground />
+            <InteractiveCanvas />
+            <CommandPalette />
+            <AppShell>{children}</AppShell>
+            <BackToTop />
+          </LayoutProvider>
         </NextIntlClientProvider>
       </body>
     </html>
