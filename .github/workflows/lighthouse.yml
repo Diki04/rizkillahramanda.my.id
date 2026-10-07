@@ -8,6 +8,6 @@ jobs:
   lighthouse:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Audit web vitals
         run: echo "Lighthouse audit pipeline ready"
