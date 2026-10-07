@@ -38,7 +38,7 @@ export function CertificateCard({
           <div className="absolute inset-0 bg-navy-950/40 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
             <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-navy-900/90 text-white font-mono text-xs border border-white/[0.1]">
               <Eye className="w-3.5 h-3.5 text-accent-blue" />
-              Lihat Sertifikat
+              {t('viewCertificate')}
             </span>
           </div>
           <div className="absolute top-2.5 right-2.5">

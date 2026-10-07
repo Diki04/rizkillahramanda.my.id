@@ -60,7 +60,8 @@
     "subtitle": "Validasi kompetensi profesional dan pencapaian akademik",
     "issuedBy": "Diterbitkan oleh",
     "issuedDate": "Tahun",
-    "verifyCredential": "Verifikasi Sertifikat"
+    "verifyCredential": "Verifikasi Sertifikat",
+    "viewCertificate": "Lihat Sertifikat"
   },
   "chat": {
     "title": "Buku Tamu & Pesan",

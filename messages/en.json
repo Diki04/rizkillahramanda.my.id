@@ -60,7 +60,8 @@
     "subtitle": "Professional validations and academic milestones",
     "issuedBy": "Issued by",
     "issuedDate": "Year",
-    "verifyCredential": "Verify Credential"
+    "verifyCredential": "Verify Credential",
+    "viewCertificate": "View Certificate"
   },
   "chat": {
     "title": "Guestbook & Messages",
