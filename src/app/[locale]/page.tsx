@@ -1,18 +1,14 @@
-import { useTranslations } from 'next-intl';
+import React from 'react';
+import { Hero } from '@/modules/home/Hero';
+import { TechStack } from '@/modules/home/TechStack';
+import { FeaturedProjects } from '@/modules/home/FeaturedProjects';
 
 export default function HomePage() {
-  const t = useTranslations('hero');
-
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-6 text-center">
-      <div className="max-w-2xl">
-        <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
-          {t('greeting')} <span className="text-accent-blue">Rizkillah Ramanda</span>
-        </h1>
-        <p className="mt-4 text-lg text-slate-300">
-          {t('summary')}
-        </p>
-      </div>
-    </main>
+    <div className="flex flex-col">
+      <Hero />
+      <TechStack />
+      <FeaturedProjects />
+    </div>
   );
 }

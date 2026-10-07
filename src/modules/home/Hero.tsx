@@ -1,0 +1,128 @@
+'use client';
+
+import React from 'react';
+import Image from 'next/image';
+import { useTranslations, useLocale } from 'next-intl';
+import { Link } from '@/i18n/routing';
+import { Container } from '@/common/components/Container';
+import { Button } from '@/common/components/Button';
+import { Badge } from '@/common/components/Badge';
+import { SpotlightCard } from '@/common/components/SpotlightCard';
+import { mockProfile } from '@/services/data/mock-profile';
+import { ArrowUpRight, Github, Mail, Sparkles, MapPin, GraduationCap } from 'lucide-react';
+
+export function Hero() {
+  const t = useTranslations('hero');
+  const locale = useLocale();
+  const isEn = locale === 'en';
+
+  return (
+    <section className="relative pt-12 pb-20 md:pt-20 md:pb-28 overflow-hidden">
+      <Container size="xl">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          {/* Left Column: Headline & Intro */}
+          <div className="lg:col-span-7 flex flex-col items-start gap-6">
+            {/* Status Pill */}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 text-xs font-mono font-medium">
+              <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>{t('status')}</span>
+            </div>
+
+            {/* Main Greeting & Name */}
+            <div className="space-y-2">
+              <p className="font-mono text-sm tracking-wide text-accent-blue font-semibold">
+                {t('greeting')}
+              </p>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                {mockProfile.name}
+              </h1>
+              <div className="flex flex-wrap items-center gap-3 pt-2 text-sm text-slate-400 font-mono">
+                <span className="inline-flex items-center gap-1.5 text-slate-300">
+                  <GraduationCap className="w-4 h-4 text-accent-blue" />
+                  {mockProfile.university}
+                </span>
+                <span className="text-slate-600">•</span>
+                <span className="inline-flex items-center gap-1.5 text-slate-400">
+                  <MapPin className="w-3.5 h-3.5 text-slate-500" />
+                  {mockProfile.location}
+                </span>
+              </div>
+            </div>
+
+            {/* Summary Bio */}
+            <p className="text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed">
+              {isEn ? mockProfile.headline.en : mockProfile.headline.id}
+            </p>
+
+            {/* CTAs */}
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              <Link href="/projects">
+                <Button variant="secondary" size="md">
+                  <span>{t('viewProjects')}</span>
+                  <ArrowUpRight className="w-4 h-4 ml-1" />
+                </Button>
+              </Link>
+              <Link href="/contact">
+                <Button variant="outline" size="md">
+                  <span>{t('contactMe')}</span>
+                  <Mail className="w-4 h-4 ml-1.5 text-slate-400" />
+                </Button>
+              </Link>
+              <a
+                href={mockProfile.github}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button variant="ghost" size="md" className="border border-white/[0.08]">
+                  <Github className="w-4 h-4 mr-2" />
+                  <span>GitHub</span>
+                </Button>
+              </a>
+            </div>
+          </div>
+
+          {/* Right Column: Hero Profile Card */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-end">
+            <SpotlightCard className="w-full max-w-sm p-6 space-y-6">
+              <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-white/[0.08] bg-navy-950/80">
+                <Image
+                  src={mockProfile.avatar}
+                  alt={mockProfile.name}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 384px"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-transparent to-transparent opacity-60" />
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs font-mono">
+                  <span className="px-2.5 py-1 rounded-md bg-navy-950/90 border border-white/[0.1] text-accent-blue font-semibold">
+                    @{mockProfile.nickname}
+                  </span>
+                  <span className="px-2.5 py-1 rounded-md bg-navy-950/90 border border-white/[0.1] text-emerald-400">
+                    Active Dev
+                  </span>
+                </div>
+              </div>
+
+              {/* Quick Metrics Inside Hero Card */}
+              <div className="grid grid-cols-3 gap-2 text-center pt-2 border-t border-white/[0.06]">
+                <div className="p-2 rounded-lg bg-navy-950/40">
+                  <p className="font-mono text-lg font-bold text-white">49</p>
+                  <p className="text-[10px] font-mono text-slate-400 uppercase">Repos</p>
+                </div>
+                <div className="p-2 rounded-lg bg-navy-950/40">
+                  <p className="font-mono text-lg font-bold text-accent-blue">24+</p>
+                  <p className="text-[10px] font-mono text-slate-400 uppercase">Projects</p>
+                </div>
+                <div className="p-2 rounded-lg bg-navy-950/40">
+                  <p className="font-mono text-lg font-bold text-emerald-400">2+ Yrs</p>
+                  <p className="text-[10px] font-mono text-slate-400 uppercase">Experience</p>
+                </div>
+              </div>
+            </SpotlightCard>
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
+}
