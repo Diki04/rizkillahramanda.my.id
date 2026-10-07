@@ -13,12 +13,24 @@ import { BackToTop } from '@/common/components/BackToTop';
 import { CommandPalette } from '@/common/components/CommandPalette';
 import { RadialGradientBackground } from '@/common/components/RadialGradientBackground';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
-const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono' });
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+  fallback: ['system-ui', 'sans-serif'],
+});
+
+const mono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
+  display: 'swap',
+  fallback: ['monospace'],
+});
 
 export const metadata: Metadata = {
   title: 'Rizkillah Ramanda Sinyo | Portfolio & Engineering Showcase',
-  description: 'Informatics Engineering student at Universitas Riau. Fullstack developer specialized in Next.js, TypeScript, and AI integrations.',
+  description:
+    'Informatics Engineering student at Universitas Riau. Fullstack developer specialized in Next.js, TypeScript, and AI integrations.',
 };
 
 export default async function RootLayout({
@@ -36,7 +48,9 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} className="dark">
-      <body className={`${inter.variable} ${mono.variable} font-sans bg-dark-bg text-dark-text antialiased min-h-screen flex flex-col relative selection:bg-sky-500/20 selection:text-sky-300`}>
+      <body
+        className={`${inter.variable} ${mono.variable} font-sans bg-navy-950 text-slate-100 antialiased min-h-screen flex flex-col relative selection:bg-sky-500/20 selection:text-sky-300`}
+      >
         <NextIntlClientProvider messages={messages}>
           <ScrollProgressBar />
           <RadialGradientBackground />
