@@ -35,11 +35,11 @@ export function WakatimeStats() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-xl font-bold text-white flex items-center gap-2">
+        <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
           <Clock className="w-5 h-5 text-accent-blue" />
           <span>{t('wakatimeStats')}</span>
         </h3>
-        <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-full">
+        <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-full">
           Live Coding Stream
         </span>
       </div>
@@ -63,24 +63,24 @@ export function WakatimeStats() {
 
       {/* Language Breakdown */}
       <SpotlightCard className="p-6 space-y-4">
-        <div className="flex items-center justify-between border-b border-white/[0.06] pb-3">
-          <span className="font-mono text-xs font-semibold text-white uppercase tracking-wider flex items-center gap-2">
+        <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/[0.06] pb-3">
+          <span className="font-mono text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
             <BarChart2 className="w-4 h-4 text-accent-blue" />
             {t('topLanguages')}
           </span>
-          <span className="font-mono text-xs text-slate-400">By usage percentage</span>
+          <span className="font-mono text-xs text-slate-500 dark:text-slate-400">By usage percentage</span>
         </div>
 
         <div className="space-y-3 pt-2">
           {stats.languages.map((lang) => (
             <div key={lang.name} className="space-y-1.5">
               <div className="flex items-center justify-between text-xs font-mono">
-                <span className="text-slate-200 font-medium">{lang.name}</span>
-                <span className="text-slate-400">{lang.percent}% ({lang.text})</span>
+                <span className="text-slate-700 dark:text-slate-200 font-medium">{lang.name}</span>
+                <span className="text-slate-500 dark:text-slate-400">{lang.percent}% ({lang.text})</span>
               </div>
-              <div className="h-2 w-full rounded-full bg-navy-950 overflow-hidden border border-white/[0.06]">
+              <div className="h-2 w-full rounded-full bg-slate-100 dark:bg-navy-950 overflow-hidden border border-slate-200 dark:border-white/[0.06]">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-accent-blue to-sky-400 transition-all duration-700"
+                  className="h-full rounded-full bg-gradient-to-r from-sky-500 to-sky-400 transition-all duration-700"
                   style={{ width: `${lang.percent}%` }}
                 />
               </div>
