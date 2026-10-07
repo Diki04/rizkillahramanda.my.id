@@ -1,15 +1,14 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { Container } from '@/common/components/Container';
 import { Button } from '@/common/components/Button';
-import { SpotlightCard } from '@/common/components/SpotlightCard';
 import { TypewriterText } from '@/common/components/TypewriterText';
 import { RotatingText } from '@/common/components/RotatingText';
 import { ScrollReveal } from '@/common/components/ScrollReveal';
+import { ThreeLanyard } from '@/common/components/ThreeLanyard';
 import { mockProfile } from '@/services/data/mock-profile';
 import {
   ArrowUpRight,
@@ -134,48 +133,30 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Right Column: Hero Profile Card */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end relative group">
+          {/* Right Column: Three.js Interactive 3D Lanyard ID Badge */}
+          <div className="lg:col-span-5 flex flex-col items-center lg:items-end justify-center relative group">
             {/* Ambient Background Aura */}
-            <div className="absolute -inset-2 rounded-3xl bg-gradient-to-tr from-sky-500/20 via-blue-600/20 to-emerald-400/20 blur-2xl opacity-40 group-hover:opacity-75 transition-opacity duration-700 pointer-events-none" />
+            <div className="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-sky-500/20 via-blue-600/20 to-emerald-400/20 blur-3xl opacity-50 pointer-events-none" />
 
-            <SpotlightCard className="relative w-full max-w-sm p-6 space-y-6 transition-all duration-300 group-hover:-translate-y-1.5 group-hover:shadow-2xl group-hover:shadow-sky-500/15">
-              <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-slate-200 dark:border-white/[0.08] bg-slate-100 dark:bg-navy-950/80">
-                <Image
-                  src={mockProfile.avatar}
-                  alt={mockProfile.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 384px"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 dark:from-navy-950 via-transparent to-transparent opacity-60" />
-                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs font-mono">
-                  <span className="px-2.5 py-1 rounded-md bg-white/90 dark:bg-navy-950/90 border border-slate-200 dark:border-white/[0.1] text-sky-600 dark:text-accent-blue font-semibold shadow-sm">
-                    @{mockProfile.nickname}
-                  </span>
-                  <span className="px-2.5 py-1 rounded-md bg-white/90 dark:bg-navy-950/90 border border-slate-200 dark:border-white/[0.1] text-emerald-600 dark:text-emerald-400 font-semibold shadow-sm">
-                    Active Dev
-                  </span>
-                </div>
-              </div>
+            <div className="w-full max-w-[420px] relative">
+              <ThreeLanyard />
 
-              {/* Quick Metrics Inside Hero Card */}
-              <div className="grid grid-cols-3 gap-2 text-center pt-2 border-t border-slate-200 dark:border-white/[0.06]">
-                <div className="p-2 rounded-lg bg-slate-100 dark:bg-navy-950/40 border border-slate-200/60 dark:border-transparent">
+              {/* Quick Metrics Below Lanyard */}
+              <div className="grid grid-cols-3 gap-2.5 text-center mt-1 px-2">
+                <div className="p-2.5 rounded-xl bg-white/70 dark:bg-navy-900/60 backdrop-blur-md border border-slate-200/80 dark:border-white/[0.08] shadow-sm hover:border-sky-500/30 transition-colors">
                   <p className="font-mono text-lg font-bold text-slate-900 dark:text-white">49</p>
                   <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">Repos</p>
                 </div>
-                <div className="p-2 rounded-lg bg-slate-100 dark:bg-navy-950/40 border border-slate-200/60 dark:border-transparent">
+                <div className="p-2.5 rounded-xl bg-white/70 dark:bg-navy-900/60 backdrop-blur-md border border-slate-200/80 dark:border-white/[0.08] shadow-sm hover:border-sky-500/30 transition-colors">
                   <p className="font-mono text-lg font-bold text-sky-600 dark:text-accent-blue">24+</p>
                   <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">Projects</p>
                 </div>
-                <div className="p-2 rounded-lg bg-slate-100 dark:bg-navy-950/40 border border-slate-200/60 dark:border-transparent">
+                <div className="p-2.5 rounded-xl bg-white/70 dark:bg-navy-900/60 backdrop-blur-md border border-slate-200/80 dark:border-white/[0.08] shadow-sm hover:border-sky-500/30 transition-colors">
                   <p className="font-mono text-lg font-bold text-emerald-600 dark:text-emerald-400">2+ Yrs</p>
                   <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">Experience</p>
                 </div>
               </div>
-            </SpotlightCard>
+            </div>
           </div>
         </div>
 
