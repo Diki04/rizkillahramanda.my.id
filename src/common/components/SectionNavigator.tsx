@@ -69,8 +69,8 @@ export function SectionNavigator() {
           >
             {/* Label Tooltip */}
             <span
-              className={`opacity-0 group-hover:opacity-100 transition-all duration-200 text-[11px] font-mono whitespace-nowrap px-2 py-0.5 rounded bg-navy-900/90 border border-white/[0.1] shadow-lg pointer-events-none transform translate-x-2 group-hover:translate-x-0 ${
-                isActive ? 'text-sky-400 border-sky-400/40' : 'text-slate-400'
+              className={`opacity-0 group-hover:opacity-100 transition-all duration-200 text-[11px] font-mono whitespace-nowrap px-2 py-0.5 rounded bg-white/95 dark:bg-navy-900/90 border border-slate-200 dark:border-white/[0.1] shadow-lg pointer-events-none transform translate-x-2 group-hover:translate-x-0 ${
+                isActive ? 'text-sky-500 dark:text-sky-400 border-sky-400/40' : 'text-slate-600 dark:text-slate-400'
               }`}
             >
               {`${section.index} // ${section.label}`}
@@ -81,8 +81,8 @@ export function SectionNavigator() {
               <span
                 className={`transition-all duration-300 rounded-full ${
                   isActive
-                    ? 'w-3 h-3 bg-sky-400 ring-4 ring-sky-400/20 shadow-[0_0_12px_rgba(56,189,248,0.8)]'
-                    : 'w-1.5 h-1.5 bg-slate-600 group-hover:bg-slate-400 group-hover:scale-125'
+                    ? 'w-3 h-3 bg-sky-500 ring-4 ring-sky-500/20 shadow-[0_0_12px_rgba(56,189,248,0.8)]'
+                    : 'w-1.5 h-1.5 bg-slate-300 dark:bg-slate-600 group-hover:bg-sky-500 dark:group-hover:bg-slate-400 group-hover:scale-125'
                 }`}
               />
             </div>
