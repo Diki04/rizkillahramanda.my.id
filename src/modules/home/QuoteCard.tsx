@@ -23,16 +23,16 @@ export function QuoteCard() {
   return (
     <SpotlightCard className="p-6 relative overflow-hidden">
       <div className="flex items-start justify-between">
-        <Quote className="w-6 h-6 text-sky-400/50 mb-3" />
+        <Quote className="w-6 h-6 text-sky-500/50 mb-3" />
         <button
           onClick={nextQuote}
-          className="text-slate-500 hover:text-sky-400 p-1 transition-colors"
+          className="text-slate-400 hover:text-sky-500 p-1 transition-colors"
           title="Next Quote"
         >
           <RefreshCw className="w-3.5 h-3.5" />
         </button>
       </div>
-      <blockquote className="text-slate-300 italic text-sm mb-3">
+      <blockquote className="text-slate-700 dark:text-slate-300 italic text-sm mb-3">
         &ldquo;{current.text}&rdquo;
       </blockquote>
       <p className="text-xs text-slate-500 font-mono">— {current.author}</p>

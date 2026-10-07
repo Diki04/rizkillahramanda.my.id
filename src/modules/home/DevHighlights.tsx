@@ -14,21 +14,21 @@ export function DevHighlights() {
   return (
     <ScrollReveal
       id="highlights"
-      className="py-20 border-t border-white/[0.08] min-h-[calc(100vh-5rem)] flex flex-col justify-center"
+      className="py-20 border-t border-slate-200 dark:border-white/[0.08] min-h-[calc(100vh-5rem)] flex flex-col justify-center"
     >
       <Container size="xl">
         <div className="flex flex-col gap-10">
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-400/20 bg-sky-400/10 text-sky-400 text-xs font-mono font-medium mb-2">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-400/20 bg-sky-400/10 text-sky-600 dark:text-sky-400 text-xs font-mono font-medium mb-2">
                 <Sparkles className="w-4 h-4" />
                 <span>Workflow & Philosophy</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                 Developer Environment & Philosophy
               </h2>
-              <p className="text-sm sm:text-base text-slate-400 mt-1 max-w-xl">
+              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-1 max-w-xl">
                 The setup, engineering habits, and continuous metrics that drive high-quality software craftsmanship.
               </p>
             </div>
@@ -36,7 +36,7 @@ export function DevHighlights() {
             <div className="flex items-center gap-3">
               <Link
                 href="/dashboard"
-                className="inline-flex items-center gap-1.5 text-xs font-mono text-sky-400 hover:text-white transition-colors"
+                className="inline-flex items-center gap-1.5 text-xs font-mono text-sky-600 dark:text-sky-400 hover:text-slate-900 dark:hover:text-white transition-colors"
               >
                 <span>Live Metrics</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
@@ -47,13 +47,13 @@ export function DevHighlights() {
           {/* Bento Grid Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             {/* Left 7 Columns: Workstation Specs */}
-            <div className="lg:col-span-7 flex flex-col justify-between p-6 rounded-2xl border border-white/[0.08] bg-navy-900/30">
+            <div className="lg:col-span-7 flex flex-col justify-between p-6 rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-white/80 dark:bg-navy-900/30">
               <div className="space-y-2 mb-4">
-                <h3 className="text-base font-bold text-white flex items-center gap-2">
-                  <GitBranch className="w-4 h-4 text-sky-400" />
+                <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <GitBranch className="w-4 h-4 text-sky-500" />
                   <span>Workstation & Engineering Environment</span>
                 </h3>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-slate-600 dark:text-slate-400">
                   Reliable local development toolchain optimized for speed and DX.
                 </p>
               </div>
@@ -67,14 +67,14 @@ export function DevHighlights() {
 
               <SpotlightCard className="p-5 flex items-center justify-between">
                 <div className="flex items-center gap-3.5">
-                  <div className="p-2.5 rounded-xl bg-navy-950 border border-white/[0.08]">
-                    <SiGithub className="w-5 h-5 text-white" />
+                  <div className="p-2.5 rounded-xl bg-slate-100 dark:bg-navy-950 border border-slate-200 dark:border-white/[0.08]">
+                    <SiGithub className="w-5 h-5 text-slate-800 dark:text-white" />
                   </div>
                   <div>
-                    <h4 className="text-xs font-mono font-semibold text-white">
+                    <h4 className="text-xs font-mono font-semibold text-slate-900 dark:text-white">
                       Active GitHub Profile
                     </h4>
-                    <p className="text-[11px] font-mono text-slate-400">
+                    <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
                       @Diki04 • 49+ Public Repos
                     </p>
                   </div>
@@ -84,7 +84,7 @@ export function DevHighlights() {
                   href="https://github.com/Diki04"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3 py-1.5 rounded-lg border border-white/[0.1] bg-navy-900/60 hover:bg-white/[0.08] text-xs font-mono text-slate-300 hover:text-white transition-colors"
+                  className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/[0.1] bg-slate-100 dark:bg-navy-900/60 hover:bg-slate-200 dark:hover:bg-white/[0.08] text-xs font-mono text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
                 >
                   Visit Profile
                 </a>

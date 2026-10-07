@@ -18,9 +18,9 @@ export function DeveloperSetup() {
           <SpotlightCard key={item.label} className="p-4 flex flex-col justify-between">
             <div className="flex items-center gap-3 mb-2">
               <Icon className="w-4 h-4 text-sky-400" />
-              <span className="text-xs text-slate-400 font-mono">{item.label}</span>
+              <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">{item.label}</span>
             </div>
-            <p className="text-sm font-medium text-slate-200">{item.value}</p>
+            <p className="text-sm font-medium text-slate-800 dark:text-slate-200">{item.value}</p>
           </SpotlightCard>
         );
       })}
