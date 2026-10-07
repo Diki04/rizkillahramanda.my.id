@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { SpotlightCard } from '@/common/components/SpotlightCard';
 import { MetricsCard } from '@/modules/dashboard/MetricsCard';
+import { GitHubContributionCalendar } from '@/modules/dashboard/GitHubContributionCalendar';
+import { GitHubRecentCommits } from '@/modules/dashboard/GitHubRecentCommits';
 import { GitHubStats as IGitHubStats } from '@/types';
 import { Github, FolderGit2, Star, Users, UserPlus, ExternalLink } from 'lucide-react';
 import { Button } from '@/common/components/Button';
@@ -34,20 +34,25 @@ export function GitHubStats() {
   }, []);
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h3 className="text-xl font-bold text-white flex items-center gap-2">
-          <Github className="w-5 h-5 text-accent-blue" />
-          <span>{t('githubStats')}</span>
-        </h3>
+    <div className="space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h3 className="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
+            <Github className="w-5 h-5 text-accent-blue" />
+            <span>{t('githubStats')}</span>
+          </h3>
+          <p className="text-xs text-slate-400 mt-0.5">
+            Open-source repositories, activity heatmaps, and continuous commit cadence.
+          </p>
+        </div>
         <a
           href={`https://github.com/${stats.login}`}
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Button variant="ghost" size="sm" className="text-xs font-mono text-accent-blue">
+          <Button variant="ghost" size="sm" className="text-xs font-mono text-accent-blue border border-white/[0.08]">
             <span>@{stats.login}</span>
-            <ExternalLink className="w-3 h-3 ml-1" />
+            <ExternalLink className="w-3.5 h-3.5 ml-1.5" />
           </Button>
         </a>
       </div>
@@ -83,6 +88,12 @@ export function GitHubStats() {
           color="purple"
         />
       </div>
+
+      {/* Contribution Calendar Heatmap */}
+      <GitHubContributionCalendar />
+
+      {/* Recent Git Commits Log */}
+      <GitHubRecentCommits />
     </div>
   );
 }
