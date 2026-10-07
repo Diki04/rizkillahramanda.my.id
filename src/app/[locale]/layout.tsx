@@ -7,7 +7,7 @@ import { routing } from '@/i18n/routing';
 import '../globals.css';
 import { LayoutProvider } from '@/common/contexts/LayoutContext';
 import { AppShell } from '@/common/layouts/AppShell';
-import { ThreeBackground } from '@/common/components/ThreeBackground';
+import { SmoothFluidBackground } from '@/common/components/SmoothFluidBackground';
 import { ClickSpark } from '@/common/components/ClickSpark';
 import { ScrollProgressBar } from '@/common/components/ScrollProgressBar';
 import { BackToTop } from '@/common/components/BackToTop';
@@ -56,7 +56,7 @@ export default async function RootLayout({
           <LayoutProvider>
             <ScrollProgressBar />
             <RadialGradientBackground />
-            <ThreeBackground />
+            <SmoothFluidBackground />
             <ClickSpark />
             <CommandPalette />
             <AppShell>{children}</AppShell>

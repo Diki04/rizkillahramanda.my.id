@@ -22,6 +22,7 @@ export { RadialGradientBackground } from './RadialGradientBackground';
 export { LayoutToggle } from './LayoutToggle';
 export { AmbientAudioPlayer } from './AmbientAudioPlayer';
 export { ThreeBackground } from './ThreeBackground';
+export { SmoothFluidBackground } from './SmoothFluidBackground';
 export { ClickSpark } from './ClickSpark';
 export { DecryptedText } from './DecryptedText';
 export { RotatingText } from './RotatingText';
