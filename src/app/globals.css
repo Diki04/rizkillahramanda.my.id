@@ -25,6 +25,17 @@
     overflow-x: hidden;
     transition: background-color 0.25s ease, color 0.25s ease;
   }
+
+  a,
+  button,
+  [role="button"],
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  select,
+  summary {
+    cursor: pointer;
+  }
 }
 
 /* Custom subtle scrollbar */
