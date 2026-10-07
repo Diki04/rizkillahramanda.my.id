@@ -25,3 +25,4 @@ export { ThreeBackground } from './ThreeBackground';
 export { ClickSpark } from './ClickSpark';
 export { DecryptedText } from './DecryptedText';
 export { RotatingText } from './RotatingText';
+export { SectionNavigator } from './SectionNavigator';

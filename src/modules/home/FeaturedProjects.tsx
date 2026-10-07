@@ -19,7 +19,7 @@ export function FeaturedProjects() {
   const featured = mockProjects.filter((p) => p.featured).slice(0, 3);
 
   return (
-    <section className="py-20">
+    <section id="projects" className="py-20 min-h-[calc(100vh-5rem)] flex flex-col justify-center">
       <Container size="xl">
         <div className="flex flex-col gap-10">
           {/* Section Header */}
