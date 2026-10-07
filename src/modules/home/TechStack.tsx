@@ -357,7 +357,7 @@ export function TechStack() {
             <div className="text-center py-12 border border-dashed border-white/[0.08] rounded-xl">
               <Layers className="w-8 h-8 text-slate-500 mx-auto mb-2 opacity-50" />
               <p className="font-mono text-xs text-slate-400">
-                No technologies matching "{searchQuery}".
+                No technologies matching &ldquo;{searchQuery}&rdquo;.
               </p>
             </div>
           )}

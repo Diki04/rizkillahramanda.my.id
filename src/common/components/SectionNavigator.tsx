@@ -73,7 +73,7 @@ export function SectionNavigator() {
                 isActive ? 'text-sky-400 border-sky-400/40' : 'text-slate-400'
               }`}
             >
-              {section.index} // {section.label}
+              {`${section.index} // ${section.label}`}
             </span>
 
             {/* Navigation Dot */}
