@@ -45,6 +45,13 @@ export function Hero() {
       id="hero"
       className="relative min-h-[calc(100vh-5rem)] flex flex-col justify-center py-12 md:py-16 overflow-hidden"
     >
+      {/* Dynamic Background Floating Neon Orbs */}
+      <div className="pointer-events-none absolute -top-20 -left-20 w-96 h-96 rounded-full bg-sky-500/10 dark:bg-sky-400/10 blur-[100px] animate-pulse" />
+      <div
+        className="pointer-events-none absolute top-1/3 -right-20 w-[420px] h-[420px] rounded-full bg-blue-500/10 dark:bg-cyan-500/10 blur-[120px] animate-pulse"
+        style={{ animationDelay: '1.8s' }}
+      />
+
       <Container size="xl">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           {/* Left Column: Headline & Intro */}
@@ -128,8 +135,11 @@ export function Hero() {
           </div>
 
           {/* Right Column: Hero Profile Card */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end">
-            <SpotlightCard className="w-full max-w-sm p-6 space-y-6">
+          <div className="lg:col-span-5 flex justify-center lg:justify-end relative group">
+            {/* Ambient Background Aura */}
+            <div className="absolute -inset-2 rounded-3xl bg-gradient-to-tr from-sky-500/20 via-blue-600/20 to-emerald-400/20 blur-2xl opacity-40 group-hover:opacity-75 transition-opacity duration-700 pointer-events-none" />
+
+            <SpotlightCard className="relative w-full max-w-sm p-6 space-y-6 transition-all duration-300 group-hover:-translate-y-1.5 group-hover:shadow-2xl group-hover:shadow-sky-500/15">
               <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-slate-200 dark:border-white/[0.08] bg-slate-100 dark:bg-navy-950/80">
                 <Image
                   src={mockProfile.avatar}
