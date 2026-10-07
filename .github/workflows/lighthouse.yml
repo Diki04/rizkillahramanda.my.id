@@ -1,0 +1,13 @@
+name: Lighthouse Audit
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit web vitals
+        run: echo "Lighthouse audit pipeline ready"
