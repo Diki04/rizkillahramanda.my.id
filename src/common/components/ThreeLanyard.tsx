@@ -4,10 +4,61 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { useLocale } from 'next-intl';
 import { mockProfile } from '@/services/data/mock-profile';
-import { Sparkles, RefreshCw, Hand } from 'lucide-react';
+import { Sparkles, RefreshCw, Hand, ShieldCheck } from 'lucide-react';
 
 interface ThreeLanyardProps {
   className?: string;
+}
+
+// Function to generate flat ribbon geometry along a 3D CatmullRom curve
+function createRibbonGeometry(
+  curve: THREE.CatmullRomCurve3,
+  segments: number,
+  width: number
+): THREE.BufferGeometry {
+  const points = curve.getPoints(segments);
+  const tangents: THREE.Vector3[] = [];
+  for (let i = 0; i <= segments; i++) {
+    const u = i / segments;
+    tangents.push(curve.getTangent(u).normalize());
+  }
+
+  const vertices: number[] = [];
+  const uvs: number[] = [];
+  const indices: number[] = [];
+
+  for (let i = 0; i <= segments; i++) {
+    const p = points[i];
+    const t = tangents[i];
+    // Side vector: cross product of tangent and forward normal (0, 0, 1)
+    const side = new THREE.Vector3().crossVectors(t, new THREE.Vector3(0, 0, 1)).normalize();
+    if (side.lengthSq() < 0.001) {
+      side.set(1, 0, 0);
+    }
+    const halfW = width * 0.5;
+
+    // Left vertex
+    vertices.push(p.x - side.x * halfW, p.y - side.y * halfW, p.z - side.z * halfW);
+    uvs.push(0, (i / segments) * 4);
+
+    // Right vertex
+    vertices.push(p.x + side.x * halfW, p.y + side.y * halfW, p.z + side.z * halfW);
+    uvs.push(1, (i / segments) * 4);
+  }
+
+  for (let i = 0; i < segments; i++) {
+    const i2 = i * 2;
+    // Front face
+    indices.push(i2, i2 + 1, i2 + 2);
+    indices.push(i2 + 1, i2 + 3, i2 + 2);
+  }
+
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+  geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+  geo.setIndex(indices);
+  geo.computeVertexNormals();
+  return geo;
 }
 
 export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
@@ -18,21 +69,26 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
 
   const [isInteracting, setIsInteracting] = useState(false);
   const [hintVisible, setHintVisible] = useState(true);
+  const [flipState, setFlipState] = useState(false);
+
+  // Trigger flip externally
+  const triggerFlipRef = useRef<() => void>(() => {});
 
   useEffect(() => {
     const container = containerRef.current;
     const canvas = canvasRef.current;
     if (!container || !canvas) return;
 
-    let width = container.clientWidth || 400;
-    let height = container.clientHeight || 520;
+    let width = container.clientWidth || 440;
+    let height = container.clientHeight || 620;
 
-    // --- Scene, Camera, Renderer ---
+    // --- Scene, Camera, High-Precision WebGL Renderer ---
     const scene = new THREE.Scene();
 
-    const camera = new THREE.PerspectiveCamera(42, width / height, 0.1, 100);
-    camera.position.set(0, 0.4, 7.8);
-    camera.lookAt(0, 0.2, 0);
+    // Camera calibrated closer for large, bold, crisp card view
+    const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
+    camera.position.set(0, 0.1, 5.5);
+    camera.lookAt(0, -0.05, 0);
 
     let renderer: THREE.WebGLRenderer;
     try {
@@ -43,35 +99,46 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
         powerPreference: 'high-performance',
       });
       renderer.setSize(width, height);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2.5));
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.2;
+      renderer.toneMappingExposure = 1.25;
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     } catch {
       return;
     }
 
-    // --- Lighting ---
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+    // --- Studio Lighting Setup (for Photorealistic Clearcoat Specular Highlights) ---
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.4);
     scene.add(ambientLight);
 
-    const dirLight = new THREE.DirectionalLight(0xffffff, 2.0);
-    dirLight.position.set(3, 5, 5);
-    scene.add(dirLight);
+    // Key directional studio light
+    const keyLight = new THREE.DirectionalLight(0xffffff, 2.8);
+    keyLight.position.set(3.5, 4.5, 4.5);
+    keyLight.castShadow = true;
+    scene.add(keyLight);
 
-    const cyanPointLight = new THREE.PointLight(0x38bdf8, 3.5, 12);
-    cyanPointLight.position.set(-3, 2, 3);
+    // Top rim highlight
+    const topLight = new THREE.DirectionalLight(0xe0f2fe, 1.5);
+    topLight.position.set(-2, 5, 2);
+    scene.add(topLight);
+
+    // Dynamic Cyan cyber glow point light
+    const cyanPointLight = new THREE.PointLight(0x38bdf8, 3.8, 10);
+    cyanPointLight.position.set(-2.5, 1.0, 2.8);
     scene.add(cyanPointLight);
 
-    const purplePointLight = new THREE.PointLight(0x818cf8, 2.5, 10);
-    purplePointLight.position.set(3, -1, 2.5);
-    scene.add(purplePointLight);
+    // Violet secondary rim light
+    const violetPointLight = new THREE.PointLight(0x818cf8, 2.6, 9);
+    violetPointLight.position.set(2.5, -1.2, 2.5);
+    scene.add(violetPointLight);
 
-    // --- Ambient Floating 3D Neon Orbs (Breathing Pulse) ---
-    const orbCount = 38;
+    // --- Ambient Floating 3D Glowing Neon Orbs in Scene ---
     const orbGroup = new THREE.Group();
     scene.add(orbGroup);
 
-    const orbGeometry = new THREE.SphereGeometry(0.06, 16, 16);
+    const orbCount = 36;
+    const orbGeometry = new THREE.SphereGeometry(0.05, 16, 16);
     const orbColors = [0x38bdf8, 0x60a5fa, 0x818cf8, 0x34d399, 0x38bdf8];
 
     interface OrbData {
@@ -95,12 +162,12 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
       });
 
       const mesh = new THREE.Mesh(orbGeometry, orbMaterial);
-      const scale = 0.6 + Math.random() * 1.4;
+      const scale = 0.7 + Math.random() * 1.5;
       mesh.scale.set(scale, scale, scale);
 
-      const baseX = (Math.random() - 0.5) * 7.0;
-      const baseY = (Math.random() - 0.5) * 6.5;
-      const baseZ = (Math.random() - 0.5) * 4.0 - 1.0;
+      const baseX = (Math.random() - 0.5) * 6.5;
+      const baseY = (Math.random() - 0.5) * 6.0;
+      const baseZ = (Math.random() - 0.5) * 3.5 - 0.8;
 
       mesh.position.set(baseX, baseY, baseZ);
       orbGroup.add(mesh);
@@ -110,239 +177,279 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
         baseX,
         baseY,
         baseZ,
-        speed: 0.8 + Math.random() * 1.4,
-        amplitude: 0.15 + Math.random() * 0.3,
+        speed: 0.7 + Math.random() * 1.3,
+        amplitude: 0.15 + Math.random() * 0.25,
         phase: Math.random() * Math.PI * 2,
       });
     }
 
-    // --- Card Textures (Front & Back) ---
+    // --- High-Resolution Crisp Textures (1200 x 1800 px) ---
     const createCardFrontTexture = () => {
       const c = document.createElement('canvas');
-      c.width = 1024;
-      c.height = 1536;
+      c.width = 1200;
+      c.height = 1800;
       const ctx = c.getContext('2d');
       if (!ctx) return new THREE.CanvasTexture(c);
 
-      // Background Dark Gradient
-      const grad = ctx.createLinearGradient(0, 0, 0, c.height);
-      grad.addColorStop(0, '#090d16');
-      grad.addColorStop(0.5, '#0e1626');
-      grad.addColorStop(1, '#050811');
-      ctx.fillStyle = grad;
+      // 1. Deep Matte Dark Acrylic Gradient
+      const bgGrad = ctx.createLinearGradient(0, 0, 0, c.height);
+      bgGrad.addColorStop(0, '#0a0f1d');
+      bgGrad.addColorStop(0.4, '#0e172a');
+      bgGrad.addColorStop(1, '#050811');
+      ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, c.width, c.height);
 
-      // Subtle Cyber Grid Lines
-      ctx.strokeStyle = 'rgba(56, 189, 248, 0.05)';
+      // Micro Cyber Grid Lines
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.06)';
       ctx.lineWidth = 2;
-      const gridSize = 48;
-      for (let x = 0; x < c.width; x += gridSize) {
+      const step = 50;
+      for (let x = 0; x < c.width; x += step) {
         ctx.beginPath();
         ctx.moveTo(x, 0);
         ctx.lineTo(x, c.height);
         ctx.stroke();
       }
-      for (let y = 0; y < c.height; y += gridSize) {
+      for (let y = 0; y < c.height; y += step) {
         ctx.beginPath();
         ctx.moveTo(0, y);
         ctx.lineTo(c.width, y);
         ctx.stroke();
       }
 
-      // Top Lanyard Clip Hole cutout representation
-      ctx.fillStyle = '#030712';
+      // Outer Inner Neon Border Frame
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.4)';
+      ctx.lineWidth = 4;
+      ctx.strokeRect(36, 36, c.width - 72, c.height - 72);
+
+      // Corner Tech Brackets
+      const bLen = 40;
+      ctx.lineWidth = 8;
+      ctx.strokeStyle = '#38bdf8';
+      // Top Left
       ctx.beginPath();
-      ctx.roundRect(c.width / 2 - 80, 40, 160, 36, 18);
-      ctx.fill();
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
-      ctx.lineWidth = 3;
+      ctx.moveTo(36, 36 + bLen);
+      ctx.lineTo(36, 36);
+      ctx.lineTo(36 + bLen, 36);
+      ctx.stroke();
+      // Top Right
+      ctx.beginPath();
+      ctx.moveTo(c.width - 36 - bLen, 36);
+      ctx.lineTo(c.width - 36, 36);
+      ctx.lineTo(c.width - 36, 36 + bLen);
+      ctx.stroke();
+      // Bottom Left
+      ctx.beginPath();
+      ctx.moveTo(36, c.height - 36 - bLen);
+      ctx.lineTo(36, c.height - 36);
+      ctx.lineTo(36 + bLen, c.height - 36);
+      ctx.stroke();
+      // Bottom Right
+      ctx.beginPath();
+      ctx.moveTo(c.width - 36 - bLen, c.height - 36);
+      ctx.lineTo(c.width - 36, c.height - 36);
+      ctx.lineTo(c.width - 36, c.height - 36 - bLen);
       ctx.stroke();
 
-      // Top Header Ribbon Bar
-      const headerGrad = ctx.createLinearGradient(60, 110, c.width - 60, 110);
-      headerGrad.addColorStop(0, '#38bdf8');
-      headerGrad.addColorStop(0.5, '#818cf8');
-      headerGrad.addColorStop(1, '#34d399');
-      ctx.fillStyle = headerGrad;
+      // Top Lanyard Clip Punch Hole with Metallic Grommet
+      const slotW = 190;
+      const slotH = 44;
+      const slotX = c.width / 2 - slotW / 2;
+      const slotY = 56;
+      ctx.fillStyle = '#020617';
       ctx.beginPath();
-      ctx.roundRect(60, 110, c.width - 120, 8, 4);
+      ctx.roundRect(slotX, slotY, slotW, slotH, 22);
+      ctx.fill();
+      ctx.strokeStyle = '#94a3b8';
+      ctx.lineWidth = 5;
+      ctx.stroke();
+
+      // Holographic Rainbow Header Banner
+      const headerBarY = 138;
+      const hGrad = ctx.createLinearGradient(70, headerBarY, c.width - 70, headerBarY);
+      hGrad.addColorStop(0, '#38bdf8');
+      hGrad.addColorStop(0.35, '#818cf8');
+      hGrad.addColorStop(0.7, '#ec4899');
+      hGrad.addColorStop(1, '#34d399');
+      ctx.fillStyle = hGrad;
+      ctx.beginPath();
+      ctx.roundRect(70, headerBarY, c.width - 140, 10, 5);
       ctx.fill();
 
-      // Badge ID & Status
-      ctx.fillStyle = 'rgba(148, 163, 184, 0.9)';
-      ctx.font = 'bold 26px monospace';
+      // Header Labels (Large & Crisp)
+      ctx.fillStyle = '#cbd5e1';
+      ctx.font = 'bold 30px monospace';
       ctx.textAlign = 'left';
-      ctx.fillText('// VERIFIED DEVELOPER', 64, 165);
+      ctx.fillText('// VERIFIED DEVELOPER PASS', 72, 196);
 
       ctx.fillStyle = '#38bdf8';
       ctx.textAlign = 'right';
-      ctx.fillText('ID: RR-2026', c.width - 64, 165);
+      ctx.font = 'bold 32px monospace';
+      ctx.fillText('ID: RR-2026-DEV', c.width - 72, 196);
 
-      // Avatar Circular Frame
-      const avatarX = c.width / 2;
-      const avatarY = 380;
-      const avatarR = 140;
+      // Large Avatar Photo with Multi-Ring Cyber Glow
+      const avX = c.width / 2;
+      const avY = 470;
+      const avR = 175;
 
-      // Glow Ring
+      // Outer Glowing Ring
       const ringGrad = ctx.createLinearGradient(
-        avatarX - avatarR,
-        avatarY - avatarR,
-        avatarX + avatarR,
-        avatarY + avatarR
+        avX - avR,
+        avY - avR,
+        avX + avR,
+        avY + avR
       );
       ringGrad.addColorStop(0, '#38bdf8');
-      ringGrad.addColorStop(0.5, '#3b82f6');
+      ringGrad.addColorStop(0.5, '#60a5fa');
       ringGrad.addColorStop(1, '#10b981');
 
       ctx.beginPath();
-      ctx.arc(avatarX, avatarY, avatarR + 10, 0, Math.PI * 2);
+      ctx.arc(avX, avY, avR + 12, 0, Math.PI * 2);
       ctx.fillStyle = ringGrad;
       ctx.fill();
 
-      // Inner Avatar background
+      // Dark avatar backing
       ctx.beginPath();
-      ctx.arc(avatarX, avatarY, avatarR, 0, Math.PI * 2);
+      ctx.arc(avX, avY, avR, 0, Math.PI * 2);
       ctx.fillStyle = '#0f172a';
       ctx.fill();
 
-      // Draw stylized initials avatar while image loads
-      ctx.fillStyle = '#ffffff';
-      ctx.font = 'bold 100px sans-serif';
+      // Stylized Initial Placeholder
+      ctx.fillStyle = '#f8fafc';
+      ctx.font = 'bold 120px sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText('RR', avatarX, avatarY + 4);
+      ctx.fillText('RR', avX, avY + 6);
 
-      // Async load user avatar image onto canvas
+      // Load avatar image asynchronously with crossOrigin
       const img = new Image();
       img.crossOrigin = 'anonymous';
       img.src = mockProfile.avatar;
       img.onload = () => {
         ctx.save();
         ctx.beginPath();
-        ctx.arc(avatarX, avatarY, avatarR, 0, Math.PI * 2);
+        ctx.arc(avX, avY, avR, 0, Math.PI * 2);
         ctx.clip();
-        ctx.drawImage(
-          img,
-          avatarX - avatarR,
-          avatarY - avatarR,
-          avatarR * 2,
-          avatarR * 2
-        );
+        ctx.drawImage(img, avX - avR, avY - avR, avR * 2, avR * 2);
         ctx.restore();
         texture.needsUpdate = true;
       };
 
-      // Active Status Pill
-      ctx.fillStyle = 'rgba(16, 185, 129, 0.15)';
+      // Active Developer Badge (Glowing Emerald Pill)
+      const pillW = 320;
+      const pillH = 56;
+      const pillY = 690;
+      ctx.fillStyle = 'rgba(16, 185, 129, 0.18)';
       ctx.beginPath();
-      ctx.roundRect(c.width / 2 - 120, 560, 240, 48, 24);
+      ctx.roundRect(c.width / 2 - pillW / 2, pillY, pillW, pillH, 28);
       ctx.fill();
       ctx.strokeStyle = '#10b981';
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 3;
       ctx.stroke();
 
-      // Green Dot
+      // Blinking Indicator Dot
       ctx.beginPath();
-      ctx.arc(c.width / 2 - 80, 584, 8, 0, Math.PI * 2);
+      ctx.arc(c.width / 2 - 110, pillY + pillH / 2, 10, 0, Math.PI * 2);
       ctx.fillStyle = '#10b981';
       ctx.fill();
 
       ctx.fillStyle = '#34d399';
-      ctx.font = 'bold 22px monospace';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText('ACTIVE DEVELOPER', c.width / 2 + 16, 584);
-
-      // Name & Handle
-      ctx.fillStyle = '#ffffff';
-      ctx.font = 'bold 58px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText(mockProfile.name, c.width / 2, 680);
-
-      ctx.fillStyle = '#38bdf8';
-      ctx.font = 'bold 32px monospace';
-      ctx.fillText(`@${mockProfile.nickname} • Full-Stack Engineer`, c.width / 2, 740);
-
-      // Organization / University
-      ctx.fillStyle = '#94a3b8';
-      ctx.font = '28px sans-serif';
-      ctx.fillText(mockProfile.university, c.width / 2, 800);
-      ctx.font = '22px sans-serif';
-      ctx.fillText(mockProfile.location, c.width / 2, 835);
-
-      // Holographic Foil Strip
-      const foilY = 890;
-      const foilGrad = ctx.createLinearGradient(60, foilY, c.width - 60, foilY + 80);
-      foilGrad.addColorStop(0, 'rgba(56, 189, 248, 0.3)');
-      foilGrad.addColorStop(0.25, 'rgba(236, 72, 153, 0.3)');
-      foilGrad.addColorStop(0.5, 'rgba(234, 179, 8, 0.3)');
-      foilGrad.addColorStop(0.75, 'rgba(34, 197, 94, 0.3)');
-      foilGrad.addColorStop(1, 'rgba(59, 130, 246, 0.3)');
-      ctx.fillStyle = foilGrad;
-      ctx.beginPath();
-      ctx.roundRect(60, foilY, c.width - 120, 80, 16);
-      ctx.fill();
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
-      ctx.lineWidth = 2;
-      ctx.stroke();
-
-      ctx.fillStyle = '#ffffff';
       ctx.font = 'bold 26px monospace';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText('⚡ NEXT.JS • TYPESCRIPT • PYTHON • ML ⚡', c.width / 2, foilY + 40);
+      ctx.fillText('ACTIVE DEVELOPER', c.width / 2 + 18, pillY + pillH / 2);
 
-      // Gold Smart Card IC Chip representation
-      const chipX = 80;
-      const chipY = 1030;
-      const chipW = 140;
-      const chipH = 100;
-      ctx.fillStyle = '#d97706';
+      // Prominent Bold Name (Large, Crisp Display Type)
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 74px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(mockProfile.name, c.width / 2, 825);
+
+      // Role & Handle
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = 'bold 38px monospace';
+      ctx.fillText(`@${mockProfile.nickname} • Software Engineer`, c.width / 2, 895);
+
+      // University & Location
+      ctx.fillStyle = '#cbd5e1';
+      ctx.font = 'bold 32px sans-serif';
+      ctx.fillText(mockProfile.university, c.width / 2, 960);
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '26px sans-serif';
+      ctx.fillText('Teknik Informatika • Pekanbaru, Indonesia', c.width / 2, 1005);
+
+      // Holographic Security Foil Strip (Iridescent Specular Bar)
+      const foilY = 1070;
+      const foilH = 96;
+      const foilGrad = ctx.createLinearGradient(70, foilY, c.width - 70, foilY + foilH);
+      foilGrad.addColorStop(0, 'rgba(56, 189, 248, 0.4)');
+      foilGrad.addColorStop(0.25, 'rgba(236, 72, 153, 0.4)');
+      foilGrad.addColorStop(0.5, 'rgba(234, 179, 8, 0.4)');
+      foilGrad.addColorStop(0.75, 'rgba(34, 197, 94, 0.4)');
+      foilGrad.addColorStop(1, 'rgba(59, 130, 246, 0.4)');
+      ctx.fillStyle = foilGrad;
       ctx.beginPath();
-      ctx.roundRect(chipX, chipY, chipW, chipH, 12);
+      ctx.roundRect(70, foilY, c.width - 140, foilH, 18);
       ctx.fill();
-      ctx.strokeStyle = '#fef08a';
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
       ctx.lineWidth = 3;
       ctx.stroke();
 
-      // Chip internal lines
-      ctx.strokeStyle = '#78350f';
-      ctx.lineWidth = 2;
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 30px monospace';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('⚡ NEXT.JS • TYPESCRIPT • PYTHON • ML ⚡', c.width / 2, foilY + foilH / 2);
+
+      // Gold Smart Card IC Microchip (Realistic SIM/Card Chip)
+      const chipX = 90;
+      const chipY = 1220;
+      const chipW = 170;
+      const chipH = 125;
+      ctx.fillStyle = '#d97706';
       ctx.beginPath();
-      ctx.moveTo(chipX + 46, chipY);
-      ctx.lineTo(chipX + 46, chipY + chipH);
-      ctx.moveTo(chipX + 94, chipY);
-      ctx.lineTo(chipX + 94, chipY + chipH);
+      ctx.roundRect(chipX, chipY, chipW, chipH, 16);
+      ctx.fill();
+      ctx.strokeStyle = '#fef08a';
+      ctx.lineWidth = 4;
+      ctx.stroke();
+
+      // Chip Pin Etchings
+      ctx.strokeStyle = '#78350f';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(chipX + 55, chipY);
+      ctx.lineTo(chipX + 55, chipY + chipH);
+      ctx.moveTo(chipX + 115, chipY);
+      ctx.lineTo(chipX + 115, chipY + chipH);
       ctx.moveTo(chipX, chipY + chipH / 2);
       ctx.lineTo(chipX + chipW, chipY + chipH / 2);
       ctx.stroke();
 
-      // Barcode at bottom right
-      const barX = 260;
-      const barY = 1025;
-      const barW = c.width - barX - 80;
-      const barH = 110;
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+      // Scannable Laser Barcode (High Contrast)
+      const barX = 300;
+      const barY = 1215;
+      const barW = c.width - barX - 90;
+      const barH = 135;
+      ctx.fillStyle = '#ffffff';
       ctx.fillRect(barX, barY, barW, barH);
 
-      // Draw barcode bars
-      ctx.fillStyle = '#090d16';
-      let curX = barX + 16;
-      while (curX < barX + barW - 20) {
-        const lineW = Math.random() > 0.45 ? 6 : 3;
-        ctx.fillRect(curX, barY + 10, lineW, barH - 35);
-        curX += lineW + (Math.random() > 0.5 ? 4 : 8);
+      ctx.fillStyle = '#020617';
+      let cx = barX + 20;
+      while (cx < barX + barW - 25) {
+        const lw = Math.random() > 0.45 ? 8 : 4;
+        ctx.fillRect(cx, barY + 12, lw, barH - 45);
+        cx += lw + (Math.random() > 0.5 ? 5 : 9);
       }
-      ctx.font = 'bold 18px monospace';
+      ctx.font = 'bold 22px monospace';
       ctx.textAlign = 'center';
-      ctx.fillStyle = '#090d16';
-      ctx.fillText('* RR-2026-DEV-SECURE *', barX + barW / 2, barY + barH - 10);
+      ctx.fillStyle = '#020617';
+      ctx.fillText('* SECURE-ID-RR04-VERIFIED *', barX + barW / 2, barY + barH - 12);
 
-      // Bottom footer copyright
-      ctx.fillStyle = 'rgba(148, 163, 184, 0.6)';
-      ctx.font = '20px monospace';
+      // Bottom Security Stamp
+      ctx.fillStyle = 'rgba(148, 163, 184, 0.7)';
+      ctx.font = 'bold 24px monospace';
       ctx.textAlign = 'center';
-      ctx.fillText('OFFICIAL IDENTITY BADGE // UNRI INFORMATICS', c.width / 2, 1470);
+      ctx.fillText('OFFICIAL IDENTITY BADGE // UNRI INFORMATICS', c.width / 2, 1720);
 
       const texture = new THREE.CanvasTexture(c);
       texture.generateMipmaps = true;
@@ -350,30 +457,36 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
       return texture;
     };
 
+    // Back Texture (Developer Passport & GitHub Statistics)
     const createCardBackTexture = () => {
       const c = document.createElement('canvas');
-      c.width = 1024;
-      c.height = 1536;
+      c.width = 1200;
+      c.height = 1800;
       const ctx = c.getContext('2d');
       if (!ctx) return new THREE.CanvasTexture(c);
 
-      // Dark Back
-      const grad = ctx.createLinearGradient(0, 0, 0, c.height);
-      grad.addColorStop(0, '#090d16');
-      grad.addColorStop(1, '#020617');
-      ctx.fillStyle = grad;
+      // Dark Back Acrylic
+      const bgGrad = ctx.createLinearGradient(0, 0, 0, c.height);
+      bgGrad.addColorStop(0, '#0a0f1d');
+      bgGrad.addColorStop(1, '#020617');
+      ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, c.width, c.height);
 
-      // Decorative Top Pattern
+      // Frame
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.4)';
+      ctx.lineWidth = 4;
+      ctx.strokeRect(36, 36, c.width - 72, c.height - 72);
+
+      // Top Header
       ctx.fillStyle = '#38bdf8';
-      ctx.fillRect(60, 90, c.width - 120, 6);
+      ctx.fillRect(70, 110, c.width - 140, 8);
 
       ctx.fillStyle = '#ffffff';
-      ctx.font = 'bold 36px monospace';
+      ctx.font = 'bold 42px monospace';
       ctx.textAlign = 'center';
-      ctx.fillText('ENGINEER PASSPORT // GITHUB STATS', c.width / 2, 160);
+      ctx.fillText('ENGINEER PASSPORT // GITHUB STATS', c.width / 2, 190);
 
-      // Stat Boxes
+      // 3 Large Telemetry Metric Boxes
       const stats = [
         { label: 'REPOSITORIES', val: '49+' },
         { label: 'PROJECTS', val: '24+' },
@@ -381,92 +494,94 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
       ];
 
       stats.forEach((s, i) => {
-        const boxX = 80 + i * 295;
-        const boxY = 240;
-        const boxW = 270;
-        const boxH = 180;
+        const boxX = 85 + i * 350;
+        const boxY = 280;
+        const boxW = 320;
+        const boxH = 220;
 
-        ctx.fillStyle = 'rgba(30, 41, 59, 0.7)';
+        ctx.fillStyle = 'rgba(30, 41, 59, 0.85)';
         ctx.beginPath();
-        ctx.roundRect(boxX, boxY, boxW, boxH, 16);
+        ctx.roundRect(boxX, boxY, boxW, boxH, 20);
         ctx.fill();
-        ctx.strokeStyle = 'rgba(56, 189, 248, 0.3)';
-        ctx.lineWidth = 2;
+        ctx.strokeStyle = 'rgba(56, 189, 248, 0.4)';
+        ctx.lineWidth = 3;
         ctx.stroke();
 
         ctx.fillStyle = '#38bdf8';
-        ctx.font = 'bold 56px monospace';
+        ctx.font = 'bold 68px monospace';
         ctx.textAlign = 'center';
-        ctx.fillText(s.val, boxX + boxW / 2, boxY + 85);
+        ctx.fillText(s.val, boxX + boxW / 2, boxY + 105);
 
-        ctx.fillStyle = '#94a3b8';
-        ctx.font = 'bold 20px monospace';
-        ctx.fillText(s.label, boxX + boxW / 2, boxY + 140);
+        ctx.fillStyle = '#cbd5e1';
+        ctx.font = 'bold 24px monospace';
+        ctx.fillText(s.label, boxX + boxW / 2, boxY + 175);
       });
 
-      // Bio & Philosophy
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
-      ctx.font = '30px sans-serif';
+      // Engineering Quote
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+      ctx.font = 'italic 34px sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText('"Crafting high-performance digital experiences', c.width / 2, 530);
-      ctx.fillText('with clean architecture and deliberate motion."', c.width / 2, 580);
+      ctx.fillText('"Crafting high-performance digital systems', c.width / 2, 600);
+      ctx.fillText('with clean architecture and deliberate motion."', c.width / 2, 655);
 
-      // QR Code Box Placeholder
-      const qrSize = 340;
+      // Large Crisp Scannable QR Code
+      const qrSize = 420;
       const qrX = c.width / 2 - qrSize / 2;
-      const qrY = 680;
+      const qrY = 770;
 
       ctx.fillStyle = '#ffffff';
       ctx.beginPath();
-      ctx.roundRect(qrX, qrY, qrSize, qrSize, 20);
+      ctx.roundRect(qrX, qrY, qrSize, qrSize, 24);
       ctx.fill();
 
-      // Pseudo QR Pattern
-      ctx.fillStyle = '#090d16';
-      const step = 20;
-      for (let x = qrX + 20; x < qrX + qrSize - 20; x += step) {
-        for (let y = qrY + 20; y < qrY + qrSize - 20; y += step) {
-          if (Math.random() > 0.45) {
+      // Pseudo QR pattern generator
+      ctx.fillStyle = '#020617';
+      const step = 24;
+      for (let x = qrX + 24; x < qrX + qrSize - 24; x += step) {
+        for (let y = qrY + 24; y < qrY + qrSize - 24; y += step) {
+          if (Math.random() > 0.44) {
             ctx.fillRect(x, y, step - 3, step - 3);
           }
         }
       }
-      // QR Corner Markers
+      // Corner Positioning Marks
       const drawQRCorner = (cx: number, cy: number) => {
-        ctx.fillStyle = '#090d16';
-        ctx.fillRect(cx, cy, 60, 60);
+        ctx.fillStyle = '#020617';
+        ctx.fillRect(cx, cy, 75, 75);
         ctx.fillStyle = '#ffffff';
-        ctx.fillRect(cx + 10, cy + 10, 40, 40);
-        ctx.fillStyle = '#090d16';
-        ctx.fillRect(cx + 20, cy + 20, 20, 20);
+        ctx.fillRect(cx + 12, cy + 12, 51, 51);
+        ctx.fillStyle = '#020617';
+        ctx.fillRect(cx + 24, cy + 24, 27, 27);
       };
-      drawQRCorner(qrX + 25, qrY + 25);
-      drawQRCorner(qrX + qrSize - 85, qrY + 25);
-      drawQRCorner(qrX + 25, qrY + qrSize - 85);
+      drawQRCorner(qrX + 30, qrY + 30);
+      drawQRCorner(qrX + qrSize - 105, qrY + 30);
+      drawQRCorner(qrX + 30, qrY + qrSize - 105);
 
       ctx.fillStyle = '#38bdf8';
-      ctx.font = 'bold 28px monospace';
+      ctx.font = 'bold 34px monospace';
       ctx.textAlign = 'center';
-      ctx.fillText('SCAN TO VISIT PORTFOLIO', c.width / 2, 1080);
-      ctx.fillStyle = '#94a3b8';
-      ctx.font = '24px monospace';
-      ctx.fillText('https://rizkillahramanda.my.id', c.width / 2, 1125);
+      ctx.fillText('SCAN TO VISIT PORTFOLIO', c.width / 2, 1260);
 
-      // Contact Row
-      ctx.fillStyle = 'rgba(30, 41, 59, 0.8)';
+      ctx.fillStyle = '#cbd5e1';
+      ctx.font = '28px monospace';
+      ctx.fillText('https://rizkillahramanda.my.id', c.width / 2, 1315);
+
+      // Contact Info Card
+      const infoY = 1400;
+      ctx.fillStyle = 'rgba(30, 41, 59, 0.9)';
       ctx.beginPath();
-      ctx.roundRect(80, 1200, c.width - 160, 140, 16);
+      ctx.roundRect(85, infoY, c.width - 170, 180, 20);
       ctx.fill();
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
       ctx.lineWidth = 2;
       ctx.stroke();
 
       ctx.fillStyle = '#ffffff';
-      ctx.font = 'bold 28px sans-serif';
-      ctx.fillText('Email: rizkillahramanda@gmail.com', c.width / 2, 1255);
+      ctx.font = 'bold 32px sans-serif';
+      ctx.fillText('Email: rizkillahramanda@gmail.com', c.width / 2, infoY + 68);
       ctx.fillStyle = '#38bdf8';
-      ctx.font = 'bold 26px monospace';
-      ctx.fillText('GitHub: github.com/Diki04', c.width / 2, 1300);
+      ctx.font = 'bold 30px monospace';
+      ctx.fillText('GitHub: github.com/Diki04', c.width / 2, infoY + 125);
 
       const texture = new THREE.CanvasTexture(c);
       texture.generateMipmaps = true;
@@ -477,39 +592,51 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
     const frontTexture = createCardFrontTexture();
     const backTexture = createCardBackTexture();
 
-    // --- Lanyard Strap Ribbon Texture ---
-    const createStrapTexture = () => {
+    // --- Woven Fabric Ribbon Texture for Flat Lanyard Strap ---
+    const createRibbonTexture = () => {
       const c = document.createElement('canvas');
-      c.width = 128;
+      c.width = 256;
       c.height = 1024;
       const ctx = c.getContext('2d');
       if (!ctx) return new THREE.CanvasTexture(c);
 
-      // Deep Dark Woven Strap
-      ctx.fillStyle = '#0b0f19';
+      // Deep Dark Woven Base
+      ctx.fillStyle = '#090d16';
       ctx.fillRect(0, 0, c.width, c.height);
 
-      // Side Neon Trim Stripes
-      ctx.fillStyle = '#38bdf8';
-      ctx.fillRect(0, 0, 10, c.height);
-      ctx.fillRect(c.width - 10, 0, 10, c.height);
-
-      // Subtle Woven Cross-hatch
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
-      ctx.lineWidth = 1;
-      for (let y = 0; y < c.height; y += 8) {
-        ctx.beginPath();
-        ctx.moveTo(10, y);
-        ctx.lineTo(c.width - 10, y + 4);
-        ctx.stroke();
+      // Woven Twill Fabric Grain Pattern
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.04)';
+      for (let y = 0; y < c.height; y += 4) {
+        for (let x = 0; x < c.width; x += 8) {
+          if ((x + y) % 8 === 0) {
+            ctx.fillRect(x, y, 4, 2);
+          }
+        }
       }
 
-      // Vertical text repeated
+      // Neon Cyan Side Border Stitching
+      ctx.fillStyle = '#38bdf8';
+      ctx.fillRect(0, 0, 16, c.height);
+      ctx.fillRect(c.width - 16, 0, 16, c.height);
+
+      // Inner White Stitching Line
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([6, 6]);
+      ctx.beginPath();
+      ctx.moveTo(22, 0);
+      ctx.lineTo(22, c.height);
+      ctx.moveTo(c.width - 22, 0);
+      ctx.lineTo(c.width - 22, c.height);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Vertical Text Printed Along Ribbon
       ctx.save();
       ctx.translate(c.width / 2, c.height / 2);
       ctx.rotate(-Math.PI / 2);
-      ctx.font = 'bold 28px monospace';
-      ctx.fillStyle = '#e2e8f0';
+      ctx.font = 'bold 36px monospace';
+      ctx.fillStyle = '#f8fafc';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText('✦ RIZKILLAH RAMANDA ✦ UNRI INFORMATICS ✦ FULLSTACK DEV', 0, 0);
@@ -522,30 +649,39 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
       return texture;
     };
 
-    const strapTexture = createStrapTexture();
+    const ribbonTexture = createRibbonTexture();
 
-    // --- 3D ID Badge Card Mesh ---
-    const cardWidth = 2.4;
-    const cardHeight = 3.6;
-    const cardThickness = 0.05;
+    // --- 3D ID Badge Card Mesh (MeshPhysicalMaterial with Photorealistic Clearcoat) ---
+    const cardWidth = 2.6;
+    const cardHeight = 3.9;
+    const cardThickness = 0.06;
     const cardGeometry = new THREE.BoxGeometry(cardWidth, cardHeight, cardThickness);
 
+    // Dark sleek acrylic edges
     const edgeMaterial = new THREE.MeshStandardMaterial({
-      color: 0x1e293b,
-      metalness: 0.8,
-      roughness: 0.2,
+      color: 0x0f172a,
+      metalness: 0.9,
+      roughness: 0.15,
     });
 
-    const frontMaterial = new THREE.MeshStandardMaterial({
+    // Front: Glossy Laminated Clearcoat
+    const frontMaterial = new THREE.MeshPhysicalMaterial({
       map: frontTexture,
-      roughness: 0.25,
-      metalness: 0.15,
+      roughness: 0.16,
+      metalness: 0.08,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.06,
+      reflectivity: 0.9,
     });
 
-    const backMaterial = new THREE.MeshStandardMaterial({
+    // Back: Glossy Laminated Clearcoat
+    const backMaterial = new THREE.MeshPhysicalMaterial({
       map: backTexture,
-      roughness: 0.3,
-      metalness: 0.1,
+      roughness: 0.2,
+      metalness: 0.08,
+      clearcoat: 0.9,
+      clearcoatRoughness: 0.08,
+      reflectivity: 0.85,
     });
 
     const cardMaterials = [
@@ -561,33 +697,41 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
     cardMesh.castShadow = true;
     cardMesh.receiveShadow = true;
 
-    // --- Metallic Clip / Hardware ---
+    // --- Realistic Swivel Lobster Claw Carabiner Hardware ---
     const metalMaterial = new THREE.MeshStandardMaterial({
-      color: 0xd1d5db,
-      metalness: 0.95,
-      roughness: 0.15,
+      color: 0xededed,
+      metalness: 0.96,
+      roughness: 0.12,
     });
 
-    const clipGroup = new THREE.Group();
-    // Torus ring
-    const ringGeo = new THREE.TorusGeometry(0.18, 0.035, 16, 32);
-    const ringMesh = new THREE.Mesh(ringGeo, metalMaterial);
-    ringMesh.position.set(0, cardHeight / 2 + 0.18, 0);
-    clipGroup.add(ringMesh);
+    const hardwareGroup = new THREE.Group();
 
-    // Clasp holder
-    const claspGeo = new THREE.BoxGeometry(0.36, 0.16, 0.09);
-    const claspMesh = new THREE.Mesh(claspGeo, metalMaterial);
-    claspMesh.position.set(0, cardHeight / 2 + 0.04, 0);
-    clipGroup.add(claspMesh);
+    // 1. Oval D-Ring holding the ribbon loop
+    const dRingGeo = new THREE.TorusGeometry(0.22, 0.04, 16, 32);
+    const dRingMesh = new THREE.Mesh(dRingGeo, metalMaterial);
+    dRingMesh.position.set(0, cardHeight / 2 + 0.42, 0);
+    hardwareGroup.add(dRingMesh);
 
-    // Carabiner latch
-    const latchGeo = new THREE.CylinderGeometry(0.06, 0.06, 0.28, 16);
-    const latchMesh = new THREE.Mesh(latchGeo, metalMaterial);
-    latchMesh.position.set(0, cardHeight / 2 + 0.36, 0);
-    clipGroup.add(latchMesh);
+    // 2. Swivel Barrel Connector
+    const swivelGeo = new THREE.CylinderGeometry(0.08, 0.08, 0.22, 20);
+    const swivelMesh = new THREE.Mesh(swivelGeo, metalMaterial);
+    swivelMesh.position.set(0, cardHeight / 2 + 0.24, 0);
+    hardwareGroup.add(swivelMesh);
 
-    cardMesh.add(clipGroup);
+    // 3. Lobster Claw / Snap Hook looping through card slot
+    const clawGeo = new THREE.TorusGeometry(0.16, 0.038, 16, 32, Math.PI * 1.5);
+    const clawMesh = new THREE.Mesh(clawGeo, metalMaterial);
+    clawMesh.position.set(0, cardHeight / 2 + 0.08, 0);
+    clawMesh.rotation.z = -Math.PI / 4;
+    hardwareGroup.add(clawMesh);
+
+    // 4. Clip retention sleeve
+    const sleeveGeo = new THREE.BoxGeometry(0.32, 0.14, 0.1);
+    const sleeveMesh = new THREE.Mesh(sleeveGeo, metalMaterial);
+    sleeveMesh.position.set(0, cardHeight / 2 + 0.02, 0);
+    hardwareGroup.add(sleeveMesh);
+
+    cardMesh.add(hardwareGroup);
 
     // Card Master Group
     const cardContainer = new THREE.Group();
@@ -595,7 +739,7 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
     scene.add(cardContainer);
 
     // --- Physics Chain for Lanyard Strap ---
-    const anchorY = 3.8;
+    const anchorY = 3.2;
     const anchorPoint = new THREE.Vector3(0, anchorY, 0);
     const chainSegments = 10;
     const restLength = (anchorY - 0.2) / chainSegments;
@@ -616,29 +760,30 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
       });
     }
 
-    // Strap Mesh (Constructed with TubeGeometry along CatmullRomCurve3)
-    let strapCurve = new THREE.CatmullRomCurve3(
+    // Flat Ribbon Strap Mesh using createRibbonGeometry
+    let ribbonCurve = new THREE.CatmullRomCurve3(
       particles.map((p) => p.pos),
       false,
       'chordal',
-      0.4
+      0.35
     );
 
-    let strapGeometry = new THREE.TubeGeometry(strapCurve, 32, 0.06, 8, false);
-    const strapMaterial = new THREE.MeshStandardMaterial({
-      map: strapTexture,
-      roughness: 0.7,
+    let ribbonGeometry = createRibbonGeometry(ribbonCurve, 32, 0.34);
+    const ribbonMaterial = new THREE.MeshStandardMaterial({
+      map: ribbonTexture,
+      roughness: 0.65,
       metalness: 0.1,
+      side: THREE.DoubleSide,
     });
-    const strapMesh = new THREE.Mesh(strapGeometry, strapMaterial);
-    scene.add(strapMesh);
+    const ribbonMesh = new THREE.Mesh(ribbonGeometry, ribbonMaterial);
+    scene.add(ribbonMesh);
 
-    // Top Ceiling Anchor Ring
-    const topAnchorGeo = new THREE.TorusGeometry(0.22, 0.04, 16, 32);
-    const topAnchorMesh = new THREE.Mesh(topAnchorGeo, metalMaterial);
-    topAnchorMesh.position.copy(anchorPoint);
-    topAnchorMesh.rotation.x = Math.PI / 2;
-    scene.add(topAnchorMesh);
+    // Ceiling Anchor Mount
+    const ceilingMountGeo = new THREE.CylinderGeometry(0.24, 0.24, 0.06, 24);
+    const ceilingMount = new THREE.Mesh(ceilingMountGeo, metalMaterial);
+    ceilingMount.position.copy(anchorPoint);
+    ceilingMount.rotation.x = Math.PI / 2;
+    scene.add(ceilingMount);
 
     // --- State & Interaction Variables ---
     let isDragging = false;
@@ -649,7 +794,7 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
     let dragOffset = new THREE.Vector3();
 
     // Card physics state
-    let cardPos = new THREE.Vector3(0, 0.1, 0);
+    let cardPos = new THREE.Vector3(0, -0.05, 0);
     let cardVel = new THREE.Vector3(0, 0, 0);
     let cardRotX = 0;
     let cardRotY = 0;
@@ -659,7 +804,15 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
     let pointerDownTime = 0;
     let pointerDownPos = { x: 0, y: 0 };
 
-    // --- Pointer Event Listeners ---
+    // Function to trigger flip
+    const toggleFlip = () => {
+      isFlipped = !isFlipped;
+      targetRotY = isFlipped ? Math.PI : 0;
+      setFlipState(isFlipped);
+    };
+    triggerFlipRef.current = toggleFlip;
+
+    // --- Pointer Coordinates & Raycast ---
     const getPointerCoords = (e: MouseEvent | TouchEvent) => {
       const rect = canvas.getBoundingClientRect();
       const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
@@ -705,12 +858,12 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
         if (raycaster.ray.intersectPlane(dragPlane, planeIntersect)) {
           const target = planeIntersect.clone().add(dragOffset);
           // Clamp dragging bounds
-          target.x = THREE.MathUtils.clamp(target.x, -3.2, 3.2);
-          target.y = THREE.MathUtils.clamp(target.y, -2.8, 2.5);
+          target.x = THREE.MathUtils.clamp(target.x, -2.6, 2.6);
+          target.y = THREE.MathUtils.clamp(target.y, -2.2, 1.8);
 
           // Calculate impulse velocity
-          cardVel.x = (target.x - cardPos.x) * 0.45;
-          cardVel.y = (target.y - cardPos.y) * 0.45;
+          cardVel.x = (target.x - cardPos.x) * 0.48;
+          cardVel.y = (target.y - cardPos.y) * 0.48;
           cardPos.copy(target);
         }
       } else {
@@ -730,7 +883,7 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
         isDragging = false;
         setIsInteracting(false);
 
-        // Check if it was a quick click / tap rather than a drag
+        // Check if quick tap / click rather than drag
         const dt = Date.now() - pointerDownTime;
         const p =
           'changedTouches' in e
@@ -744,10 +897,8 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
           p.y - pointerDownPos.y
         );
 
-        if (dt < 280 && dist < 12) {
-          // Flip Card 180 degrees
-          isFlipped = !isFlipped;
-          targetRotY = isFlipped ? Math.PI : 0;
+        if (dt < 280 && dist < 14) {
+          toggleFlip();
         }
       }
     };
@@ -760,7 +911,7 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
     window.addEventListener('touchmove', handlePointerMove, { passive: true });
     window.addEventListener('touchend', handlePointerUp);
 
-    // --- Animation & Physics Loop ---
+    // --- Animation & Physics Loop (60 FPS) ---
     let animationId: number;
     let clock = new THREE.Clock();
 
@@ -769,34 +920,30 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
       const delta = Math.min(clock.getDelta(), 0.033);
       const elapsedTime = clock.getElapsedTime();
 
-      // 1. Animate Floating Neon Orbs (Breathing Pulse)
+      // 1. Animate Floating Neon Orbs
       orbs.forEach((orb) => {
         const floatY =
           Math.sin(elapsedTime * orb.speed + orb.phase) * orb.amplitude;
         const floatX =
           Math.cos(elapsedTime * (orb.speed * 0.7) + orb.phase) *
-          (orb.amplitude * 0.4);
+          (orb.amplitude * 0.35);
         orb.mesh.position.y = orb.baseY + floatY;
         orb.mesh.position.x = orb.baseX + floatX;
 
-        // Subtle scale pulsation
-        const pulse = 1 + Math.sin(elapsedTime * 2.2 + orb.phase) * 0.18;
+        const pulse = 1 + Math.sin(elapsedTime * 2.0 + orb.phase) * 0.16;
         orb.mesh.scale.set(pulse, pulse, pulse);
       });
 
       // 2. Card Spring & Pendulum Physics
       if (!isDragging) {
-        // Restoring spring toward center rest position (0, 0.15, 0)
-        const restPos = new THREE.Vector3(0, 0.15, 0);
-        const springForce = restPos.clone().sub(cardPos).multiplyScalar(15.0);
-
-        // Pendulum gravity
+        const restPos = new THREE.Vector3(0, -0.05, 0);
+        const springForce = restPos.clone().sub(cardPos).multiplyScalar(16.0);
         const gravity = new THREE.Vector3(0, -9.8, 0);
 
-        // Subtle idle ambient sway
+        // Gentle idle ambient sway
         const idleSway = new THREE.Vector3(
-          Math.sin(elapsedTime * 1.5) * 0.08,
-          Math.cos(elapsedTime * 2.0) * 0.04,
+          Math.sin(elapsedTime * 1.6) * 0.06,
+          Math.cos(elapsedTime * 2.2) * 0.03,
           0
         );
 
@@ -804,8 +951,8 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
         cardVel.add(gravity.multiplyScalar(delta));
         cardVel.add(idleSway.multiplyScalar(delta));
 
-        // Damping
-        cardVel.multiplyScalar(0.96);
+        // Natural Damping
+        cardVel.multiplyScalar(0.965);
         cardPos.add(cardVel.clone().multiplyScalar(delta * 60));
       }
 
@@ -813,48 +960,45 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
       cardContainer.position.set(cardPos.x, cardPos.y, cardPos.z);
 
       // Card Rotations:
-      // Z-tilt reacts to X-velocity and displacement
-      const targetRotZ = -cardVel.x * 0.4 - (cardPos.x / 3.0) * 0.35;
-      cardRotZ = THREE.MathUtils.lerp(cardRotZ, targetRotZ, 0.12);
+      // Z-tilt reacts to horizontal velocity & displacement
+      const targetRotZ = -cardVel.x * 0.38 - (cardPos.x / 2.6) * 0.32;
+      cardRotZ = THREE.MathUtils.lerp(cardRotZ, targetRotZ, 0.14);
 
-      // X-tilt reacts to Y-velocity and idle breathing
+      // X-tilt reacts to vertical velocity & gentle breathing
       const targetRotX =
-        cardVel.y * 0.35 + Math.sin(elapsedTime * 1.8) * 0.06;
-      cardRotX = THREE.MathUtils.lerp(cardRotX, targetRotX, 0.12);
+        cardVel.y * 0.32 + Math.sin(elapsedTime * 1.8) * 0.05;
+      cardRotX = THREE.MathUtils.lerp(cardRotX, targetRotX, 0.14);
 
-      // Y-rotation (card flip target + subtle sway)
-      const swayY = Math.sin(elapsedTime * 1.2) * 0.08;
+      // Y-rotation (flip interpolation + idle yaw sway)
+      const swayY = Math.sin(elapsedTime * 1.3) * 0.06;
       cardRotY = THREE.MathUtils.lerp(
         cardRotY,
         targetRotY + swayY,
-        0.08
+        0.09
       );
 
       cardMesh.rotation.set(cardRotX, cardRotY, cardRotZ);
 
-      // 3. Update Verlet Physics on Lanyard Strap
+      // 3. Update Verlet Physics on Ribbon Strap
       const topClipPoint = new THREE.Vector3(
         cardPos.x,
-        cardPos.y + cardHeight / 2 + 0.45,
+        cardPos.y + cardHeight / 2 + 0.44,
         cardPos.z
       );
 
-      // Verlet step
       const damping = 0.93;
       for (let i = 1; i < chainSegments; i++) {
         const p = particles[i];
         const vel = p.pos.clone().sub(p.oldPos).multiplyScalar(damping);
         p.oldPos.copy(p.pos);
         p.pos.add(vel);
-        // Gravity on ribbon
-        p.pos.y -= 9.8 * delta * delta * 25.0;
+        p.pos.y -= 9.8 * delta * delta * 24.0;
       }
 
-      // Pin ends
       particles[0].pos.copy(anchorPoint);
       particles[chainSegments].pos.copy(topClipPoint);
 
-      // Relaxation constraints (5 iterations for firm yet flexible cloth ribbon)
+      // Relaxation constraints (6 iterations for firm realistic ribbon)
       for (let iter = 0; iter < 6; iter++) {
         particles[0].pos.copy(anchorPoint);
         particles[chainSegments].pos.copy(topClipPoint);
@@ -878,32 +1022,26 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
         }
       }
 
-      // Re-generate strap geometry smoothly
-      strapCurve = new THREE.CatmullRomCurve3(
+      // Re-generate Flat Ribbon Geometry
+      ribbonCurve = new THREE.CatmullRomCurve3(
         particles.map((p) => p.pos),
         false,
         'chordal',
-        0.3
+        0.35
       );
-      strapMesh.geometry.dispose();
-      strapMesh.geometry = new THREE.TubeGeometry(
-        strapCurve,
-        32,
-        0.065,
-        8,
-        false
-      );
+      ribbonMesh.geometry.dispose();
+      ribbonMesh.geometry = createRibbonGeometry(ribbonCurve, 32, 0.34);
 
-      // Dynamic light tracking
-      cyanPointLight.position.set(cardPos.x - 2, cardPos.y + 1, 3);
-      purplePointLight.position.set(cardPos.x + 2, cardPos.y - 1, 2.5);
+      // Dynamic Specular Light Tracking
+      cyanPointLight.position.set(cardPos.x - 2.2, cardPos.y + 0.8, 2.8);
+      violetPointLight.position.set(cardPos.x + 2.2, cardPos.y - 0.8, 2.4);
 
       renderer.render(scene, camera);
     };
 
     animate();
 
-    // --- Resize Handler ---
+    // --- Resize Observer ---
     const handleResize = () => {
       if (!container) return;
       width = container.clientWidth;
@@ -911,13 +1049,13 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2.5));
     };
 
     const resizeObserver = new ResizeObserver(handleResize);
     resizeObserver.observe(container);
 
-    // --- Cleanup ---
+    // --- Resource Disposal Cleanup ---
     return () => {
       cancelAnimationFrame(animationId);
       resizeObserver.disconnect();
@@ -931,16 +1069,17 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
       renderer.dispose();
       frontTexture.dispose();
       backTexture.dispose();
-      strapTexture.dispose();
+      ribbonTexture.dispose();
       cardGeometry.dispose();
-      strapGeometry.dispose();
+      ribbonGeometry.dispose();
       orbGeometry.dispose();
-      ringGeo.dispose();
-      claspGeo.dispose();
-      latchGeo.dispose();
-      topAnchorGeo.dispose();
+      dRingGeo.dispose();
+      swivelGeo.dispose();
+      clawGeo.dispose();
+      sleeveGeo.dispose();
+      ceilingMountGeo.dispose();
       cardMaterials.forEach((m) => m.dispose());
-      strapMaterial.dispose();
+      ribbonMaterial.dispose();
       metalMaterial.dispose();
     };
   }, []);
@@ -948,7 +1087,7 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
   return (
     <div
       ref={containerRef}
-      className={`relative w-full h-[520px] sm:h-[560px] flex items-center justify-center select-none ${className}`}
+      className={`relative w-full h-[580px] sm:h-[620px] lg:h-[640px] flex items-center justify-center select-none ${className}`}
     >
       {/* Three.js Canvas */}
       <canvas
@@ -956,23 +1095,35 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
         className="w-full h-full block cursor-grab active:cursor-grabbing touch-none z-10"
       />
 
-      {/* Interactive Tooltip & Hint Overlay */}
-      <div
-        className={`absolute bottom-4 left-1/2 -translate-x-1/2 z-20 pointer-events-none transition-all duration-500 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 dark:bg-navy-950/85 backdrop-blur-md border border-slate-700/50 dark:border-white/10 shadow-xl ${
-          isInteracting ? 'scale-95 opacity-40' : 'scale-100 opacity-90'
-        }`}
-      >
-        <Hand className="w-3.5 h-3.5 text-sky-400 animate-pulse" />
-        <span className="text-xs font-mono text-slate-200">
-          {isEn
-            ? 'Drag to swing • Click to flip ID card'
-            : 'Tarik untuk mengayun • Klik untuk membalik ID'}
-        </span>
-        <Sparkles className="w-3 h-3 text-emerald-400" />
+      {/* Floating Interactive Controls & Hint Badge */}
+      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+        <div
+          className={`transition-all duration-300 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/85 dark:bg-navy-950/90 backdrop-blur-md border border-slate-700/60 dark:border-white/10 shadow-xl pointer-events-none ${
+            isInteracting ? 'scale-95 opacity-40' : 'scale-100 opacity-95'
+          }`}
+        >
+          <Hand className="w-3.5 h-3.5 text-sky-400 animate-pulse" />
+          <span className="text-xs font-mono text-slate-200">
+            {isEn
+              ? 'Drag to swing • Click to flip badge'
+              : 'Tarik untuk mengayun • Klik untuk membalik'}
+          </span>
+          <Sparkles className="w-3 h-3 text-emerald-400" />
+        </div>
+
+        {/* Quick Flip Button */}
+        <button
+          onClick={() => triggerFlipRef.current()}
+          className="p-1.5 rounded-full bg-white/90 dark:bg-navy-900/90 hover:bg-sky-500 hover:text-white dark:hover:bg-sky-500 border border-slate-300 dark:border-white/15 text-slate-700 dark:text-slate-200 shadow-lg transition-colors cursor-pointer"
+          title={isEn ? 'Flip Badge' : 'Balik Kartu'}
+          aria-label="Flip Badge"
+        >
+          <RefreshCw className="w-3.5 h-3.5" />
+        </button>
       </div>
 
-      {/* Decorative Corner Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full bg-sky-500/10 dark:bg-sky-400/10 blur-[90px] pointer-events-none -z-10" />
+      {/* Ambient Radial Glow Behind Card */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-sky-500/15 dark:bg-sky-400/15 blur-[100px] pointer-events-none -z-10" />
     </div>
   );
 }

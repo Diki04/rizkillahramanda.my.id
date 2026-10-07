@@ -138,7 +138,7 @@ export function Hero() {
             {/* Ambient Background Aura */}
             <div className="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-sky-500/20 via-blue-600/20 to-emerald-400/20 blur-3xl opacity-50 pointer-events-none" />
 
-            <div className="w-full max-w-[420px] relative">
+            <div className="w-full max-w-[460px] xl:max-w-[480px] relative">
               <ThreeLanyard />
 
               {/* Quick Metrics Below Lanyard */}
