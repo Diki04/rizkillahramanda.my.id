@@ -7,6 +7,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { X, ExternalLink, Github, Calendar, Tag } from 'lucide-react';
 import { Button } from '@/common/components/Button';
 import { Badge } from '@/common/components/Badge';
+import { getTechIcon } from '@/common/utils/techIcons';
 
 interface ProjectModalProps {
   project: Project | null;
@@ -71,14 +72,18 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
               Tech Stack & Libraries
             </span>
             <div className="flex flex-wrap gap-2">
-              {project.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="px-2.5 py-1 rounded-md text-xs font-mono bg-navy-950 text-slate-200 border border-white/[0.08]"
-                >
-                  {tag}
-                </span>
-              ))}
+              {project.tags.map((tag) => {
+                const { icon: TechIcon, color } = getTechIcon(tag);
+                return (
+                  <span
+                    key={tag}
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono bg-navy-950 text-slate-200 border border-white/[0.08] hover:border-white/[0.15] transition-colors"
+                  >
+                    <TechIcon className="w-3.5 h-3.5 shrink-0" style={{ color }} />
+                    <span>{tag}</span>
+                  </span>
+                );
+              })}
             </div>
           </div>
 
