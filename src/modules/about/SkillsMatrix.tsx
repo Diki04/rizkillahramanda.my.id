@@ -1,0 +1,76 @@
+import React from 'react';
+import { useTranslations } from 'next-intl';
+import { SpotlightCard } from '@/common/components/SpotlightCard';
+import { mockSkills } from '@/services/data/mock-profile';
+import { Layout, Server, Cpu, Wrench } from 'lucide-react';
+
+export function SkillsMatrix() {
+  const t = useTranslations('about');
+
+  const categories = [
+    {
+      id: 'frontend',
+      label: t('frontendCategory'),
+      icon: Layout,
+      skills: mockSkills.filter((s) => s.category === 'frontend'),
+    },
+    {
+      id: 'backend',
+      label: t('backendCategory'),
+      icon: Server,
+      skills: mockSkills.filter((s) => s.category === 'backend'),
+    },
+    {
+      id: 'ml',
+      label: t('mlCategory'),
+      icon: Cpu,
+      skills: mockSkills.filter((s) => s.category === 'ml'),
+    },
+    {
+      id: 'tools',
+      label: t('toolsCategory'),
+      icon: Wrench,
+      skills: mockSkills.filter((s) => s.category === 'tools'),
+    },
+  ];
+
+  return (
+    <div className="space-y-4">
+      <h3 className="text-xl font-bold text-white flex items-center gap-2">
+        <span>{t('skillsTitle')}</span>
+      </h3>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {categories.map((cat) => {
+          const Icon = cat.icon;
+          return (
+            <SpotlightCard key={cat.id} className="p-5 space-y-4">
+              <div className="flex items-center gap-2.5 border-b border-white/[0.06] pb-3">
+                <div className="p-1.5 rounded-lg bg-navy-950 border border-white/[0.08] text-accent-blue">
+                  <Icon className="w-4 h-4" />
+                </div>
+                <h4 className="font-semibold text-sm text-white">{cat.label}</h4>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                {cat.skills.map((skill) => (
+                  <div
+                    key={skill.name}
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-navy-950/80 border border-white/[0.06] hover:border-accent-blue/30 transition-colors"
+                  >
+                    <span className="text-xs font-mono text-slate-200">
+                      {skill.name}
+                    </span>
+                    <span className="text-[10px] font-mono text-accent-blue/80">
+                      • {skill.level}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </SpotlightCard>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
