@@ -33,7 +33,7 @@ export function QuoteCard() {
         </button>
       </div>
       <blockquote className="text-slate-300 italic text-sm mb-3">
-        "{current.text}"
+        &ldquo;{current.text}&rdquo;
       </blockquote>
       <p className="text-xs text-slate-500 font-mono">— {current.author}</p>
     </SpotlightCard>
