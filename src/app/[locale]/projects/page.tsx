@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { Container } from '@/common/components/Container';
+import { ScrollReveal } from '@/common/components/ScrollReveal';
 import { ProjectsFilter } from '@/modules/projects/ProjectsFilter';
 import { ProjectCard } from '@/modules/projects/ProjectCard';
 import { ProjectModal } from '@/modules/projects/ProjectModal';
@@ -33,30 +34,30 @@ export default function ProjectsPage() {
     <div className="py-16 md:py-20 space-y-12">
       <Container size="xl">
         {/* Header */}
-        <div className="space-y-3 max-w-2xl">
+        <ScrollReveal className="space-y-3 max-w-2xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-sky-400/20 bg-sky-400/10 text-sky-600 dark:text-accent-blue text-xs font-mono font-medium">
             <FolderGit2 className="w-3.5 h-3.5" />
-            <span>Curated Showcase</span>
+            <span>{t('badge')}</span>
           </div>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
             {t('title')}
           </h1>
           <p className="text-base text-slate-600 dark:text-slate-400">{t('subtitle')}</p>
-        </div>
+        </ScrollReveal>
 
         {/* Filter & Search Bar */}
-        <div className="pt-4">
+        <ScrollReveal className="pt-4" delay={0.1}>
           <ProjectsFilter
             activeCategory={activeCategory}
             onSelectCategory={setActiveCategory}
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}
           />
-        </div>
+        </ScrollReveal>
 
         {/* Projects Grid */}
         {filteredProjects.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
+          <ScrollReveal className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4" delay={0.2}>
             {filteredProjects.map((project) => (
               <ProjectCard
                 key={project.id}
@@ -64,13 +65,13 @@ export default function ProjectsPage() {
                 onOpenModal={setSelectedProject}
               />
             ))}
-          </div>
+          </ScrollReveal>
         ) : (
-          <div className="py-20 text-center rounded-2xl border border-slate-200 dark:border-white/[0.06] bg-slate-100 dark:bg-navy-900/40">
+          <ScrollReveal className="py-20 text-center rounded-2xl border border-slate-200 dark:border-white/[0.06] bg-slate-100 dark:bg-navy-900/40">
             <p className="font-mono text-sm text-slate-500 dark:text-slate-400">
-              Tidak ada proyek yang sesuai dengan pencarian Anda.
+              {t('emptyState')}
             </p>
-          </div>
+          </ScrollReveal>
         )}
       </Container>
 

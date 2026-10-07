@@ -23,16 +23,57 @@
   "about": {
     "title": "About Me",
     "subtitle": "My journey in software engineering and computational sciences",
+    "heading": "Engineering Journey & Profile",
+    "description": "An overview of my academic foundation at Universitas Riau, hands-on software engineering, technical skillset, and personal workstation.",
     "bioTitle": "Brief Biography",
     "educationTitle": "Education",
     "degree": "B.Sc. in Informatics Engineering",
+    "educationPeriod": "2024 - Present",
+    "educationLocation": "Pekanbaru, Riau, Indonesia",
+    "educationDesc": "Comprehensively studying the foundations of computer science and software engineering, covering data structures & algorithms, database systems architecture, full-stack web development, and artificial intelligence & machine learning.",
+    "educationTag1": "GPA Oriented & Research Active",
+    "educationTag2": "Algorithms & Data Structures",
+    "educationTag3": "Software Engineering",
     "skillsTitle": "Technical Skills & Toolkit",
     "frontendCategory": "Front-End & UI",
     "backendCategory": "Back-End & Database",
     "mlCategory": "Machine Learning & AI",
-    "toolsCategory": "DevOps & Tooling"
+    "toolsCategory": "DevOps & Tooling",
+    "careerJourneyTitle": "Career Journey & Milestones",
+    "devEnvironmentTitle": "Development Environment",
+    "devEnvironmentSubtitle": "My daily driver hardware and software development setup."
+  },
+  "techStack": {
+    "badge": "Verified Stack",
+    "title": "Engineering Stack & Tooling",
+    "subtitle": "Official libraries, frameworks, and developer tools powering my fullstack applications and AI research.",
+    "searchPlaceholder": "Search tech stack...",
+    "categoryAll": "All Technologies",
+    "categoryFrontend": "Front-End",
+    "categoryBackend": "Back-End",
+    "categoryAiml": "AI & Machine Learning",
+    "categoryDatabase": "Database & Cloud",
+    "categoryTools": "DevOps & Tools"
+  },
+  "devHighlights": {
+    "badge": "Workflow & Philosophy",
+    "title": "Developer Environment & Philosophy",
+    "subtitle": "The setup, engineering habits, and continuous metrics that drive high-quality software craftsmanship.",
+    "liveMetrics": "Live Metrics",
+    "workstationTitle": "Workstation & Engineering Environment",
+    "workstationSubtitle": "Reliable local development toolchain optimized for speed and DX."
+  },
+  "contactCta": {
+    "badge": "Available for New Projects",
+    "headlinePrefix": "Let's build something",
+    "headlineHighlight": "impactful",
+    "headlineSuffix": "together.",
+    "description": "Interested in collaborating on a web project, discussing machine learning research, or just saying hello? I am always open to new connections.",
+    "sendMessage": "Send a Message",
+    "leaveNote": "Leave a Note in Guestbook"
   },
   "projects": {
+    "badge": "Curated Showcase",
     "title": "Projects & Portfolio",
     "subtitle": "Featured software engineering work, web apps, and machine learning models",
     "filterAll": "All",
@@ -41,11 +82,16 @@
     "filterMl": "Machine Learning",
     "liveDemo": "Live Demo",
     "sourceCode": "Source Code",
-    "featured": "Featured"
+    "featured": "Featured",
+    "viewDetails": "View Details",
+    "emptyState": "No projects found matching your search criteria."
   },
   "dashboard": {
+    "badge": "Live Telemetry",
     "title": "Developer Dashboard",
     "subtitle": "Real-time coding activity statistics from GitHub & Wakatime",
+    "mainHeading": "Developer Metrics Dashboard",
+    "mainDescription": "Live statistics from GitHub, code editor telemetry from Wakatime, typing velocity, and problem-solving benchmarks.",
     "githubStats": "GitHub Statistics",
     "publicRepos": "Public Repositories",
     "followers": "Followers",
@@ -54,9 +100,17 @@
     "wakatimeStats": "Wakatime Statistics",
     "totalHours": "Total Coding Hours",
     "dailyAverage": "Daily Average",
-    "topLanguages": "Top Languages"
+    "topLanguages": "Top Languages",
+    "currentStreak": "Current Streak",
+    "longestStreak": "Longest Streak",
+    "contributions": "Contributions",
+    "days": "Days",
+    "hoverTooltip": "Hover over a block to view daily commit details",
+    "less": "Less",
+    "more": "More"
   },
   "achievements": {
+    "badge": "Verified Credentials",
     "title": "Certifications & Honors",
     "subtitle": "Professional validations and academic milestones",
     "issuedBy": "Issued by",
@@ -65,6 +119,7 @@
     "viewCertificate": "View Certificate"
   },
   "chat": {
+    "badge": "Interactive Guestbook",
     "title": "Guestbook & Messages",
     "subtitle": "Leave a greeting, thought, or note for me",
     "namePlaceholder": "Your Name",
@@ -74,6 +129,7 @@
     "emptyState": "No messages yet. Be the first to leave a message!"
   },
   "contact": {
+    "badge": "Get in Touch",
     "title": "Contact Me",
     "subtitle": "Let us discuss project opportunities, research collaboration, or just say hello",
     "emailLabel": "Direct Email",
@@ -84,6 +140,17 @@
     "formMessage": "Message",
     "formSubmit": "Send Message",
     "copied": "Copied to clipboard!"
+  },
+  "links": {
+    "backHome": "Home",
+    "copied": "Copied",
+    "share": "Share",
+    "qrModalTitle": "QR Code Profile",
+    "qrModalDesc": "Scan to open profile rizkillah.dev/links",
+    "copyUrl": "Copy URL",
+    "copiedToast": "Copied to Clipboard!",
+    "getInTouch": "Get in Touch",
+    "getInTouchDesc": "Open for project collaborations, technical discussions, and career opportunities."
   },
   "admin": {
     "title": "Admin Management Portal",
@@ -102,7 +169,7 @@
   "common": {
     "backToHome": "Back to Home",
     "pageNotFound": "Page Not Found",
-    "errorOccurred": "An Unexpected Error Occurred",
+    "errorOccurred": "System Error Occurred",
     "tryAgain": "Try Again"
   }
 }

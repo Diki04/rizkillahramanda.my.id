@@ -7,7 +7,6 @@ import { Container } from '@/common/components/Container';
 import { ThemeToggle } from '@/common/components/ThemeToggle';
 import { LocaleSwitcher } from '@/common/components/LocaleSwitcher';
 import { LayoutToggle } from '@/common/components/LayoutToggle';
-import { AmbientAudioPlayer } from '@/common/components/AmbientAudioPlayer';
 import { Menu, X, Github, Shield } from 'lucide-react';
 import { cn } from '@/common/utils/cn';
 
@@ -73,7 +72,6 @@ export function Navbar() {
           {/* Actions & Controls */}
           <div className="hidden md:flex items-center gap-2">
             <LayoutToggle />
-            <AmbientAudioPlayer />
             <LocaleSwitcher />
             <ThemeToggle />
             <Link

@@ -24,10 +24,13 @@ import {
 } from 'lucide-react';
 import { SiInstagram, SiTiktok } from 'react-icons/si';
 import { ThemeToggle } from '@/common/components/ThemeToggle';
+import { LocaleSwitcher } from '@/common/components/LocaleSwitcher';
 import { mockProfile } from '@/services/data/mock-profile';
 
 export default function LinksPage() {
   const locale = useLocale();
+  const t = useTranslations('links');
+  const isEn = locale === 'en';
   const [copied, setCopied] = useState(false);
   const [showQrModal, setShowQrModal] = useState(false);
 
@@ -41,48 +44,48 @@ export default function LinksPage() {
 
   const bioLinks = [
     {
-      title: 'Portfolio & Engineering Showcase',
-      description: 'Personal portfolio, interactive telemetry, and projects',
+      title: isEn ? 'Portfolio & Engineering Showcase' : 'Portofolio & Showcase Rekayasa',
+      description: isEn ? 'Personal portfolio, interactive telemetry, and projects' : 'Portofolio pribadi, telemetri interaktif, dan proyek terpilih',
       href: '/',
       icon: Globe,
       isExternal: false,
       color: 'text-sky-500',
     },
     {
-      title: 'GitHub Repositories',
-      description: 'Explore 49+ open source repositories and contributions',
+      title: isEn ? 'GitHub Repositories' : 'Repositori GitHub',
+      description: isEn ? 'Explore 49+ open source repositories and contributions' : 'Jelajahi 49+ repositori open source dan kontribusi',
       href: 'https://github.com/Diki04',
       icon: Github,
       isExternal: true,
       color: 'text-slate-800 dark:text-white',
     },
     {
-      title: 'LinkedIn Network',
-      description: 'Professional experience, apprenticeships, and connections',
+      title: isEn ? 'LinkedIn Network' : 'Jejaring LinkedIn',
+      description: isEn ? 'Professional experience, apprenticeships, and connections' : 'Pengalaman profesional, magang, dan koneksi',
       href: 'https://www.linkedin.com/in/rizkillah-ramanda-sinyo/',
       icon: Linkedin,
       isExternal: true,
       color: 'text-sky-600',
     },
     {
-      title: 'Download Curriculum Vitae (CV)',
-      description: 'Detailed software engineer resume (PDF)',
+      title: isEn ? 'Download Curriculum Vitae (CV)' : 'Unduh Curriculum Vitae (CV)',
+      description: isEn ? 'Detailed software engineer resume (PDF)' : 'Resume rekayasa perangkat lunak lengkap (PDF)',
       href: '/resume.pdf',
       icon: FileText,
       isExternal: true,
       color: 'text-emerald-500',
     },
     {
-      title: 'Monkeytype Typing Velocity',
-      description: 'Typing telemetry and leaderboard performance',
+      title: isEn ? 'Monkeytype Typing Velocity' : 'Kecepatan Mengetik Monkeytype',
+      description: isEn ? 'Typing telemetry and leaderboard performance' : 'Telemetri mengetik dan performa leaderboard',
       href: 'https://monkeytype.com',
       icon: Keyboard,
       isExternal: true,
       color: 'text-amber-500',
     },
     {
-      title: 'Saweria Support',
-      description: 'Support open-source development and coffee fund',
+      title: isEn ? 'Saweria Support' : 'Dukungan Saweria',
+      description: isEn ? 'Support open-source development and coffee fund' : 'Dukung pengembangan open-source dan secangkir kopi',
       href: 'https://saweria.co',
       icon: Coffee,
       isExternal: true,
@@ -93,28 +96,29 @@ export default function LinksPage() {
   return (
     <div className="min-h-screen py-6 sm:py-12 px-3 sm:px-6 flex flex-col items-center justify-center">
       <div className="w-full max-w-lg bg-white/90 dark:bg-navy-900/90 backdrop-blur-xl border border-slate-200/90 dark:border-white/[0.1] rounded-3xl shadow-2xl p-6 sm:p-8 space-y-7 relative">
-        {/* Top Controls: Back button + ThemeToggle + Share + QR */}
+        {/* Top Controls: Back button + LocaleSwitcher + ThemeToggle + Share + QR */}
         <div className="flex items-center justify-between border-b border-slate-100 dark:border-white/[0.08] pb-4">
           <Link
             href="/"
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-white/[0.08] bg-slate-50 dark:bg-navy-950 text-xs font-mono text-slate-700 dark:text-slate-300 hover:text-sky-500 hover:border-sky-400 transition-all"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Beranda</span>
+            <span>{t('backHome')}</span>
           </Link>
 
           <div className="flex items-center gap-2">
+            <LocaleSwitcher />
             <ThemeToggle />
             <button
               onClick={handleCopyLink}
-              title="Salin Tautan"
+              title={t('share')}
               className="p-2 rounded-xl border border-slate-200 dark:border-white/[0.08] bg-slate-50 dark:bg-navy-950 text-slate-700 dark:text-slate-300 hover:text-sky-500 hover:border-sky-400 transition-all flex items-center gap-1.5 text-xs font-mono"
             >
               {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Share2 className="w-4 h-4" />}
             </button>
             <button
               onClick={() => setShowQrModal(true)}
-              title="Tampilkan Kode QR"
+              title={t('qrModalTitle')}
               className="p-2 rounded-xl border border-slate-200 dark:border-white/[0.08] bg-slate-50 dark:bg-navy-950 text-slate-700 dark:text-slate-300 hover:text-sky-500 hover:border-sky-400 transition-all"
             >
               <QrCode className="w-4 h-4" />
@@ -236,9 +240,9 @@ export default function LinksPage() {
               <Mail className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white">Get in Touch</h3>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">{t('getInTouch')}</h3>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                Terbuka untuk kolaborasi proyek, diskusi teknis, dan peluang kerja.
+                {t('getInTouchDesc')}
               </p>
             </div>
           </div>
@@ -280,9 +284,9 @@ export default function LinksPage() {
             </button>
 
             <div className="space-y-1">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white">QR Code Profile</h3>
+              <h3 className="text-lg font-bold text-slate-900 dark:text-white">{t('qrModalTitle')}</h3>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                Pindai untuk membuka profil rizkillah.dev/links
+                {t('qrModalDesc')}
               </p>
             </div>
 
@@ -303,7 +307,7 @@ export default function LinksPage() {
               className="w-full py-2 px-4 rounded-xl border border-slate-200 dark:border-white/[0.1] bg-slate-100 dark:bg-navy-800 text-xs font-mono text-slate-800 dark:text-slate-200 hover:bg-sky-500 hover:text-white transition-all flex items-center justify-center gap-2"
             >
               {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-              <span>{copied ? 'Tersalin ke Clipboard!' : 'Salin URL'}</span>
+              <span>{copied ? t('copiedToast') : t('copyUrl')}</span>
             </button>
           </div>
         </div>

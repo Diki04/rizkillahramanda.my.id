@@ -22,7 +22,6 @@ import {
 } from 'lucide-react';
 import { cn } from '@/common/utils/cn';
 import { LayoutToggle } from '@/common/components/LayoutToggle';
-import { AmbientAudioPlayer } from '@/common/components/AmbientAudioPlayer';
 import { LocaleSwitcher } from '@/common/components/LocaleSwitcher';
 import { ThemeToggle } from '@/common/components/ThemeToggle';
 import { mockProfile } from '@/services/data/mock-profile';
@@ -137,7 +136,6 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
         {/* Quick Toolbar */}
         <div className="flex items-center justify-between gap-1.5 px-1">
           <LayoutToggle />
-          <AmbientAudioPlayer />
           <LocaleSwitcher />
           <ThemeToggle />
         </div>

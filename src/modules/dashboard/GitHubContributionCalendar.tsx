@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useMemo, useState, useEffect } from 'react';
+import { useLocale, useTranslations } from 'next-intl';
 import { SpotlightCard } from '@/common/components/SpotlightCard';
 import { Flame, Trophy, Calendar, CheckCircle2 } from 'lucide-react';
 
@@ -11,6 +12,10 @@ interface DayCell {
 }
 
 export function GitHubContributionCalendar() {
+  const locale = useLocale();
+  const t = useTranslations('dashboard');
+  const isEn = locale === 'en';
+
   const [hoveredDay, setHoveredDay] = useState<DayCell | null>(null);
   const [liveContributions, setLiveContributions] = useState<DayCell[] | null>(null);
 
@@ -177,7 +182,7 @@ export function GitHubContributionCalendar() {
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-navy-950 border border-slate-200 dark:border-white/[0.08]">
             <CheckCircle2 className="w-4 h-4 text-emerald-500" />
             <div>
-              <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">Contributions</p>
+              <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">{t('contributions')}</p>
               <p className="text-xs font-mono font-bold text-slate-900 dark:text-white">{totalContributions}+</p>
             </div>
           </div>
@@ -185,16 +190,16 @@ export function GitHubContributionCalendar() {
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-navy-950 border border-slate-200 dark:border-white/[0.08]">
             <Flame className="w-4 h-4 text-amber-500" />
             <div>
-              <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">Current Streak</p>
-              <p className="text-xs font-mono font-bold text-slate-900 dark:text-white">{currentStreak} Days</p>
+              <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">{t('currentStreak')}</p>
+              <p className="text-xs font-mono font-bold text-slate-900 dark:text-white">{currentStreak} {t('days')}</p>
             </div>
           </div>
 
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-navy-950 border border-slate-200 dark:border-white/[0.08]">
             <Trophy className="w-4 h-4 text-sky-500" />
             <div>
-              <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">Longest Streak</p>
-              <p className="text-xs font-mono font-bold text-slate-900 dark:text-white">{longestStreak} Days</p>
+              <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">{t('longestStreak')}</p>
+              <p className="text-xs font-mono font-bold text-slate-900 dark:text-white">{longestStreak} {t('days')}</p>
             </div>
           </div>
         </div>
@@ -245,27 +250,30 @@ export function GitHubContributionCalendar() {
         <div className="min-h-[18px]">
           {hoveredDay ? (
             <span className="text-emerald-600 dark:text-emerald-400 font-medium">
-              <strong className="text-slate-900 dark:text-white">{hoveredDay.count} contributions</strong> on{' '}
-              {new Date(hoveredDay.date).toLocaleDateString('en-US', {
+              <strong className="text-slate-900 dark:text-white">
+                {hoveredDay.count} {isEn ? 'contributions' : 'kontribusi'}
+              </strong>{' '}
+              {isEn ? 'on' : 'pada'}{' '}
+              {new Date(hoveredDay.date).toLocaleDateString(isEn ? 'en-US' : 'id-ID', {
                 month: 'short',
                 day: 'numeric',
                 year: 'numeric',
               })}
             </span>
           ) : (
-            <span>Arahkan kursor ke kotak untuk melihat detail komit harian</span>
+            <span>{t('hoverTooltip')}</span>
           )}
         </div>
 
         {/* Legend */}
         <div className="flex items-center gap-1.5 self-end sm:self-auto">
-          <span className="text-[10px] text-slate-500">Less</span>
+          <span className="text-[10px] text-slate-500">{t('less')}</span>
           <span className="w-2.5 h-2.5 rounded-[2px] bg-slate-200 dark:bg-navy-950 border border-slate-300 dark:border-white/[0.05]" />
           <span className="w-2.5 h-2.5 rounded-[2px] bg-emerald-200 dark:bg-emerald-950 border border-emerald-300 dark:border-emerald-800/40" />
           <span className="w-2.5 h-2.5 rounded-[2px] bg-emerald-400 dark:bg-emerald-700/80" />
           <span className="w-2.5 h-2.5 rounded-[2px] bg-emerald-500 dark:bg-emerald-500" />
           <span className="w-2.5 h-2.5 rounded-[2px] bg-emerald-600 dark:bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.6)]" />
-          <span className="text-[10px] text-slate-500">More</span>
+          <span className="text-[10px] text-slate-500">{t('more')}</span>
         </div>
       </div>
     </SpotlightCard>

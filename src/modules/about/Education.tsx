@@ -22,29 +22,29 @@ export function Education() {
           <div className="flex items-center gap-3 text-xs font-mono text-slate-500 dark:text-slate-400">
             <span className="inline-flex items-center gap-1">
               <Calendar className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
-              2024 - Sekarang
+              {t('educationPeriod')}
             </span>
             <span>•</span>
             <span className="inline-flex items-center gap-1">
               <MapPin className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
-              Pekanbaru, Riau
+              {t('educationLocation')}
             </span>
           </div>
         </div>
 
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          Mempelajari fondasi ilmu komputer dan rekayasa perangkat lunak secara komprehensif, mencakup struktur data & algoritma, arsitektur basis data, pengembangan web full-stack, serta kecerdasan buatan dan machine learning.
+          {t('educationDesc')}
         </p>
 
         <div className="flex flex-wrap gap-2 pt-2">
           <span className="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-100 dark:bg-navy-950/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/[0.06]">
-            GPA Oriented & Research Active
+            {t('educationTag1')}
           </span>
           <span className="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-100 dark:bg-navy-950/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/[0.06]">
-            Algoritma & Struktur Data
+            {t('educationTag2')}
           </span>
           <span className="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-100 dark:bg-navy-950/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/[0.06]">
-            Rekayasa Perangkat Lunak
+            {t('educationTag3')}
           </span>
         </div>
       </SpotlightCard>

@@ -1,13 +1,17 @@
 import React from 'react';
+import { useLocale } from 'next-intl';
 import { Laptop, Terminal, Monitor, Code } from 'lucide-react';
 import { SpotlightCard } from '../../common/components/SpotlightCard';
 
 export function DeveloperSetup() {
+  const locale = useLocale();
+  const isEn = locale === 'en';
+
   const specs = [
-    { label: 'Workstation', value: 'ASUS TUF Gaming Laptop', icon: Laptop },
-    { label: 'Operating System', value: 'Windows 11 + WSL2 Ubuntu', icon: Monitor },
-    { label: 'Primary Editor', value: 'Visual Studio Code / Cursor', icon: Code },
-    { label: 'Shell & Prompt', value: 'PowerShell 7 + Oh My Posh / Zsh', icon: Terminal },
+    { label: isEn ? 'Workstation' : 'Stasiun Kerja', value: 'ASUS TUF Gaming Laptop', icon: Laptop },
+    { label: isEn ? 'Operating System' : 'Sistem Operasi', value: 'Windows 11 + WSL2 Ubuntu', icon: Monitor },
+    { label: isEn ? 'Primary Editor' : 'Editor Utama', value: 'Visual Studio Code / Cursor', icon: Code },
+    { label: isEn ? 'Shell & Prompt' : 'Shell & Terminal', value: 'PowerShell 7 + Oh My Posh / Zsh', icon: Terminal },
   ];
 
   return (

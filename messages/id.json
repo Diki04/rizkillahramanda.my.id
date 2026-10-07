@@ -23,16 +23,57 @@
   "about": {
     "title": "Tentang Saya",
     "subtitle": "Perjalanan di bidang rekayasa perangkat lunak dan komputasi",
+    "heading": "Perjalanan Rekayasa & Profil",
+    "description": "Tinjauan mendalam tentang fondasi akademis di Universitas Riau, rekayasa perangkat lunak, keahlian teknis, dan lingkungan kerja pribadi.",
     "bioTitle": "Biografi Singkat",
     "educationTitle": "Pendidikan",
     "degree": "S1 Teknik Informatika",
+    "educationPeriod": "2024 - Sekarang",
+    "educationLocation": "Pekanbaru, Riau, Indonesia",
+    "educationDesc": "Mempelajari fondasi ilmu komputer dan rekayasa perangkat lunak secara komprehensif, mencakup struktur data & algoritma, arsitektur basis data, pengembangan web full-stack, serta kecerdasan buatan dan machine learning.",
+    "educationTag1": "Fokus IPK & Riset Aktif",
+    "educationTag2": "Algoritma & Struktur Data",
+    "educationTag3": "Rekayasa Perangkat Lunak",
     "skillsTitle": "Keahlian Teknis & Alat",
     "frontendCategory": "Front-End & UI",
     "backendCategory": "Back-End & Database",
     "mlCategory": "Machine Learning & AI",
-    "toolsCategory": "DevOps & Perkakas"
+    "toolsCategory": "DevOps & Perkakas",
+    "careerJourneyTitle": "Perjalanan Karir & Tonggak Sejarah",
+    "devEnvironmentTitle": "Lingkungan Pengembangan",
+    "devEnvironmentSubtitle": "Spesifikasi perangkat keras dan perangkat lunak harian saya."
+  },
+  "techStack": {
+    "badge": "Tumpukan Terverifikasi",
+    "title": "Tumpukan Teknologi & Perkakas",
+    "subtitle": "Pustaka resmi, framework, dan perkakas pengembang yang mendukung aplikasi fullstack dan penelitian AI saya.",
+    "searchPlaceholder": "Cari teknologi...",
+    "categoryAll": "Semua Teknologi",
+    "categoryFrontend": "Front-End",
+    "categoryBackend": "Back-End",
+    "categoryAiml": "AI & Machine Learning",
+    "categoryDatabase": "Basis Data & Cloud",
+    "categoryTools": "DevOps & Perkakas"
+  },
+  "devHighlights": {
+    "badge": "Alur Kerja & Filosofi",
+    "title": "Lingkungan & Filosofi Pengembang",
+    "subtitle": "Pengaturan, kebiasaan rekayasa, dan metrik berkelanjutan yang mendorong karya perangkat lunak berkualitas tinggi.",
+    "liveMetrics": "Metrik Langsung",
+    "workstationTitle": "Stasiun Kerja & Lingkungan Rekayasa",
+    "workstationSubtitle": "Toolchain pengembangan lokal yang andal, dioptimalkan untuk kecepatan dan DX."
+  },
+  "contactCta": {
+    "badge": "Terbuka untuk Proyek Baru",
+    "headlinePrefix": "Mari bangun sesuatu yang",
+    "headlineHighlight": "bermakna",
+    "headlineSuffix": "bersama.",
+    "description": "Tertarik untuk berkolaborasi dalam proyek web, mendiskusikan riset machine learning, atau sekadar bertukar sapa? Saya selalu terbuka untuk koneksi baru.",
+    "sendMessage": "Kirim Pesan",
+    "leaveNote": "Tinggalkan Pesan di Buku Tamu"
   },
   "projects": {
+    "badge": "Portofolio Terpilih",
     "title": "Portofolio & Proyek",
     "subtitle": "Karya rekayasa perangkat lunak, aplikasi web, dan model kecerdasan buatan pilihan",
     "filterAll": "Semua",
@@ -41,11 +82,16 @@
     "filterMl": "Machine Learning",
     "liveDemo": "Demo Langsung",
     "sourceCode": "Kode Sumber",
-    "featured": "Unggulan"
+    "featured": "Unggulan",
+    "viewDetails": "Lihat Detail",
+    "emptyState": "Tidak ada proyek yang sesuai dengan pencarian Anda."
   },
   "dashboard": {
+    "badge": "Telemetri Langsung",
     "title": "Developer Dashboard",
     "subtitle": "Statistik aktivitas pengkodean real-time dari GitHub & Wakatime",
+    "mainHeading": "Dashboard Metrik Pengembang",
+    "mainDescription": "Statistik langsung dari GitHub, telemetri editor kode dari Wakatime, kecepatan mengetik, dan tolok ukur pemecahan masalah.",
     "githubStats": "Statistik GitHub",
     "publicRepos": "Repositori Publik",
     "followers": "Pengikut",
@@ -54,9 +100,17 @@
     "wakatimeStats": "Statistik Wakatime",
     "totalHours": "Total Jam Koding",
     "dailyAverage": "Rata-rata Harian",
-    "topLanguages": "Bahasa Pemrograman Terbanyak"
+    "topLanguages": "Bahasa Pemrograman Terbanyak",
+    "currentStreak": "Streak Saat Ini",
+    "longestStreak": "Streak Terpanjang",
+    "contributions": "Kontribusi",
+    "days": "Hari",
+    "hoverTooltip": "Arahkan kursor ke kotak untuk melihat detail komit harian",
+    "less": "Sedikit",
+    "more": "Banyak"
   },
   "achievements": {
+    "badge": "Kredensial Terverifikasi",
     "title": "Pencapaian",
     "subtitle": "Validasi kompetensi profesional dan pencapaian akademik",
     "issuedBy": "Diterbitkan oleh",
@@ -65,6 +119,7 @@
     "viewCertificate": "Lihat Pencapaian"
   },
   "chat": {
+    "badge": "Buku Tamu Interaktif",
     "title": "Buku Tamu & Pesan",
     "subtitle": "Tinggalkan salam, pesan singkat, atau ulasan untuk saya",
     "namePlaceholder": "Nama Anda",
@@ -74,6 +129,7 @@
     "emptyState": "Belum ada pesan. Jadilah yang pertama meninggalkan pesan!"
   },
   "contact": {
+    "badge": "Hubungi Saya",
     "title": "Hubungi Saya",
     "subtitle": "Mari diskusikan peluang proyek, kolaborasi riset, atau sekadar bertukar sapa",
     "emailLabel": "Email Langsung",
@@ -84,6 +140,17 @@
     "formMessage": "Pesan",
     "formSubmit": "Kirim Pesan",
     "copied": "Disalin ke papan klip!"
+  },
+  "links": {
+    "backHome": "Beranda",
+    "copied": "Tersalin",
+    "share": "Bagikan",
+    "qrModalTitle": "Kode QR Profil",
+    "qrModalDesc": "Pindai untuk membuka profil rizkillah.dev/links",
+    "copyUrl": "Salin URL",
+    "copiedToast": "Tersalin ke Clipboard!",
+    "getInTouch": "Hubungi Saya",
+    "getInTouchDesc": "Terbuka untuk kolaborasi proyek, diskusi teknis, dan peluang kerja."
   },
   "admin": {
     "title": "Admin Management Portal",

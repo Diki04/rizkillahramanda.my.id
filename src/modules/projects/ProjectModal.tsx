@@ -8,6 +8,7 @@ import { X, ExternalLink, Github, Calendar, Tag } from 'lucide-react';
 import { Button } from '@/common/components/Button';
 import { Badge } from '@/common/components/Badge';
 import { getTechIcon } from '@/common/utils/techIcons';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface ProjectModalProps {
   project: Project | null;
@@ -19,17 +20,25 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
   const t = useTranslations('projects');
   const isEn = locale === 'en';
 
-  if (!project) return null;
-
   return (
-    <div
-      onClick={onClose}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 dark:bg-navy-950/80 backdrop-blur-md animate-in fade-in duration-200"
-    >
-      <div
-        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl border border-slate-200 dark:border-white/[0.12] bg-white dark:bg-navy-900 p-6 shadow-2xl shadow-sky-950/20 dark:shadow-cyan-950/40 text-left transition-all"
-        onClick={(e) => e.stopPropagation()}
-      >
+    <AnimatePresence>
+      {project && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          onClick={onClose}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 dark:bg-navy-950/80 backdrop-blur-md"
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.92, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 15 }}
+            transition={{ type: 'spring', damping: 26, stiffness: 360 }}
+            className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl border border-slate-200 dark:border-white/[0.12] bg-white dark:bg-navy-900 p-6 shadow-2xl shadow-sky-950/20 dark:shadow-cyan-950/40 text-left transition-all"
+            onClick={(e) => e.stopPropagation()}
+          >
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -118,7 +127,9 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             </a>
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
+  )}
+</AnimatePresence>
   );
 }

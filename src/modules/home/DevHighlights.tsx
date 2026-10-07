@@ -10,7 +10,11 @@ import { Link } from '@/i18n/routing';
 import { ArrowUpRight, GitBranch, Sparkles } from 'lucide-react';
 import { SiGithub } from 'react-icons/si';
 
+import { useTranslations } from 'next-intl';
+
 export function DevHighlights() {
+  const t = useTranslations('devHighlights');
+
   return (
     <ScrollReveal
       id="highlights"
@@ -23,13 +27,13 @@ export function DevHighlights() {
             <div>
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-400/20 bg-sky-400/10 text-sky-600 dark:text-sky-400 text-xs font-mono font-medium mb-2">
                 <Sparkles className="w-4 h-4" />
-                <span>Workflow & Philosophy</span>
+                <span>{t('badge')}</span>
               </div>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-                Developer Environment & Philosophy
+                {t('title')}
               </h2>
               <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-1 max-w-xl">
-                The setup, engineering habits, and continuous metrics that drive high-quality software craftsmanship.
+                {t('subtitle')}
               </p>
             </div>
 
@@ -38,7 +42,7 @@ export function DevHighlights() {
                 href="/dashboard"
                 className="inline-flex items-center gap-1.5 text-xs font-mono text-sky-600 dark:text-sky-400 hover:text-slate-900 dark:hover:text-white transition-colors"
               >
-                <span>Live Metrics</span>
+                <span>{t('liveMetrics')}</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </Link>
             </div>
@@ -51,10 +55,10 @@ export function DevHighlights() {
               <div className="space-y-2 mb-4">
                 <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
                   <GitBranch className="w-4 h-4 text-sky-500" />
-                  <span>Workstation & Engineering Environment</span>
+                  <span>{t('workstationTitle')}</span>
                 </h3>
                 <p className="text-xs text-slate-600 dark:text-slate-400">
-                  Reliable local development toolchain optimized for speed and DX.
+                  {t('workstationSubtitle')}
                 </p>
               </div>
 

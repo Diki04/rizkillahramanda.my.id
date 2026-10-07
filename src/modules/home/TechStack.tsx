@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { Container } from '@/common/components/Container';
 import { Badge } from '@/common/components/Badge';
 import { ScrollReveal } from '@/common/components/ScrollReveal';
@@ -246,18 +247,19 @@ const technologies: TechItem[] = [
   },
 ];
 
-const categories = [
-  { id: 'all', label: 'All Technologies' },
-  { id: 'frontend', label: 'Frontend' },
-  { id: 'backend', label: 'Backend' },
-  { id: 'aiml', label: 'AI & Machine Learning' },
-  { id: 'database', label: 'Database & Cloud' },
-  { id: 'tools', label: 'DevOps & Tools' },
-] as const;
-
 export function TechStack() {
+  const t = useTranslations('techStack');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
+
+  const categories = [
+    { id: 'all', label: t('categoryAll') },
+    { id: 'frontend', label: t('categoryFrontend') },
+    { id: 'backend', label: t('categoryBackend') },
+    { id: 'aiml', label: t('categoryAiml') },
+    { id: 'database', label: t('categoryDatabase') },
+    { id: 'tools', label: t('categoryTools') },
+  ];
 
   const filteredTechnologies = technologies.filter((tech) => {
     const matchesCategory =
@@ -277,13 +279,13 @@ export function TechStack() {
             <div className="space-y-2">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-400/20 bg-sky-400/10 text-sky-600 dark:text-sky-400 text-xs font-mono font-medium">
                 <Sparkles className="w-4 h-4" />
-                <span>Verified Stack</span>
+                <span>{t('badge')}</span>
               </div>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-                Engineering Stack & Tooling
+                {t('title')}
               </h2>
               <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-xl">
-                Official libraries, frameworks, and developer tools powering my fullstack applications and AI research.
+                {t('subtitle')}
               </p>
             </div>
 
@@ -294,7 +296,7 @@ export function TechStack() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search tech stack..."
+                placeholder={t('searchPlaceholder')}
                 className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-200 dark:border-white/[0.08] bg-white dark:bg-navy-900/60 text-xs font-mono text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-sky-400/50 transition-colors"
               />
             </div>

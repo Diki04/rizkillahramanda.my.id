@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Container } from '@/common/components/Container';
+import { ScrollReveal } from '@/common/components/ScrollReveal';
 import { CertificateCard } from '@/modules/achievements/CertificateCard';
 import { CertificateModal } from '@/modules/achievements/CertificateModal';
 import { mockAchievements } from '@/services/data/mock-achievements';
@@ -17,19 +18,19 @@ export default function AchievementsPage() {
     <div className="py-16 md:py-20 space-y-12">
       <Container size="xl">
         {/* Header */}
-        <div className="space-y-3 max-w-2xl">
+        <ScrollReveal className="space-y-3 max-w-2xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-sky-400/20 bg-sky-400/10 text-sky-600 dark:text-accent-blue text-xs font-mono font-medium">
             <Award className="w-3.5 h-3.5" />
-            <span>Verified Credentials</span>
+            <span>{t('badge')}</span>
           </div>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
             {t('title')}
           </h1>
           <p className="text-base text-slate-600 dark:text-slate-400">{t('subtitle')}</p>
-        </div>
+        </ScrollReveal>
 
         {/* Certificate Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-6">
+        <ScrollReveal className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-6" delay={0.15}>
           {mockAchievements.map((achievement) => (
             <CertificateCard
               key={achievement.id}
@@ -37,7 +38,7 @@ export default function AchievementsPage() {
               onOpenModal={setSelectedAchievement}
             />
           ))}
-        </div>
+        </ScrollReveal>
       </Container>
 
       {/* Certificate Modal */}

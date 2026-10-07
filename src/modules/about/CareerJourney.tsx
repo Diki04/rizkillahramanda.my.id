@@ -1,38 +1,67 @@
 import React from 'react';
+import { useLocale, useTranslations } from 'next-intl';
 import { SpotlightCard } from '@/common/components/SpotlightCard';
 import { Briefcase } from 'lucide-react';
 import { getTechIcon } from '@/common/utils/techIcons';
 
 export function CareerJourney() {
-  const milestones = [
-    {
-      year: '2026',
-      role: 'Full-Stack Developer & ML Explorer',
-      description:
-        'Fokus mendalami arsitektur modular Next.js, integrasi Supabase, state management Redux Toolkit, dan proyek computer vision berbasis deep learning.',
-      tags: ['Next.js', 'Redux', 'Python', 'Supabase'],
-    },
-    {
-      year: '2025',
-      role: 'Frontend Engineering & Open Source',
-      description:
-        'Membangun puluhan proyek web open-source di GitHub (@Diki04), meraih pencapaian kompetensi front-end dan machine learning di Dicoding.',
-      tags: ['React.js', 'TypeScript', 'Tailwind CSS', 'Git'],
-    },
-    {
-      year: '2024',
-      role: 'Awal Studi Teknik Informatika',
-      description:
-        'Memulai perjalanan akademis di Universitas Riau dengan memperkuat algoritma pemrograman dan logika dasar rekayasa sistem.',
-      tags: ['C++', 'Python', 'Algoritma'],
-    },
-  ];
+  const locale = useLocale();
+  const t = useTranslations('about');
+  const isEn = locale === 'en';
+
+  const milestones = isEn
+    ? [
+        {
+          year: '2026',
+          role: 'Full-Stack Developer & ML Explorer',
+          description:
+            'Focusing on modular Next.js architecture, Supabase integration, Redux Toolkit state management, and deep learning-based computer vision projects.',
+          tags: ['Next.js', 'Redux', 'Python', 'Supabase'],
+        },
+        {
+          year: '2025',
+          role: 'Frontend Engineering & Open Source',
+          description:
+            'Built dozens of open-source web projects on GitHub (@Diki04), earning front-end and machine learning competencies from Dicoding.',
+          tags: ['React.js', 'TypeScript', 'Tailwind CSS', 'Git'],
+        },
+        {
+          year: '2024',
+          role: 'Commencement of Informatics Studies',
+          description:
+            'Started academic journey at Universitas Riau, building a solid foundation in programming algorithms and system engineering principles.',
+          tags: ['C++', 'Python', 'Algorithms'],
+        },
+      ]
+    : [
+        {
+          year: '2026',
+          role: 'Full-Stack Developer & ML Explorer',
+          description:
+            'Fokus mendalami arsitektur modular Next.js, integrasi Supabase, state management Redux Toolkit, dan proyek computer vision berbasis deep learning.',
+          tags: ['Next.js', 'Redux', 'Python', 'Supabase'],
+        },
+        {
+          year: '2025',
+          role: 'Frontend Engineering & Open Source',
+          description:
+            'Membangun puluhan proyek web open-source di GitHub (@Diki04), meraih pencapaian kompetensi front-end dan machine learning di Dicoding.',
+          tags: ['React.js', 'TypeScript', 'Tailwind CSS', 'Git'],
+        },
+        {
+          year: '2024',
+          role: 'Awal Studi Teknik Informatika',
+          description:
+            'Memulai perjalanan akademis di Universitas Riau dengan memperkuat algoritma pemrograman dan logika dasar rekayasa sistem.',
+          tags: ['C++', 'Python', 'Algoritma'],
+        },
+      ];
 
   return (
     <div className="space-y-4">
       <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
         <Briefcase className="w-5 h-5 text-accent-blue" />
-        <span>Perjalanan & Milestone</span>
+        <span>{t('careerJourneyTitle')}</span>
       </h3>
 
       <div className="space-y-3">
