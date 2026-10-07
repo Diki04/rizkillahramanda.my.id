@@ -16,17 +16,28 @@ import { isSupabaseConfigured } from '@/services/supabase/client';
 
 export default function AdminPage() {
   const t = useTranslations('admin');
-  const [secretKey, setSecretKey] = useState<string | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [checkingAuth, setCheckingAuth] = useState<boolean>(true);
   const [activeTab, setActiveTab] = useState<'projects' | 'achievements'>('projects');
   const [projects, setProjects] = useState<Project[]>(mockProjects);
   const [achievements, setAchievements] = useState<Achievement[]>(mockAchievements);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const saved = sessionStorage.getItem('admin_secret');
-    if (saved) {
-      setSecretKey(saved);
-    }
+    const checkAuthStatus = async () => {
+      try {
+        const res = await fetch('/api/admin/auth');
+        const data = await res.json();
+        if (data.authenticated) {
+          setIsAuthenticated(true);
+        }
+      } catch {
+        // Not authenticated
+      } finally {
+        setCheckingAuth(false);
+      }
+    };
+    checkAuthStatus();
   }, []);
 
   const loadData = async () => {
@@ -50,22 +61,35 @@ export default function AdminPage() {
   };
 
   useEffect(() => {
-    if (secretKey) {
+    if (isAuthenticated) {
       loadData();
     }
-  }, [secretKey]);
+  }, [isAuthenticated]);
 
-  const handleLoginSuccess = (secret: string) => {
-    setSecretKey(secret);
-    sessionStorage.setItem('admin_secret', secret);
+  const handleLoginSuccess = () => {
+    setIsAuthenticated(true);
   };
 
-  const handleLogout = () => {
-    setSecretKey(null);
-    sessionStorage.removeItem('admin_secret');
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/admin/auth', { method: 'DELETE' });
+    } catch {
+      // ignore
+    }
+    setIsAuthenticated(false);
   };
 
-  if (!secretKey) {
+  if (checkingAuth) {
+    return (
+      <div className="py-24 text-center">
+        <Container size="md">
+          <p className="text-xs font-mono text-slate-400">Memeriksa status sesi admin...</p>
+        </Container>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
     return (
       <div className="py-20">
         <Container size="md">
@@ -145,13 +169,11 @@ export default function AdminPage() {
         {activeTab === 'projects' ? (
           <ProjectManager
             projects={projects}
-            secretKey={secretKey}
             onRefresh={loadData}
           />
         ) : (
           <CertificateManager
             achievements={achievements}
-            secretKey={secretKey}
             onRefresh={loadData}
           />
         )}
