@@ -1,44 +1,29 @@
-import React from 'react';
-import { useTranslations } from 'next-intl';
-import { Link } from '@/i18n/routing';
-import { Container } from '@/common/components/Container';
-import { SpotlightCard } from '@/common/components/SpotlightCard';
-import { Button } from '@/common/components/Button';
-import { Terminal, Home, ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
+import { Container } from '../../common/components/Container';
+import { Button } from '../../common/components/Button';
+import { TerminalEasterEgg } from '../../common/components/TerminalEasterEgg';
 
-export default function NotFoundPage() {
-  const t = useTranslations('common');
-
+export default function NotFound() {
   return (
-    <div className="py-24 sm:py-32">
-      <Container size="md">
-        <SpotlightCard className="p-8 sm:p-12 text-center space-y-6">
-          <div className="inline-flex p-3 rounded-2xl bg-navy-950 border border-white/[0.08] text-accent-blue">
-            <Terminal className="w-8 h-8" />
-          </div>
-
-          <div className="space-y-2">
-            <p className="font-mono text-sm uppercase tracking-wider text-accent-blue font-semibold">
-              Error 404 • Resource Missing
-            </p>
-            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-              {t('pageNotFound')}
-            </h1>
-            <p className="text-sm text-slate-400 font-mono max-w-md mx-auto leading-relaxed">
-              Halaman atau rute yang Anda tuju tidak ditemukan atau telah dipindahkan ke direktori lain.
-            </p>
-          </div>
-
-          <div className="pt-4 flex items-center justify-center gap-3">
-            <Link href="/">
-              <Button variant="secondary" size="md" className="text-xs font-mono">
-                <Home className="w-4 h-4 mr-1.5" />
-                <span>{t('backToHome')}</span>
-              </Button>
-            </Link>
-          </div>
-        </SpotlightCard>
-      </Container>
-    </div>
+    <Container className="py-24 text-center flex flex-col items-center justify-center min-h-[70vh]">
+      <span className="font-mono text-sm text-sky-400 bg-sky-950/40 px-3 py-1 rounded-full border border-sky-800/50 mb-4">
+        HTTP 404 / NOT FOUND
+      </span>
+      <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-3">
+        Page Lost in Cyberspace
+      </h1>
+      <p className="text-slate-400 max-w-md mb-6 text-sm">
+        The destination coordinate you navigated to doesn't exist or has migrated to another endpoint.
+      </p>
+      <div className="flex gap-4 mb-4">
+        <Link href="/">
+          <Button variant="primary">Return Home</Button>
+        </Link>
+        <Link href="/projects">
+          <Button variant="outline">Browse Projects</Button>
+        </Link>
+      </div>
+      <TerminalEasterEgg />
+    </Container>
   );
 }
