@@ -10,6 +10,7 @@ import { Badge } from '@/common/components/Badge';
 import { Button } from '@/common/components/Button';
 import { mockProjects } from '@/services/data/mock-projects';
 import { ArrowUpRight, Github, ExternalLink } from 'lucide-react';
+import { getTechIcon } from '@/common/utils/techIcons';
 
 export function FeaturedProjects() {
   const t = useTranslations('projects');
@@ -77,14 +78,18 @@ export function FeaturedProjects() {
 
                   {/* Tech Stack Tags */}
                   <div className="flex flex-wrap gap-1.5 pt-1">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-2 py-0.5 rounded text-[11px] font-mono bg-navy-950/80 text-slate-300 border border-white/[0.06]"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                    {project.tags.map((tag) => {
+                      const { icon: TechIcon, color } = getTechIcon(tag);
+                      return (
+                        <span
+                          key={tag}
+                          className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-mono bg-navy-950/80 text-slate-300 border border-white/[0.06] hover:border-white/[0.15] transition-colors"
+                        >
+                          <TechIcon className="w-3 h-3 shrink-0" style={{ color }} />
+                          <span>{tag}</span>
+                        </span>
+                      );
+                    })}
                   </div>
                 </div>
 
