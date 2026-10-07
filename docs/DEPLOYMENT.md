@@ -7,7 +7,7 @@
 4. Package Manager: **pnpm**.
 5. Configure Environment Variables:
    ```env
-   ADMIN_SECRET_KEY=admin123
+   ADMIN_SECRET_KEY=your_secure_admin_passcode_here
    NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
    ```
