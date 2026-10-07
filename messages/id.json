@@ -4,7 +4,7 @@
     "about": "Tentang",
     "projects": "Portofolio",
     "dashboard": "Dashboard",
-    "achievements": "Sertifikasi",
+    "achievements": "Pencapaian",
     "chat": "Buku Tamu",
     "contact": "Kontak",
     "admin": "Admin"
@@ -56,7 +56,7 @@
     "topLanguages": "Bahasa Pemrograman Terbanyak"
   },
   "achievements": {
-    "title": "Sertifikasi & Penghargaan",
+    "title": "Pencapaian",
     "subtitle": "Validasi kompetensi profesional dan pencapaian akademik",
     "issuedBy": "Diterbitkan oleh",
     "issuedDate": "Tahun",
