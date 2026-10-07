@@ -6,37 +6,78 @@ import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { Container } from '@/common/components/Container';
 import { Button } from '@/common/components/Button';
-import { Badge } from '@/common/components/Badge';
 import { SpotlightCard } from '@/common/components/SpotlightCard';
+import { DecryptedText } from '@/common/components/DecryptedText';
+import { RotatingText } from '@/common/components/RotatingText';
 import { mockProfile } from '@/services/data/mock-profile';
-import { ArrowUpRight, Github, Mail, Sparkles, MapPin, GraduationCap } from 'lucide-react';
+import {
+  ArrowUpRight,
+  Github,
+  Mail,
+  MapPin,
+  GraduationCap,
+  ChevronDown,
+  Terminal,
+} from 'lucide-react';
 
 export function Hero() {
   const t = useTranslations('hero');
   const locale = useLocale();
   const isEn = locale === 'en';
 
+  const roles = isEn
+    ? [
+        'Software Engineer',
+        'Machine Learning Researcher',
+        'Next.js & TypeScript Architect',
+        'Informatics Undergrad @ UNRI',
+      ]
+    : [
+        'Software Engineer',
+        'Peneliti Machine Learning',
+        'Arsitek Next.js & TypeScript',
+        'Mahasiswa Teknik Informatika @ UNRI',
+      ];
+
   return (
-    <section className="relative pt-12 pb-20 md:pt-20 md:pb-28 overflow-hidden">
+    <section
+      id="hero"
+      className="relative min-h-[calc(100vh-5rem)] flex flex-col justify-center py-12 md:py-16 overflow-hidden"
+    >
       <Container size="xl">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left Column: Headline & Intro */}
           <div className="lg:col-span-7 flex flex-col items-start gap-6">
             {/* Status Pill */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 text-xs font-mono font-medium">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 text-xs font-mono font-medium shadow-sm">
               <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
               <span>{t('status')}</span>
             </div>
 
-            {/* Main Greeting & Name */}
-            <div className="space-y-2">
-              <p className="font-mono text-sm tracking-wide text-accent-blue font-semibold">
-                {t('greeting')}
-              </p>
+            {/* Main Greeting & Name with DecryptedText */}
+            <div className="space-y-3">
+              <div className="flex items-center gap-2 text-accent-blue font-mono text-sm tracking-wide font-semibold">
+                <Terminal className="w-4 h-4" />
+                <span>{t('greeting')}</span>
+              </div>
+
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
-                {mockProfile.name}
+                <DecryptedText
+                  text={mockProfile.name}
+                  speed={35}
+                  maxIterations={8}
+                  animateOn="mount"
+                  className="cursor-default"
+                />
               </h1>
-              <div className="flex flex-wrap items-center gap-3 pt-2 text-sm text-slate-400 font-mono">
+
+              {/* Dynamic Rotating Role */}
+              <div className="text-xl sm:text-2xl font-bold font-mono text-sky-400">
+                <RotatingText texts={roles} interval={3400} />
+              </div>
+
+              {/* Badges / University & Location */}
+              <div className="flex flex-wrap items-center gap-3 pt-1 text-sm text-slate-400 font-mono">
                 <span className="inline-flex items-center gap-1.5 text-slate-300">
                   <GraduationCap className="w-4 h-4 text-accent-blue" />
                   {mockProfile.university}
@@ -121,6 +162,17 @@ export function Hero() {
               </div>
             </SpotlightCard>
           </div>
+        </div>
+
+        {/* Scroll Down Hint */}
+        <div className="pt-12 flex justify-center">
+          <a
+            href="#tech-stack"
+            className="group flex flex-col items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-sky-400 transition-colors"
+          >
+            <span>Scroll to explore</span>
+            <ChevronDown className="w-4 h-4 animate-bounce text-slate-400 group-hover:text-sky-400" />
+          </a>
         </div>
       </Container>
     </section>
