@@ -10,7 +10,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ variant = 'primary', size = 'md', className, children, ...props }, ref) => {
     const baseStyles =
-      'inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-blue/50 disabled:opacity-50 disabled:cursor-not-allowed select-none active:scale-[0.98]';
+      'inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/40 disabled:opacity-50 disabled:cursor-not-allowed select-none active:scale-[0.98]';
 
     const sizeStyles = {
       sm: 'px-3 py-1.5 text-xs gap-1.5',
@@ -20,13 +20,13 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variantStyles = {
       primary:
-        'bg-navy-800 hover:bg-navy-700 text-slate-100 border border-white/[0.12] hover:border-accent-blue/40 shadow-sm hover:shadow-cyan-500/10',
+        'bg-slate-900 dark:bg-white text-white dark:text-black font-semibold hover:bg-slate-800 dark:hover:bg-zinc-200 border border-slate-900 dark:border-white shadow-sm',
       secondary:
-        'bg-accent-blue text-navy-950 font-semibold hover:bg-sky-400 border border-transparent shadow-sm shadow-accent-blue/20',
+        'bg-slate-100 dark:bg-zinc-900 text-slate-900 dark:text-white font-medium hover:bg-slate-200 dark:hover:bg-zinc-800 border border-slate-300 dark:border-white/10 shadow-sm',
       outline:
-        'bg-transparent hover:bg-navy-800/80 text-slate-300 hover:text-white border border-white/[0.1] hover:border-white/[0.2]',
+        'bg-transparent hover:bg-slate-100 dark:hover:bg-zinc-900 text-slate-700 dark:text-zinc-300 hover:text-slate-900 dark:hover:text-white border border-slate-300 dark:border-white/15',
       ghost:
-        'bg-transparent hover:bg-white/[0.05] text-slate-400 hover:text-slate-200 border-transparent',
+        'bg-transparent hover:bg-slate-100 dark:hover:bg-white/[0.08] text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white border-transparent',
     };
 
     return (
