@@ -145,15 +145,15 @@ export function GitHubContributionCalendar() {
   const getLevelColor = (level: number) => {
     switch (level) {
       case 1:
-        return 'bg-emerald-200 dark:bg-emerald-950 border border-emerald-300 dark:border-emerald-800/40 hover:border-emerald-500';
+        return 'bg-zinc-300 dark:bg-zinc-800 border border-zinc-400 dark:border-zinc-700 hover:border-zinc-500';
       case 2:
-        return 'bg-emerald-400 dark:bg-emerald-700/80 border border-emerald-500 dark:border-emerald-600/40 hover:border-emerald-400';
+        return 'bg-zinc-400 dark:bg-zinc-600 border border-zinc-500 dark:border-zinc-500 hover:border-zinc-400';
       case 3:
-        return 'bg-emerald-500 dark:bg-emerald-500 border border-emerald-600 dark:border-emerald-400 hover:border-emerald-300';
+        return 'bg-zinc-600 dark:bg-zinc-400 border border-zinc-700 dark:border-zinc-300 hover:border-zinc-200';
       case 4:
-        return 'bg-emerald-600 dark:bg-emerald-400 border border-emerald-700 dark:border-emerald-300 shadow-[0_0_8px_rgba(52,211,153,0.6)]';
+        return 'bg-zinc-900 dark:bg-white border border-zinc-950 dark:border-white shadow-[0_0_8px_rgba(255,255,255,0.6)]';
       default:
-        return 'bg-slate-200/80 dark:bg-navy-950/80 border border-slate-300/60 dark:border-white/[0.05] hover:border-sky-400 dark:hover:border-white/[0.2]';
+        return 'bg-slate-200/80 dark:bg-zinc-900/80 border border-slate-300/60 dark:border-white/[0.05] hover:border-white/40 dark:hover:border-white/[0.2]';
     }
   };
 
@@ -164,41 +164,41 @@ export function GitHubContributionCalendar() {
         <div>
           <div className="flex items-center gap-2">
             <h4 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-emerald-500" />
+              <Calendar className="w-4 h-4 text-slate-900 dark:text-white" />
               <span>GitHub Contribution Activity</span>
             </h4>
-            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono bg-white/10 text-white border border-white/20">
+              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
               Live API
             </span>
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+          <p className="text-xs text-slate-500 dark:text-zinc-400 mt-0.5">
             Real-time coding frequency and commit distribution across public repositories over the past year.
           </p>
         </div>
 
         {/* Quick Streak Badges */}
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-navy-950 border border-slate-200 dark:border-white/[0.08]">
-            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-black border border-slate-200 dark:border-white/[0.08]">
+            <CheckCircle2 className="w-4 h-4 text-slate-900 dark:text-white" />
             <div>
-              <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">{t('contributions')}</p>
+              <p className="text-[10px] font-mono text-slate-500 dark:text-zinc-400 uppercase">{t('contributions')}</p>
               <p className="text-xs font-mono font-bold text-slate-900 dark:text-white">{totalContributions}+</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-navy-950 border border-slate-200 dark:border-white/[0.08]">
-            <Flame className="w-4 h-4 text-amber-500" />
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-black border border-slate-200 dark:border-white/[0.08]">
+            <Flame className="w-4 h-4 text-slate-900 dark:text-white" />
             <div>
-              <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">{t('currentStreak')}</p>
+              <p className="text-[10px] font-mono text-slate-500 dark:text-zinc-400 uppercase">{t('currentStreak')}</p>
               <p className="text-xs font-mono font-bold text-slate-900 dark:text-white">{currentStreak} {t('days')}</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-navy-950 border border-slate-200 dark:border-white/[0.08]">
-            <Trophy className="w-4 h-4 text-sky-500" />
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-black border border-slate-200 dark:border-white/[0.08]">
+            <Trophy className="w-4 h-4 text-slate-900 dark:text-white" />
             <div>
-              <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">{t('longestStreak')}</p>
+              <p className="text-[10px] font-mono text-slate-500 dark:text-zinc-400 uppercase">{t('longestStreak')}</p>
               <p className="text-xs font-mono font-bold text-slate-900 dark:text-white">{longestStreak} {t('days')}</p>
             </div>
           </div>
@@ -246,10 +246,10 @@ export function GitHubContributionCalendar() {
       </div>
 
       {/* Footer Info: Tooltip state + Legend */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono text-slate-500 dark:text-slate-400 pt-2 border-t border-slate-200 dark:border-white/[0.06]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono text-slate-500 dark:text-zinc-400 pt-2 border-t border-slate-200 dark:border-white/[0.06]">
         <div className="min-h-[18px]">
           {hoveredDay ? (
-            <span className="text-emerald-600 dark:text-emerald-400 font-medium">
+            <span className="text-slate-900 dark:text-white font-medium">
               <strong className="text-slate-900 dark:text-white">
                 {hoveredDay.count} {isEn ? 'contributions' : 'kontribusi'}
               </strong>{' '}
@@ -268,11 +268,11 @@ export function GitHubContributionCalendar() {
         {/* Legend */}
         <div className="flex items-center gap-1.5 self-end sm:self-auto">
           <span className="text-[10px] text-slate-500">{t('less')}</span>
-          <span className="w-2.5 h-2.5 rounded-[2px] bg-slate-200 dark:bg-navy-950 border border-slate-300 dark:border-white/[0.05]" />
-          <span className="w-2.5 h-2.5 rounded-[2px] bg-emerald-200 dark:bg-emerald-950 border border-emerald-300 dark:border-emerald-800/40" />
-          <span className="w-2.5 h-2.5 rounded-[2px] bg-emerald-400 dark:bg-emerald-700/80" />
-          <span className="w-2.5 h-2.5 rounded-[2px] bg-emerald-500 dark:bg-emerald-500" />
-          <span className="w-2.5 h-2.5 rounded-[2px] bg-emerald-600 dark:bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.6)]" />
+          <span className="w-2.5 h-2.5 rounded-[2px] bg-slate-200 dark:bg-zinc-900 border border-slate-300 dark:border-white/[0.05]" />
+          <span className="w-2.5 h-2.5 rounded-[2px] bg-zinc-300 dark:bg-zinc-800 border border-zinc-400 dark:border-zinc-700" />
+          <span className="w-2.5 h-2.5 rounded-[2px] bg-zinc-400 dark:bg-zinc-600" />
+          <span className="w-2.5 h-2.5 rounded-[2px] bg-zinc-600 dark:bg-zinc-400" />
+          <span className="w-2.5 h-2.5 rounded-[2px] bg-zinc-900 dark:bg-white shadow-[0_0_6px_rgba(255,255,255,0.6)]" />
           <span className="text-[10px] text-slate-500">{t('more')}</span>
         </div>
       </div>
