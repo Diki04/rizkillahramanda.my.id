@@ -23,12 +23,7 @@ const Lanyard = dynamic(
   () => import('@/common/components/Lanyard'),
   {
     ssr: false,
-    loading: () => (
-      <div className="w-full h-[540px] sm:h-[580px] lg:h-[620px] flex flex-col items-center justify-center gap-3">
-        <div className="w-8 h-8 rounded-full border-2 border-sky-400 border-t-transparent animate-spin" />
-        <span className="text-xs font-mono text-slate-400">Loading Lanyard...</span>
-      </div>
-    ),
+    loading: () => null,
   }
 );
 
@@ -56,25 +51,32 @@ export function Hero() {
       id="hero"
       className="relative min-h-[calc(100vh-5rem)] flex flex-col justify-center py-12 md:py-16 overflow-hidden"
     >
-      {/* Dynamic Background Floating Neon Orbs */}
-      <div className="pointer-events-none absolute -top-20 -left-20 w-96 h-96 rounded-full bg-sky-500/10 dark:bg-sky-400/10 blur-[100px] animate-pulse" />
+      {/* Layer 0 (Paling belakang): Dynamic Background Ambient Neon Glow & Orbs */}
+      <div className="pointer-events-none absolute -top-20 -left-20 w-96 h-96 rounded-full bg-sky-500/10 dark:bg-sky-400/10 blur-[100px] animate-pulse z-0" />
       <div
-        className="pointer-events-none absolute top-1/3 -right-20 w-[420px] h-[420px] rounded-full bg-blue-500/10 dark:bg-cyan-500/10 blur-[120px] animate-pulse"
+        className="pointer-events-none absolute top-1/3 -right-20 w-[420px] h-[420px] rounded-full bg-blue-500/10 dark:bg-cyan-500/10 blur-[120px] animate-pulse z-0"
         style={{ animationDelay: '1.8s' }}
       />
+      <div className="pointer-events-none absolute -inset-4 rounded-3xl bg-gradient-to-tr from-sky-500/15 via-blue-600/15 to-emerald-400/15 blur-3xl opacity-50 z-0" />
 
-      <Container size="xl">
+      {/* Layer 1 (Tengah): 3D Lanyard ID Badge - Spans full hero without bounds, BEHIND text and IN FRONT of background */}
+      <div className="absolute inset-0 z-[5] pointer-events-none overflow-hidden">
+        <Lanyard position={[0, 0, 20]} fov={24} />
+      </div>
+
+      {/* Layer 2 (Paling depan): Foreground Typography & Controls */}
+      <Container size="xl" className="relative z-10 pointer-events-none">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          {/* Left Column: Headline & Intro */}
-          <div className="lg:col-span-7 flex flex-col items-start gap-6">
+          {/* Left Column: Headline, Bio & CTAs */}
+          <div className="lg:col-span-7 flex flex-col items-start gap-6 pointer-events-none">
             {/* Status Pill */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-mono font-medium shadow-sm">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-mono font-medium shadow-sm pointer-events-auto">
               <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>{t('status')}</span>
             </div>
 
-            {/* Main Greeting & Name with DecryptedText */}
-            <div className="space-y-3">
+            {/* Main Greeting & Name with Typewriter */}
+            <div className="space-y-3 pointer-events-none select-none">
               <div className="flex items-center gap-2 text-sky-600 dark:text-accent-blue font-mono text-sm tracking-wide font-semibold">
                 <Terminal className="w-4 h-4" />
                 <span>{t('greeting')}</span>
@@ -114,12 +116,12 @@ export function Hero() {
             </div>
 
             {/* Summary Bio */}
-            <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
+            <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed pointer-events-none select-none">
               {isEn ? mockProfile.headline.en : mockProfile.headline.id}
             </p>
 
             {/* CTAs */}
-            <div className="flex flex-wrap items-center gap-3 pt-2">
+            <div className="flex flex-wrap items-center gap-3 pt-2 pointer-events-auto">
               <Link href="/projects">
                 <Button variant="secondary" size="md">
                   <span>{t('viewProjects')}</span>
@@ -145,16 +147,12 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Right Column: Three.js Interactive 3D Lanyard ID Badge */}
-          <div className="lg:col-span-5 flex flex-col items-center lg:items-end justify-center relative group">
-            {/* Ambient Background Aura */}
-            <div className="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-sky-500/20 via-blue-600/20 to-emerald-400/20 blur-3xl opacity-50 pointer-events-none" />
-
-            <div className="w-full max-w-[460px] xl:max-w-[480px] relative">
-              <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} />
-
+          {/* Right Column: Lanyard Space & Quick Metrics */}
+          <div className="lg:col-span-5 flex flex-col items-center lg:items-end justify-center pointer-events-none">
+            {/* Visual Spacer so grid maintains natural desktop height */}
+            <div className="w-full max-w-[460px] xl:max-w-[480px] h-[480px] sm:h-[520px] lg:h-[560px] flex flex-col justify-end pointer-events-none">
               {/* Quick Metrics Below Lanyard */}
-              <div className="grid grid-cols-3 gap-2.5 text-center mt-1 px-2">
+              <div className="grid grid-cols-3 gap-2.5 text-center px-2 pointer-events-auto">
                 <div className="p-2.5 rounded-xl bg-white/70 dark:bg-navy-900/60 backdrop-blur-md border border-slate-200/80 dark:border-white/[0.08] shadow-sm hover:border-sky-500/30 transition-colors">
                   <p className="font-mono text-lg font-bold text-slate-900 dark:text-white">49</p>
                   <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">Repos</p>
@@ -173,7 +171,7 @@ export function Hero() {
         </div>
 
         {/* Scroll Down Hint */}
-        <div className="pt-12 flex justify-center">
+        <div className="pt-8 flex justify-center pointer-events-auto">
           <a
             href="#tech-stack"
             className="group flex flex-col items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-sky-500 dark:hover:text-sky-400 transition-colors"
