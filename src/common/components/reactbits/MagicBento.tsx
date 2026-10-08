@@ -18,6 +18,10 @@ export interface BentoCardProps {
   icon?: React.ReactNode;
 }
 
+/**
+ * Props for the MagicBento interactive 3D bento grid component.
+ * Implements GSAP 3D card tilt, particle emitter, and cursor spotlight.
+ */
 export interface BentoProps {
   cards?: BentoCardProps[];
   textAutoHide?: boolean;
