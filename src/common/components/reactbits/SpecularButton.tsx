@@ -259,8 +259,9 @@ export const SpecularButton = React.forwardRef<HTMLButtonElement, SpecularButton
 
       let alive = true;
       let rafId: number | null = null;
-      let width = Math.max(1, button.clientWidth);
-      let height = Math.max(1, button.clientHeight);
+      const initialRect = button.getBoundingClientRect();
+      let width = Math.max(1, Math.round(initialRect.width || button.offsetWidth || 120));
+      let height = Math.max(1, Math.round(initialRect.height || button.offsetHeight || 44));
 
       const targetMouse = { x: 0, y: 150 };
       const currentMouse = { x: 0, y: 150 };
@@ -292,11 +293,13 @@ export const SpecularButton = React.forwardRef<HTMLButtonElement, SpecularButton
 
       const updateDimensions = (w: number, h: number) => {
         if (!renderer || !alive) return;
-        width = Math.max(1, w);
-        height = Math.max(1, h);
+        width = Math.max(1, Math.round(w));
+        height = Math.max(1, Math.round(h));
         const dpr = Math.min(window.devicePixelRatio || 1, 2);
         renderer.dpr = dpr;
         renderer.setSize(width, height);
+        canvas.style.width = '100%';
+        canvas.style.height = '100%';
         uniforms.uResolution.value = [width * dpr, height * dpr];
         uniforms.uRadius.value = radius * dpr;
         uniforms.uBorderWidth.value = borderWidth * dpr;
@@ -331,13 +334,14 @@ export const SpecularButton = React.forwardRef<HTMLButtonElement, SpecularButton
 
       let resizeObserver: ResizeObserver | null = null;
       if (typeof ResizeObserver !== 'undefined') {
-        resizeObserver = new ResizeObserver((entries) => {
-          for (const entry of entries) {
-            const { width: w, height: h } = entry.contentRect;
-            if (w > 0 && h > 0) {
-              updateDimensions(w, h);
-              triggerRender();
-            }
+        resizeObserver = new ResizeObserver(() => {
+          if (!button || !alive) return;
+          const rect = button.getBoundingClientRect();
+          const w = Math.round(rect.width);
+          const h = Math.round(rect.height);
+          if (w > 0 && h > 0) {
+            updateDimensions(w, h);
+            triggerRender();
           }
         });
         resizeObserver.observe(button);
