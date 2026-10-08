@@ -121,7 +121,7 @@ export function AdminOverview({
             <span className="text-xs font-mono text-slate-500 dark:text-slate-400 font-semibold uppercase">
               {t('kpi.databaseStatus')}
             </span>
-            <div className="p-2 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20">
+            <div className="p-2 rounded-xl bg-zinc-100 dark:bg-white/10 text-zinc-900 dark:text-white border border-slate-200 dark:border-white/20">
               <Database className="w-4 h-4" />
             </div>
           </div>
