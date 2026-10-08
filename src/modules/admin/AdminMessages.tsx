@@ -54,7 +54,7 @@ export function AdminMessages({ messages, onRefresh }: AdminMessagesProps) {
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
       {/* Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-slate-50/80 dark:bg-navy-900/40">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-slate-50/80 dark:bg-zinc-900/40">
         <div>
           <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <MessageSquare className="w-5 h-5 text-amber-500" />
@@ -96,7 +96,7 @@ export function AdminMessages({ messages, onRefresh }: AdminMessagesProps) {
               <div className="space-y-3">
                 <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/[0.06] pb-2.5">
                   <div className="flex items-center gap-2">
-                    <div className="p-1.5 rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-400">
+                    <div className="p-1.5 rounded-lg bg-zinc-100 dark:bg-white/10 text-zinc-900 dark:text-white">
                       <User className="w-3.5 h-3.5" />
                     </div>
                     <span className="text-xs font-bold text-slate-900 dark:text-white truncate">
@@ -116,7 +116,7 @@ export function AdminMessages({ messages, onRefresh }: AdminMessagesProps) {
                   </div>
                 </div>
 
-                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed italic bg-slate-50 dark:bg-navy-950/50 p-3 rounded-xl border border-slate-100 dark:border-white/[0.04]">
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed italic bg-slate-50 dark:bg-zinc-900/50 p-3 rounded-xl border border-slate-100 dark:border-white/[0.04]">
                   &ldquo;{msg.message}&rdquo;
                 </p>
               </div>
@@ -137,7 +137,7 @@ export function AdminMessages({ messages, onRefresh }: AdminMessagesProps) {
           ))}
         </div>
       ) : (
-        <div className="py-16 text-center rounded-2xl border border-slate-200 dark:border-white/[0.06] bg-slate-50 dark:bg-navy-900/40">
+        <div className="py-16 text-center rounded-2xl border border-slate-200 dark:border-white/[0.06] bg-slate-50 dark:bg-zinc-900/40">
           <MessageSquare className="w-8 h-8 text-slate-400 mx-auto mb-2 opacity-50" />
           <p className="text-xs font-mono text-slate-500 dark:text-slate-400">
             {t('messages.empty')}
