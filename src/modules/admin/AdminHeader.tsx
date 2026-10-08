@@ -11,7 +11,7 @@ export function AdminHeader({ onLogout }: AdminHeaderProps) {
   return (
     <div className="flex items-center justify-between pb-6 border-b border-dark-border mb-8">
       <div className="flex items-center gap-3">
-        <div className="p-2 rounded-lg bg-sky-500/10 border border-sky-500/30 text-sky-400">
+        <div className="p-2 rounded-lg bg-white/10 border border-white/20 text-white">
           <ShieldCheck className="w-5 h-5" />
         </div>
         <div>
