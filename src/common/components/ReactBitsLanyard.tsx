@@ -505,21 +505,21 @@ export function ReactBitsLanyard({
 
         {/* Floating Interactive Badge Hint */}
         <div
-          className={`absolute bottom-3 left-1/2 -translate-x-1/2 z-20 pointer-events-none transition-all duration-300 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/85 dark:bg-navy-950/90 backdrop-blur-md border border-slate-700/60 dark:border-white/10 shadow-xl ${
+          className={`absolute bottom-3 left-1/2 -translate-x-1/2 z-20 pointer-events-none transition-all duration-300 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/85 dark:bg-zinc-950/90 backdrop-blur-md border border-slate-700/60 dark:border-white/10 shadow-xl ${
             isInteracting ? 'scale-95 opacity-40' : 'scale-100 opacity-95'
           }`}
         >
-          <Hand className="w-3.5 h-3.5 text-sky-400 animate-pulse" />
+          <Hand className="w-3.5 h-3.5 text-white animate-pulse" />
           <span className="text-xs font-mono text-slate-200">
             {isEn
               ? 'Drag to swing ID badge • React Bits'
               : 'Tarik untuk mengayun ID Card • React Bits'}
           </span>
-          <Sparkles className="w-3 h-3 text-emerald-400" />
+          <Sparkles className="w-3 h-3 text-white/80" />
         </div>
 
         {/* Ambient Radial Glow Behind Card */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-sky-500/15 dark:bg-sky-400/15 blur-[100px] pointer-events-none -z-10" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-white/10 dark:bg-white/[0.08] blur-[100px] pointer-events-none -z-10" />
       </div>
     </LanyardErrorBoundary>
   );
