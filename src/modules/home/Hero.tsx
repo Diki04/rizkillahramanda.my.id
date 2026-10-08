@@ -8,6 +8,7 @@ import { Button } from '@/common/components/Button';
 import { RotatingText } from '@/common/components/RotatingText';
 import { ScrollReveal } from '@/common/components/ScrollReveal';
 import { TechText, SpecularButton } from '@/common/components/reactbits';
+import { useTheme } from '@/common/contexts/ThemeContext';
 import { mockProfile } from '@/services/data/mock-profile';
 import {
   ArrowUpRight,
@@ -30,7 +31,9 @@ const Lanyard = dynamic(
 export function Hero() {
   const t = useTranslations('hero');
   const locale = useLocale();
+  const { theme } = useTheme();
   const isEn = locale === 'en';
+  const isDark = theme !== 'light';
 
   const roles = isEn
     ? [
@@ -77,29 +80,29 @@ export function Hero() {
 
             {/* Main Greeting & Name with TechText */}
             <div className="space-y-3 pointer-events-none select-none">
-              <div className="flex items-center gap-2 text-zinc-300 dark:text-zinc-300 font-mono text-sm tracking-wide font-semibold">
-                <Terminal className="w-4 h-4" />
+              <div className="flex items-center gap-2 text-slate-800 dark:text-zinc-300 font-mono text-sm tracking-wide font-semibold">
+                <Terminal className="w-4 h-4 text-slate-700 dark:text-zinc-400" />
                 <span>{t('greeting')}</span>
               </div>
 
               <div className="pointer-events-auto py-2">
                 <TechText
                   text="Rizkillah Ramanda"
-                  color="#ffffff"
-                  accentColor="#a1a1aa"
-                  fontSize={48}
+                  color={isDark ? '#ffffff' : '#09090b'}
+                  accentColor={isDark ? '#a1a1aa' : '#4f46e5'}
+                  fontSize={46}
                   lineStyle="dashed"
                   className="font-extrabold tracking-tight"
                 />
               </div>
 
               {/* Dynamic Rotating Role */}
-              <div className="text-xl sm:text-2xl font-bold font-mono text-zinc-300 dark:text-zinc-300">
+              <div className="text-xl sm:text-2xl font-bold font-mono text-slate-800 dark:text-zinc-200">
                 <RotatingText texts={roles} interval={3400} />
               </div>
 
               {/* Badges / University & Location */}
-              <div className="flex flex-wrap items-center gap-3 pt-1 text-sm text-slate-500 dark:text-slate-400 font-mono">
+              <div className="flex flex-wrap items-center gap-3 pt-1 text-sm text-slate-600 dark:text-slate-400 font-mono">
                 <span className="inline-flex items-center gap-1.5 text-slate-700 dark:text-slate-300 font-medium">
                   <GraduationCap className="w-4 h-4 text-slate-900 dark:text-white" />
                   {mockProfile.university}
@@ -113,14 +116,20 @@ export function Hero() {
             </div>
 
             {/* Summary Bio */}
-            <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed pointer-events-none select-none">
+            <p className="text-base sm:text-lg text-slate-700 dark:text-slate-300 max-w-2xl leading-relaxed pointer-events-none select-none">
               {isEn ? mockProfile.headline.en : mockProfile.headline.id}
             </p>
 
             {/* CTAs */}
             <div className="flex flex-wrap items-center gap-3 pt-2 pointer-events-auto">
               <Link href="/projects">
-                <SpecularButton size="md">
+                <SpecularButton
+                  size="md"
+                  baseColor={isDark ? '#18181b' : '#09090b'}
+                  lineColor={isDark ? '#ffffff' : '#6366f1'}
+                  textColor="#ffffff"
+                  className="shadow-sm hover:shadow-md"
+                >
                   <span>{t('viewProjects')}</span>
                   <ArrowUpRight className="w-4 h-4 ml-1" />
                 </SpecularButton>
@@ -128,8 +137,10 @@ export function Hero() {
               <Link href="/contact">
                 <SpecularButton
                   size="md"
-                  baseColor="#27272a"
-                  lineColor="#a1a1aa"
+                  baseColor={isDark ? '#09090b' : '#ffffff'}
+                  lineColor={isDark ? '#a1a1aa' : '#09090b'}
+                  textColor={isDark ? '#ffffff' : '#09090b'}
+                  className="shadow-sm hover:shadow-md"
                 >
                   <span>{t('contactMe')}</span>
                   <Mail className="w-4 h-4 ml-1.5 text-slate-400" />
@@ -140,7 +151,11 @@ export function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Button variant="ghost" size="md" className="border border-slate-200 dark:border-white/[0.08]">
+                <Button
+                  variant="outline"
+                  size="md"
+                  className="h-11 px-5 rounded-xl border border-slate-300 dark:border-white/[0.1] hover:bg-slate-100 dark:hover:bg-white/[0.08] text-slate-800 dark:text-slate-200 font-medium text-sm"
+                >
                   <Github className="w-4 h-4 mr-2" />
                   <span>GitHub</span>
                 </Button>
@@ -154,17 +169,17 @@ export function Hero() {
             <div className="w-full max-w-[460px] xl:max-w-[480px] h-[480px] sm:h-[520px] lg:h-[560px] flex flex-col justify-end pointer-events-none">
               {/* Quick Metrics Below Lanyard */}
               <div className="grid grid-cols-3 gap-2.5 text-center px-2 pointer-events-auto">
-                <div className="p-2.5 rounded-xl bg-white/70 dark:bg-zinc-950/80 backdrop-blur-md border border-slate-200/80 dark:border-white/[0.08] shadow-sm hover:border-white/30 transition-colors">
-                  <p className="font-mono text-lg font-bold text-slate-900 dark:text-white">49</p>
-                  <p className="text-[10px] font-mono text-slate-500 dark:text-zinc-400 uppercase">Repos</p>
+                <div className="p-3 rounded-xl bg-white/85 dark:bg-zinc-950/80 backdrop-blur-md border border-slate-200/90 dark:border-white/[0.08] shadow-sm hover:border-slate-300 dark:hover:border-white/30 transition-colors">
+                  <p className="font-mono text-xl font-bold text-slate-900 dark:text-white">49</p>
+                  <p className="text-xs font-mono font-medium text-slate-500 dark:text-zinc-400 uppercase tracking-wide">Repos</p>
                 </div>
-                <div className="p-2.5 rounded-xl bg-white/70 dark:bg-zinc-950/80 backdrop-blur-md border border-slate-200/80 dark:border-white/[0.08] shadow-sm hover:border-white/30 transition-colors">
-                  <p className="font-mono text-lg font-bold text-slate-900 dark:text-white">24+</p>
-                  <p className="text-[10px] font-mono text-slate-500 dark:text-zinc-400 uppercase">Projects</p>
+                <div className="p-3 rounded-xl bg-white/85 dark:bg-zinc-950/80 backdrop-blur-md border border-slate-200/90 dark:border-white/[0.08] shadow-sm hover:border-slate-300 dark:hover:border-white/30 transition-colors">
+                  <p className="font-mono text-xl font-bold text-slate-900 dark:text-white">24+</p>
+                  <p className="text-xs font-mono font-medium text-slate-500 dark:text-zinc-400 uppercase tracking-wide">Projects</p>
                 </div>
-                <div className="p-2.5 rounded-xl bg-white/70 dark:bg-zinc-950/80 backdrop-blur-md border border-slate-200/80 dark:border-white/[0.08] shadow-sm hover:border-white/30 transition-colors">
-                  <p className="font-mono text-lg font-bold text-slate-900 dark:text-white">2+ Yrs</p>
-                  <p className="text-[10px] font-mono text-slate-500 dark:text-zinc-400 uppercase">Experience</p>
+                <div className="p-3 rounded-xl bg-white/85 dark:bg-zinc-950/80 backdrop-blur-md border border-slate-200/90 dark:border-white/[0.08] shadow-sm hover:border-slate-300 dark:hover:border-white/30 transition-colors">
+                  <p className="font-mono text-xl font-bold text-slate-900 dark:text-white">2+ Yrs</p>
+                  <p className="text-xs font-mono font-medium text-slate-500 dark:text-zinc-400 uppercase tracking-wide">Experience</p>
                 </div>
               </div>
             </div>
