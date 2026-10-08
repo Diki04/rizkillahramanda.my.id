@@ -101,7 +101,7 @@ export function Hero() {
               {/* Badges / University & Location */}
               <div className="flex flex-wrap items-center gap-3 pt-1 text-sm text-slate-500 dark:text-slate-400 font-mono">
                 <span className="inline-flex items-center gap-1.5 text-slate-700 dark:text-slate-300 font-medium">
-                  <GraduationCap className="w-4 h-4 text-sky-500" />
+                  <GraduationCap className="w-4 h-4 text-slate-900 dark:text-white" />
                   {mockProfile.university}
                 </span>
                 <span className="text-slate-400">•</span>
