@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link, usePathname } from '@/i18n/routing';
-import { Container } from '@/common/components/Container';
 import { ThemeToggle } from '@/common/components/ThemeToggle';
 import { LocaleSwitcher } from '@/common/components/LocaleSwitcher';
 import { LayoutToggle } from '@/common/components/LayoutToggle';
@@ -32,9 +31,9 @@ export function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-slate-200/80 dark:border-white/10 text-slate-900 dark:text-white transition-colors">
-      <Container size="xl">
-        <div className="flex h-16 items-center justify-between">
+    <header className="sticky top-3 sm:top-4 z-50 w-full px-3 sm:px-6 pointer-events-none transition-all duration-300">
+      <div className="mx-auto max-w-6xl rounded-2xl border border-slate-200/80 dark:border-white/10 bg-white/75 dark:bg-black/65 backdrop-blur-xl shadow-lg shadow-slate-900/5 dark:shadow-black/50 pointer-events-auto transition-colors duration-300">
+        <div className="px-3.5 sm:px-6 flex h-14 sm:h-16 items-center justify-between">
           {/* Logo Brand */}
           <Link
             href="/"
@@ -111,50 +110,50 @@ export function Navbar() {
             </button>
           </div>
         </div>
-      </Container>
 
-      {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div className="md:hidden border-b border-slate-200 dark:border-white/10 bg-white/95 dark:bg-black/95 backdrop-blur-xl px-4 py-4 space-y-1 transition-all">
-          {navLinks.map((link) => {
-            const active = isActive(link.href);
-            return (
+        {/* Mobile Drawer (Nested neatly inside floating card) */}
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t border-slate-200/80 dark:border-white/10 px-4 py-3 space-y-1">
+            {navLinks.map((link) => {
+              const active = isActive(link.href);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={cn(
+                    'block px-3 py-2 rounded-lg text-sm font-mono tracking-wide transition-colors',
+                    active
+                      ? 'bg-slate-900 text-white dark:bg-white dark:text-black font-semibold'
+                      : 'text-slate-700 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10'
+                  )}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+            <div className="pt-2 border-t border-slate-200/80 dark:border-white/10 flex items-center justify-between">
               <Link
-                key={link.href}
-                href={link.href}
+                href="/admin"
                 onClick={() => setMobileMenuOpen(false)}
-                className={cn(
-                  'block px-3 py-2 rounded-lg text-sm font-mono tracking-wide transition-colors',
-                  active
-                    ? 'bg-slate-900 text-white dark:bg-white dark:text-black font-semibold'
-                    : 'text-slate-700 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10'
-                )}
+                className="inline-flex items-center gap-2 text-xs font-mono text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white py-1 transition-colors"
               >
-                {link.label}
+                <Shield className="w-3.5 h-3.5 text-slate-600 dark:text-zinc-400" />
+                <span>Admin Portal</span>
               </Link>
-            );
-          })}
-          <div className="pt-2 border-t border-slate-200 dark:border-white/10 flex items-center justify-between">
-            <Link
-              href="/admin"
-              onClick={() => setMobileMenuOpen(false)}
-              className="inline-flex items-center gap-2 text-xs font-mono text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white py-1 transition-colors"
-            >
-              <Shield className="w-3.5 h-3.5 text-slate-600 dark:text-zinc-400" />
-              <span>Admin Portal</span>
-            </Link>
-            <a
-              href="https://github.com/Diki04"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs font-mono text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white inline-flex items-center gap-1.5 transition-colors"
-            >
-              <Github className="w-3.5 h-3.5" />
-              <span>@Diki04</span>
-            </a>
+              <a
+                href="https://github.com/Diki04"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-mono text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white inline-flex items-center gap-1.5 transition-colors"
+              >
+                <Github className="w-3.5 h-3.5" />
+                <span>@Diki04</span>
+              </a>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </header>
   );
 }
