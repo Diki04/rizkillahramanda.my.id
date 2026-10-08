@@ -119,17 +119,17 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
     scene.add(keyLight);
 
     // Top rim highlight
-    const topLight = new THREE.DirectionalLight(0xe0f2fe, 1.5);
+    const topLight = new THREE.DirectionalLight(0xffffff, 1.5);
     topLight.position.set(-2, 5, 2);
     scene.add(topLight);
 
-    // Dynamic Cyan cyber glow point light
-    const cyanPointLight = new THREE.PointLight(0x38bdf8, 3.8, 10);
+    // Studio pure white point light
+    const cyanPointLight = new THREE.PointLight(0xffffff, 3.2, 10);
     cyanPointLight.position.set(-2.5, 1.0, 2.8);
     scene.add(cyanPointLight);
 
-    // Violet secondary rim light
-    const violetPointLight = new THREE.PointLight(0x818cf8, 2.6, 9);
+    // Platinum secondary rim light
+    const violetPointLight = new THREE.PointLight(0xd4d4d8, 2.2, 9);
     violetPointLight.position.set(2.5, -1.2, 2.5);
     scene.add(violetPointLight);
 
@@ -614,8 +614,8 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
         }
       }
 
-      // Neon Cyan Side Border Stitching
-      ctx.fillStyle = '#38bdf8';
+      // White Side Border Stitching
+      ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, 16, c.height);
       ctx.fillRect(c.width - 16, 0, 16, c.height);
 
@@ -1098,23 +1098,23 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
       {/* Floating Interactive Controls & Hint Badge */}
       <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
         <div
-          className={`transition-all duration-300 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/85 dark:bg-navy-950/90 backdrop-blur-md border border-slate-700/60 dark:border-white/10 shadow-xl pointer-events-none ${
+          className={`transition-all duration-300 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/85 dark:bg-zinc-950/90 backdrop-blur-md border border-slate-700/60 dark:border-white/10 shadow-xl pointer-events-none ${
             isInteracting ? 'scale-95 opacity-40' : 'scale-100 opacity-95'
           }`}
         >
-          <Hand className="w-3.5 h-3.5 text-sky-400 animate-pulse" />
+          <Hand className="w-3.5 h-3.5 text-white animate-pulse" />
           <span className="text-xs font-mono text-slate-200">
             {isEn
               ? 'Drag to swing • Click to flip badge'
               : 'Tarik untuk mengayun • Klik untuk membalik'}
           </span>
-          <Sparkles className="w-3 h-3 text-emerald-400" />
+          <Sparkles className="w-3 h-3 text-white/80" />
         </div>
 
         {/* Quick Flip Button */}
         <button
           onClick={() => triggerFlipRef.current()}
-          className="p-1.5 rounded-full bg-white/90 dark:bg-navy-900/90 hover:bg-sky-500 hover:text-white dark:hover:bg-sky-500 border border-slate-300 dark:border-white/15 text-slate-700 dark:text-slate-200 shadow-lg transition-colors cursor-pointer"
+          className="p-1.5 rounded-full bg-white/90 dark:bg-zinc-900/90 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black border border-slate-300 dark:border-white/15 text-slate-700 dark:text-slate-200 shadow-lg transition-colors cursor-pointer"
           title={isEn ? 'Flip Badge' : 'Balik Kartu'}
           aria-label="Flip Badge"
         >
@@ -1123,7 +1123,7 @@ export function ThreeLanyard({ className = '' }: ThreeLanyardProps) {
       </div>
 
       {/* Ambient Radial Glow Behind Card */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-sky-500/15 dark:bg-sky-400/15 blur-[100px] pointer-events-none -z-10" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-white/10 dark:bg-white/[0.08] blur-[100px] pointer-events-none -z-10" />
     </div>
   );
 }
