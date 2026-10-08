@@ -19,6 +19,10 @@ export interface WaveValues {
   fog: number;
 }
 
+/**
+ * Props for the MicroSlats WebGL wave background component.
+ * Implements perspective slat grid with real-time fluid simulation.
+ */
 export interface MicroSlatsProps extends Partial<WaveValues> {
   preset?: SwellPreset;
   color?: string;
