@@ -25,7 +25,7 @@ export default function ErrorBoundary({
     <div className="py-24 sm:py-32">
       <Container size="md">
         <SpotlightCard className="p-8 sm:p-12 text-center space-y-6">
-          <div className="inline-flex p-3 rounded-2xl bg-navy-950 border border-white/[0.08] text-amber-400">
+          <div className="inline-flex p-3 rounded-2xl bg-slate-100 dark:bg-black border border-slate-200 dark:border-white/[0.08] text-amber-400">
             <AlertTriangle className="w-8 h-8" />
           </div>
 

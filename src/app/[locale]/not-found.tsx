@@ -6,7 +6,7 @@ import { TerminalEasterEgg } from '../../common/components/TerminalEasterEgg';
 export default function NotFound() {
   return (
     <Container className="py-24 text-center flex flex-col items-center justify-center min-h-[70vh]">
-      <span className="font-mono text-sm text-sky-400 bg-sky-950/40 px-3 py-1 rounded-full border border-sky-800/50 mb-4">
+      <span className="font-mono text-sm text-slate-900 dark:text-white bg-slate-100 dark:bg-white/10 px-3 py-1 rounded-full border border-slate-300 dark:border-white/20 mb-4 font-semibold">
         HTTP 404 / NOT FOUND
       </span>
       <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-3">
