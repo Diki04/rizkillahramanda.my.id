@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 'use client';
 
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState, Suspense } from 'react';
 import { Canvas, extend, useFrame } from '@react-three/fiber';
 import { useGLTF, useTexture, Environment, Lightformer } from '@react-three/drei';
 import { BallCollider, CuboidCollider, Physics, RigidBody, useRopeJoint, useSphericalJoint } from '@react-three/rapier';
@@ -10,6 +10,7 @@ import * as THREE from 'three';
 import { mockProfile } from '@/services/data/mock-profile';
 import { useLocale } from 'next-intl';
 import { Hand, Sparkles } from 'lucide-react';
+import { ThreeLanyard } from './ThreeLanyard';
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 
@@ -24,6 +25,28 @@ const BLANK_PIXEL =
 // independently, aspect-preserving (no stretching).
 const FRONT_UV_RECT = { x: 0, y: 0, w: 0.5, h: 0.755 };
 const BACK_UV_RECT = { x: 0.5, y: 0, w: 0.5, h: 0.757 };
+
+class LanyardErrorBoundary extends React.Component<
+  { fallback: React.ReactNode; children: React.ReactNode },
+  { hasError: boolean; error: any }
+> {
+  constructor(props: any) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+  static getDerivedStateFromError(error: any) {
+    return { hasError: true, error };
+  }
+  componentDidCatch(error: any, errorInfo: any) {
+    console.warn('ReactBits Lanyard encountered an error, falling back to ThreeLanyard:', error, errorInfo);
+  }
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback;
+    }
+    return this.props.children;
+  }
+}
 
 interface ReactBitsLanyardProps {
   position?: [number, number, number];
@@ -421,80 +444,84 @@ export function ReactBitsLanyard({
   }, [backImage]);
 
   return (
-    <div
-      className={`relative z-0 w-full h-[580px] sm:h-[620px] lg:h-[650px] flex justify-center items-center select-none ${className}`}
-    >
-      <Canvas
-        camera={{ position, fov }}
-        dpr={[1, isMobile ? 1.5 : 2]}
-        gl={{ alpha: transparent, antialias: true }}
-        onCreated={({ gl }) => {
-          gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1);
-        }}
-      >
-        <ambientLight intensity={Math.PI * 1.2} />
-        <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
-          <Band
-            isMobile={isMobile}
-            frontImage={generatedFront}
-            backImage={generatedBack}
-            imageFit={imageFit}
-            lanyardImage={lanyardImage}
-            lanyardWidth={lanyardWidth}
-            cardGlbUrl={cardGlbUrl}
-            onDragChange={setIsInteracting}
-          />
-        </Physics>
-        <Environment blur={0.75}>
-          <Lightformer
-            intensity={2}
-            color="white"
-            position={[0, -1, 5]}
-            rotation={[0, 0, Math.PI / 3]}
-            scale={[100, 0.1, 1]}
-          />
-          <Lightformer
-            intensity={3}
-            color="white"
-            position={[-1, -1, 1]}
-            rotation={[0, 0, Math.PI / 3]}
-            scale={[100, 0.1, 1]}
-          />
-          <Lightformer
-            intensity={3}
-            color="white"
-            position={[1, 1, 1]}
-            rotation={[0, 0, Math.PI / 3]}
-            scale={[100, 0.1, 1]}
-          />
-          <Lightformer
-            intensity={10}
-            color="white"
-            position={[-10, 0, 14]}
-            rotation={[0, Math.PI / 2, Math.PI / 3]}
-            scale={[100, 10, 1]}
-          />
-        </Environment>
-      </Canvas>
-
-      {/* Floating Interactive Badge Hint */}
+    <LanyardErrorBoundary fallback={<ThreeLanyard className={className} />}>
       <div
-        className={`absolute bottom-3 left-1/2 -translate-x-1/2 z-20 pointer-events-none transition-all duration-300 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/85 dark:bg-navy-950/90 backdrop-blur-md border border-slate-700/60 dark:border-white/10 shadow-xl ${
-          isInteracting ? 'scale-95 opacity-40' : 'scale-100 opacity-95'
-        }`}
+        className={`relative z-0 w-full h-[580px] sm:h-[620px] lg:h-[650px] flex justify-center items-center select-none ${className}`}
       >
-        <Hand className="w-3.5 h-3.5 text-sky-400 animate-pulse" />
-        <span className="text-xs font-mono text-slate-200">
-          {isEn
-            ? 'Drag to swing ID badge • React Bits'
-            : 'Tarik untuk mengayun ID Card • React Bits'}
-        </span>
-        <Sparkles className="w-3 h-3 text-emerald-400" />
-      </div>
+        <Canvas
+          camera={{ position, fov }}
+          dpr={[1, isMobile ? 1.5 : 2]}
+          gl={{ alpha: transparent, antialias: true }}
+          onCreated={({ gl }) => {
+            gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1);
+          }}
+        >
+          <ambientLight intensity={Math.PI * 1.2} />
+          <Suspense fallback={null}>
+            <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
+              <Band
+                isMobile={isMobile}
+                frontImage={generatedFront}
+                backImage={generatedBack}
+                imageFit={imageFit}
+                lanyardImage={lanyardImage}
+                lanyardWidth={lanyardWidth}
+                cardGlbUrl={cardGlbUrl}
+                onDragChange={setIsInteracting}
+              />
+            </Physics>
+            <Environment blur={0.75}>
+              <Lightformer
+                intensity={2}
+                color="white"
+                position={[0, -1, 5]}
+                rotation={[0, 0, Math.PI / 3]}
+                scale={[100, 0.1, 1]}
+              />
+              <Lightformer
+                intensity={3}
+                color="white"
+                position={[-1, -1, 1]}
+                rotation={[0, 0, Math.PI / 3]}
+                scale={[100, 0.1, 1]}
+              />
+              <Lightformer
+                intensity={3}
+                color="white"
+                position={[1, 1, 1]}
+                rotation={[0, 0, Math.PI / 3]}
+                scale={[100, 0.1, 1]}
+              />
+              <Lightformer
+                intensity={10}
+                color="white"
+                position={[-10, 0, 14]}
+                rotation={[0, Math.PI / 2, Math.PI / 3]}
+                scale={[100, 10, 1]}
+              />
+            </Environment>
+          </Suspense>
+        </Canvas>
 
-      {/* Ambient Radial Glow Behind Card */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-sky-500/15 dark:bg-sky-400/15 blur-[100px] pointer-events-none -z-10" />
-    </div>
+        {/* Floating Interactive Badge Hint */}
+        <div
+          className={`absolute bottom-3 left-1/2 -translate-x-1/2 z-20 pointer-events-none transition-all duration-300 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/85 dark:bg-navy-950/90 backdrop-blur-md border border-slate-700/60 dark:border-white/10 shadow-xl ${
+            isInteracting ? 'scale-95 opacity-40' : 'scale-100 opacity-95'
+          }`}
+        >
+          <Hand className="w-3.5 h-3.5 text-sky-400 animate-pulse" />
+          <span className="text-xs font-mono text-slate-200">
+            {isEn
+              ? 'Drag to swing ID badge • React Bits'
+              : 'Tarik untuk mengayun ID Card • React Bits'}
+          </span>
+          <Sparkles className="w-3 h-3 text-emerald-400" />
+        </div>
+
+        {/* Ambient Radial Glow Behind Card */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-sky-500/15 dark:bg-sky-400/15 blur-[100px] pointer-events-none -z-10" />
+      </div>
+    </LanyardErrorBoundary>
   );
 }
 
