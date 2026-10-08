@@ -47,8 +47,8 @@ export function BackToTop() {
         title={`Kembali ke atas (${Math.round(progress)}%)`}
         className={cn(
           'relative w-12 h-12 flex items-center justify-center rounded-full border shadow-xl backdrop-blur-md transition-all duration-300 ease-out active:scale-90 group',
-          'border-slate-300/80 bg-white/95 text-slate-700 hover:text-sky-500 hover:border-sky-400 hover:shadow-2xl hover:shadow-sky-500/25',
-          'dark:border-white/[0.12] dark:bg-zinc-950/95 dark:text-slate-200 dark:hover:text-sky-300 dark:hover:border-sky-400 dark:hover:shadow-2xl dark:hover:shadow-sky-500/20'
+          'border-slate-300/80 bg-white/95 text-slate-700 hover:text-black hover:border-black hover:shadow-2xl hover:shadow-black/10',
+          'dark:border-white/[0.12] dark:bg-zinc-950/95 dark:text-slate-200 dark:hover:text-white dark:hover:border-white dark:hover:shadow-2xl dark:hover:shadow-white/20'
         )}
       >
         {/* Circular Progress Ring */}
@@ -68,7 +68,7 @@ export function BackToTop() {
             cx="22"
             cy="22"
             r="19"
-            className="stroke-sky-500 dark:stroke-white transition-all duration-150"
+            className="stroke-slate-900 dark:stroke-white transition-all duration-150"
             strokeWidth="2.5"
             strokeDasharray={circumference}
             strokeDashoffset={strokeDashoffset}
@@ -77,7 +77,7 @@ export function BackToTop() {
           />
         </svg>
 
-        <ArrowUp className="w-4 h-4 transition-transform duration-200 group-hover:-translate-y-1 group-hover:scale-110 text-sky-600 dark:text-white" />
+        <ArrowUp className="w-4 h-4 transition-transform duration-200 group-hover:-translate-y-1 group-hover:scale-110 text-slate-900 dark:text-white" />
       </button>
     </div>
   );
