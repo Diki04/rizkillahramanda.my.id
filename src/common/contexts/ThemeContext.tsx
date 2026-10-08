@@ -51,10 +51,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setTheme(next);
   };
 
-  return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>
-      {children}
-    </ThemeContext.Provider>
+  return React.createElement(
+    ThemeContext.Provider,
+    { value: { theme, toggleTheme, setTheme } },
+    children
   );
 }
 
