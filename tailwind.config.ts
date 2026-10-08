@@ -12,22 +12,40 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        black: '#000000',
+        'pure-black': '#000000',
         navy: {
-          950: '#070A12',
-          900: '#0B1120',
-          850: '#0E172B',
-          800: '#131C31',
-          700: '#1E293B',
-          600: '#334155',
+          950: '#000000',
+          900: '#09090b',
+          850: '#121214',
+          800: '#18181b',
+          700: '#27272a',
+          600: '#3f3f46',
+        },
+        zinc: {
+          850: '#121214',
         },
         slate: {
-          card: '#0F172A',
+          card: '#09090b',
           border: 'rgba(255, 255, 255, 0.08)',
         },
         accent: {
-          blue: '#38BDF8',
-          cyan: '#0EA5E9',
-          glow: 'rgba(56, 189, 248, 0.15)',
+          blue: '#ffffff',
+          cyan: '#e4e4e7',
+          glow: 'rgba(255, 255, 255, 0.15)',
+        },
+        monochrome: {
+          base: '#000000',
+          surface1: '#09090b',
+          surface2: '#121214',
+          surface3: '#18181b',
+          surface4: '#27272a',
+          subtle: 'rgba(255, 255, 255, 0.08)',
+          'border-subtle': 'rgba(255, 255, 255, 0.08)',
+          'border-prominent': 'rgba(255, 255, 255, 0.25)',
+          primary: '#ffffff',
+          secondary: '#e4e4e7',
+          muted: '#71717a',
         },
       },
       fontFamily: {
