@@ -28,3 +28,23 @@ export {
   DEFAULT_COLORS,
 } from './BorderGlow';
 export type { BorderGlowProps, HslColor, AnimateValueOptions } from './BorderGlow';
+
+export {
+  MagicBento,
+  DEFAULT_CARDS,
+  DEFAULT_PARTICLE_COUNT,
+  DEFAULT_SPOTLIGHT_RADIUS,
+  DEFAULT_GLOW_COLOR,
+  MOBILE_BREAKPOINT,
+  calculateSpotlightValues,
+  calculateTiltAngles,
+  calculateMagnetOffset,
+  calculateGlowIntensity,
+  calculateCardRelativeGlow,
+  createParticleElement,
+  useMobileDetection,
+  ParticleCard,
+  GlobalSpotlight,
+  MAGIC_BENTO_STYLES,
+} from './MagicBento';
+export type { BentoCardProps, BentoProps } from './MagicBento';
