@@ -439,7 +439,7 @@ void main() {
 
 export const MicroSlats = ({
   preset = 'swell',
-  color = '#52525b',
+  color = '#4751e6',
   glintColor = '#ffffff',
   backgroundColor = '#000000',
   slatWidth = 10,
@@ -477,7 +477,7 @@ export const MicroSlats = ({
 
   const colors = useMemo(
     () => ({
-      color: parseColor(color, [0.322, 0.322, 0.357, 1]), // #52525b Zinc-600
+      color: parseColor(color, [0.278, 0.318, 0.902, 1]), // #4751e6 ReactBits default
       glintColor: parseColor(glintColor, [1, 1, 1, 1]), // #ffffff Pure White
       backgroundColor: parseColor(backgroundColor, [0, 0, 0, 1]) // #000000 OLED Pure Black
     }),
@@ -532,7 +532,67 @@ export const MicroSlats = ({
           // ignore context release errors
         }
       }
-      return undefined;
+
+      // Canvas 2D Perspective Slat Fallback
+      const fallbackCanvas = document.createElement('canvas');
+      fallbackCanvas.style.display = 'block';
+      fallbackCanvas.style.width = '100%';
+      fallbackCanvas.style.height = '100%';
+      fallbackCanvas.setAttribute('aria-hidden', 'true');
+      container.appendChild(fallbackCanvas);
+
+      const ctx = fallbackCanvas.getContext('2d');
+      if (!ctx) return undefined;
+
+      let fallbackRaf = 0;
+      let fallbackTime = 0;
+      let lastFallbackTime = performance.now();
+
+      const renderFallback = (now: number) => {
+        fallbackRaf = 0;
+        const dt = Math.min(0.05, (now - lastFallbackTime) / 1000);
+        lastFallbackTime = now;
+        fallbackTime += dt * 0.7;
+
+        const w = container.clientWidth || window.innerWidth || 800;
+        const h = container.clientHeight || window.innerHeight || 600;
+        if (fallbackCanvas.width !== w || fallbackCanvas.height !== h) {
+          fallbackCanvas.width = w;
+          fallbackCanvas.height = h;
+        }
+
+        ctx.fillStyle = backgroundColor || '#000000';
+        ctx.fillRect(0, 0, w, h);
+
+        const slatW = slatWidth || 10;
+        const slatH = slatHeight || 25;
+        const g = gap || 3;
+        const pitchX = slatW + g;
+        const pitchY = slatH + g;
+        const cols = Math.ceil(w / pitchX) + 1;
+        const rows = Math.ceil(h / pitchY) + 1;
+
+        for (let r = 0; r < rows; r++) {
+          const yNorm = r / rows;
+          const y = r * pitchY;
+          for (let c = 0; c < cols; c++) {
+            const x = c * pitchX;
+            const wave = Math.sin(c * 0.12 + r * 0.18 + fallbackTime) * 0.5 + 0.5;
+            const alpha = Math.max(0.06, wave * (1 - yNorm * 0.35) * 0.9);
+            ctx.fillStyle = color || '#4751e6';
+            ctx.globalAlpha = alpha;
+            ctx.fillRect(x, y, slatW, slatH * (0.65 + wave * 0.35));
+          }
+        }
+        ctx.globalAlpha = 1.0;
+        fallbackRaf = requestAnimationFrame(renderFallback);
+      };
+
+      fallbackRaf = requestAnimationFrame(renderFallback);
+      return () => {
+        if (fallbackRaf) cancelAnimationFrame(fallbackRaf);
+        if (fallbackCanvas.parentNode) fallbackCanvas.parentNode.removeChild(fallbackCanvas);
+      };
     }
 
     const gl = renderer.gl;
@@ -737,8 +797,11 @@ export const MicroSlats = ({
 
     const resize = () => {
       if (!container || !renderer) return;
-      width = Math.max(1, container.clientWidth);
-      height = Math.max(1, container.clientHeight);
+      const rect = container.getBoundingClientRect();
+      const w = container.clientWidth || rect.width || (typeof window !== 'undefined' ? window.innerWidth : 1);
+      const h = container.clientHeight || rect.height || (typeof window !== 'undefined' ? window.innerHeight : 1);
+      width = Math.max(1, w);
+      height = Math.max(1, h);
       renderer.dpr = Math.min(window.devicePixelRatio || 1, 2, Math.sqrt(PIXEL_BUDGET / (width * height)));
       renderer.setSize(width, height);
       buildFluid();
@@ -1028,13 +1091,28 @@ export const MicroSlats = ({
       }
       if (canvas.parentNode) canvas.parentNode.removeChild(canvas);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const isFixed = className?.includes('fixed');
   return React.createElement('div', {
     ref: containerRef,
-    className: `relative h-full w-full overflow-hidden ${className}`.trim(),
-    style,
-    'aria-hidden': 'true'
+    className: `${isFixed ? 'overflow-hidden' : 'relative h-full w-full overflow-hidden'} ${className}`.trim(),
+    style: {
+      ...(isFixed
+        ? {
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            pointerEvents: 'none' as const,
+            zIndex: 0,
+          }
+        : {}),
+      ...style,
+    },
+    'aria-hidden': 'true',
   });
 };
 
