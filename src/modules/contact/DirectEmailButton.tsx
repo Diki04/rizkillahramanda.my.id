@@ -9,7 +9,7 @@ export function DirectEmailButton() {
   return (
     <a
       href={`mailto:${email}?subject=${subject}&body=${body}`}
-      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-sky-500/40 bg-sky-500/10 text-sky-400 hover:bg-sky-500/20 hover:text-white transition-colors text-sm font-medium"
+      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-900/60 text-zinc-800 dark:text-zinc-200 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all text-sm font-medium"
     >
       <Mail className="w-4 h-4" />
       <span>Direct Email</span>
