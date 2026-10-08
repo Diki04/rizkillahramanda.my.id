@@ -62,6 +62,71 @@ describe('Lanyard Physics and Verlet Ribbon stability', () => {
     });
   });
 
+  it('should stably simulate floating topbar anchor mode (y = 5.0, L = 4.2)', () => {
+    const anchor = new THREE.Vector3(3.2, 5.0, 0); // Behind floating topbar
+    const cardPos = new THREE.Vector3(3.2, 0.8, 0); // Resting height below topbar
+    const cardVel = new THREE.Vector3(2.5, 0, 0);
+    const restLength = 4.2;
+    const stiffness = 160;
+    const damping = 2.4;
+
+    for (let f = 0; f < 120; f++) {
+      const dt = 1 / 60;
+      const clampPos = cardPos.clone().add(new THREE.Vector3(0, 0.03, 0));
+      const diff = clampPos.clone().sub(anchor);
+      const dist = diff.length();
+
+      const force = new THREE.Vector3(0, -32, 0);
+      if (dist > restLength) {
+        const tension = diff.normalize().multiplyScalar(-(dist - restLength) * stiffness);
+        force.add(tension);
+      }
+      force.add(cardVel.clone().multiplyScalar(-damping));
+
+      cardVel.add(force.multiplyScalar(dt));
+      cardVel.clampLength(0, 35);
+      cardPos.add(cardVel.clone().multiplyScalar(dt));
+
+      expect(Number.isFinite(cardPos.x)).toBe(true);
+      expect(Number.isFinite(cardPos.y)).toBe(true);
+      expect(Number.isFinite(cardPos.z)).toBe(true);
+    }
+
+    // Card stays stably below the anchor
+    expect(cardPos.y).toBeLessThan(anchor.y);
+  });
+
+  it('should stably simulate mobile centered topbar anchor mode (x = 0, y = 4.6, L = 4.0)', () => {
+    const anchor = new THREE.Vector3(0, 4.6, 0);
+    const cardPos = new THREE.Vector3(0, 0.6, 0);
+    const cardVel = new THREE.Vector3(0, 0, 0);
+    const restLength = 4.0;
+    const stiffness = 160;
+    const damping = 2.4;
+
+    for (let f = 0; f < 60; f++) {
+      const dt = 1 / 60;
+      const clampPos = cardPos.clone().add(new THREE.Vector3(0, 0.03, 0));
+      const diff = clampPos.clone().sub(anchor);
+      const dist = diff.length();
+
+      const force = new THREE.Vector3(0, -32, 0);
+      if (dist > restLength) {
+        const tension = diff.normalize().multiplyScalar(-(dist - restLength) * stiffness);
+        force.add(tension);
+      }
+      force.add(cardVel.clone().multiplyScalar(-damping));
+
+      cardVel.add(force.multiplyScalar(dt));
+      cardPos.add(cardVel.clone().multiplyScalar(dt));
+
+      expect(Number.isFinite(cardPos.x)).toBe(true);
+      expect(Number.isFinite(cardPos.y)).toBe(true);
+    }
+
+    expect(Math.abs(cardPos.x)).toBeLessThan(0.01);
+  });
+
   it('should provide complete valid badge profile fields for card personalization', () => {
     expect(DEFAULT_BADGE_PROFILE.name).toBe('RIZKILLAH RAMANDA');
     expect(DEFAULT_BADGE_PROFILE.university).toContain('UNIVERSITAS RIAU');

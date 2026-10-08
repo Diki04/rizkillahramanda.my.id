@@ -9,6 +9,8 @@ import { RotatingText } from '@/common/components/RotatingText';
 import { ScrollReveal } from '@/common/components/ScrollReveal';
 import { TechText, SpecularButton } from '@/common/components/reactbits';
 import { useTheme } from '@/common/contexts/ThemeContext';
+import { useLayout } from '@/common/contexts/LayoutContext';
+import { cn } from '@/common/utils/cn';
 import { mockProfile } from '@/services/data/mock-profile';
 import {
   ArrowUpRight,
@@ -32,8 +34,10 @@ export function Hero() {
   const t = useTranslations('hero');
   const locale = useLocale();
   const { theme } = useTheme();
+  const { layoutMode } = useLayout();
   const isEn = locale === 'en';
   const isDark = theme !== 'light';
+  const isTopbar = layoutMode === 'topbar';
 
   const roles = isEn
     ? [
@@ -62,9 +66,20 @@ export function Hero() {
       />
       <div className="pointer-events-none absolute -inset-4 rounded-3xl bg-gradient-to-tr from-white/[0.04] via-zinc-800/[0.08] to-white/[0.02] blur-3xl opacity-40 z-0" />
 
-      {/* Layer 1 (Tengah): 3D Lanyard ID Badge - Spans full hero without bounds, BEHIND text and IN FRONT of background */}
-      <div className="absolute -top-16 md:-top-24 inset-x-0 bottom-0 z-[5] pointer-events-auto">
-        <Lanyard position={[0, 0, 20]} fov={24} className="pointer-events-auto" />
+      {/* Layer 1 (Tengah): 3D Lanyard ID Badge - In topbar mode starts behind floating navbar; in sidebar mode pierces top edge */}
+      <div
+        className={cn(
+          'absolute inset-x-0 bottom-0 z-[5] pointer-events-auto transition-all duration-300',
+          isTopbar ? 'top-0 md:top-2' : '-top-16 md:-top-24'
+        )}
+      >
+        <Lanyard
+          position={[0, 0, 20]}
+          fov={24}
+          anchorPosition={isTopbar ? [3.2, 5.0, 0] : undefined}
+          ropeLength={isTopbar ? 4.2 : 5.0}
+          className="pointer-events-auto"
+        />
       </div>
 
       {/* Layer 2 (Paling depan): Foreground Typography & Controls */}

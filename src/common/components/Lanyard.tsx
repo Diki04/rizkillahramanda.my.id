@@ -36,6 +36,7 @@ interface LanyardProps {
   lanyardImage?: string | null;
   lanyardWidth?: number;
   anchorPosition?: [number, number, number];
+  ropeLength?: number;
   className?: string;
 }
 
@@ -49,6 +50,7 @@ export default function Lanyard({
   lanyardImage = '/lanyard.png',
   lanyardWidth = 1.15,
   anchorPosition,
+  ropeLength,
   className = '',
 }: LanyardProps) {
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 1024);
@@ -85,6 +87,7 @@ export default function Lanyard({
             lanyardImage={lanyardImage}
             lanyardWidth={lanyardWidth}
             anchorPosition={anchorPosition}
+            ropeLength={ropeLength}
           />
           <Environment blur={0.75}>
             <Lightformer
@@ -130,10 +133,11 @@ interface PhysicsLanyardProps {
   lanyardImage?: string | null;
   lanyardWidth?: number;
   anchorPosition?: [number, number, number];
+  ropeLength?: number;
 }
 
 const ROPE_SEGMENTS = 16;
-const REST_ROPE_LENGTH = 5.0;
+const DEFAULT_ROPE_LENGTH = 5.0;
 
 function PhysicsLanyard({
   isMobile = false,
@@ -143,20 +147,24 @@ function PhysicsLanyard({
   lanyardImage = '/lanyard.png',
   lanyardWidth = 1.15,
   anchorPosition,
+  ropeLength,
 }: PhysicsLanyardProps) {
   const band = useRef<any>(null);
   const cardGroup = useRef<THREE.Group>(null);
+  const restLength = ropeLength ?? DEFAULT_ROPE_LENGTH;
 
-  // Responsive anchor: Top pierces off the upper screen edge (Y ~ 6.4 desktop, 5.8 mobile)
+  // Responsive anchor: Top pierces off upper screen edge or anchors behind floating topbar
   const anchor = useMemo(() => {
     if (anchorPosition) {
-      return new THREE.Vector3(...anchorPosition);
+      const x = isMobile && anchorPosition[0] !== 0 ? 0 : anchorPosition[0];
+      const y = isMobile ? anchorPosition[1] - 0.4 : anchorPosition[1];
+      return new THREE.Vector3(x, y, anchorPosition[2]);
     }
     return new THREE.Vector3(isMobile ? 0 : 3.2, isMobile ? 5.8 : 6.4, 0);
   }, [anchorPosition, isMobile]);
 
   // Card physics state (position, velocity, rotation, angular velocity)
-  const cardPos = useRef(new THREE.Vector3(anchor.x, anchor.y - REST_ROPE_LENGTH, 0));
+  const cardPos = useRef(new THREE.Vector3(anchor.x, anchor.y - restLength, 0));
   const cardVel = useRef(new THREE.Vector3(0, 0, 0));
   const cardRot = useRef(new THREE.Euler(0, 0, 0));
 
@@ -164,7 +172,7 @@ function PhysicsLanyard({
   const ropePoints = useRef<THREE.Vector3[]>(
     Array.from({ length: ROPE_SEGMENTS }, (_, i) => {
       const t = i / (ROPE_SEGMENTS - 1);
-      const initialClipPos = new THREE.Vector3(anchor.x, anchor.y - REST_ROPE_LENGTH + CLAMP_OFFSET.y, 0);
+      const initialClipPos = new THREE.Vector3(anchor.x, anchor.y - restLength + CLAMP_OFFSET.y, 0);
       return new THREE.Vector3().lerpVectors(initialClipPos, anchor, t);
     })
   );
@@ -253,6 +261,12 @@ function PhysicsLanyard({
     }
   }, [hovered, dragged]);
 
+  useEffect(() => {
+    // When anchor or rope length updates across layout transitions, re-anchor cleanly
+    cardPos.current.set(anchor.x, anchor.y - restLength, 0);
+    cardVel.current.set(0, 0, 0);
+  }, [anchor, restLength]);
+
   useFrame((state, delta) => {
     const dt = Math.min(delta, 0.033); // Clamp dt to prevent large frame jumps
 
@@ -305,8 +319,8 @@ function PhysicsLanyard({
       const force = new THREE.Vector3(0, -32, 0);
 
       // Elastic tether constraint pulling towards anchor
-      if (dist > REST_ROPE_LENGTH) {
-        const tension = diff.normalize().multiplyScalar(-(dist - REST_ROPE_LENGTH) * stiffness);
+      if (dist > restLength) {
+        const tension = diff.normalize().multiplyScalar(-(dist - restLength) * stiffness);
         force.add(tension);
       }
 
@@ -408,7 +422,7 @@ function PhysicsLanyard({
       {/* 3D Card Model Group */}
       <group
         ref={cardGroup}
-        position={[anchor.x, anchor.y - REST_ROPE_LENGTH, 0]}
+        position={[anchor.x, anchor.y - restLength, 0]}
         scale={isMobile ? 2.8 : 3.4}
         onPointerOver={() => setHovered(true)}
         onPointerOut={() => setHovered(false)}
