@@ -5,9 +5,9 @@ import dynamic from 'next/dynamic';
 import { Link } from '@/i18n/routing';
 import { Container } from '@/common/components/Container';
 import { Button } from '@/common/components/Button';
-import { TypewriterText } from '@/common/components/TypewriterText';
 import { RotatingText } from '@/common/components/RotatingText';
 import { ScrollReveal } from '@/common/components/ScrollReveal';
+import { TechText, SpecularButton } from '@/common/components/reactbits';
 import { mockProfile } from '@/services/data/mock-profile';
 import {
   ArrowUpRight,
@@ -52,12 +52,12 @@ export function Hero() {
       className="relative min-h-[calc(100vh-5rem)] flex flex-col justify-center py-12 md:py-16 overflow-x-clip"
     >
       {/* Layer 0 (Paling belakang): Subtle Ambient Background Glow */}
-      <div className="pointer-events-none absolute -top-20 -left-20 w-96 h-96 rounded-full bg-sky-500/10 dark:bg-sky-400/10 blur-[100px] animate-pulse z-0" />
+      <div className="pointer-events-none absolute -top-20 -left-20 w-96 h-96 rounded-full bg-white/[0.04] blur-[100px] animate-pulse z-0" />
       <div
-        className="pointer-events-none absolute top-1/3 -right-20 w-[420px] h-[420px] rounded-full bg-blue-500/10 dark:bg-cyan-500/10 blur-[120px] animate-pulse z-0"
+        className="pointer-events-none absolute top-1/3 -right-20 w-[420px] h-[420px] rounded-full bg-zinc-800/[0.08] blur-[120px] animate-pulse z-0"
         style={{ animationDelay: '1.8s' }}
       />
-      <div className="pointer-events-none absolute -inset-4 rounded-3xl bg-gradient-to-tr from-sky-500/10 via-blue-600/10 to-emerald-400/10 blur-3xl opacity-40 z-0" />
+      <div className="pointer-events-none absolute -inset-4 rounded-3xl bg-gradient-to-tr from-white/[0.04] via-zinc-800/[0.08] to-white/[0.02] blur-3xl opacity-40 z-0" />
 
       {/* Layer 1 (Tengah): 3D Lanyard ID Badge - Spans full hero without bounds, BEHIND text and IN FRONT of background */}
       <div className="absolute -top-16 md:-top-24 inset-x-0 bottom-0 z-[5] pointer-events-none">
@@ -75,29 +75,26 @@ export function Hero() {
               <span>{t('status')}</span>
             </div>
 
-            {/* Main Greeting & Name with Typewriter */}
+            {/* Main Greeting & Name with TechText */}
             <div className="space-y-3 pointer-events-none select-none">
-              <div className="flex items-center gap-2 text-sky-600 dark:text-accent-blue font-mono text-sm tracking-wide font-semibold">
+              <div className="flex items-center gap-2 text-zinc-300 dark:text-zinc-300 font-mono text-sm tracking-wide font-semibold">
                 <Terminal className="w-4 h-4" />
                 <span>{t('greeting')}</span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
-                <TypewriterText
-                  words={[
-                    mockProfile.name,
-                    'Rizkillah Ramanda',
-                    'Rizkillah R. Sinyo',
-                  ]}
-                  typingSpeed={80}
-                  deletingSpeed={45}
-                  pauseDuration={2400}
-                  className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-sky-600 to-blue-600 dark:from-white dark:via-sky-200 dark:to-sky-400"
+              <div className="pointer-events-auto py-2">
+                <TechText
+                  text="Rizkillah Ramanda"
+                  color="#ffffff"
+                  accentColor="#a1a1aa"
+                  fontSize={48}
+                  lineStyle="dashed"
+                  className="font-extrabold tracking-tight"
                 />
-              </h1>
+              </div>
 
               {/* Dynamic Rotating Role */}
-              <div className="text-xl sm:text-2xl font-bold font-mono text-sky-600 dark:text-sky-400">
+              <div className="text-xl sm:text-2xl font-bold font-mono text-zinc-300 dark:text-zinc-300">
                 <RotatingText texts={roles} interval={3400} />
               </div>
 
@@ -123,16 +120,20 @@ export function Hero() {
             {/* CTAs */}
             <div className="flex flex-wrap items-center gap-3 pt-2 pointer-events-auto">
               <Link href="/projects">
-                <Button variant="secondary" size="md">
+                <SpecularButton size="md">
                   <span>{t('viewProjects')}</span>
                   <ArrowUpRight className="w-4 h-4 ml-1" />
-                </Button>
+                </SpecularButton>
               </Link>
               <Link href="/contact">
-                <Button variant="outline" size="md">
+                <SpecularButton
+                  size="md"
+                  baseColor="#27272a"
+                  lineColor="#a1a1aa"
+                >
                   <span>{t('contactMe')}</span>
-                  <Mail className="w-4 h-4 ml-1.5 text-slate-500 dark:text-slate-400" />
-                </Button>
+                  <Mail className="w-4 h-4 ml-1.5 text-slate-400" />
+                </SpecularButton>
               </Link>
               <a
                 href={mockProfile.github}
