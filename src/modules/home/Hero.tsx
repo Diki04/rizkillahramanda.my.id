@@ -100,28 +100,20 @@ export function Hero() {
                 <span>{t('greeting')}</span>
               </div>
 
-              <div className="pointer-events-auto py-1 flex flex-col items-start gap-1">
+              <div className="pointer-events-auto py-1 w-full max-w-full overflow-visible">
                 <TechText
-                  text="Rizkillah"
+                  text="Rizkillah Ramanda Sinyo"
                   color={isDark ? '#ffffff' : '#09090b'}
                   accentColor={isDark ? '#a1a1aa' : '#4f46e5'}
-                  fontSize={84}
+                  fontSize={52}
                   fontWeight={800}
-                  dashLength={6}
-                  dashGap={6}
+                  dashLength={5}
+                  dashGap={5}
                   lineStyle="dashed"
-                  className="font-extrabold tracking-tight leading-none"
-                />
-                <TechText
-                  text="Ramanda"
-                  color={isDark ? '#ffffff' : '#09090b'}
-                  accentColor={isDark ? '#a1a1aa' : '#4f46e5'}
-                  fontSize={84}
-                  fontWeight={800}
-                  dashLength={6}
-                  dashGap={6}
-                  lineStyle="dashed"
-                  className="font-extrabold tracking-tight leading-none"
+                  autoAnimate={true}
+                  autoWaveSpeed={1.6}
+                  speed={1.2}
+                  className="font-extrabold tracking-tight"
                 />
               </div>
 

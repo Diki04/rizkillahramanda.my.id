@@ -60,6 +60,18 @@ describe('TechText component & helpers', () => {
       expect(element.props.as).toBe('h1');
       expect(element.props.className).toBe('custom-hero-title');
     });
+
+    it('should support autoAnimate and autoWaveSpeed props for infinite autonomous animation', () => {
+      const element = React.createElement(TechText, {
+        text: 'Rizkillah Ramanda Sinyo',
+        autoAnimate: true,
+        autoWaveSpeed: 2.0,
+      });
+
+      expect(element.props.text).toBe('Rizkillah Ramanda Sinyo');
+      expect(element.props.autoAnimate).toBe(true);
+      expect(element.props.autoWaveSpeed).toBe(2.0);
+    });
   });
 
   describe('TechText Canvas 2D integration & SSR safety', () => {

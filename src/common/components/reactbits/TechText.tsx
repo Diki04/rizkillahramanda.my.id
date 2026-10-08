@@ -32,6 +32,10 @@ export interface TechTextProps {
   animateDashes?: boolean;
   /** Whether mouse and touch hover interactions are enabled. Defaults to true */
   interactive?: boolean;
+  /** Whether the animation automatically sweeps across glyphs infinitely without requiring hover. Defaults to true */
+  autoAnimate?: boolean;
+  /** Autonomous scanning wave sweep speed multiplier. Defaults to 1.5 */
+  autoWaveSpeed?: number;
   /** Whether to render subtle technical corner brackets on hovered glyphs. Defaults to true */
   showBorders?: boolean;
   /** Whether to render tiny technical index tags above hovered glyphs. Defaults to false */
@@ -129,6 +133,8 @@ export function TechText({
   speed = 1,
   animateDashes = true,
   interactive = true,
+  autoAnimate = true,
+  autoWaveSpeed = 1.5,
   showBorders = true,
   showCoordinates = false,
   className,
@@ -242,6 +248,7 @@ export function TechText({
 
     // Main animation & drawing loop
     let lastTime = performance.now();
+    const startTime = performance.now();
 
     const render = (time: number) => {
       if (!isVisibleRef.current) return;
@@ -251,7 +258,7 @@ export function TechText({
       lastTime = time;
 
       if (animateDashes) {
-        dashOffsetRef.current = (dashOffsetRef.current - 24 * speed * delta) % 100;
+        dashOffsetRef.current = (dashOffsetRef.current - 26 * speed * delta) % 100;
       }
 
       const dpr = window.devicePixelRatio || 1;
@@ -266,10 +273,28 @@ export function TechText({
       ctx.font = `${fontWeight} ${effectiveFontSize}px ${fontFamily}`;
       ctx.textBaseline = 'alphabetic';
 
+      const timeSec = (time - startTime) * 0.001;
+      const waveSpeedCalc = 2.4 * (autoWaveSpeed || speed);
+      const waveFreq = 0.28;
+
       for (let i = 0; i < charGlyphs.length; i++) {
         const glyph = charGlyphs[i];
 
-        // Hover target calculation
+        // 1. Autonomous infinite scanning wave
+        let autoWave = 0;
+        if (autoAnimate) {
+          const phase = timeSec * waveSpeedCalc - i * waveFreq;
+          const sinVal = Math.sin(phase);
+          if (sinVal > 0) {
+            autoWave = Math.pow(sinVal, 2.6) * 0.95;
+          }
+          // Ambient baseline pulse to keep all letters subtly alive with tech dashes
+          const ambient = 0.08 + 0.05 * Math.sin(timeSec * 1.8 + i * 0.2);
+          autoWave = Math.max(autoWave, ambient);
+        }
+
+        // 2. Interactive mouse proximity
+        let mouseHover = 0;
         if (interactive && mouse.active) {
           const charCenterX = glyph.x + glyph.width / 2;
           const charCenterY = baselineY - effectiveFontSize * 0.4;
@@ -284,19 +309,17 @@ export function TechText({
             mouse.y <= baselineY + effectiveFontSize * 0.25;
 
           if (inDirectBounds) {
-            glyph.targetHover = 1.0;
+            mouseHover = 1.0;
           } else if (dist < hoverRadius) {
-            glyph.targetHover = Math.pow(1 - dist / hoverRadius, 1.25);
-          } else {
-            glyph.targetHover = 0.0;
+            mouseHover = Math.pow(1 - dist / hoverRadius, 1.25);
           }
-        } else {
-          glyph.targetHover = 0.0;
         }
+
+        glyph.targetHover = Math.max(mouseHover, autoWave);
 
         // Smooth spring-like lerp transition
         const diff = glyph.targetHover - glyph.hoverProgress;
-        glyph.hoverProgress += diff * 0.16;
+        glyph.hoverProgress += diff * 0.2;
         if (Math.abs(diff) < 0.002) {
           glyph.hoverProgress = glyph.targetHover;
         }
@@ -406,6 +429,8 @@ export function TechText({
     speed,
     animateDashes,
     interactive,
+    autoAnimate,
+    autoWaveSpeed,
     showBorders,
     showCoordinates,
   ]);
