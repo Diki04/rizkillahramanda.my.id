@@ -100,17 +100,28 @@ export function Hero() {
                 <span>{t('greeting')}</span>
               </div>
 
-              <div className="pointer-events-auto py-2">
+              <div className="pointer-events-auto py-1 flex flex-col items-start gap-1">
                 <TechText
-                  text="Rizkillah Ramanda"
+                  text="Rizkillah"
                   color={isDark ? '#ffffff' : '#09090b'}
                   accentColor={isDark ? '#a1a1aa' : '#4f46e5'}
-                  fontSize={66}
+                  fontSize={84}
                   fontWeight={800}
-                  dashLength={5}
-                  dashGap={5}
+                  dashLength={6}
+                  dashGap={6}
                   lineStyle="dashed"
-                  className="font-extrabold tracking-tight"
+                  className="font-extrabold tracking-tight leading-none"
+                />
+                <TechText
+                  text="Ramanda"
+                  color={isDark ? '#ffffff' : '#09090b'}
+                  accentColor={isDark ? '#a1a1aa' : '#4f46e5'}
+                  fontSize={84}
+                  fontWeight={800}
+                  dashLength={6}
+                  dashGap={6}
+                  lineStyle="dashed"
+                  className="font-extrabold tracking-tight leading-none"
                 />
               </div>
 
@@ -149,7 +160,7 @@ export function Hero() {
                   className="shadow-sm hover:shadow-md"
                 >
                   <span>{t('viewProjects')}</span>
-                  <ArrowUpRight className="w-4 h-4 ml-1" />
+                  <ArrowUpRight className="w-4 h-4 ml-0.5 shrink-0" />
                 </SpecularButton>
               </Link>
               <Link href="/contact">
@@ -161,7 +172,7 @@ export function Hero() {
                   className="shadow-sm hover:shadow-md"
                 >
                   <span>{t('contactMe')}</span>
-                  <Mail className="w-4 h-4 ml-1.5 text-slate-400" />
+                  <Mail className="w-4 h-4 ml-0.5 shrink-0 text-slate-400" />
                 </SpecularButton>
               </Link>
               <a

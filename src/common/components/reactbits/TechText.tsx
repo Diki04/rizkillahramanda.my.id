@@ -172,8 +172,8 @@ export function TechText({
       const baseMeasuredWidth = ctx.measureText(text).width;
 
       // 2. Responsive scaling down if container is narrower than text
-      const paddingX = Math.max(14, Math.round(fontSize * 0.25));
-      const paddingY = Math.max(12, Math.round(fontSize * 0.25));
+      const paddingX = Math.max(8, Math.round(fontSize * 0.12));
+      const paddingY = Math.max(6, Math.round(fontSize * 0.1));
 
       if (containerWidth > 0 && baseMeasuredWidth > containerWidth - paddingX * 2) {
         const availableW = Math.max(100, containerWidth - paddingX * 2);
@@ -189,7 +189,7 @@ export function TechText({
 
       charGlyphs = [];
       let currentX = paddingX;
-      baselineY = paddingY + Math.round(effectiveFontSize * 0.95);
+      baselineY = paddingY + Math.round(effectiveFontSize * 0.88);
 
       for (let i = 0; i < text.length; i++) {
         const char = text[i];
@@ -205,7 +205,7 @@ export function TechText({
       }
 
       cssWidth = Math.ceil(currentX + paddingX);
-      cssHeight = Math.ceil(effectiveFontSize * 1.45 + paddingY * 2);
+      cssHeight = Math.ceil(effectiveFontSize * 1.15 + paddingY * 2);
 
       // 4. DPR-aware canvas sizing
       const dpr = window.devicePixelRatio || 1;
