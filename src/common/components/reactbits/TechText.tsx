@@ -374,8 +374,8 @@ export function TechText({
         const y = baselineY;
         const w = glyph.width;
 
-        // 1. Solid Typography Base (transitions out on hover)
-        const solidAlpha = Math.max(0, 1 - progress * 0.88);
+        // 1. Solid Typography Base (retains high contrast & crisp readability during wave)
+        const solidAlpha = Math.max(0.7, 1 - progress * 0.3);
         if (solidAlpha > 0.02) {
           ctx.fillStyle = toRgbaString(color, solidAlpha);
           ctx.fillText(glyph.char, x, y);

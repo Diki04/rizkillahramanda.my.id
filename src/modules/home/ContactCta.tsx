@@ -20,50 +20,52 @@ export function ContactCta() {
       className="py-20 border-t border-slate-200 dark:border-white/[0.08] min-h-[50vh] flex flex-col justify-center relative overflow-hidden"
     >
       <Container size="xl">
-        <div className="relative rounded-3xl border border-slate-200 dark:border-white/[0.1] bg-gradient-to-b from-white to-slate-50/80 dark:from-zinc-900/60 dark:to-zinc-950/80 backdrop-blur-xl p-8 sm:p-12 md:p-14 text-center overflow-hidden shadow-sm dark:shadow-none">
+        <div className="relative rounded-3xl border border-slate-300 dark:border-white/[0.1] bg-white/95 dark:bg-gradient-to-b dark:from-zinc-900/60 dark:to-zinc-950/80 backdrop-blur-xl p-6 sm:p-12 md:p-14 text-center overflow-hidden shadow-lg shadow-slate-900/5 dark:shadow-none">
           {/* Subtle monochrome ambient glow */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-white/[0.04] rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 max-w-2xl mx-auto space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-slate-300 dark:border-white/20 bg-slate-100 dark:bg-white/[0.06] text-slate-900 dark:text-white text-xs font-mono font-medium">
-              <Sparkles className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-slate-300 dark:border-white/20 bg-slate-100 dark:bg-white/[0.06] text-slate-950 dark:text-white text-xs font-mono font-bold shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-slate-800 dark:text-zinc-300" />
               <span>{t('badge')}</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-slate-950 dark:text-white tracking-tight leading-tight">
               {t('headlinePrefix')}{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:via-zinc-200 dark:to-zinc-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-950 via-indigo-900 to-slate-900 dark:from-white dark:via-zinc-200 dark:to-zinc-400">
                 {t('headlineHighlight')}
               </span>{' '}
               {t('headlineSuffix')}
             </h2>
 
-            <p className="text-sm sm:text-base text-slate-600 dark:text-zinc-300 leading-relaxed max-w-xl mx-auto">
+            <p className="text-sm sm:text-base text-slate-800 dark:text-zinc-300 leading-relaxed max-w-xl mx-auto font-medium">
               {t('description')}
             </p>
 
-            <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-              <Link href="/contact">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2 w-full">
+              <Link href="/contact" className="w-full sm:w-auto">
                 <SpecularButton
                   size="md"
                   baseColor={isDark ? '#18181b' : '#ffffff'}
                   lineColor={isDark ? '#ffffff' : '#434bce'}
                   textColor={isDark ? '#ffffff' : '#09090b'}
+                  className="w-full sm:w-auto font-bold shadow-xs"
                 >
                   <Mail className="w-4 h-4 mr-2" />
                   <span>{t('sendMessage')}</span>
                 </SpecularButton>
               </Link>
-              <Link href="/chat">
+              <Link href="/chat" className="w-full sm:w-auto">
                 <SpecularButton
                   size="md"
                   baseColor={isDark ? '#09090b' : '#ffffff'}
                   lineColor={isDark ? '#71717a' : '#434bce'}
                   textColor={isDark ? '#ffffff' : '#09090b'}
+                  className="w-full sm:w-auto font-bold shadow-xs"
                 >
                   <MessageSquare className="w-4 h-4 mr-2 text-slate-600 dark:text-zinc-300" />
                   <span>{t('leaveNote')}</span>
-                  <ArrowUpRight className="w-4 h-4 ml-1 text-slate-400 dark:text-zinc-400" />
+                  <ArrowUpRight className="w-4 h-4 ml-1 text-slate-500 dark:text-zinc-400" />
                 </SpecularButton>
               </Link>
             </div>

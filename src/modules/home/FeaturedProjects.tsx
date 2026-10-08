@@ -35,13 +35,13 @@ export function FeaturedProjects() {
           {/* Section Header */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-zinc-900/80 text-slate-800 dark:text-zinc-300 text-xs font-mono uppercase tracking-wider font-semibold mb-2">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-slate-300 dark:border-white/10 bg-white/95 dark:bg-zinc-900/80 text-slate-950 dark:text-zinc-200 text-xs font-mono uppercase tracking-wider font-bold mb-2 shadow-xs">
                 <span>{t('featured')}</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-1">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-slate-950 dark:text-white mt-1">
                 {t('title')}
               </h2>
-              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-1 max-w-xl">
+              <p className="text-sm sm:text-base text-slate-800 dark:text-slate-300 mt-1 max-w-xl font-medium">
                 {t('subtitle')}
               </p>
             </div>
@@ -49,7 +49,7 @@ export function FeaturedProjects() {
               <Button
                 variant="outline"
                 size="sm"
-                className="bg-slate-100 hover:bg-slate-200 border-slate-200 text-slate-800 dark:bg-zinc-900/80 dark:border-white/10 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-zinc-800 dark:hover:border-white/20 transition-colors"
+                className="bg-white hover:bg-slate-100 border-slate-300 text-slate-950 dark:bg-zinc-900/80 dark:border-white/10 dark:text-zinc-200 dark:hover:text-white dark:hover:bg-zinc-800 dark:hover:border-white/20 transition-colors font-semibold shadow-xs"
               >
                 <span>{t('filterAll')}</span>
                 <ArrowUpRight className="w-4 h-4 ml-1" />
@@ -64,10 +64,10 @@ export function FeaturedProjects() {
                 <SpotlightCard
                   spotlightColor={isDark ? 'rgba(255, 255, 255, 0.14)' : 'rgba(67, 75, 206, 0.15)'}
                   className={cn(
-                    'flex flex-col h-full p-5 justify-between cursor-pointer group transition-all duration-300 active:scale-[0.985]',
+                    'flex flex-col h-full p-5 justify-between cursor-pointer group transition-all duration-300 active:scale-[0.985] bg-white/95 dark:bg-zinc-950/80 border-slate-300 dark:border-white/10 shadow-sm',
                     index === 0
                       ? 'border-transparent dark:border-transparent bg-transparent dark:bg-transparent hover:border-transparent dark:hover:border-transparent'
-                      : 'hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-white/5 hover:border-white/30'
+                      : 'hover:-translate-y-1.5 hover:shadow-xl hover:shadow-slate-300/40 dark:hover:shadow-white/5 hover:border-slate-400 dark:hover:border-white/30'
                   )}
                   onClick={() => setSelectedProject(project)}
                 >
@@ -88,7 +88,7 @@ export function FeaturedProjects() {
                         </span>
                       </div>
                       <div className="absolute top-2.5 right-2.5 z-10">
-                        <Badge className="bg-white/90 dark:bg-zinc-900/80 border-slate-200 dark:border-white/10 text-slate-800 dark:text-zinc-300 hover:text-black dark:hover:text-white shadow-sm">
+                        <Badge className="bg-slate-950 text-white dark:bg-zinc-900/90 border-slate-700 dark:border-white/20 font-bold shadow-xs">
                           {project.category}
                         </Badge>
                       </div>
@@ -96,10 +96,10 @@ export function FeaturedProjects() {
 
                     {/* Title & Description */}
                     <div>
-                      <h3 className="text-lg font-semibold text-slate-900 dark:text-white group-hover:text-black dark:group-hover:text-zinc-200 transition-colors">
+                      <h3 className="text-lg font-bold text-slate-950 dark:text-white group-hover:text-black dark:group-hover:text-zinc-200 transition-colors">
                         {project.title}
                       </h3>
-                      <p className="text-sm text-slate-600 dark:text-zinc-400 mt-2 line-clamp-3 leading-relaxed">
+                      <p className="text-sm text-slate-700 dark:text-zinc-300 mt-2 line-clamp-3 leading-relaxed font-normal">
                         {isEn ? project.description.en : project.description.id}
                       </p>
                     </div>
@@ -111,7 +111,7 @@ export function FeaturedProjects() {
                         return (
                           <span
                             key={tag}
-                            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono bg-slate-100 dark:bg-zinc-900/80 text-slate-700 dark:text-zinc-300 border border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 hover:text-black dark:hover:text-white transition-colors"
+                            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono bg-slate-100 dark:bg-zinc-900/80 text-slate-900 dark:text-zinc-200 border border-slate-300 dark:border-white/10 hover:border-slate-400 dark:hover:border-white/20 hover:text-black dark:hover:text-white transition-colors font-semibold"
                           >
                             <TechIcon className="w-3 h-3 shrink-0" style={{ color }} />
                             <span>{tag}</span>
@@ -130,7 +130,7 @@ export function FeaturedProjects() {
                       onClick={() => setSelectedProject(project)}
                       variant="outline"
                       size="sm"
-                      className="flex-1 text-xs font-medium bg-slate-100 hover:bg-slate-200 border-slate-200 text-slate-800 dark:bg-zinc-900/80 dark:border-white/10 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-zinc-800 dark:hover:border-white/20 transition-colors"
+                      className="flex-1 text-xs font-bold bg-white hover:bg-slate-100 border-slate-300 text-slate-950 dark:bg-zinc-900/80 dark:border-white/10 dark:text-zinc-200 dark:hover:text-white dark:hover:bg-zinc-800 dark:hover:border-white/20 transition-colors shadow-xs"
                     >
                       <Eye className="w-3.5 h-3.5 mr-1.5" />
                       <span>Detail</span>
@@ -144,7 +144,7 @@ export function FeaturedProjects() {
                         <Button
                           variant="outline"
                           size="sm"
-                          className="text-xs font-medium bg-slate-100 hover:bg-slate-200 border-slate-200 text-slate-800 dark:bg-zinc-900/80 dark:border-white/10 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-zinc-800 dark:hover:border-white/20 transition-colors"
+                          className="text-xs font-bold bg-white hover:bg-slate-100 border-slate-300 text-slate-950 dark:bg-zinc-900/80 dark:border-white/10 dark:text-zinc-200 dark:hover:text-white dark:hover:bg-zinc-800 dark:hover:border-white/20 transition-colors shadow-xs"
                         >
                           <ExternalLink className="w-3.5 h-3.5" />
                         </Button>
@@ -159,7 +159,7 @@ export function FeaturedProjects() {
                         <Button
                           variant="outline"
                           size="sm"
-                          className="text-xs font-medium bg-slate-100 hover:bg-slate-200 border-slate-200 text-slate-800 dark:bg-zinc-900/80 dark:border-white/10 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-zinc-800 dark:hover:border-white/20 transition-colors"
+                          className="text-xs font-bold bg-white hover:bg-slate-100 border-slate-300 text-slate-950 dark:bg-zinc-900/80 dark:border-white/10 dark:text-zinc-200 dark:hover:text-white dark:hover:bg-zinc-800 dark:hover:border-white/20 transition-colors shadow-xs"
                         >
                           <Github className="w-3.5 h-3.5" />
                         </Button>
