@@ -73,7 +73,7 @@ export function TypewriterText({
       <span
         aria-hidden="true"
         className={cn(
-          'inline-block w-[3px] h-[0.9em] ml-1.5 rounded-sm bg-sky-500 dark:bg-accent-blue animate-pulse shadow-[0_0_8px_rgba(56,189,248,0.8)] align-middle',
+          'inline-block w-[3px] h-[0.9em] ml-1.5 rounded-sm bg-black dark:bg-white animate-pulse shadow-[0_0_8px_rgba(255,255,255,0.8)] align-middle',
           cursorClassName
         )}
       />
