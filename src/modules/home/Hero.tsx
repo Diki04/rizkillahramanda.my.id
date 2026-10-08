@@ -49,18 +49,28 @@ export function Hero() {
   return (
     <ScrollReveal
       id="hero"
-      className="relative min-h-[calc(100vh-5rem)] flex flex-col justify-center py-12 md:py-16 overflow-hidden"
+      className="relative min-h-[calc(100vh-5rem)] flex flex-col justify-center py-12 md:py-16 overflow-x-clip"
     >
-      {/* Layer 0 (Paling belakang): Dynamic Background Ambient Neon Glow & Orbs */}
-      <div className="pointer-events-none absolute -top-20 -left-20 w-96 h-96 rounded-full bg-sky-500/10 dark:bg-sky-400/10 blur-[100px] animate-pulse z-0" />
+      {/* Layer 0 (Paling belakang): Immersive Blue & Cyan Neon Glow piercing through top */}
+      {/* 1. Giant luminous Sky-Blue Corona piercing through the upper edge behind the lanyard */}
       <div
-        className="pointer-events-none absolute top-1/3 -right-20 w-[420px] h-[420px] rounded-full bg-blue-500/10 dark:bg-cyan-500/10 blur-[120px] animate-pulse z-0"
-        style={{ animationDelay: '1.8s' }}
+        className="pointer-events-none absolute -top-48 md:-top-64 right-[-10%] sm:right-[-5%] lg:right-[5%] w-[600px] sm:w-[850px] lg:w-[1000px] h-[950px] rounded-full bg-gradient-to-b from-sky-400/35 via-blue-600/30 to-transparent blur-[140px] z-0 animate-pulse"
+        style={{ animationDuration: '6s' }}
       />
-      <div className="pointer-events-none absolute -inset-4 rounded-3xl bg-gradient-to-tr from-sky-500/15 via-blue-600/15 to-emerald-400/15 blur-3xl opacity-50 z-0" />
+      {/* 2. Focused vibrant cyan backlight behind strap top entry point */}
+      <div className="pointer-events-none absolute -top-36 right-[8%] sm:right-[18%] lg:right-[22%] w-80 sm:w-96 h-[480px] rounded-full bg-cyan-400/35 dark:bg-sky-400/40 blur-[100px] z-0" />
+      {/* 3. Ambient blue halo centered behind the 3D card resting zone */}
+      <div
+        className="pointer-events-none absolute top-1/4 right-[5%] sm:right-[12%] lg:right-[15%] w-[480px] sm:w-[580px] h-[580px] rounded-full bg-blue-600/25 dark:bg-cyan-500/30 blur-[120px] z-0 animate-pulse"
+        style={{ animationDuration: '8s', animationDelay: '1.5s' }}
+      />
+      {/* 4. Left accent glow behind headline */}
+      <div className="pointer-events-none absolute -top-24 -left-20 w-[420px] h-[420px] rounded-full bg-sky-500/20 dark:bg-sky-400/20 blur-[120px] animate-pulse z-0" />
+      {/* 5. Sub-gradient backdrop layer */}
+      <div className="pointer-events-none absolute -inset-4 rounded-3xl bg-gradient-to-tr from-sky-500/20 via-blue-600/20 to-emerald-400/15 blur-3xl opacity-60 z-0" />
 
       {/* Layer 1 (Tengah): 3D Lanyard ID Badge - Spans full hero without bounds, BEHIND text and IN FRONT of background */}
-      <div className="absolute inset-0 z-[5] pointer-events-none overflow-hidden">
+      <div className="absolute -top-16 md:-top-24 inset-x-0 bottom-0 z-[5] pointer-events-none">
         <Lanyard position={[0, 0, 20]} fov={24} />
       </div>
 

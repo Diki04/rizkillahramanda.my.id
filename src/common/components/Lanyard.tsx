@@ -7,6 +7,8 @@ import { useGLTF, useTexture, Environment, Lightformer } from '@react-three/drei
 import { MeshLineGeometry, MeshLineMaterial } from 'meshline';
 import * as THREE from 'three';
 
+import { generateBadgeAtlas, DEFAULT_BADGE_PROFILE } from './badgeTextureGenerator';
+
 extend({ MeshLineGeometry, MeshLineMaterial });
 
 // 1x1 transparent pixel — lets useTexture be called unconditionally when a
@@ -67,7 +69,9 @@ export default function Lanyard({
         className="w-full h-full pointer-events-auto"
         style={{ pointerEvents: 'auto' }}
       >
-        <ambientLight intensity={Math.PI} />
+        <ambientLight intensity={Math.PI * 0.9} />
+        <directionalLight position={[5, 8, 6]} intensity={1.5} color="#f0f9ff" />
+        <pointLight position={[3.6, 6.4, 2]} intensity={2.8} color="#38bdf8" distance={12} />
         <Suspense fallback={null}>
           <PhysicsLanyard
             isMobile={isMobile}
@@ -79,6 +83,19 @@ export default function Lanyard({
             anchorPosition={anchorPosition}
           />
           <Environment blur={0.75}>
+            {/* Luminous cyan backlight for the lanyard strap and card top */}
+            <Lightformer
+              intensity={4}
+              color="#38bdf8"
+              position={[3, 5, 2]}
+              scale={[20, 10, 1]}
+            />
+            <Lightformer
+              intensity={3}
+              color="#0284c7"
+              position={[-4, 2, 4]}
+              scale={[15, 15, 1]}
+            />
             <Lightformer
               intensity={2}
               color="white"
@@ -124,8 +141,8 @@ interface PhysicsLanyardProps {
   anchorPosition?: [number, number, number];
 }
 
-const ROPE_SEGMENTS = 10;
-const REST_ROPE_LENGTH = 2.4;
+const ROPE_SEGMENTS = 16;
+const REST_ROPE_LENGTH = 5.0;
 
 function PhysicsLanyard({
   isMobile = false,
@@ -139,12 +156,12 @@ function PhysicsLanyard({
   const band = useRef<any>(null);
   const cardGroup = useRef<THREE.Group>(null);
 
-  // Responsive anchor: Desktop hangs on the right (x ~ 3.6), mobile centers (x = 0)
+  // Responsive anchor: Top pierces off the upper screen edge (Y ~ 6.4 desktop, 5.8 mobile)
   const anchor = useMemo(() => {
     if (anchorPosition) {
       return new THREE.Vector3(...anchorPosition);
     }
-    return new THREE.Vector3(isMobile ? 0 : 3.6, isMobile ? 3.2 : 3.8, 0);
+    return new THREE.Vector3(isMobile ? 0 : 3.6, isMobile ? 5.8 : 6.4, 0);
   }, [anchorPosition, isMobile]);
 
   // Card physics state (position, velocity, rotation, angular velocity)
@@ -174,48 +191,48 @@ function PhysicsLanyard({
 
   const { nodes, materials } = useGLTF('/card.glb') as any;
   const texture = useTexture(lanyardImage || '/lanyard.png');
+  const avatarTex = useTexture('/avatar.jpg');
   const frontTex = useTexture(frontImage || BLANK_PIXEL);
   const backTex = useTexture(backImage || BLANK_PIXEL);
 
-  // Composite custom front/back images into card texture atlas
+  // Composite custom badge with user avatar & details into card texture atlas
   const cardMap = useMemo(() => {
     const baseMap = materials?.base?.map;
     if (!baseMap) return null;
-    if (!frontImage && !backImage) return baseMap;
 
     const baseImg = baseMap.image;
-    if (!baseImg) return baseMap;
-    const W = baseImg.width || 2048;
-    const H = baseImg.height || 2048;
     const canvas = document.createElement('canvas');
-    canvas.width = W;
-    canvas.height = H;
+    const avatarImg = (avatarTex?.image as HTMLImageElement) || null;
+
+    // Procedural high-res badge generation (Front: Avatar + ID Details, Back: QR + Credentials)
+    generateBadgeAtlas(canvas, baseImg, avatarImg, DEFAULT_BADGE_PROFILE);
+
     const ctx = canvas.getContext('2d');
-    if (!ctx) return baseMap;
+    if (ctx && (frontImage || backImage)) {
+      const W = canvas.width;
+      const H = canvas.height;
+      const drawFitted = (img: HTMLImageElement, rect: typeof FRONT_UV_RECT) => {
+        const rx = rect.x * W;
+        const ry = rect.y * H;
+        const rw = rect.w * W;
+        const rh = rect.h * H;
+        const pick = imageFit === 'contain' ? Math.min : Math.max;
+        const scale = pick(rw / img.width, rh / img.height);
+        const dw = img.width * scale;
+        const dh = img.height * scale;
+        const dx = rx + (rw - dw) / 2;
+        const dy = ry + (rh - dh) / 2;
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(rx, ry, rw, rh);
+        ctx.clip();
+        ctx.drawImage(img, dx, dy, dw, dh);
+        ctx.restore();
+      };
 
-    ctx.drawImage(baseImg, 0, 0, W, H);
-
-    const drawFitted = (img: HTMLImageElement, rect: typeof FRONT_UV_RECT) => {
-      const rx = rect.x * W;
-      const ry = rect.y * H;
-      const rw = rect.w * W;
-      const rh = rect.h * H;
-      const pick = imageFit === 'contain' ? Math.min : Math.max;
-      const scale = pick(rw / img.width, rh / img.height);
-      const dw = img.width * scale;
-      const dh = img.height * scale;
-      const dx = rx + (rw - dw) / 2;
-      const dy = ry + (rh - dh) / 2;
-      ctx.save();
-      ctx.beginPath();
-      ctx.rect(rx, ry, rw, rh);
-      ctx.clip();
-      ctx.drawImage(img, dx, dy, dw, dh);
-      ctx.restore();
-    };
-
-    if (frontImage && frontTex.image) drawFitted(frontTex.image as HTMLImageElement, FRONT_UV_RECT);
-    if (backImage && backTex.image) drawFitted(backTex.image as HTMLImageElement, BACK_UV_RECT);
+      if (frontImage && frontTex?.image) drawFitted(frontTex.image as HTMLImageElement, FRONT_UV_RECT);
+      if (backImage && backTex?.image) drawFitted(backTex.image as HTMLImageElement, BACK_UV_RECT);
+    }
 
     const composite = new THREE.CanvasTexture(canvas);
     composite.colorSpace = THREE.SRGBColorSpace;
@@ -223,7 +240,7 @@ function PhysicsLanyard({
     composite.anisotropy = 16;
     composite.needsUpdate = true;
     return composite;
-  }, [frontImage, backImage, imageFit, frontTex, backTex, materials?.base?.map]);
+  }, [frontImage, backImage, imageFit, frontTex, backTex, materials?.base?.map, avatarTex]);
 
   const [curve] = useState(() => new THREE.CatmullRomCurve3(ropePoints.current));
 
@@ -413,10 +430,10 @@ function PhysicsLanyard({
               <meshPhysicalMaterial
                 map={cardMap || materials?.base?.map}
                 map-anisotropy={16}
-                clearcoat={isMobile ? 0 : 1}
-                clearcoatRoughness={0.15}
-                roughness={0.9}
-                metalness={0.8}
+                clearcoat={isMobile ? 0.3 : 1}
+                clearcoatRoughness={0.1}
+                roughness={0.35}
+                metalness={0.08}
               />
             </mesh>
           )}
@@ -447,7 +464,7 @@ function PhysicsLanyard({
           resolution={isMobile ? [1000, 2000] : [1920, 1080]}
           useMap
           map={texture}
-          repeat={[-4, 1]}
+          repeat={[-7, 1]}
           lineWidth={lanyardWidth}
         />
       </mesh>
@@ -456,3 +473,5 @@ function PhysicsLanyard({
 }
 
 useGLTF.preload('/card.glb');
+useTexture.preload('/avatar.jpg');
+useTexture.preload('/lanyard.png');

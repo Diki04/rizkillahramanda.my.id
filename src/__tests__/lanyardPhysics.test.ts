@@ -1,14 +1,16 @@
 import { describe, it, expect } from 'vitest';
 import * as THREE from 'three';
 
+import { DEFAULT_BADGE_PROFILE } from '@/common/components/badgeTextureGenerator';
+
 describe('Lanyard Physics and Verlet Ribbon stability', () => {
-  it('should stably simulate pendulum release from extreme pull (x = -10) without NaN or Infinity', () => {
-    const anchor = new THREE.Vector3(3.6, 3.8, 0);
+  it('should stably simulate pendulum release from extreme pull (x = -10) with top piercing anchor (y = 6.4, L = 5.0)', () => {
+    const anchor = new THREE.Vector3(3.6, 6.4, 0); // Pierces off the upper screen edge
     const cardPos = new THREE.Vector3(-10, 0, 0); // Pulled far across to the left
     const cardVel = new THREE.Vector3(0, 0, 0);
-    const restLength = 2.4;
+    const restLength = 5.0;
     const stiffness = 160;
-    const damping = 2.5;
+    const damping = 2.4;
 
     for (let f = 0; f < 180; f++) {
       const dt = 1 / 60;
@@ -16,7 +18,7 @@ describe('Lanyard Physics and Verlet Ribbon stability', () => {
       const diff = clampPos.clone().sub(anchor);
       const dist = diff.length();
 
-      const force = new THREE.Vector3(0, -30, 0); // gravity
+      const force = new THREE.Vector3(0, -32, 0); // gravity
       if (dist > restLength) {
         const tension = diff.normalize().multiplyScalar(-(dist - restLength) * stiffness);
         force.add(tension);
@@ -38,9 +40,9 @@ describe('Lanyard Physics and Verlet Ribbon stability', () => {
     expect(cardPos.x).toBeGreaterThan(-10);
   });
 
-  it('should maintain finite and continuous Verlet ribbon spline points under all configurations', () => {
-    const N = 8;
-    const anchor = new THREE.Vector3(3.6, 3.8, 0);
+  it('should maintain finite and continuous Verlet ribbon spline points with 16 segments and high anchor', () => {
+    const N = 16;
+    const anchor = new THREE.Vector3(3.6, 6.4, 0);
     const cardPos = new THREE.Vector3(-8, 1, 0);
     const clampPos = cardPos.clone().add(new THREE.Vector3(0, 0.03, 0));
 
@@ -50,13 +52,21 @@ describe('Lanyard Physics and Verlet Ribbon stability', () => {
     });
 
     const curve = new THREE.CatmullRomCurve3(points);
-    const sampled = curve.getPoints(24);
+    const sampled = curve.getPoints(48);
 
-    expect(sampled.length).toBe(25);
+    expect(sampled.length).toBe(49);
     sampled.forEach((pt) => {
       expect(Number.isFinite(pt.x)).toBe(true);
       expect(Number.isFinite(pt.y)).toBe(true);
       expect(Number.isFinite(pt.z)).toBe(true);
     });
+  });
+
+  it('should provide complete valid badge profile fields for card personalization', () => {
+    expect(DEFAULT_BADGE_PROFILE.name).toBe('RIZKILLAH RAMANDA');
+    expect(DEFAULT_BADGE_PROFILE.university).toContain('UNIVERSITAS RIAU');
+    expect(DEFAULT_BADGE_PROFILE.major).toContain('INFORMATIKA');
+    expect(DEFAULT_BADGE_PROFILE.github).toContain('Diki04');
+    expect(DEFAULT_BADGE_PROFILE.email).toContain('rizkillahramanda@gmail.com');
   });
 });
