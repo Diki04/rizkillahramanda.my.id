@@ -50,7 +50,7 @@ export function AdminLogin({ onSuccess }: AdminLoginProps) {
     <div className="max-w-md mx-auto pt-10">
       <SpotlightCard className="p-8 space-y-6">
         <div className="text-center space-y-2">
-          <div className="inline-flex p-3 rounded-2xl bg-navy-950 border border-white/[0.08] text-accent-blue mb-2">
+          <div className="inline-flex p-3 rounded-2xl bg-zinc-900 border border-white/20 text-white mb-2">
             <Shield className="w-6 h-6" />
           </div>
           <h2 className="text-xl font-bold text-white">{t('title')}</h2>
@@ -79,7 +79,7 @@ export function AdminLogin({ onSuccess }: AdminLoginProps) {
                 value={passcode}
                 onChange={(e) => setPasscode(e.target.value)}
                 placeholder="Masukkan passcode admin..."
-                className="w-full pl-9 pr-3.5 py-2.5 rounded-xl bg-navy-950 border border-white/[0.08] text-xs font-mono text-white placeholder-slate-500 focus:outline-none focus:border-accent-blue/50 focus:ring-1 focus:ring-accent-blue/50 transition-all"
+                className="w-full pl-9 pr-3.5 py-2.5 rounded-xl bg-zinc-900 border border-white/[0.1] text-xs font-mono text-white placeholder-zinc-500 focus:outline-none focus:border-white/50 focus:ring-1 focus:ring-white/50 transition-all"
               />
             </div>
           </div>
