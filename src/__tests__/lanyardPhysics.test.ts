@@ -12,7 +12,7 @@ describe('Lanyard Physics and Verlet Ribbon stability', () => {
 
     for (let f = 0; f < 180; f++) {
       const dt = 1 / 60;
-      const clampPos = cardPos.clone().add(new THREE.Vector3(0, 1.45, 0));
+      const clampPos = cardPos.clone().add(new THREE.Vector3(0, 0.03, 0));
       const diff = clampPos.clone().sub(anchor);
       const dist = diff.length();
 
@@ -42,7 +42,7 @@ describe('Lanyard Physics and Verlet Ribbon stability', () => {
     const N = 8;
     const anchor = new THREE.Vector3(3.6, 3.8, 0);
     const cardPos = new THREE.Vector3(-8, 1, 0);
-    const clampPos = cardPos.clone().add(new THREE.Vector3(0, 1.45, 0));
+    const clampPos = cardPos.clone().add(new THREE.Vector3(0, 0.03, 0));
 
     const points = Array.from({ length: N }, (_, i) => {
       const t = i / (N - 1);

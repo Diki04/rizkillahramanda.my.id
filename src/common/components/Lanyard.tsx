@@ -19,6 +19,10 @@ const BLANK_PIXEL =
 const FRONT_UV_RECT = { x: 0, y: 0, w: 0.5, h: 0.755 };
 const BACK_UV_RECT = { x: 0.5, y: 0, w: 0.5, h: 0.757 };
 
+// Exact local offset of the top loop of the metal clip in cardGroup space
+// (Measured directly from card.glb geometry: clip vertex Y sits between 0.00 and 0.065)
+const CLAMP_OFFSET = new THREE.Vector3(0, 0.03, 0);
+
 interface LanyardProps {
   position?: [number, number, number];
   gravity?: [number, number, number];
@@ -121,6 +125,7 @@ interface PhysicsLanyardProps {
 }
 
 const ROPE_SEGMENTS = 10;
+const REST_ROPE_LENGTH = 2.4;
 
 function PhysicsLanyard({
   isMobile = false,
@@ -143,20 +148,16 @@ function PhysicsLanyard({
   }, [anchorPosition, isMobile]);
 
   // Card physics state (position, velocity, rotation, angular velocity)
-  const cardPos = useRef(new THREE.Vector3(anchor.x, anchor.y - 3.4, 0));
+  const cardPos = useRef(new THREE.Vector3(anchor.x, anchor.y - REST_ROPE_LENGTH, 0));
   const cardVel = useRef(new THREE.Vector3(0, 0, 0));
   const cardRot = useRef(new THREE.Euler(0, 0, 0));
-  const cardAngVel = useRef(new THREE.Vector3(0, 0, 0));
 
-  // Verlet rope points
+  // Verlet rope points: initialized directly from anchor down to the metal clip
   const ropePoints = useRef<THREE.Vector3[]>(
     Array.from({ length: ROPE_SEGMENTS }, (_, i) => {
       const t = i / (ROPE_SEGMENTS - 1);
-      return new THREE.Vector3().lerpVectors(
-        new THREE.Vector3(anchor.x, anchor.y - 3.4 + 1.45, 0),
-        anchor,
-        t
-      );
+      const initialClipPos = new THREE.Vector3(anchor.x, anchor.y - REST_ROPE_LENGTH + CLAMP_OFFSET.y, 0);
+      return new THREE.Vector3().lerpVectors(initialClipPos, anchor, t);
     })
   );
   const prevRopePoints = useRef<THREE.Vector3[]>(
@@ -277,10 +278,9 @@ function PhysicsLanyard({
       cardRot.current.x = THREE.MathUtils.lerp(cardRot.current.x, 0, dt * 10);
     } else {
       // 2. FREE SWINGING / PENDULUM MODE
-      const clampPos = cardPos.current.clone().add(new THREE.Vector3(0, 1.45, 0));
-      const diff = clampPos.sub(anchor);
+      const currentClampPos = cardPos.current.clone().add(CLAMP_OFFSET.clone().applyEuler(cardRot.current));
+      const diff = currentClampPos.sub(anchor);
       const dist = diff.length();
-      const restLength = 2.3;
       const stiffness = 160;
       const damping = 2.4;
 
@@ -288,8 +288,8 @@ function PhysicsLanyard({
       const force = new THREE.Vector3(0, -32, 0);
 
       // Elastic tether constraint pulling towards anchor
-      if (dist > restLength) {
-        const tension = diff.normalize().multiplyScalar(-(dist - restLength) * stiffness);
+      if (dist > REST_ROPE_LENGTH) {
+        const tension = diff.normalize().multiplyScalar(-(dist - REST_ROPE_LENGTH) * stiffness);
         force.add(tension);
       }
 
@@ -307,7 +307,7 @@ function PhysicsLanyard({
       cardPos.current.add(cardVel.current.clone().multiplyScalar(dt));
 
       // Rotational pendulum dynamics: Card naturally aligns with tether direction
-      const tetherDir = cardPos.current.clone().add(new THREE.Vector3(0, 1.45, 0)).sub(anchor);
+      const tetherDir = cardPos.current.clone().add(CLAMP_OFFSET.clone().applyEuler(cardRot.current)).sub(anchor);
       const targetAngleZ = Math.atan2(tetherDir.x, -tetherDir.y) * 0.85;
 
       cardRot.current.z = THREE.MathUtils.lerp(cardRot.current.z, targetAngleZ, dt * 12);
@@ -322,9 +322,9 @@ function PhysicsLanyard({
       cardGroup.current.rotation.copy(cardRot.current);
     }
 
-    // 3. VERLET RIBBON STRAP SIMULATION (100% Stable, never glitches, never disappears)
+    // 3. VERLET RIBBON STRAP SIMULATION (Tali 100% Menempel di Lubang Logam Klip)
     clampWorld
-      .set(0, 1.45, 0)
+      .copy(CLAMP_OFFSET)
       .applyEuler(cardRot.current)
       .add(cardPos.current);
 
@@ -333,7 +333,7 @@ function PhysicsLanyard({
     const totalDist = clampWorld.distanceTo(anchor);
     const segLength = Math.max(0.1, totalDist / (ROPE_SEGMENTS - 1));
 
-    // Anchor & clamp end-pinning
+    // Anchor & clamp end-pinning: pts[0] strictly anchored to clampWorld inside metal clip
     pts[0].copy(clampWorld);
     pts[ROPE_SEGMENTS - 1].copy(anchor);
 
@@ -391,7 +391,7 @@ function PhysicsLanyard({
       {/* 3D Card Model Group */}
       <group
         ref={cardGroup}
-        position={[anchor.x, anchor.y - 3.4, 0]}
+        position={[anchor.x, anchor.y - REST_ROPE_LENGTH, 0]}
         scale={2.25}
         onPointerOver={() => setHovered(true)}
         onPointerOut={() => setHovered(false)}
