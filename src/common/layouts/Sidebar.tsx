@@ -55,7 +55,7 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
   return (
     <aside
       className={cn(
-        'w-80 h-screen sticky top-0 flex flex-col justify-between p-6 border-r border-slate-200 dark:border-white/[0.08] bg-white/95 dark:bg-navy-950/95 backdrop-blur-xl select-none overflow-y-auto transition-all duration-300',
+        'w-80 h-screen sticky top-0 flex flex-col justify-between p-6 border-r border-slate-200 dark:border-white/[0.08] bg-white/95 dark:bg-black/95 backdrop-blur-xl select-none overflow-y-auto transition-all duration-300',
         className
       )}
     >
@@ -63,8 +63,8 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
       <div className="space-y-6">
         <div className="group flex items-center gap-4 p-3.5 -mx-2 rounded-2xl border border-transparent hover:border-slate-200 dark:hover:border-white/[0.08] hover:bg-slate-50/90 dark:hover:bg-white/[0.03] hover:shadow-lg hover:shadow-sky-500/5 transition-all duration-300 pb-5 border-b border-slate-200 dark:border-white/[0.08]">
           <div className="relative shrink-0">
-            <div className="p-0.5 rounded-2xl bg-gradient-to-tr from-sky-500 via-blue-500 to-emerald-400 shadow-md group-hover:shadow-[0_0_22px_rgba(56,189,248,0.45)] group-hover:scale-105 transition-all duration-300">
-              <div className="w-[72px] h-[72px] rounded-[14px] overflow-hidden bg-slate-100 dark:bg-navy-900 relative">
+            <div className="p-0.5 rounded-2xl bg-gradient-to-tr from-zinc-400 via-white to-zinc-600 shadow-md group-hover:shadow-[0_0_22px_rgba(255,255,255,0.35)] group-hover:scale-105 transition-all duration-300">
+              <div className="w-[72px] h-[72px] rounded-[14px] overflow-hidden bg-slate-100 dark:bg-zinc-950 relative">
                 <Image
                   src={mockProfile.avatar}
                   alt={mockProfile.name}
@@ -77,20 +77,20 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
             </div>
             <span
               title="Online & Ready"
-              className="absolute -bottom-1 -right-1 w-4.5 h-4.5 rounded-full bg-emerald-500 border-2 border-white dark:border-navy-950 animate-pulse shadow-sm"
+              className="absolute -bottom-1 -right-1 w-4.5 h-4.5 rounded-full bg-emerald-500 border-2 border-white dark:border-black animate-pulse shadow-sm"
             />
           </div>
 
           <div className="flex-1 min-w-0 space-y-1">
             <div className="flex items-center gap-1.5">
-              <h2 className="text-base font-extrabold text-slate-900 dark:text-white truncate tracking-tight group-hover:text-sky-500 dark:group-hover:text-sky-300 transition-colors">
+              <h2 className="text-base font-extrabold text-slate-900 dark:text-white truncate tracking-tight group-hover:text-sky-500 dark:group-hover:text-white transition-colors">
                 {mockProfile.name}
               </h2>
-              <BadgeCheck className="w-4 h-4 text-sky-500 shrink-0" />
+              <BadgeCheck className="w-4 h-4 text-zinc-200 shrink-0" />
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-sky-50 dark:bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-200/80 dark:border-sky-500/20 text-[10px] font-mono font-medium">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-white/10 text-zinc-900 dark:text-zinc-200 border border-zinc-200 dark:border-white/20 text-[10px] font-mono font-medium">
                 Full-Stack & ML
               </span>
             </div>
@@ -116,7 +116,7 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
                 className={cn(
                   'group flex items-center justify-between px-4 py-3 rounded-xl text-sm font-mono transition-all duration-200 border',
                   active
-                    ? 'bg-sky-50 dark:bg-accent-blue/15 border-sky-400/50 text-sky-600 dark:text-sky-300 font-semibold shadow-sm shadow-sky-500/10 dark:shadow-cyan-950/40 translate-x-1'
+                    ? 'bg-sky-50 dark:bg-white/10 border-white/25 text-zinc-900 dark:text-white font-semibold shadow-sm translate-x-1'
                     : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-white/[0.06] hover:border-slate-200 dark:hover:border-white/[0.1] hover:translate-x-1 hover:shadow-sm'
                 )}
               >
@@ -124,13 +124,13 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
                   <Icon
                     className={cn(
                       'w-4 h-4 transition-transform duration-200 group-hover:scale-125',
-                      active ? 'text-sky-500 dark:text-sky-400' : 'text-slate-400 group-hover:text-sky-500 dark:group-hover:text-sky-400'
+                      active ? 'text-sky-500 dark:text-white' : 'text-slate-400 group-hover:text-sky-500 dark:group-hover:text-sky-400'
                     )}
                   />
                   <span>{item.label}</span>
                 </div>
                 {active ? (
-                  <span className="w-2 h-2 rounded-full bg-sky-500 dark:bg-sky-400 animate-pulse shadow-[0_0_8px_rgba(56,189,248,0.8)]" />
+                  <span className="w-2 h-2 rounded-full bg-sky-500 dark:bg-sky-400 animate-pulse shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
                 ) : (
                   <ChevronRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 text-slate-400 group-hover:text-sky-500 dark:group-hover:text-sky-400 transition-all duration-200" />
                 )}
