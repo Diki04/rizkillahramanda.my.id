@@ -37,11 +37,11 @@ export function GitHubStats() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h3 className="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
-            <Github className="w-5 h-5 text-accent-blue" />
+          <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <Github className="w-5 h-5 text-slate-900 dark:text-white" />
             <span>{t('githubStats')}</span>
           </h3>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-slate-500 dark:text-zinc-400 mt-0.5">
             Open-source repositories, activity heatmaps, and continuous commit cadence.
           </p>
         </div>
@@ -50,7 +50,7 @@ export function GitHubStats() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Button variant="ghost" size="sm" className="text-xs font-mono text-accent-blue border border-white/[0.08]">
+          <Button variant="ghost" size="sm" className="text-xs font-mono text-slate-900 dark:text-white border border-slate-200 dark:border-white/[0.08]">
             <span>@{stats.login}</span>
             <ExternalLink className="w-3.5 h-3.5 ml-1.5" />
           </Button>
