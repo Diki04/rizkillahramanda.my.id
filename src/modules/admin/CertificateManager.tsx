@@ -119,7 +119,7 @@ export function CertificateManager({
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
       {/* Top action bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-slate-50/80 dark:bg-navy-900/40">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-slate-50/80 dark:bg-zinc-900/40">
         <div>
           <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <Award className="w-5 h-5 text-emerald-500" />
@@ -138,7 +138,7 @@ export function CertificateManager({
               placeholder={isEn ? 'Search certificates...' : 'Cari sertifikat...'}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-8 pr-3 py-1.5 rounded-xl text-xs font-mono border border-slate-200 dark:border-white/[0.1] bg-white dark:bg-navy-950 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-emerald-400 w-44 sm:w-56"
+              className="pl-8 pr-3 py-1.5 rounded-xl text-xs font-mono border border-slate-200 dark:border-white/[0.1] bg-white dark:bg-zinc-900 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-emerald-400 w-44 sm:w-56"
             />
           </div>
 
@@ -171,7 +171,7 @@ export function CertificateManager({
                   setIsCreating(false);
                   setEditingCert(null);
                 }}
-                className="p-1 rounded-lg text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-navy-800"
+                className="p-1 rounded-lg text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-zinc-800"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -189,7 +189,7 @@ export function CertificateManager({
                   onChange={(e) =>
                     setFormState({ ...formState, title: e.target.value })
                   }
-                  className="w-full px-3 py-2 rounded-xl bg-white dark:bg-navy-950 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-emerald-400"
+                  className="w-full px-3 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-emerald-400"
                 />
               </div>
 
@@ -204,7 +204,7 @@ export function CertificateManager({
                   onChange={(e) =>
                     setFormState({ ...formState, issuer: e.target.value })
                   }
-                  className="w-full px-3 py-2 rounded-xl bg-white dark:bg-navy-950 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-emerald-400"
+                  className="w-full px-3 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-emerald-400"
                 />
               </div>
             </div>
@@ -222,7 +222,7 @@ export function CertificateManager({
                     setFormState({ ...formState, issueDate: e.target.value })
                   }
                   placeholder="2026"
-                  className="w-full px-3 py-2 rounded-xl bg-white dark:bg-navy-950 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-emerald-400"
+                  className="w-full px-3 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-emerald-400"
                 />
               </div>
 
@@ -238,7 +238,7 @@ export function CertificateManager({
                       category: e.target.value as AchievementCategory,
                     })
                   }
-                  className="w-full px-3 py-2 rounded-xl bg-white dark:bg-navy-950 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-emerald-400"
+                  className="w-full px-3 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-emerald-400"
                 >
                   <option value="certificate">{isEn ? 'Certificate' : 'Sertifikat'}</option>
                   <option value="award">{isEn ? 'Award / Honor' : 'Penghargaan'}</option>
@@ -259,7 +259,7 @@ export function CertificateManager({
                   onChange={(e) =>
                     setFormState({ ...formState, image: e.target.value })
                   }
-                  className="w-full px-3 py-2 rounded-xl bg-white dark:bg-navy-950 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-emerald-400"
+                  className="w-full px-3 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-emerald-400"
                 />
               </div>
 
@@ -273,7 +273,7 @@ export function CertificateManager({
                   onChange={(e) =>
                     setFormState({ ...formState, credentialUrl: e.target.value })
                   }
-                  className="w-full px-3 py-2 rounded-xl bg-white dark:bg-navy-950 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-emerald-400"
+                  className="w-full px-3 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-emerald-400"
                 />
               </div>
             </div>
