@@ -81,54 +81,54 @@ function renderFrontFace(
   drawRoundedRectPath(ctx, cardX, cardY, cardW, cardH, radius);
   ctx.clip();
 
-  // Luxury White / Platinum Card Surface
+  // Deep Rich Navy Obsidian Background
   const cardBg = ctx.createLinearGradient(centerX, cardY, centerX, cardY + cardH);
-  cardBg.addColorStop(0, '#ffffff');
-  cardBg.addColorStop(0.5, '#f8fafc');
-  cardBg.addColorStop(1, '#f1f5f9');
+  cardBg.addColorStop(0, '#0f172a');
+  cardBg.addColorStop(0.3, '#090d16');
+  cardBg.addColorStop(1, '#05070c');
   ctx.fillStyle = cardBg;
   ctx.fillRect(cardX, cardY, cardW, cardH);
 
-  // Top accent band (Navy / Blue)
-  const topBandH = 110;
-  const topBandGrad = ctx.createLinearGradient(cardX, cardY, cardX + cardW, cardY);
-  topBandGrad.addColorStop(0, '#0f172a');
-  topBandGrad.addColorStop(0.6, '#0369a1');
-  topBandGrad.addColorStop(1, '#0284c7');
-  ctx.fillStyle = topBandGrad;
+  // Top header banner
+  const topBandH = 105;
+  ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
   ctx.fillRect(cardX, cardY, cardW, topBandH);
 
-  // Top Bar text
+  // Cyan accent line
+  ctx.strokeStyle = '#0284c7';
+  ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  ctx.moveTo(cardX, cardY + topBandH);
+  ctx.lineTo(cardX + cardW, cardY + topBandH);
+  ctx.stroke();
+
+  // Header text
   ctx.textAlign = 'left';
   ctx.textBaseline = 'middle';
   ctx.fillStyle = '#ffffff';
-  ctx.font = 'bold 22px "Inter", "Segoe UI", sans-serif';
-  ctx.fillText(profile.university, cardX + 36, cardY + 55);
+  ctx.font = 'bold 24px "Inter", "Segoe UI", sans-serif';
+  ctx.fillText(profile.university, cardX + 40, cardY + 52);
 
-  ctx.fillStyle = '#93c5fd';
-  ctx.font = '600 14px "JetBrains Mono", monospace';
-  ctx.fillText(profile.faculty, cardX + 36, cardY + 80);
+  ctx.fillStyle = '#38bdf8';
+  ctx.font = '700 15px "JetBrains Mono", monospace';
+  ctx.fillText(`${profile.faculty} • ${profile.major}`, cardX + 40, cardY + 80);
 
   ctx.textAlign = 'right';
-  ctx.fillStyle = '#ffffff';
-  ctx.font = 'bold 20px "Inter", "Segoe UI", sans-serif';
-  ctx.fillText(profile.major, cardX + cardW - 36, cardY + 55);
-
   ctx.fillStyle = '#34d399';
-  ctx.font = 'bold 13px "JetBrains Mono", monospace';
-  ctx.fillText('● OFFICIAL PASS 2026', cardX + cardW - 36, cardY + 80);
+  ctx.font = 'bold 15px "JetBrains Mono", monospace';
+  ctx.fillText('● ACTIVE // 2026', cardX + cardW - 40, cardY + 66);
 
-  // User Photo (Large, zoomed on head and shoulders)
-  const photoW = 560;
-  const photoH = 580;
+  // User Photo (Framed container)
+  const photoW = 540;
+  const photoH = 560;
   const photoX = centerX - photoW / 2;
-  const photoY = cardY + 160;
-  const photoR = 28;
+  const photoY = cardY + 155;
+  const photoR = 30;
 
   ctx.save();
-  ctx.shadowColor = 'rgba(15, 23, 42, 0.15)';
-  ctx.shadowBlur = 24;
-  ctx.shadowOffsetY = 12;
+  ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
+  ctx.shadowBlur = 30;
+  ctx.shadowOffsetY = 15;
   ctx.fillStyle = '#ffffff';
   drawRoundedRectPath(ctx, photoX, photoY, photoW, photoH, photoR);
   ctx.fill();
@@ -147,62 +147,66 @@ function renderFrontFace(
     const cropY = aH * 0.04;
     ctx.drawImage(avatarImg, cropX, cropY, cropW, cropH, photoX, photoY, photoW, photoH);
   } else {
-    ctx.fillStyle = '#f1f5f9';
+    ctx.fillStyle = '#1e293b';
     ctx.fillRect(photoX, photoY, photoW, photoH);
-    ctx.fillStyle = '#64748b';
+    ctx.fillStyle = '#94a3b8';
     ctx.font = 'bold 36px sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText('PHOTO', centerX, photoY + photoH / 2);
   }
   ctx.restore();
 
-  ctx.strokeStyle = '#e2e8f0';
-  ctx.lineWidth = 2.5;
+  // Frame around photo
+  ctx.strokeStyle = 'rgba(56, 189, 248, 0.6)';
+  ctx.lineWidth = 3.5;
   drawRoundedRectPath(ctx, photoX, photoY, photoW, photoH, photoR);
   ctx.stroke();
 
-  // Name (Large, Bold, Sharp)
+  // Name (Solid White, Bold, Razor Sharp)
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillStyle = '#0f172a';
-  ctx.font = 'bold 64px "Inter", "Segoe UI", sans-serif';
-  ctx.fillText(profile.name, centerX, cardY + 805);
+  ctx.fillStyle = '#ffffff';
+  ctx.font = '900 66px "Inter", "Segoe UI", sans-serif';
+  ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
+  ctx.shadowBlur = 12;
+  ctx.fillText(profile.name, centerX, cardY + 795);
+  ctx.shadowBlur = 0;
 
   // Role Pill
-  const rolePillW = 420;
-  const rolePillH = 46;
+  const rolePillW = 460;
+  const rolePillH = 50;
   const rolePillX = centerX - rolePillW / 2;
-  const rolePillY = cardY + 855;
-  ctx.fillStyle = '#f0f9ff';
-  ctx.strokeStyle = '#0284c7';
-  ctx.lineWidth = 2;
-  drawRoundedRectPath(ctx, rolePillX, rolePillY, rolePillW, rolePillH, 23);
+  const rolePillY = cardY + 850;
+  ctx.fillStyle = 'rgba(14, 165, 233, 0.18)';
+  ctx.strokeStyle = '#38bdf8';
+  ctx.lineWidth = 2.5;
+  drawRoundedRectPath(ctx, rolePillX, rolePillY, rolePillW, rolePillH, 25);
   ctx.fill();
   ctx.stroke();
 
-  ctx.fillStyle = '#0369a1';
-  ctx.font = 'bold 22px "JetBrains Mono", monospace';
-  ctx.fillText(profile.title, centerX, rolePillY + 23);
+  ctx.fillStyle = '#38bdf8';
+  ctx.font = 'bold 24px "JetBrains Mono", monospace';
+  ctx.fillText(profile.title, centerX, rolePillY + 25);
 
   // Subtitle
-  ctx.fillStyle = '#64748b';
-  ctx.font = '600 20px "Inter", sans-serif';
-  ctx.fillText('Teknik Informatika • Universitas Riau', centerX, cardY + 940);
+  ctx.fillStyle = '#cbd5e1';
+  ctx.font = '600 22px "Inter", sans-serif';
+  ctx.fillText('Teknik Informatika • Universitas Riau', centerX, cardY + 935);
 
   // Divider
-  ctx.strokeStyle = '#e2e8f0';
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
   ctx.lineWidth = 2;
   ctx.beginPath();
-  ctx.moveTo(cardX + 50, cardY + 985);
-  ctx.lineTo(cardX + cardW - 50, cardY + 985);
+  ctx.moveTo(cardX + 50, cardY + 980);
+  ctx.lineTo(cardX + cardW - 50, cardY + 980);
   ctx.stroke();
 
-  // 3 Spec Pills (NIM, Stack, Role)
-  const pillsY = cardY + 1015;
+  // 3 Spec Pills
+  const pillsY = cardY + 1010;
   const specData = [
     { label: 'NIM', val: profile.idNumber },
     { label: 'STACK', val: 'NEXT.JS • TS • PYTHON' },
-    { label: 'ROLE', val: 'FULL-STACK' },
+    { label: 'STATUS', val: 'VERIFIED DEV' },
   ];
 
   const specBoxW = 270;
@@ -211,29 +215,29 @@ function renderFrontFace(
 
   specData.forEach((s, idx) => {
     const bx = startSpecX + idx * (specBoxW + specGap);
-    ctx.fillStyle = '#f8fafc';
-    ctx.strokeStyle = '#cbd5e1';
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
+    ctx.strokeStyle = 'rgba(56, 189, 248, 0.35)';
     ctx.lineWidth = 1.5;
     drawRoundedRectPath(ctx, bx, pillsY, specBoxW, 70, 14);
     ctx.fill();
     ctx.stroke();
 
-    ctx.fillStyle = '#64748b';
+    ctx.fillStyle = '#94a3b8';
     ctx.font = 'bold 13px "JetBrains Mono", monospace';
     ctx.fillText(s.label, bx + specBoxW / 2, pillsY + 22);
 
-    ctx.fillStyle = '#0f172a';
+    ctx.fillStyle = '#ffffff';
     ctx.font = 'bold 15px "JetBrains Mono", monospace';
     ctx.fillText(s.val, bx + specBoxW / 2, pillsY + 48);
   });
 
   // Modern Vector Barcode
-  const bcY = cardY + 1120;
+  const bcY = cardY + 1115;
   const bcW = 680;
   const bcH = 65;
   const bcX = centerX - bcW / 2;
 
-  ctx.fillStyle = '#0f172a';
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
   const pattern = [2, 1, 3, 1, 1, 4, 2, 1, 3, 2, 1, 2, 4, 1, 2, 3, 1, 2, 1, 3, 2, 4, 1, 2, 1, 3, 1, 2, 4, 2, 1, 3, 1, 2, 1, 4, 2, 1, 3, 2, 1, 2, 3, 1, 4, 2, 1, 2, 3, 1, 1, 4];
   let curX = bcX;
   let pIdx = 0;
@@ -247,15 +251,15 @@ function renderFrontFace(
     pIdx++;
   }
 
-  ctx.fillStyle = '#64748b';
+  ctx.fillStyle = '#94a3b8';
   ctx.font = 'bold 16px "JetBrains Mono", monospace';
   ctx.fillText(`* RR - ${profile.idNumber} - 2026 - UNRI *`, centerX, bcY + bcH + 25);
 
-  ctx.fillStyle = '#94a3b8';
+  ctx.fillStyle = '#64748b';
   ctx.font = '500 13px "JetBrains Mono", monospace';
   ctx.fillText('PEKANBARU, RIAU • INDONESIA • AUTHORIZED ID PASS', centerX, cardY + cardH - 35);
 
-  ctx.strokeStyle = '#cbd5e1';
+  ctx.strokeStyle = 'rgba(56, 189, 248, 0.4)';
   ctx.lineWidth = 3;
   drawRoundedRectPath(ctx, cardX + 2, cardY + 2, cardW - 4, cardH - 4, radius - 2);
   ctx.stroke();
@@ -283,21 +287,32 @@ function renderBackFace(
   drawRoundedRectPath(ctx, cardX, cardY, cardW, cardH, radius);
   ctx.clip();
 
-  ctx.fillStyle = '#f8fafc';
+  const cardBg = ctx.createLinearGradient(backCenter, cardY, backCenter, cardY + cardH);
+  cardBg.addColorStop(0, '#0f172a');
+  cardBg.addColorStop(0.3, '#090d16');
+  cardBg.addColorStop(1, '#05070c');
+  ctx.fillStyle = cardBg;
   ctx.fillRect(cardX, cardY, cardW, cardH);
 
   // Magnetic Stripe across top
-  ctx.fillStyle = '#0f172a';
+  ctx.fillStyle = '#020617';
   ctx.fillRect(cardX, cardY + 40, cardW, 95);
+
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(cardX, cardY + 70);
+  ctx.lineTo(cardX + cardW, cardY + 70);
+  ctx.stroke();
 
   // Header
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillStyle = '#0f172a';
+  ctx.fillStyle = '#ffffff';
   ctx.font = 'bold 28px "Inter", sans-serif';
   ctx.fillText('DEVELOPER IDENTITY PASS', backCenter, cardY + 190);
 
-  ctx.fillStyle = '#0284c7';
+  ctx.fillStyle = '#38bdf8';
   ctx.font = 'bold 16px "JetBrains Mono", monospace';
   ctx.fillText('PORTFOLIO & SYSTEM CREDENTIALS', backCenter, cardY + 225);
 
@@ -307,11 +322,8 @@ function renderBackFace(
   const qrY = cardY + 270;
 
   ctx.fillStyle = '#ffffff';
-  ctx.strokeStyle = '#e2e8f0';
-  ctx.lineWidth = 2;
   drawRoundedRectPath(ctx, qrX, qrY, qrSize, qrSize, 20);
   ctx.fill();
-  ctx.stroke();
 
   const qPad = 26;
   const qTgt = 68;
@@ -339,15 +351,15 @@ function renderBackFace(
   ctx.font = 'bold 22px "JetBrains Mono", monospace';
   ctx.fillText('RR', backCenter, qrY + qrSize / 2);
 
-  ctx.fillStyle = '#0f172a';
+  ctx.fillStyle = '#ffffff';
   ctx.font = 'bold 28px "Inter", sans-serif';
   ctx.fillText(profile.name, backCenter, qrY + qrSize + 50);
 
-  ctx.fillStyle = '#0284c7';
+  ctx.fillStyle = '#38bdf8';
   ctx.font = 'bold 18px "JetBrains Mono", monospace';
   ctx.fillText(profile.github, backCenter, qrY + qrSize + 88);
 
-  ctx.fillStyle = '#64748b';
+  ctx.fillStyle = '#cbd5e1';
   ctx.font = '600 16px "JetBrains Mono", monospace';
   ctx.fillText(profile.website, backCenter, qrY + qrSize + 118);
 
@@ -361,19 +373,19 @@ function renderBackFace(
     const by = backPillsY + i * 50;
     const bw = 700;
     const bx = backCenter - bw / 2;
-    ctx.fillStyle = '#ffffff';
-    ctx.strokeStyle = '#e2e8f0';
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.8)';
+    ctx.strokeStyle = 'rgba(56, 189, 248, 0.3)';
     ctx.lineWidth = 1.5;
     drawRoundedRectPath(ctx, bx, by, bw, 42, 10);
     ctx.fill();
     ctx.stroke();
 
-    ctx.fillStyle = '#64748b';
+    ctx.fillStyle = '#94a3b8';
     ctx.font = 'bold 13px "JetBrains Mono", monospace';
     ctx.textAlign = 'left';
     ctx.fillText(bs.k, bx + 20, by + 21);
 
-    ctx.fillStyle = '#0f172a';
+    ctx.fillStyle = '#ffffff';
     ctx.font = 'bold 14px "JetBrains Mono", monospace';
     ctx.textAlign = 'right';
     ctx.fillText(bs.v, bx + bw - 20, by + 21);
@@ -384,12 +396,9 @@ function renderBackFace(
   const sigH = 80;
   const sigX = backCenter - sigW / 2;
   const sigY = cardY + 950;
-  ctx.fillStyle = '#ffffff';
-  ctx.strokeStyle = '#cbd5e1';
-  ctx.lineWidth = 1.5;
+  ctx.fillStyle = '#f8fafc';
   drawRoundedRectPath(ctx, sigX, sigY, sigW, sigH, 12);
   ctx.fill();
-  ctx.stroke();
 
   ctx.fillStyle = '#64748b';
   ctx.font = 'bold 11px "JetBrains Mono", monospace';
@@ -408,7 +417,7 @@ function renderBackFace(
   ctx.fillText('This pass authenticates Rizkillah Ramanda Sinyo as a verified developer.', backCenter, cardY + 1070);
   ctx.fillText('Universitas Riau • Department of Informatics Engineering', backCenter, cardY + 1095);
 
-  ctx.strokeStyle = '#cbd5e1';
+  ctx.strokeStyle = 'rgba(56, 189, 248, 0.4)';
   ctx.lineWidth = 3;
   drawRoundedRectPath(ctx, cardX + 2, cardY + 2, cardW - 4, cardH - 4, radius - 2);
   ctx.stroke();

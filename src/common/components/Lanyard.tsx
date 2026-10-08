@@ -69,8 +69,8 @@ export default function Lanyard({
         className="w-full h-full pointer-events-auto"
         style={{ pointerEvents: 'auto' }}
       >
-        <ambientLight intensity={Math.PI} />
-        <directionalLight position={[5, 8, 6]} intensity={1.5} color="white" />
+        <ambientLight intensity={1.0} />
+        <directionalLight position={[5, 8, 6]} intensity={1.2} color="white" />
         <Suspense fallback={null}>
           <PhysicsLanyard
             isMobile={isMobile}
@@ -83,28 +83,28 @@ export default function Lanyard({
           />
           <Environment blur={0.75}>
             <Lightformer
-              intensity={2}
+              intensity={1.5}
               color="white"
               position={[0, -1, 5]}
               rotation={[0, 0, Math.PI / 3]}
               scale={[100, 0.1, 1]}
             />
             <Lightformer
-              intensity={3}
+              intensity={1.5}
               color="white"
               position={[-1, -1, 1]}
               rotation={[0, 0, Math.PI / 3]}
               scale={[100, 0.1, 1]}
             />
             <Lightformer
-              intensity={3}
-              color="white"
+              intensity={2}
+              color="#38bdf8"
               position={[1, 1, 1]}
               rotation={[0, 0, Math.PI / 3]}
               scale={[100, 0.1, 1]}
             />
             <Lightformer
-              intensity={10}
+              intensity={2.5}
               color="white"
               position={[-10, 0, 14]}
               rotation={[0, Math.PI / 2, Math.PI / 3]}
@@ -422,10 +422,10 @@ function PhysicsLanyard({
               <meshPhysicalMaterial
                 map={cardMap || cardTexture}
                 map-anisotropy={16}
-                clearcoat={1}
-                clearcoatRoughness={0.08}
-                roughness={0.22}
-                metalness={0.04}
+                clearcoat={0.25}
+                clearcoatRoughness={0.2}
+                roughness={0.42}
+                metalness={0.02}
               />
             </mesh>
           )}
