@@ -172,16 +172,16 @@ void main() {
 `;
 
 const sizeStyles: Record<SpecularButtonSize, string> = {
-  sm: 'px-3.5 py-1.5 text-xs gap-1.5',
-  md: 'px-5 py-2.5 text-sm gap-2',
-  lg: 'px-7 py-3.5 text-base gap-2.5',
+  sm: 'h-9 px-4 text-xs font-medium gap-1.5 rounded-lg',
+  md: 'h-11 px-6 text-sm font-semibold gap-2 rounded-xl',
+  lg: 'h-12 px-8 text-base font-semibold gap-2.5 rounded-xl',
 };
 
 const baseStyles =
-  'relative inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/40 active:scale-[0.98] select-none cursor-pointer overflow-hidden backdrop-blur-sm';
+  'relative inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-slate-400/40 dark:focus:ring-white/40 active:scale-[0.98] select-none cursor-pointer overflow-hidden backdrop-blur-sm shadow-sm hover:shadow-md';
 
 const fallbackStyles =
-  'bg-zinc-800/90 text-white border border-white/20 hover:border-white/40 shadow-sm';
+  'bg-white text-slate-900 border border-slate-300 hover:border-slate-400 dark:bg-zinc-900/90 dark:text-white dark:border-white/20 dark:hover:border-white/40';
 
 /**
  * SpecularButton Component:
@@ -305,6 +305,18 @@ export const SpecularButton = React.forwardRef<HTMLButtonElement, SpecularButton
 
       updateDimensions(width, height);
 
+      let isVisible = true;
+      let isRendering = false;
+      let idleFrames = 0;
+
+      const triggerRender = () => {
+        if (!alive || !renderer || !isVisible) return;
+        if (!isRendering) {
+          isRendering = true;
+          rafId = requestAnimationFrame(loop);
+        }
+      };
+
       const onPointerMove = (e: PointerEvent) => {
         if (!alive || !button) return;
         const rect = button.getBoundingClientRect();
@@ -312,6 +324,7 @@ export const SpecularButton = React.forwardRef<HTMLButtonElement, SpecularButton
         const cy = rect.top + rect.height / 2;
         targetMouse.x = e.clientX - cx;
         targetMouse.y = -(e.clientY - cy);
+        triggerRender();
       };
 
       window.addEventListener('pointermove', onPointerMove, { passive: true });
@@ -323,17 +336,38 @@ export const SpecularButton = React.forwardRef<HTMLButtonElement, SpecularButton
             const { width: w, height: h } = entry.contentRect;
             if (w > 0 && h > 0) {
               updateDimensions(w, h);
+              triggerRender();
             }
           }
         });
         resizeObserver.observe(button);
       }
 
-      const loop = () => {
-        if (!alive || !renderer) return;
+      let intersectionObserver: IntersectionObserver | null = null;
+      if (typeof IntersectionObserver !== 'undefined') {
+        intersectionObserver = new IntersectionObserver(([entry]) => {
+          isVisible = entry.isIntersecting;
+          if (isVisible) {
+            triggerRender();
+          } else if (rafId) {
+            cancelAnimationFrame(rafId);
+            rafId = null;
+            isRendering = false;
+          }
+        });
+        intersectionObserver.observe(button);
+      }
 
-        currentMouse.x += (targetMouse.x - currentMouse.x) * 0.18;
-        currentMouse.y += (targetMouse.y - currentMouse.y) * 0.18;
+      const loop = () => {
+        if (!alive || !renderer || !isVisible) {
+          isRendering = false;
+          return;
+        }
+
+        const dx = targetMouse.x - currentMouse.x;
+        const dy = targetMouse.y - currentMouse.y;
+        currentMouse.x += dx * 0.22;
+        currentMouse.y += dy * 0.22;
 
         const dpr = renderer.dpr;
         uniforms.uMouse.value[0] = currentMouse.x * dpr;
@@ -341,15 +375,32 @@ export const SpecularButton = React.forwardRef<HTMLButtonElement, SpecularButton
         uniforms.uTime.value = (performance.now() - startTime) * 0.001;
 
         renderer.render({ scene: mesh });
-        rafId = requestAnimationFrame(loop);
+
+        const isMouseMoving = Math.abs(dx) > 0.05 || Math.abs(dy) > 0.05;
+        const mouseDist = Math.sqrt(currentMouse.x * currentMouse.x + currentMouse.y * currentMouse.y);
+        const isNear = mouseDist < proximity * 1.5;
+
+        if (isMouseMoving || isNear) {
+          idleFrames = 0;
+          rafId = requestAnimationFrame(loop);
+        } else {
+          idleFrames++;
+          if (idleFrames < 15) {
+            rafId = requestAnimationFrame(loop);
+          } else {
+            isRendering = false;
+          }
+        }
       };
 
-      rafId = requestAnimationFrame(loop);
+      triggerRender();
 
       return () => {
         alive = false;
+        isVisible = false;
         if (rafId) cancelAnimationFrame(rafId);
         resizeObserver?.disconnect();
+        intersectionObserver?.disconnect();
         window.removeEventListener('pointermove', onPointerMove);
         try {
           gl.getExtension('WEBGL_lose_context')?.loseContext();
