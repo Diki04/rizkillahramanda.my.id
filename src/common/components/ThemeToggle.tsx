@@ -17,14 +17,14 @@ export function ThemeToggle({ className }: { className?: string }) {
       className={cn(
         'p-2 rounded-lg border transition-all duration-200 active:scale-95',
         'border-slate-200 bg-white/80 hover:bg-slate-100 text-slate-700 shadow-sm',
-        'dark:border-white/[0.08] dark:bg-navy-800/80 dark:hover:bg-navy-700 dark:text-slate-300 dark:hover:text-white',
+        'dark:border-white/[0.08] dark:bg-zinc-900/80 dark:hover:bg-zinc-800 dark:text-slate-300 dark:hover:text-white',
         className
       )}
     >
       {isDark ? (
         <Sun className="w-4 h-4 text-amber-400 transition-transform hover:rotate-45" />
       ) : (
-        <Moon className="w-4 h-4 text-sky-600 transition-transform hover:-rotate-12" />
+        <Moon className="w-4 h-4 text-slate-800 transition-transform hover:-rotate-12" />
       )}
     </button>
   );
