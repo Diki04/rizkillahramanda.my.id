@@ -31,4 +31,5 @@ export { TypewriterText } from './TypewriterText';
 export { ThreeLanyard } from './ThreeLanyard';
 export { ReactBitsLanyard } from './ReactBitsLanyard';
 export { default as Lanyard } from './Lanyard';
+export { GlobalBackground } from './GlobalBackground';
 export * from './reactbits';

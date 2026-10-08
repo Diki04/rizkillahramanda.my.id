@@ -13,10 +13,7 @@ import { ScrollProgressBar } from '@/common/components/ScrollProgressBar';
 import { BackToTop } from '@/common/components/BackToTop';
 import { CommandPalette } from '@/common/components/CommandPalette';
 
-const MicroSlats = dynamic(
-  () => import('@/common/components/reactbits').then((m) => m.MicroSlats),
-  { ssr: false }
-);
+import { GlobalBackground } from '@/common/components/GlobalBackground';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -67,14 +64,7 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
             <LayoutProvider>
-              <MicroSlats
-                className="fixed inset-0 pointer-events-none -z-10"
-                backgroundColor="#000000"
-                color="#52525b"
-                glintColor="#ffffff"
-                preset="swell"
-                interactive={true}
-              />
+              <GlobalBackground />
               <ScrollProgressBar />
               <CommandPalette />
               <AppShell>{children}</AppShell>
