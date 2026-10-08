@@ -46,9 +46,9 @@ export function ContactCta() {
               <Link href="/contact">
                 <SpecularButton
                   size="md"
-                  baseColor={isDark ? '#18181b' : '#09090b'}
-                  lineColor={isDark ? '#ffffff' : '#6366f1'}
-                  textColor="#ffffff"
+                  baseColor={isDark ? '#18181b' : '#ffffff'}
+                  lineColor={isDark ? '#ffffff' : '#434bce'}
+                  textColor={isDark ? '#ffffff' : '#09090b'}
                 >
                   <Mail className="w-4 h-4 mr-2" />
                   <span>{t('sendMessage')}</span>
@@ -58,7 +58,7 @@ export function ContactCta() {
                 <SpecularButton
                   size="md"
                   baseColor={isDark ? '#09090b' : '#ffffff'}
-                  lineColor={isDark ? '#71717a' : '#cbd5e1'}
+                  lineColor={isDark ? '#71717a' : '#434bce'}
                   textColor={isDark ? '#ffffff' : '#09090b'}
                 >
                   <MessageSquare className="w-4 h-4 mr-2 text-slate-600 dark:text-zinc-300" />

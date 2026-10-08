@@ -265,6 +265,14 @@ function PhysicsLanyard({
     // When anchor or rope length updates across layout transitions, re-anchor cleanly
     cardPos.current.set(anchor.x, anchor.y - restLength, 0);
     cardVel.current.set(0, 0, 0);
+
+    const initialClipPos = new THREE.Vector3(anchor.x, anchor.y - restLength + CLAMP_OFFSET.y, 0);
+    for (let i = 0; i < ROPE_SEGMENTS; i++) {
+      const t = i / (ROPE_SEGMENTS - 1);
+      const pt = new THREE.Vector3().lerpVectors(initialClipPos, anchor, t);
+      if (ropePoints.current[i]) ropePoints.current[i].copy(pt);
+      if (prevRopePoints.current[i]) prevRopePoints.current[i].copy(pt);
+    }
   }, [anchor, restLength]);
 
   useFrame((state, delta) => {

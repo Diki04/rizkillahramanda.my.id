@@ -15,11 +15,14 @@ import { ArrowUpRight, Github, ExternalLink, Eye } from 'lucide-react';
 import { getTechIcon } from '@/common/utils/techIcons';
 import { ScrollReveal } from '@/common/components/ScrollReveal';
 import { BorderGlow } from '@/common/components/reactbits';
+import { useTheme } from '@/common/contexts/ThemeContext';
 import { cn } from '@/common/utils/cn';
 
 export function FeaturedProjects() {
   const t = useTranslations('projects');
   const locale = useLocale();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   const isEn = locale === 'en';
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
@@ -59,7 +62,7 @@ export function FeaturedProjects() {
             {featured.map((project, index) => {
               const cardContent = (
                 <SpotlightCard
-                  spotlightColor="rgba(255, 255, 255, 0.14)"
+                  spotlightColor={isDark ? 'rgba(255, 255, 255, 0.14)' : 'rgba(67, 75, 206, 0.15)'}
                   className={cn(
                     'flex flex-col h-full p-5 justify-between cursor-pointer group transition-all duration-300 active:scale-[0.985]',
                     index === 0
@@ -170,10 +173,11 @@ export function FeaturedProjects() {
                 return (
                   <BorderGlow
                     key={project.id}
-                    glowColor="0 0% 100%"
+                    glowColor={isDark ? '0 0% 100%' : '236 65% 55%'}
+                    backgroundColor={isDark ? '#09090b' : '#ffffff'}
                     borderRadius={16}
                     glowIntensity={0.85}
-                    className="h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-white/5"
+                    className="h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-slate-300/40 dark:hover:shadow-white/5"
                     contentClassName="h-full"
                   >
                     {cardContent}

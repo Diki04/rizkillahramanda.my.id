@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Project } from '@/types';
 import { useLocale, useTranslations } from 'next-intl';
 import { SpotlightCard } from '@/common/components/SpotlightCard';
+import { useTheme } from '@/common/contexts/ThemeContext';
 import { Badge } from '@/common/components/Badge';
 import { Button } from '@/common/components/Button';
 import { ExternalLink, Github, Eye } from 'lucide-react';
@@ -18,12 +19,14 @@ interface ProjectCardProps {
 export function ProjectCard({ project, onOpenModal }: ProjectCardProps) {
   const locale = useLocale();
   const t = useTranslations('projects');
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   const isEn = locale === 'en';
 
   return (
     <SpotlightCard
-      spotlightColor="rgba(255, 255, 255, 0.14)"
-      className="flex flex-col h-full p-5 justify-between group transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-white/5 hover:border-white/30 active:scale-[0.985]"
+      spotlightColor={isDark ? 'rgba(255, 255, 255, 0.14)' : 'rgba(67, 75, 206, 0.15)'}
+      className="flex flex-col h-full p-5 justify-between group transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-slate-300/40 dark:hover:shadow-white/5 hover:border-slate-300 dark:hover:border-white/30 active:scale-[0.985]"
     >
       <div className="space-y-4">
         {/* Thumbnail */}

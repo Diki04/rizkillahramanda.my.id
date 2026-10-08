@@ -76,7 +76,7 @@ export function Hero() {
         <Lanyard
           position={[0, 0, 20]}
           fov={24}
-          anchorPosition={isTopbar ? [3.2, 6.2, 0] : undefined}
+          anchorPosition={isTopbar ? [3.85, 6.2, 0] : [3.85, 6.4, 0]}
           ropeLength={isTopbar ? 4.8 : 5.0}
           className="pointer-events-auto"
         />
@@ -104,7 +104,7 @@ export function Hero() {
                 <TechText
                   text="Rizkillah Ramanda Sinyo"
                   color={isDark ? '#ffffff' : '#09090b'}
-                  accentColor={isDark ? '#a1a1aa' : '#4f46e5'}
+                  accentColor={isDark ? '#a1a1aa' : '#434bce'}
                   fontSize={60}
                   fontWeight={800}
                   dashLength={5}
@@ -147,9 +147,9 @@ export function Hero() {
               <Link href="/projects">
                 <SpecularButton
                   size="md"
-                  baseColor={isDark ? '#18181b' : '#09090b'}
-                  lineColor={isDark ? '#ffffff' : '#6366f1'}
-                  textColor="#ffffff"
+                  baseColor={isDark ? '#18181b' : '#ffffff'}
+                  lineColor={isDark ? '#ffffff' : '#434bce'}
+                  textColor={isDark ? '#ffffff' : '#09090b'}
                   className="shadow-sm hover:shadow-md"
                 >
                   <span>{t('viewProjects')}</span>
@@ -160,7 +160,7 @@ export function Hero() {
                 <SpecularButton
                   size="md"
                   baseColor={isDark ? '#09090b' : '#ffffff'}
-                  lineColor={isDark ? '#a1a1aa' : '#09090b'}
+                  lineColor={isDark ? '#a1a1aa' : '#434bce'}
                   textColor={isDark ? '#ffffff' : '#09090b'}
                   className="shadow-sm hover:shadow-md"
                 >
@@ -212,10 +212,10 @@ export function Hero() {
         <div className="pt-8 flex justify-center pointer-events-auto">
           <a
             href="#tech-stack"
-            className="group flex flex-col items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-white dark:hover:text-white transition-colors"
+            className="group flex flex-col items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"
           >
             <span>Scroll to explore</span>
-            <ChevronDown className="w-4 h-4 animate-bounce text-slate-400 group-hover:text-white dark:group-hover:text-white" />
+            <ChevronDown className="w-4 h-4 animate-bounce text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white" />
           </a>
         </div>
       </Container>

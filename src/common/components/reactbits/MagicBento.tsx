@@ -757,8 +757,9 @@ export const MagicBento: React.FC<BentoProps> = ({
             card.className
           );
 
+          const isDefaultDarkColor = card.color === '#09090b' || card.color === '#121214';
           const cardStyle: React.CSSProperties = {
-            ...(card.color ? { backgroundColor: card.color } : {}),
+            ...(card.color && !isDefaultDarkColor ? { backgroundColor: card.color } : {}),
             '--glow-x': '50%',
             '--glow-y': '50%',
             '--glow-intensity': '0',

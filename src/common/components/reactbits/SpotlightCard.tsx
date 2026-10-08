@@ -99,7 +99,7 @@ export const SpotlightCard = React.forwardRef<HTMLDivElement, SpotlightCardProps
         onMouseEnter: handleMouseEnter,
         onMouseLeave: handleMouseLeave,
         className: cn(
-          'relative rounded-3xl border border-white/10 bg-zinc-950/80 overflow-hidden p-6 md:p-8',
+          'relative rounded-3xl border border-slate-200/90 dark:border-white/10 bg-white/85 dark:bg-zinc-950/80 backdrop-blur-md overflow-hidden p-6 md:p-8',
           className
         ),
         ...props,

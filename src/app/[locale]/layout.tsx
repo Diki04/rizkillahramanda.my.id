@@ -59,7 +59,7 @@ export default async function RootLayout({
       </head>
       <body
         suppressHydrationWarning
-        className={`${inter.variable} ${mono.variable} font-sans bg-white dark:bg-black text-slate-900 dark:text-slate-100 antialiased min-h-screen flex flex-col relative selection:bg-slate-500/20 transition-colors duration-300`}
+        className={`${inter.variable} ${mono.variable} font-sans bg-[#dbd7d7] dark:bg-black text-slate-900 dark:text-slate-100 antialiased min-h-screen flex flex-col relative selection:bg-slate-500/20 transition-colors duration-300`}
       >
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
