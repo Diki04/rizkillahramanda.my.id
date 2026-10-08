@@ -40,7 +40,7 @@ export function DevHighlights() {
             <div className="flex items-center gap-3">
               <Link
                 href="/dashboard"
-                className="inline-flex items-center gap-1.5 text-xs font-mono text-zinc-300 dark:text-zinc-300 hover:text-white transition-colors"
+                className="inline-flex items-center gap-1.5 text-xs font-mono text-slate-700 dark:text-zinc-300 hover:text-black dark:hover:text-white transition-colors"
               >
                 <span>{t('liveMetrics')}</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
@@ -51,13 +51,13 @@ export function DevHighlights() {
           {/* Bento Grid Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             {/* Left 7 Columns: Workstation Specs */}
-            <div className="lg:col-span-7 flex flex-col justify-between p-6 rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-white/80 dark:bg-zinc-950/80 hover:-translate-y-1 hover:shadow-xl hover:shadow-white/5 hover:border-white/25 transition-all duration-300">
+            <div className="lg:col-span-7 flex flex-col justify-between p-6 rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-white/80 dark:bg-zinc-950/80 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-200/50 dark:hover:shadow-white/5 hover:border-slate-300 dark:hover:border-white/25 transition-all duration-300">
               <div className="space-y-2 mb-4">
                 <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                  <GitBranch className="w-4 h-4 text-white" />
+                  <GitBranch className="w-4 h-4 text-slate-800 dark:text-white" />
                   <span>{t('workstationTitle')}</span>
                 </h3>
-                <p className="text-xs text-slate-600 dark:text-slate-400">
+                <p className="text-sm text-slate-600 dark:text-slate-400">
                   {t('workstationSubtitle')}
                 </p>
               </div>

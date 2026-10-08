@@ -45,7 +45,7 @@ export function ProjectCard({ project, onOpenModal }: ProjectCardProps) {
             </span>
           </div>
           <div className="absolute top-2.5 right-2.5 z-10">
-            <Badge className="bg-zinc-900/80 border-white/10 text-zinc-300 hover:text-white">
+            <Badge className="bg-white/90 dark:bg-zinc-900/80 border-slate-200 dark:border-white/10 text-slate-800 dark:text-zinc-300 hover:text-black dark:hover:text-white shadow-sm">
               {project.category}
             </Badge>
           </div>
@@ -53,11 +53,11 @@ export function ProjectCard({ project, onOpenModal }: ProjectCardProps) {
 
         {/* Title & Description */}
         <div onClick={() => onOpenModal(project)} className="cursor-pointer">
-          <h3 className="text-base font-semibold text-slate-900 dark:text-white group-hover:text-zinc-200 transition-colors flex items-center justify-between gap-2">
+          <h3 className="text-base font-semibold text-slate-900 dark:text-white group-hover:text-black dark:group-hover:text-zinc-200 transition-colors flex items-center justify-between gap-2">
             <span>{project.title}</span>
-            <Eye className="w-3.5 h-3.5 text-zinc-400 opacity-0 group-hover:opacity-100 group-hover:text-white transition-all shrink-0" />
+            <Eye className="w-3.5 h-3.5 text-zinc-400 opacity-0 group-hover:opacity-100 group-hover:text-slate-900 dark:group-hover:text-white transition-all shrink-0" />
           </h3>
-          <p className="text-xs text-slate-600 dark:text-zinc-400 mt-2 line-clamp-2 leading-relaxed">
+          <p className="text-sm text-slate-600 dark:text-zinc-400 mt-2 line-clamp-2 leading-relaxed">
             {isEn ? project.description.en : project.description.id}
           </p>
         </div>
@@ -69,7 +69,7 @@ export function ProjectCard({ project, onOpenModal }: ProjectCardProps) {
             return (
               <span
                 key={tag}
-                className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-mono bg-zinc-900/80 border border-white/10 text-zinc-300 hover:text-white hover:border-white/20 transition-colors"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono bg-slate-100 dark:bg-zinc-900/80 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-zinc-300 hover:text-black dark:hover:text-white hover:border-slate-300 dark:hover:border-white/20 transition-colors"
               >
                 <TechIcon className="w-3 h-3 shrink-0" style={{ color }} />
                 <span>{tag}</span>
@@ -77,7 +77,7 @@ export function ProjectCard({ project, onOpenModal }: ProjectCardProps) {
             );
           })}
           {project.tags.length > 4 && (
-            <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-zinc-900/80 border border-white/10 text-zinc-400">
+            <span className="px-2 py-1 rounded-md text-xs font-mono bg-slate-100 dark:bg-zinc-900/80 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-zinc-400">
               +{project.tags.length - 4}
             </span>
           )}
@@ -96,7 +96,7 @@ export function ProjectCard({ project, onOpenModal }: ProjectCardProps) {
             <Button
               variant="outline"
               size="sm"
-              className="w-full text-xs bg-zinc-900/80 border-white/10 text-zinc-300 hover:text-white hover:bg-zinc-800 hover:border-white/20 transition-colors"
+              className="w-full text-xs font-medium bg-slate-100 hover:bg-slate-200 border-slate-200 text-slate-800 dark:bg-zinc-900/80 dark:border-white/10 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-zinc-800 dark:hover:border-white/20 transition-colors"
             >
               <ExternalLink className="w-3.5 h-3.5 mr-1" />
               <span>{t('liveDemo')}</span>
@@ -112,7 +112,7 @@ export function ProjectCard({ project, onOpenModal }: ProjectCardProps) {
           <Button
             variant="outline"
             size="sm"
-            className="w-full text-xs bg-zinc-900/80 border-white/10 text-zinc-300 hover:text-white hover:bg-zinc-800 hover:border-white/20 transition-colors"
+            className="w-full text-xs font-medium bg-slate-100 hover:bg-slate-200 border-slate-200 text-slate-800 dark:bg-zinc-900/80 dark:border-white/10 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-zinc-800 dark:hover:border-white/20 transition-colors"
           >
             <Github className="w-3.5 h-3.5 mr-1" />
             <span>{t('sourceCode')}</span>
