@@ -61,7 +61,7 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
     >
       {/* Top Profile Card */}
       <div className="space-y-6">
-        <div className="group flex items-center gap-4 p-3.5 -mx-2 rounded-2xl border border-transparent hover:border-slate-200 dark:hover:border-white/[0.08] hover:bg-slate-50/90 dark:hover:bg-white/[0.03] hover:shadow-lg hover:shadow-sky-500/5 transition-all duration-300 pb-5 border-b border-slate-200 dark:border-white/[0.08]">
+        <div className="group flex items-center gap-4 p-3.5 -mx-2 rounded-2xl border border-transparent hover:border-slate-200 dark:hover:border-white/[0.08] hover:bg-slate-50/90 dark:hover:bg-white/[0.03] hover:shadow-lg hover:shadow-white/5 transition-all duration-300 pb-5 border-b border-slate-200 dark:border-white/[0.08]">
           <div className="relative shrink-0">
             <div className="p-0.5 rounded-2xl bg-gradient-to-tr from-zinc-400 via-white to-zinc-600 shadow-md group-hover:shadow-[0_0_22px_rgba(255,255,255,0.35)] group-hover:scale-105 transition-all duration-300">
               <div className="w-[72px] h-[72px] rounded-[14px] overflow-hidden bg-slate-100 dark:bg-zinc-950 relative">
@@ -83,7 +83,7 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
 
           <div className="flex-1 min-w-0 space-y-1">
             <div className="flex items-center gap-1.5">
-              <h2 className="text-base font-extrabold text-slate-900 dark:text-white truncate tracking-tight group-hover:text-sky-500 dark:group-hover:text-white transition-colors">
+              <h2 className="text-base font-extrabold text-slate-900 dark:text-white truncate tracking-tight group-hover:text-black dark:group-hover:text-white transition-colors">
                 {mockProfile.name}
               </h2>
               <BadgeCheck className="w-4 h-4 text-zinc-200 shrink-0" />
@@ -116,7 +116,7 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
                 className={cn(
                   'group flex items-center justify-between px-4 py-3 rounded-xl text-sm font-mono transition-all duration-200 border',
                   active
-                    ? 'bg-sky-50 dark:bg-white/10 border-white/25 text-zinc-900 dark:text-white font-semibold shadow-sm translate-x-1'
+                    ? 'bg-zinc-100 dark:bg-white/10 border-slate-300 dark:border-white/25 text-zinc-900 dark:text-white font-semibold shadow-sm translate-x-1'
                     : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-white/[0.06] hover:border-slate-200 dark:hover:border-white/[0.1] hover:translate-x-1 hover:shadow-sm'
                 )}
               >
@@ -124,15 +124,15 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
                   <Icon
                     className={cn(
                       'w-4 h-4 transition-transform duration-200 group-hover:scale-125',
-                      active ? 'text-sky-500 dark:text-white' : 'text-slate-400 group-hover:text-sky-500 dark:group-hover:text-sky-400'
+                      active ? 'text-black dark:text-white' : 'text-slate-400 group-hover:text-black dark:group-hover:text-white'
                     )}
                   />
                   <span>{item.label}</span>
                 </div>
                 {active ? (
-                  <span className="w-2 h-2 rounded-full bg-sky-500 dark:bg-sky-400 animate-pulse shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
+                  <span className="w-2 h-2 rounded-full bg-black dark:bg-white animate-pulse shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
                 ) : (
-                  <ChevronRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 text-slate-400 group-hover:text-sky-500 dark:group-hover:text-sky-400 transition-all duration-200" />
+                  <ChevronRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 text-slate-400 group-hover:text-black dark:group-hover:text-white transition-all duration-200" />
                 )}
               </Link>
             );
@@ -155,7 +155,7 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
             href="https://github.com/Diki04"
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2 rounded-xl hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-sky-500/20 hover:border-slate-300 dark:hover:border-sky-500/40 border border-transparent transition-all duration-200 hover:scale-110"
+            className="p-2 rounded-xl hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 hover:border-slate-300 dark:hover:border-white/20 border border-transparent transition-all duration-200 hover:scale-110"
             title="GitHub Profile"
           >
             <Github className="w-4 h-4" />
@@ -164,14 +164,14 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
             href="https://www.linkedin.com/in/rizkillah-ramanda-sinyo/"
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2 rounded-xl hover:text-sky-600 dark:hover:text-sky-400 hover:bg-slate-100 dark:hover:bg-sky-500/20 hover:border-slate-300 dark:hover:border-sky-500/40 border border-transparent transition-all duration-200 hover:scale-110"
+            className="p-2 rounded-xl hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 hover:border-slate-300 dark:hover:border-white/20 border border-transparent transition-all duration-200 hover:scale-110"
             title="LinkedIn Profile"
           >
             <Linkedin className="w-4 h-4" />
           </a>
           <a
             href="mailto:rizkillahramanda@gmail.com"
-            className="p-2 rounded-xl hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-emerald-500/20 hover:border-slate-300 dark:hover:border-emerald-500/40 border border-transparent transition-all duration-200 hover:scale-110"
+            className="p-2 rounded-xl hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 hover:border-slate-300 dark:hover:border-white/20 border border-transparent transition-all duration-200 hover:scale-110"
             title="Send Email"
           >
             <Mail className="w-4 h-4" />
