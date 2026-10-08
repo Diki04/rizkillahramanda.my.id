@@ -1,23 +1,14 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import { useTranslations, useLocale } from 'next-intl';
+import dynamic from 'next/dynamic';
 import { Link } from '@/i18n/routing';
 import { Container } from '@/common/components/Container';
 import { Button } from '@/common/components/Button';
 import { TypewriterText } from '@/common/components/TypewriterText';
 import { RotatingText } from '@/common/components/RotatingText';
 import { ScrollReveal } from '@/common/components/ScrollReveal';
-import { ThreeLanyard } from '@/common/components/ThreeLanyard';
 import { mockProfile } from '@/services/data/mock-profile';
-
-const ReactBitsLanyard = dynamic(
-  () => import('@/common/components/ReactBitsLanyard').then((mod) => mod.ReactBitsLanyard),
-  {
-    ssr: false,
-    loading: () => <ThreeLanyard />,
-  }
-);
 import {
   ArrowUpRight,
   Github,
@@ -27,6 +18,19 @@ import {
   ChevronDown,
   Terminal,
 } from 'lucide-react';
+
+const Lanyard = dynamic(
+  () => import('@/common/components/Lanyard'),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[540px] sm:h-[580px] lg:h-[620px] flex flex-col items-center justify-center gap-3">
+        <div className="w-8 h-8 rounded-full border-2 border-sky-400 border-t-transparent animate-spin" />
+        <span className="text-xs font-mono text-slate-400">Loading Lanyard...</span>
+      </div>
+    ),
+  }
+);
 
 export function Hero() {
   const t = useTranslations('hero');
@@ -147,7 +151,7 @@ export function Hero() {
             <div className="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-sky-500/20 via-blue-600/20 to-emerald-400/20 blur-3xl opacity-50 pointer-events-none" />
 
             <div className="w-full max-w-[460px] xl:max-w-[480px] relative">
-              <ReactBitsLanyard />
+              <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} />
 
               {/* Quick Metrics Below Lanyard */}
               <div className="grid grid-cols-3 gap-2.5 text-center mt-1 px-2">
