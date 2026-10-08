@@ -57,7 +57,7 @@ export function ContactForm() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Nama lengkap Anda"
-              className="w-full px-3.5 py-2 rounded-xl bg-navy-950 border border-white/[0.08] text-xs font-mono text-slate-200 placeholder-slate-500 focus:outline-none focus:border-accent-blue/50 focus:ring-1 focus:ring-accent-blue/50 transition-all"
+              className="w-full px-3.5 py-2 rounded-xl bg-black border border-white/10 text-xs font-mono text-slate-200 placeholder-slate-500 focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/20 transition-all"
             />
           </div>
 
@@ -71,7 +71,7 @@ export function ContactForm() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="nama@domain.com"
-              className="w-full px-3.5 py-2 rounded-xl bg-navy-950 border border-white/[0.08] text-xs font-mono text-slate-200 placeholder-slate-500 focus:outline-none focus:border-accent-blue/50 focus:ring-1 focus:ring-accent-blue/50 transition-all"
+              className="w-full px-3.5 py-2 rounded-xl bg-black border border-white/10 text-xs font-mono text-slate-200 placeholder-slate-500 focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/20 transition-all"
             />
           </div>
 
@@ -85,7 +85,7 @@ export function ContactForm() {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Tuliskan tujuan atau pesan Anda..."
-              className="w-full px-3.5 py-2 rounded-xl bg-navy-950 border border-white/[0.08] text-xs font-mono text-slate-200 placeholder-slate-500 focus:outline-none focus:border-accent-blue/50 focus:ring-1 focus:ring-accent-blue/50 transition-all resize-none"
+              className="w-full px-3.5 py-2 rounded-xl bg-black border border-white/10 text-xs font-mono text-slate-200 placeholder-slate-500 focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/20 transition-all resize-none"
             />
           </div>
 
