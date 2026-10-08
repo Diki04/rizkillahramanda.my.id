@@ -37,14 +37,14 @@ export function Footer() {
               href="https://www.linkedin.com/in/rizkillah-ramanda-sinyo/"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-lg border border-slate-200 dark:border-white/[0.08] bg-slate-50 dark:bg-zinc-950 hover:bg-slate-100 dark:hover:bg-zinc-900 text-slate-600 dark:text-slate-400 hover:text-sky-600 dark:hover:text-white transition-all duration-200"
+              className="p-2 rounded-lg border border-slate-200 dark:border-white/[0.08] bg-slate-50 dark:bg-zinc-950 hover:bg-slate-100 dark:hover:bg-zinc-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-200"
               aria-label="LinkedIn Profile"
             >
               <Linkedin className="w-4 h-4" />
             </a>
             <a
               href="mailto:rizkillahramanda@gmail.com"
-              className="p-2 rounded-lg border border-slate-200 dark:border-white/[0.08] bg-slate-50 dark:bg-zinc-950 hover:bg-slate-100 dark:hover:bg-zinc-900 text-slate-600 dark:text-slate-400 hover:text-sky-600 dark:hover:text-white transition-all duration-200"
+              className="p-2 rounded-lg border border-slate-200 dark:border-white/[0.08] bg-slate-50 dark:bg-zinc-950 hover:bg-slate-100 dark:hover:bg-zinc-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-200"
               aria-label="Send Email"
             >
               <Mail className="w-4 h-4" />
