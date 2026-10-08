@@ -271,7 +271,7 @@ export function TechStack() {
   });
 
   return (
-    <ScrollReveal id="tech-stack" className="py-20 border-y border-slate-200 dark:border-white/[0.08] bg-slate-50/50 dark:bg-navy-950/40 relative">
+    <ScrollReveal id="tech-stack" className="py-20 border-y border-slate-200 dark:border-white/[0.08] bg-slate-50/50 dark:bg-zinc-950/40 relative">
       <Container size="xl">
         <div className="flex flex-col gap-8">
           {/* Section Header */}
@@ -343,7 +343,7 @@ export function TechStack() {
                   </div>
 
                   {/* Name */}
-                  <span className="font-mono text-xs font-semibold text-slate-800 dark:text-slate-200 truncate w-full group-hover:text-sky-600 dark:group-hover:text-white transition-colors">
+                  <span className="font-mono text-xs font-semibold text-slate-800 dark:text-slate-200 truncate w-full group-hover:text-black dark:group-hover:text-white transition-colors">
                     {tech.name}
                   </span>
 
