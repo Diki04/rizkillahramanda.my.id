@@ -11,7 +11,7 @@ export function MobileHeader() {
 
   return (
     <>
-      <header className="md:hidden sticky top-0 z-40 flex items-center justify-between px-4 py-3.5 border-b border-slate-200 dark:border-white/[0.08] bg-white/90 dark:bg-black/90 backdrop-blur-md transition-colors">
+      <header className="md:hidden sticky top-0 z-40 flex items-center justify-between px-4 py-3.5 border-b border-slate-200/80 dark:border-white/10 bg-white/75 dark:bg-black/65 backdrop-blur-xl transition-colors">
         <div className="flex items-center gap-2.5">
           <div className="relative">
             <div className="w-8 h-8 rounded-xl overflow-hidden border border-slate-200 dark:border-white/[0.1] bg-slate-100 dark:bg-zinc-950">

@@ -55,7 +55,7 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
   return (
     <aside
       className={cn(
-        'w-80 h-screen sticky top-0 flex flex-col justify-between p-6 border-r border-slate-200 dark:border-white/[0.08] bg-white/95 dark:bg-black/95 backdrop-blur-xl select-none overflow-y-auto transition-all duration-300',
+        'w-80 h-screen sticky top-0 flex flex-col justify-between p-6 border-r border-slate-200/80 dark:border-white/10 bg-white/70 dark:bg-black/65 backdrop-blur-2xl select-none overflow-y-auto transition-all duration-300 shadow-xl shadow-slate-900/5 dark:shadow-black/50',
         className
       )}
     >
