@@ -103,7 +103,7 @@ export default function Lanyard({
             />
             <Lightformer
               intensity={2}
-              color="#38bdf8"
+              color="white"
               position={[1, 1, 1]}
               rotation={[0, 0, Math.PI / 3]}
               scale={[100, 0.1, 1]}

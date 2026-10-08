@@ -60,8 +60,8 @@ export function Hero() {
       <div className="pointer-events-none absolute -inset-4 rounded-3xl bg-gradient-to-tr from-white/[0.04] via-zinc-800/[0.08] to-white/[0.02] blur-3xl opacity-40 z-0" />
 
       {/* Layer 1 (Tengah): 3D Lanyard ID Badge - Spans full hero without bounds, BEHIND text and IN FRONT of background */}
-      <div className="absolute -top-16 md:-top-24 inset-x-0 bottom-0 z-[5] pointer-events-none">
-        <Lanyard position={[0, 0, 20]} fov={24} />
+      <div className="absolute -top-16 md:-top-24 inset-x-0 bottom-0 z-[5] pointer-events-auto">
+        <Lanyard position={[0, 0, 20]} fov={24} className="pointer-events-auto" />
       </div>
 
       {/* Layer 2 (Paling depan): Foreground Typography & Controls */}
@@ -154,17 +154,17 @@ export function Hero() {
             <div className="w-full max-w-[460px] xl:max-w-[480px] h-[480px] sm:h-[520px] lg:h-[560px] flex flex-col justify-end pointer-events-none">
               {/* Quick Metrics Below Lanyard */}
               <div className="grid grid-cols-3 gap-2.5 text-center px-2 pointer-events-auto">
-                <div className="p-2.5 rounded-xl bg-white/70 dark:bg-navy-900/60 backdrop-blur-md border border-slate-200/80 dark:border-white/[0.08] shadow-sm hover:border-sky-500/30 transition-colors">
+                <div className="p-2.5 rounded-xl bg-white/70 dark:bg-zinc-950/80 backdrop-blur-md border border-slate-200/80 dark:border-white/[0.08] shadow-sm hover:border-white/30 transition-colors">
                   <p className="font-mono text-lg font-bold text-slate-900 dark:text-white">49</p>
-                  <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">Repos</p>
+                  <p className="text-[10px] font-mono text-slate-500 dark:text-zinc-400 uppercase">Repos</p>
                 </div>
-                <div className="p-2.5 rounded-xl bg-white/70 dark:bg-navy-900/60 backdrop-blur-md border border-slate-200/80 dark:border-white/[0.08] shadow-sm hover:border-sky-500/30 transition-colors">
-                  <p className="font-mono text-lg font-bold text-sky-600 dark:text-accent-blue">24+</p>
-                  <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">Projects</p>
+                <div className="p-2.5 rounded-xl bg-white/70 dark:bg-zinc-950/80 backdrop-blur-md border border-slate-200/80 dark:border-white/[0.08] shadow-sm hover:border-white/30 transition-colors">
+                  <p className="font-mono text-lg font-bold text-slate-900 dark:text-white">24+</p>
+                  <p className="text-[10px] font-mono text-slate-500 dark:text-zinc-400 uppercase">Projects</p>
                 </div>
-                <div className="p-2.5 rounded-xl bg-white/70 dark:bg-navy-900/60 backdrop-blur-md border border-slate-200/80 dark:border-white/[0.08] shadow-sm hover:border-sky-500/30 transition-colors">
-                  <p className="font-mono text-lg font-bold text-emerald-600 dark:text-emerald-400">2+ Yrs</p>
-                  <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">Experience</p>
+                <div className="p-2.5 rounded-xl bg-white/70 dark:bg-zinc-950/80 backdrop-blur-md border border-slate-200/80 dark:border-white/[0.08] shadow-sm hover:border-white/30 transition-colors">
+                  <p className="font-mono text-lg font-bold text-slate-900 dark:text-white">2+ Yrs</p>
+                  <p className="text-[10px] font-mono text-slate-500 dark:text-zinc-400 uppercase">Experience</p>
                 </div>
               </div>
             </div>
@@ -175,10 +175,10 @@ export function Hero() {
         <div className="pt-8 flex justify-center pointer-events-auto">
           <a
             href="#tech-stack"
-            className="group flex flex-col items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-sky-500 dark:hover:text-sky-400 transition-colors"
+            className="group flex flex-col items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-white dark:hover:text-white transition-colors"
           >
             <span>Scroll to explore</span>
-            <ChevronDown className="w-4 h-4 animate-bounce text-slate-400 group-hover:text-sky-500 dark:group-hover:text-sky-400" />
+            <ChevronDown className="w-4 h-4 animate-bounce text-slate-400 group-hover:text-white dark:group-hover:text-white" />
           </a>
         </div>
       </Container>
