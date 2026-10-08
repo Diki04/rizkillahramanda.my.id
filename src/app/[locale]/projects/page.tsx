@@ -35,7 +35,7 @@ export default function ProjectsPage() {
       <Container size="xl">
         {/* Header */}
         <ScrollReveal className="space-y-3 max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-sky-400/20 bg-sky-400/10 text-sky-600 dark:text-accent-blue text-xs font-mono font-medium">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-slate-300 dark:border-white/20 bg-slate-100 dark:bg-white/[0.08] text-slate-900 dark:text-white text-xs font-mono font-medium">
             <FolderGit2 className="w-3.5 h-3.5" />
             <span>{t('badge')}</span>
           </div>
@@ -67,7 +67,7 @@ export default function ProjectsPage() {
             ))}
           </ScrollReveal>
         ) : (
-          <ScrollReveal className="py-20 text-center rounded-2xl border border-slate-200 dark:border-white/[0.06] bg-slate-100 dark:bg-navy-900/40">
+          <ScrollReveal className="py-20 text-center rounded-2xl border border-slate-200 dark:border-white/[0.06] bg-slate-100 dark:bg-black/40">
             <p className="font-mono text-sm text-slate-500 dark:text-slate-400">
               {t('emptyState')}
             </p>
