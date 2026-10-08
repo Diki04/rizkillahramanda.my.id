@@ -354,10 +354,11 @@ describe('BorderGlow Dynamic Perimeter Component Suite', () => {
         nodeRef = node;
       };
 
-      const element = React.createElement(BorderGlow, {
-        ref: refCallback,
-        children: 'Ref Test',
-      });
+      const element = React.createElement(
+        BorderGlow,
+        { ref: refCallback },
+        'Ref Test'
+      );
 
       expect(React.isValidElement(element)).toBe(true);
       expect(element.props.children).toBe('Ref Test');
@@ -371,15 +372,18 @@ describe('BorderGlow Dynamic Perimeter Component Suite', () => {
       const onFocus = vi.fn();
       const onBlur = vi.fn();
 
-      const element = React.createElement(BorderGlow, {
-        onPointerMove,
-        onMouseMove,
-        onMouseEnter,
-        onMouseLeave,
-        onFocus,
-        onBlur,
-        children: 'Interactive Card',
-      });
+      const element = React.createElement(
+        BorderGlow,
+        {
+          onPointerMove,
+          onMouseMove,
+          onMouseEnter,
+          onMouseLeave,
+          onFocus,
+          onBlur,
+        },
+        'Interactive Card'
+      );
 
       expect(element.props.onPointerMove).toBe(onPointerMove);
       expect(element.props.onMouseMove).toBe(onMouseMove);

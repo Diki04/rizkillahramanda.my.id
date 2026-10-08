@@ -136,10 +136,11 @@ describe('SpotlightCard Monochrome Component Suite', () => {
         capturedNode = node;
       };
 
-      const element = React.createElement(ReactBitsSpotlightCard, {
-        ref: refCallback,
-        children: 'Ref Test',
-      });
+      const element = React.createElement(
+        ReactBitsSpotlightCard,
+        { ref: refCallback },
+        'Ref Test'
+      );
 
       expect(React.isValidElement(element)).toBe(true);
       expect(element.props.children).toBe('Ref Test');
@@ -152,14 +153,17 @@ describe('SpotlightCard Monochrome Component Suite', () => {
       const onBlur = vi.fn();
       const onMouseMove = vi.fn();
 
-      const element = React.createElement(ReactBitsSpotlightCard, {
-        onMouseEnter,
-        onMouseLeave,
-        onFocus,
-        onBlur,
-        onMouseMove,
-        children: 'Interactive Card',
-      });
+      const element = React.createElement(
+        ReactBitsSpotlightCard,
+        {
+          onMouseEnter,
+          onMouseLeave,
+          onFocus,
+          onBlur,
+          onMouseMove,
+        },
+        'Interactive Card'
+      );
 
       expect(element.props.onMouseEnter).toBe(onMouseEnter);
       expect(element.props.onMouseLeave).toBe(onMouseLeave);
