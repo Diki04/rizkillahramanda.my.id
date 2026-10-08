@@ -277,7 +277,7 @@ export function TechStack() {
           {/* Section Header */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div className="space-y-2">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-400/20 bg-sky-400/10 text-sky-600 dark:text-sky-400 text-xs font-mono font-medium">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/20 bg-white/10 text-zinc-900 dark:text-zinc-200 text-xs font-mono font-medium">
                 <Sparkles className="w-4 h-4" />
                 <span>{t('badge')}</span>
               </div>
@@ -297,7 +297,7 @@ export function TechStack() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={t('searchPlaceholder')}
-                className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-200 dark:border-white/[0.08] bg-white dark:bg-navy-900/60 text-xs font-mono text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-sky-400/50 transition-colors"
+                className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-200 dark:border-white/[0.08] bg-white dark:bg-zinc-950/80 text-xs font-mono text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-white/40 transition-colors"
               />
             </div>
           </div>
@@ -310,7 +310,7 @@ export function TechStack() {
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all duration-200 ${
                   selectedCategory === cat.id
-                    ? 'bg-sky-500/15 border border-sky-500/50 text-sky-600 dark:text-sky-300 font-semibold shadow-sm'
+                    ? 'bg-white text-black font-semibold border border-white shadow-sm'
                     : 'bg-slate-100 dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.06] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-white/[0.06]'
                 }`}
               >
@@ -326,7 +326,7 @@ export function TechStack() {
               return (
                 <div
                   key={tech.name}
-                  className="group relative flex flex-col items-center justify-center p-4 rounded-2xl border border-slate-200 dark:border-white/[0.07] bg-white/80 dark:bg-navy-900/40 hover:bg-white dark:hover:bg-navy-850 hover:border-sky-400/50 dark:hover:border-white/[0.22] hover:-translate-y-1.5 hover:shadow-xl hover:shadow-sky-500/10 active:scale-95 transition-all duration-300 text-center cursor-default overflow-hidden shadow-xs"
+                  className="group relative flex flex-col items-center justify-center p-4 rounded-2xl border border-slate-200 dark:border-white/[0.07] bg-white/80 dark:bg-zinc-950/80 hover:bg-white dark:hover:bg-zinc-900 hover:border-white/30 dark:hover:border-white/30 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-white/5 active:scale-95 transition-all duration-300 text-center cursor-default overflow-hidden shadow-xs"
                 >
                   {/* Dynamic Brand Color Glow Background */}
                   <div
@@ -335,7 +335,7 @@ export function TechStack() {
                   />
 
                   {/* Icon with Hover Scale & Rotation */}
-                  <div className="relative p-3 rounded-2xl bg-slate-100 dark:bg-navy-950/80 border border-slate-200 dark:border-white/[0.06] mb-2.5 group-hover:scale-115 group-hover:rotate-3 transition-transform duration-300 shadow-xs">
+                  <div className="relative p-3 rounded-2xl bg-slate-100 dark:bg-black/90 border border-slate-200 dark:border-white/[0.06] mb-2.5 group-hover:scale-115 group-hover:rotate-3 transition-transform duration-300 shadow-xs">
                     <Icon
                       className="w-6 h-6 transition-all duration-300 group-hover:drop-shadow-[0_0_8px_currentColor]"
                       style={{ color: tech.brandColor }}
@@ -343,7 +343,7 @@ export function TechStack() {
                   </div>
 
                   {/* Name */}
-                  <span className="font-mono text-xs font-semibold text-slate-800 dark:text-slate-200 truncate w-full group-hover:text-sky-600 dark:group-hover:text-sky-300 transition-colors">
+                  <span className="font-mono text-xs font-semibold text-slate-800 dark:text-slate-200 truncate w-full group-hover:text-sky-600 dark:group-hover:text-white transition-colors">
                     {tech.name}
                   </span>
 
