@@ -68,7 +68,7 @@ export function SkillsMatrix() {
                       <span className="text-xs font-mono text-slate-700 dark:text-zinc-200">
                         {skill.name}
                       </span>
-                      <span className="text-[10px] font-mono text-slate-500 dark:text-zinc-400 font-medium">
+                      <span className="text-xs font-mono text-slate-500 dark:text-zinc-400 font-medium">
                         • {skill.level}
                       </span>
                     </div>
