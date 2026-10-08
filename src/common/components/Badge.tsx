@@ -13,10 +13,10 @@ export function Badge({
   ...props
 }: BadgeProps) {
   const variantStyles = {
-    default: 'bg-navy-800 text-slate-300 border-white/[0.06]',
-    accent: 'bg-accent-blue/10 text-accent-blue border-accent-blue/20',
-    outline: 'bg-transparent text-slate-400 border-white/[0.1]',
-    success: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+    default: 'bg-slate-100 dark:bg-zinc-900 text-slate-700 dark:text-zinc-300 border-slate-200 dark:border-white/[0.08]',
+    accent: 'bg-slate-900 text-white dark:bg-white dark:text-black border-slate-900 dark:border-white font-semibold',
+    outline: 'bg-transparent text-slate-600 dark:text-zinc-400 border-slate-300 dark:border-white/[0.12]',
+    success: 'bg-white/10 text-white border-white/20',
   };
 
   return (
