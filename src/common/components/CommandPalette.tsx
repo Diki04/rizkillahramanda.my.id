@@ -163,10 +163,10 @@ export function CommandPalette() {
                 <button
                   key={item.id}
                   onClick={() => handleSelect(item)}
-                  className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left text-xs font-mono text-slate-700 dark:text-slate-300 hover:text-sky-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors group"
+                  className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left text-xs font-mono text-slate-700 dark:text-slate-300 hover:text-black dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors group"
                 >
                   <div className="flex items-center gap-3">
-                    <Icon className="w-4 h-4 text-slate-400 group-hover:text-sky-500 dark:group-hover:text-white" />
+                    <Icon className="w-4 h-4 text-slate-400 group-hover:text-black dark:group-hover:text-white" />
                     <span>{item.name}</span>
                   </div>
                   <span className="text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-wider">
