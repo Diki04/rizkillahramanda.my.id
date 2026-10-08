@@ -48,7 +48,7 @@ export function BackToTop() {
         className={cn(
           'relative w-12 h-12 flex items-center justify-center rounded-full border shadow-xl backdrop-blur-md transition-all duration-300 ease-out active:scale-90 group',
           'border-slate-300/80 bg-white/95 text-slate-700 hover:text-sky-500 hover:border-sky-400 hover:shadow-2xl hover:shadow-sky-500/25',
-          'dark:border-white/[0.12] dark:bg-navy-900/95 dark:text-slate-200 dark:hover:text-sky-300 dark:hover:border-sky-400 dark:hover:shadow-2xl dark:hover:shadow-sky-500/20'
+          'dark:border-white/[0.12] dark:bg-zinc-950/95 dark:text-slate-200 dark:hover:text-sky-300 dark:hover:border-sky-400 dark:hover:shadow-2xl dark:hover:shadow-sky-500/20'
         )}
       >
         {/* Circular Progress Ring */}
@@ -68,7 +68,7 @@ export function BackToTop() {
             cx="22"
             cy="22"
             r="19"
-            className="stroke-sky-500 dark:stroke-accent-blue transition-all duration-150"
+            className="stroke-sky-500 dark:stroke-white transition-all duration-150"
             strokeWidth="2.5"
             strokeDasharray={circumference}
             strokeDashoffset={strokeDashoffset}
@@ -77,7 +77,7 @@ export function BackToTop() {
           />
         </svg>
 
-        <ArrowUp className="w-4 h-4 transition-transform duration-200 group-hover:-translate-y-1 group-hover:scale-110 text-sky-600 dark:text-sky-400" />
+        <ArrowUp className="w-4 h-4 transition-transform duration-200 group-hover:-translate-y-1 group-hover:scale-110 text-sky-600 dark:text-white" />
       </button>
     </div>
   );
