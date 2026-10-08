@@ -114,6 +114,27 @@ function getLineDashPattern(
 }
 
 /**
+ * Resolves CSS custom properties (e.g. var(--font-inter)) in font family strings
+ * so HTML5 Canvas 2D ctx.font parses the loaded typeface properly.
+ */
+function resolveCanvasFont(family: string, element?: HTMLElement | null): string {
+  if (typeof window === 'undefined' || !family.includes('var(')) return family;
+
+  const targetEl = element || document.body;
+  const style = window.getComputedStyle(targetEl);
+
+  const resolved = family.replace(/var\((--[^,\)]+)(?:,[^)]+)?\)/g, (_, varName) => {
+    const val = style.getPropertyValue(varName.trim()).trim();
+    if (val) return val;
+    return (
+      window.getComputedStyle(document.documentElement).getPropertyValue(varName.trim()).trim() || ''
+    );
+  });
+
+  return resolved.replace(/,\s*,/g, ',').trim() || family;
+}
+
+/**
  * TechText Component
  *
  * Interactive HTML5 Canvas 2D component that transforms typography glyphs into
@@ -125,7 +146,7 @@ export function TechText({
   accentColor = '#a1a1aa',
   lineStyle = 'dashed',
   fontSize = 48,
-  fontFamily = "'JetBrains Mono', 'Fira Code', 'SF Mono', monospace, sans-serif",
+  fontFamily = 'var(--font-inter), var(--font-mono), system-ui, -apple-system, sans-serif',
   fontWeight = 700,
   dashLength = 4,
   dashGap = 4,
@@ -168,13 +189,14 @@ export function TechText({
     let cssWidth = 300;
     let cssHeight = 80;
     let baselineY = 50;
+    const resolvedFont = resolveCanvasFont(fontFamily, containerRef.current);
 
     const updateDimensionsAndLayout = () => {
       const container = containerRef.current;
       const containerWidth = container ? container.clientWidth : 0;
 
       // 1. Initial measurement at base fontSize
-      ctx.font = `${fontWeight} ${fontSize}px ${fontFamily}`;
+      ctx.font = `${fontWeight} ${fontSize}px ${resolvedFont}`;
       const baseMeasuredWidth = ctx.measureText(text).width;
 
       // 2. Responsive scaling down if container is narrower than text
@@ -190,12 +212,12 @@ export function TechText({
       }
 
       // 3. Layout character glyph positions
-      ctx.font = `${fontWeight} ${effectiveFontSize}px ${fontFamily}`;
+      ctx.font = `${fontWeight} ${effectiveFontSize}px ${resolvedFont}`;
       ctx.textBaseline = 'alphabetic';
 
       charGlyphs = [];
       let currentX = paddingX;
-      baselineY = paddingY + Math.round(effectiveFontSize * 0.88);
+      baselineY = paddingY + Math.round(effectiveFontSize * 0.95);
 
       for (let i = 0; i < text.length; i++) {
         const char = text[i];
@@ -211,7 +233,7 @@ export function TechText({
       }
 
       cssWidth = Math.ceil(currentX + paddingX);
-      cssHeight = Math.ceil(effectiveFontSize * 1.15 + paddingY * 2);
+      cssHeight = Math.ceil(effectiveFontSize * 1.35 + paddingY * 2);
 
       // 4. DPR-aware canvas sizing
       const dpr = window.devicePixelRatio || 1;
@@ -222,6 +244,12 @@ export function TechText({
     };
 
     updateDimensionsAndLayout();
+
+    if (typeof document !== 'undefined' && document.fonts) {
+      document.fonts.ready.then(() => {
+        updateDimensionsAndLayout();
+      });
+    }
 
     // ResizeObserver for responsive recalculation
     let resizeObserver: ResizeObserver | null = null;
@@ -270,7 +298,7 @@ export function TechText({
       const strokeWidth = Math.max(1, Math.round(effectiveFontSize * 0.035));
       const dashPattern = getLineDashPattern(lineStyle, dashLength, dashGap, strokeWidth);
 
-      ctx.font = `${fontWeight} ${effectiveFontSize}px ${fontFamily}`;
+      ctx.font = `${fontWeight} ${effectiveFontSize}px ${resolvedFont}`;
       ctx.textBaseline = 'alphabetic';
 
       const timeSec = (time - startTime) * 0.001;

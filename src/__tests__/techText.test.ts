@@ -72,6 +72,17 @@ describe('TechText component & helpers', () => {
       expect(element.props.autoAnimate).toBe(true);
       expect(element.props.autoWaveSpeed).toBe(2.0);
     });
+
+    it('should support enlarged fontSize and custom fontFamily', () => {
+      const element = React.createElement(TechText, {
+        text: 'Rizkillah Ramanda Sinyo',
+        fontSize: 74,
+        fontFamily: 'var(--font-inter), system-ui, sans-serif',
+      });
+
+      expect(element.props.fontSize).toBe(74);
+      expect(element.props.fontFamily).toBe('var(--font-inter), system-ui, sans-serif');
+    });
   });
 
   describe('TechText Canvas 2D integration & SSR safety', () => {

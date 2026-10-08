@@ -86,7 +86,7 @@ export function Hero() {
       <Container size="xl" className="relative z-10 pointer-events-none">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           {/* Left Column: Headline, Bio & CTAs */}
-          <div className="lg:col-span-7 flex flex-col items-start gap-6 pointer-events-none">
+          <div className="lg:col-span-8 flex flex-col items-start gap-6 pointer-events-none">
             {/* Status Pill */}
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-mono font-medium shadow-sm pointer-events-auto">
               <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -94,18 +94,18 @@ export function Hero() {
             </div>
 
             {/* Main Greeting & Name with TechText */}
-            <div className="space-y-3 pointer-events-none select-none">
+            <div className="space-y-3 pointer-events-none select-none w-full">
               <div className="flex items-center gap-2 text-slate-800 dark:text-zinc-300 font-mono text-sm tracking-wide font-semibold">
                 <Terminal className="w-4 h-4 text-slate-700 dark:text-zinc-400" />
                 <span>{t('greeting')}</span>
               </div>
 
-              <div className="pointer-events-auto py-1 w-full max-w-full overflow-visible">
+              <div className="pointer-events-auto py-1 w-full lg:w-[125%] xl:w-[135%] max-w-none overflow-visible">
                 <TechText
                   text="Rizkillah Ramanda Sinyo"
                   color={isDark ? '#ffffff' : '#09090b'}
                   accentColor={isDark ? '#a1a1aa' : '#4f46e5'}
-                  fontSize={52}
+                  fontSize={74}
                   fontWeight={800}
                   dashLength={5}
                   dashGap={5}
@@ -113,6 +113,7 @@ export function Hero() {
                   autoAnimate={true}
                   autoWaveSpeed={1.6}
                   speed={1.2}
+                  fontFamily="var(--font-inter), system-ui, -apple-system, sans-serif"
                   className="font-extrabold tracking-tight"
                 />
               </div>
@@ -185,9 +186,9 @@ export function Hero() {
           </div>
 
           {/* Right Column: Lanyard Space & Quick Metrics */}
-          <div className="lg:col-span-5 flex flex-col items-center lg:items-end justify-center pointer-events-none">
+          <div className="lg:col-span-4 flex flex-col items-center lg:items-end justify-center pointer-events-none">
             {/* Visual Spacer so grid maintains natural desktop height */}
-            <div className="w-full max-w-[460px] xl:max-w-[480px] h-[480px] sm:h-[520px] lg:h-[560px] flex flex-col justify-end pointer-events-none">
+            <div className="w-full max-w-[420px] xl:max-w-[440px] h-[480px] sm:h-[520px] lg:h-[560px] flex flex-col justify-end pointer-events-none">
               {/* Quick Metrics Below Lanyard */}
               <div className="grid grid-cols-3 gap-2.5 text-center px-2 pointer-events-auto">
                 <div className="p-3 rounded-xl bg-white/85 dark:bg-zinc-950/80 backdrop-blur-md border border-slate-200/90 dark:border-white/[0.08] shadow-sm hover:border-slate-300 dark:hover:border-white/30 transition-colors">
