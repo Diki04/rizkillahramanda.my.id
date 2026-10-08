@@ -49,8 +49,8 @@ export function ChatForm({ onMessageAdded }: ChatFormProps) {
   return (
     <SpotlightCard className="p-6">
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="flex items-center gap-2 border-b border-white/[0.06] pb-3 text-sm font-semibold text-white">
-          <MessageSquarePlus className="w-4 h-4 text-accent-blue" />
+        <div className="flex items-center gap-2 border-b border-slate-200 dark:border-white/[0.06] pb-3 text-sm font-semibold text-slate-900 dark:text-white">
+          <MessageSquarePlus className="w-4 h-4 text-zinc-400 dark:text-zinc-400" />
           <span>Tulis Pesan</span>
         </div>
 
@@ -61,7 +61,7 @@ export function ChatForm({ onMessageAdded }: ChatFormProps) {
         )}
 
         <div className="space-y-1.5">
-          <label className="text-xs font-mono text-slate-400">
+          <label className="text-xs font-mono text-slate-500 dark:text-zinc-400">
             {t('namePlaceholder')}
           </label>
           <input
@@ -70,12 +70,12 @@ export function ChatForm({ onMessageAdded }: ChatFormProps) {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="e.g. Alex Pratama"
-            className="w-full px-3.5 py-2 rounded-xl bg-navy-950 border border-white/[0.08] text-xs font-mono text-slate-200 placeholder-slate-500 focus:outline-none focus:border-accent-blue/50 focus:ring-1 focus:ring-accent-blue/50 transition-all"
+            className="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-black border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-zinc-200 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-white/50 focus:ring-1 focus:ring-white/20 transition-all"
           />
         </div>
 
         <div className="space-y-1.5">
-          <label className="text-xs font-mono text-slate-400">
+          <label className="text-xs font-mono text-slate-500 dark:text-zinc-400">
             {t('messagePlaceholder')}
           </label>
           <textarea
@@ -84,7 +84,7 @@ export function ChatForm({ onMessageAdded }: ChatFormProps) {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Tuliskan ucapan atau ulasan singkat Anda..."
-            className="w-full px-3.5 py-2 rounded-xl bg-navy-950 border border-white/[0.08] text-xs font-mono text-slate-200 placeholder-slate-500 focus:outline-none focus:border-accent-blue/50 focus:ring-1 focus:ring-accent-blue/50 transition-all resize-none"
+            className="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-black border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-zinc-200 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-white/50 focus:ring-1 focus:ring-white/20 transition-all resize-none"
           />
         </div>
 
