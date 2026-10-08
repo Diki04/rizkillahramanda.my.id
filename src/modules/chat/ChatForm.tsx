@@ -61,7 +61,7 @@ export function ChatForm({ onMessageAdded }: ChatFormProps) {
         )}
 
         <div className="space-y-1.5">
-          <label className="text-xs font-mono text-slate-500 dark:text-zinc-400">
+          <label className="text-xs font-mono font-medium text-slate-700 dark:text-zinc-300">
             {t('namePlaceholder')}
           </label>
           <input
@@ -70,12 +70,12 @@ export function ChatForm({ onMessageAdded }: ChatFormProps) {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="e.g. Alex Pratama"
-            className="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-black border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-zinc-200 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-white/50 focus:ring-1 focus:ring-white/20 transition-all"
+            className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-black border border-slate-300 dark:border-white/10 text-sm font-mono text-slate-900 dark:text-zinc-200 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-slate-800 dark:focus:border-white/50 focus:ring-1 focus:ring-slate-400/20 dark:focus:ring-white/20 transition-all"
           />
         </div>
 
         <div className="space-y-1.5">
-          <label className="text-xs font-mono text-slate-500 dark:text-zinc-400">
+          <label className="text-xs font-mono font-medium text-slate-700 dark:text-zinc-300">
             {t('messagePlaceholder')}
           </label>
           <textarea
@@ -84,7 +84,7 @@ export function ChatForm({ onMessageAdded }: ChatFormProps) {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Tuliskan ucapan atau ulasan singkat Anda..."
-            className="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-black border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-zinc-200 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-white/50 focus:ring-1 focus:ring-white/20 transition-all resize-none"
+            className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-black border border-slate-300 dark:border-white/10 text-sm font-mono text-slate-900 dark:text-zinc-200 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-slate-800 dark:focus:border-white/50 focus:ring-1 focus:ring-slate-400/20 dark:focus:ring-white/20 transition-all resize-none"
           />
         </div>
 
@@ -93,7 +93,7 @@ export function ChatForm({ onMessageAdded }: ChatFormProps) {
           variant="secondary"
           size="md"
           disabled={loading || !name.trim() || !message.trim()}
-          className="w-full text-xs font-mono"
+          className="w-full text-sm font-mono font-medium"
         >
           {loading ? (
             <span>{t('sending')}</span>

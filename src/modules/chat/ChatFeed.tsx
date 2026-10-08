@@ -61,13 +61,13 @@ export function ChatFeed({ messages, loading }: ChatFeedProps) {
                   {msg.name}
                 </span>
               </div>
-              <span className="flex items-center gap-1 text-[11px] font-mono text-slate-500 dark:text-zinc-400">
+              <span className="flex items-center gap-1 text-xs font-mono text-slate-500 dark:text-zinc-400">
                 <Clock className="w-3 h-3" />
                 {formattedDate}
               </span>
             </div>
 
-            <p className="text-xs text-slate-600 dark:text-zinc-300 leading-relaxed pt-1">
+            <p className="text-sm text-slate-700 dark:text-zinc-300 leading-relaxed pt-1">
               {msg.message}
             </p>
           </SpotlightCard>
