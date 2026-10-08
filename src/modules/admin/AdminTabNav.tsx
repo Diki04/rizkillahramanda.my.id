@@ -17,7 +17,7 @@ export function AdminTabNav({ activeTab, onChange }: AdminTabNavProps) {
         className={cn(
           'flex items-center gap-2 px-6 py-3 border-b-2 text-sm font-medium transition-colors',
           activeTab === 'projects'
-            ? 'border-sky-400 text-sky-400'
+            ? 'border-white text-white font-semibold'
             : 'border-transparent text-slate-400 hover:text-slate-200'
         )}
       >
@@ -29,7 +29,7 @@ export function AdminTabNav({ activeTab, onChange }: AdminTabNavProps) {
         className={cn(
           'flex items-center gap-2 px-6 py-3 border-b-2 text-sm font-medium transition-colors',
           activeTab === 'achievements'
-            ? 'border-sky-400 text-sky-400'
+            ? 'border-white text-white font-semibold'
             : 'border-transparent text-slate-400 hover:text-slate-200'
         )}
       >
