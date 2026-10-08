@@ -49,7 +49,7 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} suppressHydrationWarning className="dark bg-black selection:bg-white/20 selection:text-white">
+    <html lang={locale} suppressHydrationWarning className="dark selection:bg-slate-500/20">
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -59,7 +59,7 @@ export default async function RootLayout({
       </head>
       <body
         suppressHydrationWarning
-        className={`${inter.variable} ${mono.variable} font-sans bg-black text-slate-100 antialiased min-h-screen flex flex-col relative selection:bg-white/20 selection:text-white transition-colors duration-300`}
+        className={`${inter.variable} ${mono.variable} font-sans bg-white dark:bg-black text-slate-900 dark:text-slate-100 antialiased min-h-screen flex flex-col relative selection:bg-slate-500/20 transition-colors duration-300`}
       >
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>

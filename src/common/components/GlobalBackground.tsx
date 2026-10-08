@@ -14,7 +14,7 @@ export function GlobalBackground() {
 
   if (!mounted) {
     return React.createElement('div', {
-      className: 'fixed inset-0 pointer-events-none z-0 bg-black',
+      className: 'fixed inset-0 pointer-events-none z-0 bg-white dark:bg-black',
       style: { position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 0 },
       'aria-hidden': 'true',
     });
@@ -31,14 +31,14 @@ export function GlobalBackground() {
     },
     React.createElement(MicroSlats, {
       className: 'fixed inset-0 pointer-events-none z-0',
-      backgroundColor: isDark ? '#000000' : '#f8fafc',
-      color: '#4751e6',
-      glintColor: '#ffffff',
+      backgroundColor: isDark ? '#000000' : '#ffffff',
+      color: isDark ? '#4751e6' : '#4338ca',
+      glintColor: isDark ? '#ffffff' : '#6366f1',
       preset: 'swell',
       interactive: true,
-      speed: 0.7,
+      speed: 0.65,
       scale: 1.3,
-      contrast: 1.35,
+      contrast: isDark ? 1.35 : 1.15,
       perspective: 0.65,
     })
   );
