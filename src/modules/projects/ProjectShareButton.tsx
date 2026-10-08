@@ -32,7 +32,7 @@ export function ProjectShareButton({ title, url }: ProjectShareButtonProps) {
   return (
     <button
       onClick={handleShare}
-      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-dark-border bg-slate-900/60 text-xs font-mono text-slate-300 hover:text-white hover:border-sky-500/40 transition-colors"
+      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/[0.08] bg-white dark:bg-zinc-900/60 text-xs font-mono text-slate-700 dark:text-zinc-300 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-white/30 transition-colors"
       title="Share project"
     >
       {copied ? (
