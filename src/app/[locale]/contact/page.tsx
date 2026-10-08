@@ -14,7 +14,7 @@ export default function ContactPage() {
       <Container size="xl">
         {/* Header */}
         <ScrollReveal className="space-y-3 max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-sky-400/20 bg-sky-400/10 text-sky-600 dark:text-accent-blue text-xs font-mono font-medium">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-slate-300 dark:border-white/20 bg-slate-100 dark:bg-white/[0.08] text-slate-900 dark:text-white text-xs font-mono font-medium">
             <Mail className="w-3.5 h-3.5" />
             <span>{t('badge')}</span>
           </div>

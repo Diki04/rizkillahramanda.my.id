@@ -22,14 +22,14 @@ export function SocialLinks() {
       <SpotlightCard className="p-5">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-navy-950 border border-white/[0.08] text-accent-blue">
+            <div className="p-2.5 rounded-xl bg-slate-100 dark:bg-black border border-slate-200 dark:border-white/[0.08] text-slate-900 dark:text-white">
               <Mail className="w-5 h-5" />
             </div>
             <div>
-              <p className="text-xs font-mono text-slate-400">{t('emailLabel')}</p>
+              <p className="text-xs font-mono text-slate-500 dark:text-zinc-400">{t('emailLabel')}</p>
               <a
                 href={`mailto:${mockProfile.email}`}
-                className="text-sm font-mono font-medium text-white hover:text-accent-blue transition-colors"
+                className="text-sm font-mono font-medium text-slate-900 dark:text-white hover:underline transition-colors"
               >
                 {mockProfile.email}
               </a>
@@ -38,7 +38,7 @@ export function SocialLinks() {
           <button
             onClick={copyEmail}
             title="Copy email to clipboard"
-            className="p-2 rounded-lg bg-navy-950 border border-white/[0.08] hover:border-accent-blue/30 text-slate-400 hover:text-white transition-colors"
+            className="p-2 rounded-lg bg-slate-100 dark:bg-black border border-slate-200 dark:border-white/[0.08] hover:border-white/30 text-slate-500 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-white transition-colors"
           >
             {copied ? (
               <Check className="w-4 h-4 text-emerald-400" />
@@ -52,12 +52,12 @@ export function SocialLinks() {
       {/* Location Card */}
       <SpotlightCard className="p-5">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-navy-950 border border-white/[0.08] text-emerald-400">
+          <div className="p-2.5 rounded-xl bg-slate-100 dark:bg-black border border-slate-200 dark:border-white/[0.08] text-slate-900 dark:text-white">
             <MapPin className="w-5 h-5" />
           </div>
           <div>
-            <p className="text-xs font-mono text-slate-400">{t('locationLabel')}</p>
-            <p className="text-sm font-medium text-white">{mockProfile.location}</p>
+            <p className="text-xs font-mono text-slate-500 dark:text-zinc-400">{t('locationLabel')}</p>
+            <p className="text-sm font-medium text-slate-900 dark:text-white">{mockProfile.location}</p>
           </div>
         </div>
       </SpotlightCard>
@@ -70,13 +70,13 @@ export function SocialLinks() {
           rel="noopener noreferrer"
           className="block"
         >
-          <SpotlightCard className="p-4 hover:border-accent-blue/30 transition-colors">
+          <SpotlightCard className="p-4 hover:border-white/30 transition-colors">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <Github className="w-4 h-4 text-slate-300" />
-                <span className="text-xs font-mono font-medium text-white">GitHub</span>
+                <Github className="w-4 h-4 text-slate-800 dark:text-zinc-300" />
+                <span className="text-xs font-mono font-medium text-slate-900 dark:text-white">GitHub</span>
               </div>
-              <ExternalLink className="w-3.5 h-3.5 text-slate-500" />
+              <ExternalLink className="w-3.5 h-3.5 text-slate-400 dark:text-zinc-500" />
             </div>
           </SpotlightCard>
         </a>
@@ -87,13 +87,13 @@ export function SocialLinks() {
           rel="noopener noreferrer"
           className="block"
         >
-          <SpotlightCard className="p-4 hover:border-sky-400/30 transition-colors">
+          <SpotlightCard className="p-4 hover:border-white/30 transition-colors">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <Linkedin className="w-4 h-4 text-sky-400" />
-                <span className="text-xs font-mono font-medium text-white">LinkedIn</span>
+                <Linkedin className="w-4 h-4 text-slate-800 dark:text-zinc-300" />
+                <span className="text-xs font-mono font-medium text-slate-900 dark:text-white">LinkedIn</span>
               </div>
-              <ExternalLink className="w-3.5 h-3.5 text-slate-500" />
+              <ExternalLink className="w-3.5 h-3.5 text-slate-400 dark:text-zinc-500" />
             </div>
           </SpotlightCard>
         </a>
