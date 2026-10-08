@@ -32,7 +32,7 @@ export function GlobalBackground() {
     React.createElement(MicroSlats, {
       className: 'fixed inset-0 pointer-events-none z-0',
       backgroundColor: isDark ? '#000000' : '#ffffff',
-      color: isDark ? '#4751e6' : '#4338ca',
+      color: '#4751e6',
       glintColor: isDark ? '#ffffff' : '#6366f1',
       preset: 'swell',
       interactive: true,
