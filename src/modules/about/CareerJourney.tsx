@@ -60,7 +60,7 @@ export function CareerJourney() {
   return (
     <div className="space-y-4">
       <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-        <Briefcase className="w-5 h-5 text-accent-blue" />
+        <Briefcase className="w-5 h-5 text-zinc-400 dark:text-zinc-400" />
         <span>{t('careerJourneyTitle')}</span>
       </h3>
 
@@ -68,12 +68,12 @@ export function CareerJourney() {
         {milestones.map((m) => (
           <SpotlightCard key={m.year} className="p-5">
             <div className="flex items-start gap-4">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-accent-blue/30 bg-accent-blue/10 text-accent-blue font-mono text-sm font-bold">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-slate-200 dark:border-white/20 bg-slate-100 dark:bg-white/[0.08] text-slate-900 dark:text-white font-mono text-sm font-bold">
                 {m.year}
               </div>
               <div className="space-y-1.5 flex-1">
                 <h4 className="text-base font-semibold text-slate-900 dark:text-white">{m.role}</h4>
-                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-zinc-300 leading-relaxed">
                   {m.description}
                 </p>
                 <div className="flex flex-wrap gap-1.5 pt-1">
@@ -82,7 +82,7 @@ export function CareerJourney() {
                     return (
                       <span
                         key={t}
-                        className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-mono bg-slate-100 dark:bg-navy-950/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/[0.06] hover:border-sky-400/30 transition-colors"
+                        className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-mono bg-slate-100 dark:bg-black text-slate-700 dark:text-zinc-300 border border-slate-200 dark:border-white/[0.06] hover:border-white/30 transition-colors"
                       >
                         <TechIcon className="w-3 h-3 shrink-0" style={{ color }} />
                         <span>{t}</span>
