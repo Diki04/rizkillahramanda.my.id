@@ -9,3 +9,7 @@ export type { SpecularButtonProps, SpecularButtonSize } from './SpecularButton';
 
 export { SpotlightCard, calculateSpotlightOffset } from './SpotlightCard';
 export type { SpotlightCardProps } from './SpotlightCard';
+
+export { GlideSelect, normalizeOptions, findTypeaheadMatch } from './GlideSelect';
+export type { GlideSelectOption, GlideSelectRawOption, GlideSelectProps } from './GlideSelect';
+
