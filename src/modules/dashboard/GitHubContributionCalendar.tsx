@@ -167,8 +167,8 @@ export function GitHubContributionCalendar() {
               <Calendar className="w-4 h-4 text-slate-900 dark:text-white" />
               <span>GitHub Contribution Activity</span>
             </h4>
-            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono bg-white/10 text-white border border-white/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-xs font-mono bg-slate-100 dark:bg-white/10 text-slate-800 dark:text-white border border-slate-300 dark:border-white/20">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
               Live API
             </span>
           </div>
@@ -182,24 +182,24 @@ export function GitHubContributionCalendar() {
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-black border border-slate-200 dark:border-white/[0.08]">
             <CheckCircle2 className="w-4 h-4 text-slate-900 dark:text-white" />
             <div>
-              <p className="text-[10px] font-mono text-slate-500 dark:text-zinc-400 uppercase">{t('contributions')}</p>
-              <p className="text-xs font-mono font-bold text-slate-900 dark:text-white">{totalContributions}+</p>
+              <p className="text-xs font-mono font-medium text-slate-500 dark:text-zinc-400 uppercase">{t('contributions')}</p>
+              <p className="text-sm font-mono font-bold text-slate-900 dark:text-white">{totalContributions}+</p>
             </div>
           </div>
 
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-black border border-slate-200 dark:border-white/[0.08]">
             <Flame className="w-4 h-4 text-slate-900 dark:text-white" />
             <div>
-              <p className="text-[10px] font-mono text-slate-500 dark:text-zinc-400 uppercase">{t('currentStreak')}</p>
-              <p className="text-xs font-mono font-bold text-slate-900 dark:text-white">{currentStreak} {t('days')}</p>
+              <p className="text-xs font-mono font-medium text-slate-500 dark:text-zinc-400 uppercase">{t('currentStreak')}</p>
+              <p className="text-sm font-mono font-bold text-slate-900 dark:text-white">{currentStreak} {t('days')}</p>
             </div>
           </div>
 
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-black border border-slate-200 dark:border-white/[0.08]">
             <Trophy className="w-4 h-4 text-slate-900 dark:text-white" />
             <div>
-              <p className="text-[10px] font-mono text-slate-500 dark:text-zinc-400 uppercase">{t('longestStreak')}</p>
-              <p className="text-xs font-mono font-bold text-slate-900 dark:text-white">{longestStreak} {t('days')}</p>
+              <p className="text-xs font-mono font-medium text-slate-500 dark:text-zinc-400 uppercase">{t('longestStreak')}</p>
+              <p className="text-sm font-mono font-bold text-slate-900 dark:text-white">{longestStreak} {t('days')}</p>
             </div>
           </div>
         </div>
@@ -209,7 +209,7 @@ export function GitHubContributionCalendar() {
       <div className="overflow-x-auto pb-2 scrollbar-thin">
         <div className="min-w-[720px] space-y-2">
           {/* Month Headers */}
-          <div className="flex text-[10px] font-mono text-slate-500 pl-7 justify-between pr-2">
+          <div className="flex text-xs font-mono text-slate-500 pl-7 justify-between pr-2">
             {monthLabels.map((m, idx) => (
               <span key={`${m}-${idx}`}>{m}</span>
             ))}
@@ -218,7 +218,7 @@ export function GitHubContributionCalendar() {
           {/* Grid Rows (7 rows for Sunday..Saturday) */}
           <div className="flex gap-1.5">
             {/* Weekday Labels */}
-            <div className="flex flex-col justify-between text-[9px] font-mono text-slate-400 dark:text-slate-500 pr-1 select-none h-[88px] py-0.5">
+            <div className="flex flex-col justify-between text-[10px] font-mono text-slate-500 dark:text-slate-400 pr-1 select-none h-[88px] py-0.5">
               <span>Mon</span>
               <span>Wed</span>
               <span>Fri</span>
@@ -267,13 +267,13 @@ export function GitHubContributionCalendar() {
 
         {/* Legend */}
         <div className="flex items-center gap-1.5 self-end sm:self-auto">
-          <span className="text-[10px] text-slate-500">{t('less')}</span>
+          <span className="text-xs text-slate-500">{t('less')}</span>
           <span className="w-2.5 h-2.5 rounded-[2px] bg-slate-200 dark:bg-zinc-900 border border-slate-300 dark:border-white/[0.05]" />
           <span className="w-2.5 h-2.5 rounded-[2px] bg-zinc-300 dark:bg-zinc-800 border border-zinc-400 dark:border-zinc-700" />
           <span className="w-2.5 h-2.5 rounded-[2px] bg-zinc-400 dark:bg-zinc-600" />
           <span className="w-2.5 h-2.5 rounded-[2px] bg-zinc-600 dark:bg-zinc-400" />
           <span className="w-2.5 h-2.5 rounded-[2px] bg-zinc-900 dark:bg-white shadow-[0_0_6px_rgba(255,255,255,0.6)]" />
-          <span className="text-[10px] text-slate-500">{t('more')}</span>
+          <span className="text-xs text-slate-500">{t('more')}</span>
         </div>
       </div>
     </SpotlightCard>
