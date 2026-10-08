@@ -90,7 +90,10 @@ export function Hero() {
                   text="Rizkillah Ramanda"
                   color={isDark ? '#ffffff' : '#09090b'}
                   accentColor={isDark ? '#a1a1aa' : '#4f46e5'}
-                  fontSize={46}
+                  fontSize={66}
+                  fontWeight={800}
+                  dashLength={5}
+                  dashGap={5}
                   lineStyle="dashed"
                   className="font-extrabold tracking-tight"
                 />
