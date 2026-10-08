@@ -34,13 +34,13 @@ export function MagicBentoSection({
       id,
       'aria-label': title,
       className: cn(
-        'relative py-24 border-t border-white/[0.08] bg-black text-white overflow-hidden',
+        'relative py-24 border-t border-slate-200 dark:border-white/[0.08] bg-white/40 dark:bg-black text-slate-900 dark:text-white overflow-hidden',
         className
       ),
     },
     React.createElement('div', {
       className:
-        'pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,rgba(255,255,255,0.06),transparent)]',
+        'pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,rgba(99,102,241,0.06),transparent)] dark:bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,rgba(255,255,255,0.06),transparent)]',
       'aria-hidden': 'true',
     }),
     React.createElement(
@@ -55,16 +55,16 @@ export function MagicBentoSection({
           'div',
           {
             className:
-              'inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/5 text-zinc-300 text-xs font-mono font-medium mb-3',
+              'inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-slate-200 dark:border-white/10 bg-slate-100/80 dark:bg-white/5 text-slate-800 dark:text-zinc-300 text-xs font-mono font-medium mb-3',
           },
-          React.createElement(Sparkles, { className: 'w-3.5 h-3.5 text-zinc-300' }),
+          React.createElement(Sparkles, { className: 'w-3.5 h-3.5 text-slate-700 dark:text-zinc-300' }),
           React.createElement('span', null, badge)
         ),
         React.createElement(
           'h2',
           {
             className:
-              'text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight',
+              'text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight',
           },
           title
         ),
@@ -72,7 +72,7 @@ export function MagicBentoSection({
           'p',
           {
             className:
-              'mt-2 text-sm sm:text-base text-zinc-400 leading-relaxed font-sans max-w-2xl',
+              'mt-2 text-sm sm:text-base text-slate-600 dark:text-zinc-400 leading-relaxed font-sans max-w-2xl',
           },
           subtitle
         )

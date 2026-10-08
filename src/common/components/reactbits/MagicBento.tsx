@@ -751,16 +751,14 @@ export const MagicBento: React.FC<BentoProps> = ({
 
           const baseCardClassName = cn(
             'card flex flex-col justify-between relative min-h-[220px] sm:min-h-[240px] w-full p-6 sm:p-7',
-            'rounded-2xl border border-white/10 font-sans overflow-hidden',
-            'transition-all duration-300 ease-out hover:-translate-y-1 hover:border-white/20',
+            'rounded-2xl border border-slate-200 dark:border-white/10 font-sans overflow-hidden bg-white/90 dark:bg-zinc-950/80 shadow-sm hover:shadow-xl',
+            'transition-all duration-300 ease-out hover:-translate-y-1 hover:border-slate-300 dark:hover:border-white/20',
             enableBorderGlow && 'card--border-glow',
             card.className
           );
 
           const cardStyle: React.CSSProperties = {
-            backgroundColor: card.color || (index % 2 === 0 ? '#09090b' : '#121214'),
-            borderColor: 'rgba(255, 255, 255, 0.1)',
-            color: '#ffffff',
+            ...(card.color ? { backgroundColor: card.color } : {}),
             '--glow-x': '50%',
             '--glow-y': '50%',
             '--glow-intensity': '0',
@@ -778,7 +776,7 @@ export const MagicBento: React.FC<BentoProps> = ({
                   'span',
                   {
                     className:
-                      'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-mono font-medium tracking-wider uppercase text-zinc-400 bg-white/[0.04] border border-white/[0.08]',
+                      'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono font-medium tracking-wider uppercase text-slate-600 dark:text-zinc-400 bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08]',
                   },
                   card.label
                 )
@@ -788,7 +786,7 @@ export const MagicBento: React.FC<BentoProps> = ({
                   'span',
                   {
                     className:
-                      'inline-flex items-center gap-1.5 text-[11px] font-mono text-emerald-400 font-medium',
+                      'inline-flex items-center gap-1.5 text-xs font-mono text-emerald-500 dark:text-emerald-400 font-medium',
                   },
                   React.createElement(
                     'span',
@@ -804,7 +802,7 @@ export const MagicBento: React.FC<BentoProps> = ({
                   React.createElement('span', null, 'ONLINE')
                 )
               : card.icon
-                ? React.createElement('span', { className: 'text-zinc-400' }, card.icon)
+                ? React.createElement('span', { className: 'text-slate-500 dark:text-zinc-400' }, card.icon)
                 : null
           );
 
@@ -815,7 +813,7 @@ export const MagicBento: React.FC<BentoProps> = ({
               'h3',
               {
                 className: cn(
-                  'card__title font-semibold text-lg sm:text-xl text-white tracking-tight mb-2',
+                  'card__title font-bold text-lg sm:text-xl text-slate-900 dark:text-white tracking-tight mb-2',
                   textAutoHide && 'text-clamp-1'
                 ),
               },
@@ -825,7 +823,7 @@ export const MagicBento: React.FC<BentoProps> = ({
               'p',
               {
                 className: cn(
-                  'card__description text-xs sm:text-sm text-zinc-400 leading-relaxed font-sans',
+                  'card__description text-sm text-slate-600 dark:text-zinc-400 leading-relaxed font-sans',
                   textAutoHide && 'text-clamp-2'
                 ),
               },
