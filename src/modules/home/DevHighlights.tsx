@@ -25,7 +25,7 @@ export function DevHighlights() {
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-400/20 bg-sky-400/10 text-sky-600 dark:text-sky-400 text-xs font-mono font-medium mb-2">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/20 bg-white/10 text-zinc-900 dark:text-zinc-200 text-xs font-mono font-medium mb-2">
                 <Sparkles className="w-4 h-4" />
                 <span>{t('badge')}</span>
               </div>
@@ -40,7 +40,7 @@ export function DevHighlights() {
             <div className="flex items-center gap-3">
               <Link
                 href="/dashboard"
-                className="inline-flex items-center gap-1.5 text-xs font-mono text-sky-600 dark:text-sky-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+                className="inline-flex items-center gap-1.5 text-xs font-mono text-zinc-300 dark:text-zinc-300 hover:text-white transition-colors"
               >
                 <span>{t('liveMetrics')}</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
@@ -51,10 +51,10 @@ export function DevHighlights() {
           {/* Bento Grid Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             {/* Left 7 Columns: Workstation Specs */}
-            <div className="lg:col-span-7 flex flex-col justify-between p-6 rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-white/80 dark:bg-navy-900/30 hover:-translate-y-1 hover:shadow-xl hover:shadow-sky-500/5 hover:border-sky-400/30 transition-all duration-300">
+            <div className="lg:col-span-7 flex flex-col justify-between p-6 rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-white/80 dark:bg-zinc-950/80 hover:-translate-y-1 hover:shadow-xl hover:shadow-white/5 hover:border-white/25 transition-all duration-300">
               <div className="space-y-2 mb-4">
                 <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                  <GitBranch className="w-4 h-4 text-sky-500" />
+                  <GitBranch className="w-4 h-4 text-white" />
                   <span>{t('workstationTitle')}</span>
                 </h3>
                 <p className="text-xs text-slate-600 dark:text-slate-400">
