@@ -16,7 +16,7 @@ export default function AboutPage() {
     <Container className="py-16">
       <Breadcrumb items={[{ label: tNav('about') }]} />
       <ScrollReveal className="mb-12">
-        <span className="font-mono text-xs uppercase tracking-wider text-sky-500 dark:text-sky-400 font-semibold">
+        <span className="font-mono text-xs uppercase tracking-wider text-slate-900 dark:text-zinc-400 font-semibold">
           {t('title')}
         </span>
         <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white mt-1">
