@@ -15,8 +15,8 @@ export function SkillCategoryPill({ active, label, count, onClick }: SkillCatego
       className={cn(
         'px-3 py-1.5 rounded-full text-xs font-mono transition-all flex items-center gap-1.5',
         active
-          ? 'bg-sky-500/20 border border-sky-500/50 text-sky-400'
-          : 'bg-slate-900/40 border border-dark-border text-slate-400 hover:text-white hover:border-slate-700'
+          ? 'bg-slate-900 text-white dark:bg-white dark:text-black font-semibold border border-slate-900 dark:border-white'
+          : 'bg-white/5 dark:bg-zinc-900/60 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-white/30'
       )}
     >
       <span>{label}</span>
