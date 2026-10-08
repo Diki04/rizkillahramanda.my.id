@@ -261,7 +261,7 @@ export default function LinksPage() {
         </div>
 
         {/* Footer info */}
-        <p className="text-center font-mono text-[11px] text-slate-400 dark:text-zinc-500 pt-4">
+        <p className="text-center font-mono text-xs text-slate-400 dark:text-zinc-500 pt-4">
           © {new Date().getFullYear()} Rizkillah Ramanda Sinyo • rizkillah.dev
         </p>
       </div>
