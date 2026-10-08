@@ -23,7 +23,7 @@ export function SoundToggle() {
       className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
       aria-label="Toggle Sound"
     >
-      {enabled ? <Volume2 className="w-4 h-4 text-sky-400" /> : <VolumeX className="w-4 h-4" />}
+      {enabled ? <Volume2 className="w-4 h-4 text-slate-900 dark:text-white" /> : <VolumeX className="w-4 h-4" />}
     </button>
   );
 }
