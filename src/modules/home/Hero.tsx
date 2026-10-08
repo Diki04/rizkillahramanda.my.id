@@ -70,14 +70,14 @@ export function Hero() {
       <div
         className={cn(
           'absolute inset-x-0 bottom-0 z-[5] pointer-events-auto transition-all duration-300',
-          isTopbar ? 'top-0 md:top-2' : '-top-16 md:-top-24'
+          isTopbar ? '-top-10 md:-top-16' : '-top-16 md:-top-24'
         )}
       >
         <Lanyard
           position={[0, 0, 20]}
           fov={24}
-          anchorPosition={isTopbar ? [3.2, 5.0, 0] : undefined}
-          ropeLength={isTopbar ? 4.2 : 5.0}
+          anchorPosition={isTopbar ? [3.2, 6.2, 0] : undefined}
+          ropeLength={isTopbar ? 4.8 : 5.0}
           className="pointer-events-auto"
         />
       </div>
@@ -100,12 +100,12 @@ export function Hero() {
                 <span>{t('greeting')}</span>
               </div>
 
-              <div className="pointer-events-auto py-1 w-full lg:w-[135%] xl:w-[150%] max-w-none overflow-visible">
+              <div className="pointer-events-auto py-1 w-full max-w-full lg:max-w-none overflow-visible">
                 <TechText
                   text="Rizkillah Ramanda Sinyo"
                   color={isDark ? '#ffffff' : '#09090b'}
                   accentColor={isDark ? '#a1a1aa' : '#4f46e5'}
-                  fontSize={84}
+                  fontSize={60}
                   fontWeight={800}
                   dashLength={5}
                   dashGap={5}
@@ -113,7 +113,7 @@ export function Hero() {
                   autoAnimate={true}
                   autoWaveSpeed={1.6}
                   speed={1.2}
-                  fontFamily="var(--font-inter), system-ui, -apple-system, sans-serif"
+                  fontFamily="var(--font-inter), Inter, system-ui, -apple-system, sans-serif"
                   className="font-extrabold tracking-tight"
                 />
               </div>
