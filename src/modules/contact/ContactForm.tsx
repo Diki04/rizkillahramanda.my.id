@@ -27,9 +27,9 @@ export function ContactForm() {
     <SpotlightCard className="p-6">
       {sent ? (
         <div className="py-12 text-center space-y-4">
-          <CheckCircle2 className="w-12 h-12 text-emerald-400 mx-auto" />
-          <h4 className="text-lg font-bold text-white">Pesan Anda Disiapkan!</h4>
-          <p className="text-xs text-slate-400 max-w-sm mx-auto font-mono">
+          <CheckCircle2 className="w-12 h-12 text-emerald-500 dark:text-emerald-400 mx-auto" />
+          <h4 className="text-lg font-bold text-slate-900 dark:text-white">Pesan Anda Disiapkan!</h4>
+          <p className="text-xs text-slate-600 dark:text-slate-400 max-w-sm mx-auto font-mono">
             Aplikasi email Anda telah dibuka. Jika tidak muncul, Anda dapat mengirim email manual ke {mockProfile.email}.
           </p>
           <Button
@@ -43,12 +43,12 @@ export function ContactForm() {
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4">
-          <h4 className="text-sm font-semibold text-white border-b border-white/[0.06] pb-3">
+          <h4 className="text-sm font-semibold text-slate-900 dark:text-white border-b border-slate-200 dark:border-white/[0.06] pb-3">
             Kirim Pesan Langsung
           </h4>
 
           <div className="space-y-1.5">
-            <label className="text-xs font-mono text-slate-400">
+            <label className="text-xs font-mono font-medium text-slate-700 dark:text-slate-300">
               {t('formName')}
             </label>
             <input
@@ -57,12 +57,12 @@ export function ContactForm() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Nama lengkap Anda"
-              className="w-full px-3.5 py-2 rounded-xl bg-black border border-white/10 text-xs font-mono text-slate-200 placeholder-slate-500 focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/20 transition-all"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-black border border-slate-300 dark:border-white/10 text-sm font-mono text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-slate-800 dark:focus:border-white/40 focus:ring-1 focus:ring-slate-400/20 dark:focus:ring-white/20 transition-all"
             />
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs font-mono text-slate-400">
+            <label className="text-xs font-mono font-medium text-slate-700 dark:text-slate-300">
               {t('formEmail')}
             </label>
             <input
@@ -71,12 +71,12 @@ export function ContactForm() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="nama@domain.com"
-              className="w-full px-3.5 py-2 rounded-xl bg-black border border-white/10 text-xs font-mono text-slate-200 placeholder-slate-500 focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/20 transition-all"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-black border border-slate-300 dark:border-white/10 text-sm font-mono text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-slate-800 dark:focus:border-white/40 focus:ring-1 focus:ring-slate-400/20 dark:focus:ring-white/20 transition-all"
             />
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs font-mono text-slate-400">
+            <label className="text-xs font-mono font-medium text-slate-700 dark:text-slate-300">
               {t('formMessage')}
             </label>
             <textarea
@@ -85,7 +85,7 @@ export function ContactForm() {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Tuliskan tujuan atau pesan Anda..."
-              className="w-full px-3.5 py-2 rounded-xl bg-black border border-white/10 text-xs font-mono text-slate-200 placeholder-slate-500 focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/20 transition-all resize-none"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-black border border-slate-300 dark:border-white/10 text-sm font-mono text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-slate-800 dark:focus:border-white/40 focus:ring-1 focus:ring-slate-400/20 dark:focus:ring-white/20 transition-all resize-none"
             />
           </div>
 
@@ -93,7 +93,7 @@ export function ContactForm() {
             type="submit"
             variant="secondary"
             size="md"
-            className="w-full text-xs font-mono"
+            className="w-full text-sm font-mono font-medium"
           >
             <Send className="w-3.5 h-3.5 mr-1.5" />
             <span>{t('formSubmit')}</span>

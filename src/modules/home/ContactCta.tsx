@@ -5,11 +5,14 @@ import { useTranslations } from 'next-intl';
 import { Container } from '@/common/components/Container';
 import { SpecularButton } from '@/common/components/reactbits';
 import { ScrollReveal } from '@/common/components/ScrollReveal';
+import { useTheme } from '@/common/contexts/ThemeContext';
 import { Link } from '@/i18n/routing';
 import { Mail, MessageSquare, ArrowUpRight, Sparkles } from 'lucide-react';
 
 export function ContactCta() {
   const t = useTranslations('contactCta');
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
 
   return (
     <ScrollReveal
@@ -41,16 +44,26 @@ export function ContactCta() {
 
             <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
               <Link href="/contact">
-                <SpecularButton size="md">
+                <SpecularButton
+                  size="md"
+                  baseColor={isDark ? '#18181b' : '#09090b'}
+                  lineColor={isDark ? '#ffffff' : '#6366f1'}
+                  textColor="#ffffff"
+                >
                   <Mail className="w-4 h-4 mr-2" />
                   <span>{t('sendMessage')}</span>
                 </SpecularButton>
               </Link>
               <Link href="/chat">
-                <SpecularButton size="md" baseColor="#18181b" lineColor="#71717a">
-                  <MessageSquare className="w-4 h-4 mr-2 text-zinc-300" />
+                <SpecularButton
+                  size="md"
+                  baseColor={isDark ? '#09090b' : '#ffffff'}
+                  lineColor={isDark ? '#71717a' : '#cbd5e1'}
+                  textColor={isDark ? '#ffffff' : '#09090b'}
+                >
+                  <MessageSquare className="w-4 h-4 mr-2 text-slate-600 dark:text-zinc-300" />
                   <span>{t('leaveNote')}</span>
-                  <ArrowUpRight className="w-4 h-4 ml-1 text-zinc-400" />
+                  <ArrowUpRight className="w-4 h-4 ml-1 text-slate-400 dark:text-zinc-400" />
                 </SpecularButton>
               </Link>
             </div>
