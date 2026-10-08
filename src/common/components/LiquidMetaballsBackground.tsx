@@ -40,19 +40,19 @@ export function LiquidMetaballsBackground() {
     const blobs: Blob[] = [];
 
     const paletteDark = [
-      'rgba(56, 189, 248, 0.15)', // sky-400
-      'rgba(14, 165, 233, 0.12)', // sky-500
-      'rgba(99, 102, 241, 0.12)', // indigo-500
-      'rgba(6, 182, 212, 0.15)',  // cyan-500
-      'rgba(59, 130, 246, 0.14)', // blue-500
+      'rgba(255, 255, 255, 0.08)',
+      'rgba(240, 240, 245, 0.06)',
+      'rgba(210, 210, 215, 0.07)',
+      'rgba(180, 180, 190, 0.06)',
+      'rgba(255, 255, 255, 0.05)',
     ];
 
     const paletteLight = [
-      'rgba(56, 189, 248, 0.10)',
-      'rgba(14, 165, 233, 0.08)',
-      'rgba(99, 102, 241, 0.08)',
-      'rgba(6, 182, 212, 0.10)',
-      'rgba(59, 130, 246, 0.09)',
+      'rgba(0, 0, 0, 0.04)',
+      'rgba(20, 20, 25, 0.03)',
+      'rgba(40, 40, 45, 0.04)',
+      'rgba(60, 60, 65, 0.03)',
+      'rgba(0, 0, 0, 0.03)',
     ];
 
     const palette = isDark ? paletteDark : paletteLight;
