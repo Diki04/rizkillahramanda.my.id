@@ -133,7 +133,7 @@ export default function AdminPage() {
       <div className="py-24 text-center">
         <Container size="md">
           <div className="flex flex-col items-center justify-center gap-3">
-            <RefreshCw className="w-5 h-5 text-sky-500 animate-spin" />
+            <RefreshCw className="w-5 h-5 text-slate-900 dark:text-white animate-spin" />
             <p className="text-xs font-mono text-slate-500 dark:text-slate-400">
               {t('checkingSession')}
             </p>
@@ -183,7 +183,7 @@ export default function AdminPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-white/[0.08] pb-6">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="p-1.5 rounded-xl bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
+              <span className="p-1.5 rounded-xl bg-zinc-100 dark:bg-white/10 text-zinc-900 dark:text-white border border-slate-200 dark:border-white/20">
                 <ShieldCheck className="w-5 h-5" />
               </span>
               <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">
@@ -196,8 +196,8 @@ export default function AdminPage() {
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-white/[0.08] bg-slate-50 dark:bg-navy-900 text-xs font-mono">
-              <Database className="w-3.5 h-3.5 text-sky-500 dark:text-accent-blue" />
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-white/[0.08] bg-slate-50 dark:bg-zinc-900 text-xs font-mono">
+              <Database className="w-3.5 h-3.5 text-slate-900 dark:text-white" />
               <span className="text-slate-700 dark:text-slate-300">
                 {isSupabaseConfigured ? 'Supabase Live' : 'Hybrid Local Fallback'}
               </span>
@@ -227,8 +227,8 @@ export default function AdminPage() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-mono font-medium whitespace-nowrap transition-all duration-200 ${
                   active
-                    ? 'bg-sky-50 dark:bg-navy-800 text-sky-600 dark:text-accent-blue border border-sky-300 dark:border-accent-blue/40 font-semibold shadow-sm'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-navy-900 border border-transparent'
+                    ? 'bg-zinc-100 dark:bg-white/10 text-zinc-900 dark:text-white border border-slate-300 dark:border-white/25 font-semibold shadow-sm'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-zinc-800 border border-transparent'
                 }`}
               >
                 <Icon className="w-4 h-4" />
