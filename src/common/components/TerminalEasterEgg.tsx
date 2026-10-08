@@ -45,11 +45,11 @@ export function TerminalEasterEgg() {
   };
 
   return (
-    <div className="w-full max-w-lg mt-6 rounded-lg border border-dark-border bg-slate-950/90 text-left overflow-hidden shadow-xl font-mono text-xs">
-      <div className="flex items-center justify-between px-3 py-2 border-b border-dark-border bg-dark-card/60">
+    <div className="w-full max-w-lg mt-6 rounded-lg border border-slate-200 dark:border-white/10 bg-white/90 dark:bg-black/90 text-left overflow-hidden shadow-xl font-mono text-xs">
+      <div className="flex items-center justify-between px-3 py-2 border-b border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-zinc-950">
         <div className="flex items-center gap-2">
-          <TerminalIcon className="w-3.5 h-3.5 text-sky-400" />
-          <span className="text-[11px] text-slate-400">interactive-terminal.sh</span>
+          <TerminalIcon className="w-3.5 h-3.5 text-slate-900 dark:text-white" />
+          <span className="text-[11px] text-slate-500 dark:text-zinc-400">interactive-terminal.sh</span>
         </div>
         <div className="flex gap-1.5">
           <span className="w-2.5 h-2.5 rounded-full bg-rose-500/70" />
@@ -58,16 +58,16 @@ export function TerminalEasterEgg() {
         </div>
       </div>
 
-      <div className="p-3 max-h-48 overflow-y-auto space-y-1 text-slate-300">
+      <div className="p-3 max-h-48 overflow-y-auto space-y-1 text-slate-700 dark:text-zinc-300">
         {logs.map((log, idx) => (
-          <div key={idx} className={log.startsWith('$') ? 'text-sky-400 font-bold' : 'text-slate-400'}>
+          <div key={idx} className={log.startsWith('$') ? 'text-slate-900 dark:text-white font-bold' : 'text-slate-500 dark:text-zinc-400'}>
             {log}
           </div>
         ))}
       </div>
 
-      <form onSubmit={handleCommand} className="flex items-center px-3 py-2 border-t border-dark-border bg-dark-bg/40">
-        <span className="text-sky-400 mr-2 font-bold">&gt;</span>
+      <form onSubmit={handleCommand} className="flex items-center px-3 py-2 border-t border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-black">
+        <span className="text-slate-900 dark:text-white mr-2 font-bold">&gt;</span>
         <input
           type="text"
           value={input}
