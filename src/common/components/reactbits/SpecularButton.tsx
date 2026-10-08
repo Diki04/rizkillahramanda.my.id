@@ -249,7 +249,9 @@ export const SpecularButton = React.forwardRef<HTMLButtonElement, SpecularButton
 
       gl.clearColor(0, 0, 0, 0);
       const canvas = gl.canvas as HTMLCanvasElement;
-      canvas.className = 'absolute inset-0 w-full h-full pointer-events-none rounded-[inherit]';
+      canvas.className = 'absolute inset-0 w-full h-full pointer-events-none rounded-[inherit] z-0';
+      canvas.style.setProperty('width', '100%', 'important');
+      canvas.style.setProperty('height', '100%', 'important');
       canvas.style.borderRadius = `${radius}px`;
       canvas.setAttribute('aria-hidden', 'true');
 
@@ -298,8 +300,8 @@ export const SpecularButton = React.forwardRef<HTMLButtonElement, SpecularButton
         const dpr = Math.min(window.devicePixelRatio || 1, 2);
         renderer.dpr = dpr;
         renderer.setSize(width, height);
-        canvas.style.width = '100%';
-        canvas.style.height = '100%';
+        canvas.style.setProperty('width', '100%', 'important');
+        canvas.style.setProperty('height', '100%', 'important');
         uniforms.uResolution.value = [width * dpr, height * dpr];
         uniforms.uRadius.value = radius * dpr;
         uniforms.uBorderWidth.value = borderWidth * dpr;
@@ -437,12 +439,12 @@ export const SpecularButton = React.forwardRef<HTMLButtonElement, SpecularButton
           baseStyles,
           sizeStyles[size],
           !isWebGLActive && fallbackStyles,
-          isWebGLActive && 'border border-transparent bg-transparent',
           disabled && 'opacity-50 cursor-not-allowed pointer-events-none active:scale-100',
           className
         ),
         style: {
           borderRadius: `${radius}px`,
+          backgroundColor: baseColor,
           color: textColor,
           ...style,
         },
