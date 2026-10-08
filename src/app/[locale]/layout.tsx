@@ -12,14 +12,9 @@ import { AppShell } from '@/common/layouts/AppShell';
 import { ScrollProgressBar } from '@/common/components/ScrollProgressBar';
 import { BackToTop } from '@/common/components/BackToTop';
 import { CommandPalette } from '@/common/components/CommandPalette';
-import { RadialGradientBackground } from '@/common/components/RadialGradientBackground';
 
-// Lazy load background showcase with multi-page preview options
-const DynamicBackgroundShowcase = dynamic(
-  () =>
-    import('@/common/components/DynamicBackgroundShowcase').then(
-      (mod) => mod.DynamicBackgroundShowcase
-    ),
+const MicroSlats = dynamic(
+  () => import('@/common/components/reactbits').then((m) => m.MicroSlats),
   { ssr: false }
 );
 
@@ -57,7 +52,7 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} suppressHydrationWarning className="dark">
+    <html lang={locale} suppressHydrationWarning className="dark bg-black selection:bg-white/20 selection:text-white">
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -67,14 +62,20 @@ export default async function RootLayout({
       </head>
       <body
         suppressHydrationWarning
-        className={`${inter.variable} ${mono.variable} font-sans bg-slate-50 text-slate-900 dark:bg-navy-950 dark:text-slate-100 antialiased min-h-screen flex flex-col relative selection:bg-sky-500/20 selection:text-sky-400 transition-colors duration-300`}
+        className={`${inter.variable} ${mono.variable} font-sans bg-black text-slate-100 antialiased min-h-screen flex flex-col relative selection:bg-white/20 selection:text-white transition-colors duration-300`}
       >
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
             <LayoutProvider>
+              <MicroSlats
+                className="fixed inset-0 pointer-events-none -z-10"
+                backgroundColor="#000000"
+                color="#52525b"
+                glintColor="#ffffff"
+                preset="swell"
+                interactive={true}
+              />
               <ScrollProgressBar />
-              <RadialGradientBackground />
-              <DynamicBackgroundShowcase />
               <CommandPalette />
               <AppShell>{children}</AppShell>
               <BackToTop />
