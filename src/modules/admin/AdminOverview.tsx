@@ -55,7 +55,7 @@ export function AdminOverview({
             <span className="text-xs font-mono text-slate-500 dark:text-slate-400 font-semibold uppercase">
               {t('kpi.totalProjects')}
             </span>
-            <div className="p-2 rounded-xl bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
+            <div className="p-2 rounded-xl bg-zinc-100 dark:bg-white/10 text-zinc-900 dark:text-white border border-slate-200 dark:border-white/20">
               <FolderGit2 className="w-4 h-4" />
             </div>
           </div>
@@ -64,7 +64,7 @@ export function AdminOverview({
               {projects.length}
             </div>
             <div className="flex items-center gap-2 mt-2">
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono bg-sky-50 dark:bg-sky-500/10 text-sky-600 dark:text-sky-300 border border-sky-200 dark:border-sky-500/20">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono bg-zinc-100 dark:bg-white/10 text-zinc-900 dark:text-zinc-200 border border-slate-200 dark:border-white/20">
                 <Sparkles className="w-3 h-3" />
                 {featuredCount} {t('kpi.featuredProjects')}
               </span>
@@ -142,7 +142,7 @@ export function AdminOverview({
       </div>
 
       {/* Quick Actions Bar */}
-      <div className="p-5 rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-slate-50/80 dark:bg-navy-900/40 flex flex-wrap items-center justify-between gap-4">
+      <div className="p-5 rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-slate-50/80 dark:bg-zinc-900/40 flex flex-wrap items-center justify-between gap-4">
         <div>
           <h3 className="text-sm font-bold text-slate-900 dark:text-white">
             {t('overview.quickActions')}
@@ -178,14 +178,14 @@ export function AdminOverview({
         <SpotlightCard className="p-6 space-y-4">
           <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/[0.06] pb-3">
             <div className="flex items-center gap-2">
-              <FolderGit2 className="w-4 h-4 text-sky-500" />
+              <FolderGit2 className="w-4 h-4 text-slate-900 dark:text-white" />
               <h3 className="text-sm font-bold text-slate-900 dark:text-white">
                 {t('overview.recentProjects')}
               </h3>
             </div>
             <button
               onClick={() => onNavigateTab('projects')}
-              className="text-xs font-mono text-sky-600 dark:text-sky-400 hover:underline flex items-center gap-1"
+              className="text-xs font-mono text-slate-900 dark:text-white hover:underline flex items-center gap-1"
             >
               <span>{t('overview.viewAll')}</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -196,7 +196,7 @@ export function AdminOverview({
             {projects.slice(0, 4).map((p) => (
               <div
                 key={p.id}
-                className="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-navy-950/60 border border-slate-200 dark:border-white/[0.04] hover:border-sky-400/30 transition-all"
+                className="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-zinc-900/60 border border-slate-200 dark:border-white/[0.04] hover:border-white/30 transition-all"
               >
                 <div className="min-w-0 pr-2">
                   <p className="text-xs font-semibold text-slate-900 dark:text-white truncate">
@@ -218,14 +218,14 @@ export function AdminOverview({
         <SpotlightCard className="p-6 space-y-4">
           <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/[0.06] pb-3">
             <div className="flex items-center gap-2">
-              <Award className="w-4 h-4 text-emerald-500" />
+              <Award className="w-4 h-4 text-slate-900 dark:text-white" />
               <h3 className="text-sm font-bold text-slate-900 dark:text-white">
                 {t('overview.recentAchievements')}
               </h3>
             </div>
             <button
               onClick={() => onNavigateTab('achievements')}
-              className="text-xs font-mono text-sky-600 dark:text-sky-400 hover:underline flex items-center gap-1"
+              className="text-xs font-mono text-slate-900 dark:text-white hover:underline flex items-center gap-1"
             >
               <span>{t('overview.viewAll')}</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -236,7 +236,7 @@ export function AdminOverview({
             {achievements.slice(0, 4).map((a) => (
               <div
                 key={a.id}
-                className="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-navy-950/60 border border-slate-200 dark:border-white/[0.04] hover:border-emerald-400/30 transition-all"
+                className="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-zinc-900/60 border border-slate-200 dark:border-white/[0.04] hover:border-white/30 transition-all"
               >
                 <div className="min-w-0 pr-2">
                   <p className="text-xs font-semibold text-slate-900 dark:text-white truncate">
