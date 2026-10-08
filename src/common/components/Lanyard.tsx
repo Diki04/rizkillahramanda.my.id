@@ -69,8 +69,8 @@ export default function Lanyard({
         className="w-full h-full pointer-events-auto"
         style={{ pointerEvents: 'auto' }}
       >
-        <ambientLight intensity={1.0} />
-        <directionalLight position={[5, 8, 6]} intensity={1.2} color="white" />
+        <ambientLight intensity={1.2} />
+        <directionalLight position={[5, 8, 6]} intensity={1.3} color="white" />
         <Suspense fallback={null}>
           <PhysicsLanyard
             isMobile={isMobile}
@@ -147,7 +147,7 @@ function PhysicsLanyard({
     if (anchorPosition) {
       return new THREE.Vector3(...anchorPosition);
     }
-    return new THREE.Vector3(isMobile ? 0 : 3.6, isMobile ? 5.8 : 6.4, 0);
+    return new THREE.Vector3(isMobile ? 0 : 3.4, isMobile ? 5.8 : 6.4, 0);
   }, [anchorPosition, isMobile]);
 
   // Card physics state (position, velocity, rotation, angular velocity)
@@ -401,7 +401,7 @@ function PhysicsLanyard({
       <group
         ref={cardGroup}
         position={[anchor.x, anchor.y - REST_ROPE_LENGTH, 0]}
-        scale={2.25}
+        scale={isMobile ? 2.5 : 3.0}
         onPointerOver={() => setHovered(true)}
         onPointerOut={() => setHovered(false)}
         onPointerUp={(e: any) => {
@@ -422,10 +422,10 @@ function PhysicsLanyard({
               <meshPhysicalMaterial
                 map={cardMap || cardTexture}
                 map-anisotropy={16}
-                clearcoat={0.25}
-                clearcoatRoughness={0.2}
-                roughness={0.42}
-                metalness={0.02}
+                clearcoat={0.3}
+                clearcoatRoughness={0.15}
+                roughness={0.35}
+                metalness={0.04}
               />
             </mesh>
           )}

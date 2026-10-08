@@ -83,184 +83,154 @@ function renderFrontFace(
 
   // Deep Rich Navy Obsidian Background
   const cardBg = ctx.createLinearGradient(centerX, cardY, centerX, cardY + cardH);
-  cardBg.addColorStop(0, '#0f172a');
-  cardBg.addColorStop(0.3, '#090d16');
-  cardBg.addColorStop(1, '#05070c');
+  cardBg.addColorStop(0, '#0c1322');
+  cardBg.addColorStop(0.4, '#080d18');
+  cardBg.addColorStop(1, '#04060c');
   ctx.fillStyle = cardBg;
   ctx.fillRect(cardX, cardY, cardW, cardH);
 
-  // Top header banner
-  const topBandH = 105;
-  ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
-  ctx.fillRect(cardX, cardY, cardW, topBandH);
+  // Radial Glow behind avatar
+  const glowY = cardY + 410;
+  const radGlow = ctx.createRadialGradient(centerX, glowY, 40, centerX, glowY, 440);
+  radGlow.addColorStop(0, 'rgba(56, 189, 248, 0.22)');
+  radGlow.addColorStop(0.5, 'rgba(14, 165, 233, 0.08)');
+  radGlow.addColorStop(1, 'rgba(14, 165, 233, 0)');
+  ctx.fillStyle = radGlow;
+  ctx.fillRect(cardX, cardY, cardW, 800);
 
-  // Cyan accent line
-  ctx.strokeStyle = '#0284c7';
-  ctx.lineWidth = 2.5;
-  ctx.beginPath();
-  ctx.moveTo(cardX, cardY + topBandH);
-  ctx.lineTo(cardX + cardW, cardY + topBandH);
+  // Minimal Punch Hole Slot
+  const slotW = 140, slotH = 18;
+  ctx.fillStyle = 'rgba(2, 6, 23, 0.85)';
+  drawRoundedRectPath(ctx, centerX - slotW / 2, cardY + 28, slotW, slotH, 9);
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+  ctx.lineWidth = 1.5;
   ctx.stroke();
 
-  // Header text
-  ctx.textAlign = 'left';
+  // Top University & Tagline
+  ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillStyle = '#ffffff';
-  ctx.font = 'bold 24px "Inter", "Segoe UI", sans-serif';
-  ctx.fillText(profile.university, cardX + 40, cardY + 52);
-
   ctx.fillStyle = '#38bdf8';
-  ctx.font = '700 15px "JetBrains Mono", monospace';
-  ctx.fillText(`${profile.faculty} • ${profile.major}`, cardX + 40, cardY + 80);
+  ctx.font = '700 18px "JetBrains Mono", monospace';
+  ctx.fillText('UNIVERSITAS RIAU • INFORMATIKA', centerX, cardY + 85);
 
-  ctx.textAlign = 'right';
-  ctx.fillStyle = '#34d399';
-  ctx.font = 'bold 15px "JetBrains Mono", monospace';
-  ctx.fillText('● ACTIVE // 2026', cardX + cardW - 40, cardY + 66);
+  // Large Circular Portrait Frame
+  const avatarR = 250;
+  const avatarY = cardY + 395;
 
-  // User Photo (Framed container)
-  const photoW = 540;
-  const photoH = 560;
-  const photoX = centerX - photoW / 2;
-  const photoY = cardY + 155;
-  const photoR = 30;
-
+  // Outer Glow Ring
   ctx.save();
-  ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
-  ctx.shadowBlur = 30;
-  ctx.shadowOffsetY = 15;
-  ctx.fillStyle = '#ffffff';
-  drawRoundedRectPath(ctx, photoX, photoY, photoW, photoH, photoR);
-  ctx.fill();
+  ctx.shadowColor = 'rgba(56, 189, 248, 0.45)';
+  ctx.shadowBlur = 35;
+  ctx.strokeStyle = '#38bdf8';
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  ctx.arc(centerX, avatarY, avatarR + 6, 0, Math.PI * 2);
+  ctx.stroke();
   ctx.restore();
 
+  // Inner White Ring
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.85)';
+  ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  ctx.arc(centerX, avatarY, avatarR + 2, 0, Math.PI * 2);
+  ctx.stroke();
+
+  // Draw Avatar
   ctx.save();
-  drawRoundedRectPath(ctx, photoX, photoY, photoW, photoH, photoR);
+  ctx.beginPath();
+  ctx.arc(centerX, avatarY, avatarR, 0, Math.PI * 2);
   ctx.clip();
 
   if (avatarImg) {
     const aW = avatarImg.naturalWidth || avatarImg.width || 460;
     const aH = avatarImg.naturalHeight || avatarImg.height || 460;
-    const cropW = aW * 0.58;
-    const cropH = aH * 0.60;
+    const cropW = aW * 0.52;
+    const cropH = aH * 0.52;
     const cropX = (aW - cropW) / 2;
-    const cropY = aH * 0.04;
-    ctx.drawImage(avatarImg, cropX, cropY, cropW, cropH, photoX, photoY, photoW, photoH);
+    const cropY = aH * 0.07;
+    ctx.drawImage(avatarImg, cropX, cropY, cropW, cropH, centerX - avatarR, avatarY - avatarR, avatarR * 2, avatarR * 2);
   } else {
     ctx.fillStyle = '#1e293b';
-    ctx.fillRect(photoX, photoY, photoW, photoH);
+    ctx.fillRect(centerX - avatarR, avatarY - avatarR, avatarR * 2, avatarR * 2);
     ctx.fillStyle = '#94a3b8';
     ctx.font = 'bold 36px sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('PHOTO', centerX, photoY + photoH / 2);
+    ctx.fillText('PHOTO', centerX, avatarY);
   }
   ctx.restore();
 
-  // Frame around photo
-  ctx.strokeStyle = 'rgba(56, 189, 248, 0.6)';
-  ctx.lineWidth = 3.5;
-  drawRoundedRectPath(ctx, photoX, photoY, photoW, photoH, photoR);
-  ctx.stroke();
-
-  // Name (Solid White, Bold, Razor Sharp)
+  // Big, Clean, Ultra-Bold Name
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
+
   ctx.fillStyle = '#ffffff';
-  ctx.font = '900 66px "Inter", "Segoe UI", sans-serif';
-  ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
-  ctx.shadowBlur = 12;
-  ctx.fillText(profile.name, centerX, cardY + 795);
+  ctx.font = '900 88px "Inter", "Segoe UI", sans-serif';
+  ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
+  ctx.shadowBlur = 18;
+  ctx.fillText('RIZKILLAH', centerX, cardY + 750);
+
+  ctx.fillStyle = '#38bdf8';
+  ctx.font = '900 88px "Inter", "Segoe UI", sans-serif';
+  ctx.fillText('RAMANDA', centerX, cardY + 845);
   ctx.shadowBlur = 0;
 
-  // Role Pill
-  const rolePillW = 460;
-  const rolePillH = 50;
-  const rolePillX = centerX - rolePillW / 2;
-  const rolePillY = cardY + 850;
-  ctx.fillStyle = 'rgba(14, 165, 233, 0.18)';
-  ctx.strokeStyle = '#38bdf8';
-  ctx.lineWidth = 2.5;
-  drawRoundedRectPath(ctx, rolePillX, rolePillY, rolePillW, rolePillH, 25);
+  // Clean Role Pill
+  const pillW = 460, pillH = 56;
+  const pillX = centerX - pillW / 2;
+  const pillY = cardY + 925;
+
+  ctx.fillStyle = 'rgba(15, 23, 42, 0.75)';
+  ctx.strokeStyle = 'rgba(56, 189, 248, 0.45)';
+  ctx.lineWidth = 2;
+  drawRoundedRectPath(ctx, pillX, pillY, pillW, pillH, 28);
   ctx.fill();
   ctx.stroke();
 
-  ctx.fillStyle = '#38bdf8';
-  ctx.font = 'bold 24px "JetBrains Mono", monospace';
-  ctx.fillText(profile.title, centerX, rolePillY + 25);
+  ctx.fillStyle = '#e2e8f0';
+  ctx.font = '700 24px "JetBrains Mono", monospace';
+  ctx.fillText('SOFTWARE ENGINEER', centerX, pillY + pillH / 2);
 
-  // Subtitle
-  ctx.fillStyle = '#cbd5e1';
-  ctx.font = '600 22px "Inter", sans-serif';
-  ctx.fillText('Teknik Informatika • Universitas Riau', centerX, cardY + 935);
+  // Meta Row & Chips
+  const metaY = cardY + 1040;
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+  ctx.fillRect(cardX + 80, metaY - 30, cardW - 160, 1.5);
 
-  // Divider
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.moveTo(cardX + 50, cardY + 980);
-  ctx.lineTo(cardX + cardW - 50, cardY + 980);
-  ctx.stroke();
-
-  // 3 Spec Pills
-  const pillsY = cardY + 1010;
-  const specData = [
-    { label: 'NIM', val: profile.idNumber },
-    { label: 'STACK', val: 'NEXT.JS • TS • PYTHON' },
-    { label: 'STATUS', val: 'VERIFIED DEV' },
+  const chipsY = metaY + 25;
+  const chips = [
+    { label: 'HANDLE', val: '@Diki04' },
+    { label: 'STATUS', val: '● ACTIVE' },
+    { label: 'ID PASS', val: profile.idNumber }
   ];
+  const chipW = 260;
+  const startChipX = centerX - (chipW * 3 + 24 * 2) / 2;
 
-  const specBoxW = 270;
-  const specGap = 20;
-  const startSpecX = centerX - (specBoxW * 3 + specGap * 2) / 2;
-
-  specData.forEach((s, idx) => {
-    const bx = startSpecX + idx * (specBoxW + specGap);
-    ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
-    ctx.strokeStyle = 'rgba(56, 189, 248, 0.35)';
-    ctx.lineWidth = 1.5;
-    drawRoundedRectPath(ctx, bx, pillsY, specBoxW, 70, 14);
+  chips.forEach((c, idx) => {
+    const cx = startChipX + idx * (chipW + 24);
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.6)';
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+    ctx.lineWidth = 1;
+    drawRoundedRectPath(ctx, cx, chipsY, chipW, 64, 14);
     ctx.fill();
     ctx.stroke();
 
     ctx.fillStyle = '#94a3b8';
-    ctx.font = 'bold 13px "JetBrains Mono", monospace';
-    ctx.fillText(s.label, bx + specBoxW / 2, pillsY + 22);
+    ctx.font = '700 12px "JetBrains Mono", monospace';
+    ctx.fillText(c.label, cx + chipW / 2, chipsY + 20);
 
-    ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 15px "JetBrains Mono", monospace';
-    ctx.fillText(s.val, bx + specBoxW / 2, pillsY + 48);
+    ctx.fillStyle = c.val.includes('ACTIVE') ? '#34d399' : '#ffffff';
+    ctx.font = '700 16px "JetBrains Mono", monospace';
+    ctx.fillText(c.val, cx + chipW / 2, chipsY + 44);
   });
 
-  // Modern Vector Barcode
-  const bcY = cardY + 1115;
-  const bcW = 680;
-  const bcH = 65;
-  const bcX = centerX - bcW / 2;
+  // Bottom watermark
+  ctx.fillStyle = '#475569';
+  ctx.font = '600 14px "JetBrains Mono", monospace';
+  ctx.fillText('PEKANBARU, RIAU • INDONESIA // 2026', centerX, cardY + cardH - 45);
 
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-  const pattern = [2, 1, 3, 1, 1, 4, 2, 1, 3, 2, 1, 2, 4, 1, 2, 3, 1, 2, 1, 3, 2, 4, 1, 2, 1, 3, 1, 2, 4, 2, 1, 3, 1, 2, 1, 4, 2, 1, 3, 2, 1, 2, 3, 1, 4, 2, 1, 2, 3, 1, 1, 4];
-  let curX = bcX;
-  let pIdx = 0;
-  while (curX < bcX + bcW) {
-    const barW = pattern[pIdx % pattern.length] * 2.2;
-    const isGap = pIdx % 2 === 1;
-    if (!isGap) {
-      ctx.fillRect(curX, bcY, Math.min(barW, bcX + bcW - curX), bcH);
-    }
-    curX += barW + 1.8;
-    pIdx++;
-  }
-
-  ctx.fillStyle = '#94a3b8';
-  ctx.font = 'bold 16px "JetBrains Mono", monospace';
-  ctx.fillText(`* RR - ${profile.idNumber} - 2026 - UNRI *`, centerX, bcY + bcH + 25);
-
-  ctx.fillStyle = '#64748b';
-  ctx.font = '500 13px "JetBrains Mono", monospace';
-  ctx.fillText('PEKANBARU, RIAU • INDONESIA • AUTHORIZED ID PASS', centerX, cardY + cardH - 35);
-
-  ctx.strokeStyle = 'rgba(56, 189, 248, 0.4)';
-  ctx.lineWidth = 3;
+  // Outer border
+  ctx.strokeStyle = 'rgba(56, 189, 248, 0.5)';
+  ctx.lineWidth = 3.5;
   drawRoundedRectPath(ctx, cardX + 2, cardY + 2, cardW - 4, cardH - 4, radius - 2);
   ctx.stroke();
 
