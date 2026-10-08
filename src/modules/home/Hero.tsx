@@ -100,12 +100,12 @@ export function Hero() {
                 <span>{t('greeting')}</span>
               </div>
 
-              <div className="pointer-events-auto py-1 w-full lg:w-[125%] xl:w-[135%] max-w-none overflow-visible">
+              <div className="pointer-events-auto py-1 w-full lg:w-[135%] xl:w-[150%] max-w-none overflow-visible">
                 <TechText
                   text="Rizkillah Ramanda Sinyo"
                   color={isDark ? '#ffffff' : '#09090b'}
                   accentColor={isDark ? '#a1a1aa' : '#4f46e5'}
-                  fontSize={74}
+                  fontSize={84}
                   fontWeight={800}
                   dashLength={5}
                   dashGap={5}

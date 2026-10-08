@@ -76,11 +76,11 @@ describe('TechText component & helpers', () => {
     it('should support enlarged fontSize and custom fontFamily', () => {
       const element = React.createElement(TechText, {
         text: 'Rizkillah Ramanda Sinyo',
-        fontSize: 74,
+        fontSize: 84,
         fontFamily: 'var(--font-inter), system-ui, sans-serif',
       });
 
-      expect(element.props.fontSize).toBe(74);
+      expect(element.props.fontSize).toBe(84);
       expect(element.props.fontFamily).toBe('var(--font-inter), system-ui, sans-serif');
     });
   });

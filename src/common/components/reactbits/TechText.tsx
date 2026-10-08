@@ -193,20 +193,29 @@ export function TechText({
 
     const updateDimensionsAndLayout = () => {
       const container = containerRef.current;
-      const containerWidth = container ? container.clientWidth : 0;
+      const parent = container?.parentElement;
+      // Use parent or layout slot width to avoid self-reinforcing canvas shrink loops
+      let layoutWidth = 0;
+      if (parent && parent.clientWidth > 0) {
+        layoutWidth = parent.clientWidth;
+      } else if (container && container.clientWidth > 0) {
+        layoutWidth = container.clientWidth;
+      } else if (typeof window !== 'undefined') {
+        layoutWidth = window.innerWidth;
+      }
 
       // 1. Initial measurement at base fontSize
       ctx.font = `${fontWeight} ${fontSize}px ${resolvedFont}`;
       const baseMeasuredWidth = ctx.measureText(text).width;
 
-      // 2. Responsive scaling down if container is narrower than text
+      // 2. Responsive scaling down only if container is strictly narrower than text
       const paddingX = Math.max(8, Math.round(fontSize * 0.12));
       const paddingY = Math.max(6, Math.round(fontSize * 0.1));
 
-      if (containerWidth > 0 && baseMeasuredWidth > containerWidth - paddingX * 2) {
-        const availableW = Math.max(100, containerWidth - paddingX * 2);
+      if (layoutWidth > 0 && baseMeasuredWidth > layoutWidth - paddingX * 2) {
+        const availableW = Math.max(100, layoutWidth - paddingX * 2);
         const scale = availableW / (baseMeasuredWidth || 1);
-        effectiveFontSize = Math.max(16, Math.floor(fontSize * scale));
+        effectiveFontSize = Math.max(18, Math.floor(fontSize * scale));
       } else {
         effectiveFontSize = fontSize;
       }
@@ -254,11 +263,17 @@ export function TechText({
     // ResizeObserver for responsive recalculation
     let resizeObserver: ResizeObserver | null = null;
     if (typeof ResizeObserver !== 'undefined' && containerRef.current) {
+      const observeTarget = containerRef.current.parentElement || containerRef.current;
       resizeObserver = new ResizeObserver(() => {
         updateDimensionsAndLayout();
       });
-      resizeObserver.observe(containerRef.current);
+      resizeObserver.observe(observeTarget);
     }
+
+    const handleWindowResize = () => {
+      updateDimensionsAndLayout();
+    };
+    window.addEventListener('resize', handleWindowResize);
 
     // Visibility Observer to pause loop when scrolled out of view
     let intersectionObserver: IntersectionObserver | null = null;
@@ -424,7 +439,7 @@ export function TechText({
             const coordAlpha = progress * 0.65;
             ctx.fillStyle = toRgbaString(accentColor, coordAlpha);
             const tagFontSize = Math.max(7, Math.round(effectiveFontSize * 0.16));
-            ctx.font = `600 ${tagFontSize}px ${fontFamily}`;
+            ctx.font = `600 ${tagFontSize}px ${resolvedFont}`;
             const tag = `[${i < 9 ? '0' + (i + 1) : i + 1}]`;
             const boxTop = Math.round(baselineY - effectiveFontSize * 0.88);
             ctx.fillText(tag, x, boxTop - 3);
@@ -442,6 +457,7 @@ export function TechText({
       cancelAnimationFrame(animFrameId);
       if (resizeObserver) resizeObserver.disconnect();
       if (intersectionObserver) intersectionObserver.disconnect();
+      window.removeEventListener('resize', handleWindowResize);
     };
   }, [
     text,
@@ -493,7 +509,7 @@ export function TechText({
       ref: containerRef,
       id: `tech-text-${id}`,
       className: cn(
-        'relative inline-block select-none max-w-full overflow-visible transition-colors',
+        'relative block w-full select-none overflow-visible transition-colors',
         className
       ),
       style,
@@ -513,7 +529,7 @@ export function TechText({
     React.createElement('canvas', {
       ref: canvasRef,
       'aria-hidden': 'true',
-      className: 'block max-w-full',
+      className: 'block overflow-visible',
       style: { touchAction: 'none' },
     })
   );
