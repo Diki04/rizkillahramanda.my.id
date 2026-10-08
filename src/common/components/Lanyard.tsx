@@ -63,8 +63,13 @@ export default function Lanyard({
     <div className={`relative z-0 w-full h-full min-h-[500px] flex justify-center items-center select-none ${className}`}>
       <Canvas
         camera={{ position: position, fov: fov }}
-        dpr={[1, isMobile ? 1.5 : 2]}
-        gl={{ alpha: transparent, antialias: true }}
+        dpr={[1.5, 2.5]}
+        gl={{
+          alpha: transparent,
+          antialias: true,
+          powerPreference: 'high-performance',
+          precision: 'highp',
+        }}
         onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}
         className="w-full h-full pointer-events-auto"
         style={{ pointerEvents: 'auto' }}
@@ -147,7 +152,7 @@ function PhysicsLanyard({
     if (anchorPosition) {
       return new THREE.Vector3(...anchorPosition);
     }
-    return new THREE.Vector3(isMobile ? 0 : 3.4, isMobile ? 5.8 : 6.4, 0);
+    return new THREE.Vector3(isMobile ? 0 : 3.2, isMobile ? 5.8 : 6.4, 0);
   }, [anchorPosition, isMobile]);
 
   // Card physics state (position, velocity, rotation, angular velocity)
@@ -184,6 +189,9 @@ function PhysicsLanyard({
   cardTexture.colorSpace = THREE.SRGBColorSpace;
   cardTexture.flipY = false;
   cardTexture.anisotropy = 16;
+  cardTexture.minFilter = THREE.LinearFilter;
+  cardTexture.magFilter = THREE.LinearFilter;
+  cardTexture.generateMipmaps = false;
 
   // Composite custom badge with user avatar & details into card texture atlas
   const cardMap = useMemo(() => {
@@ -401,7 +409,7 @@ function PhysicsLanyard({
       <group
         ref={cardGroup}
         position={[anchor.x, anchor.y - REST_ROPE_LENGTH, 0]}
-        scale={isMobile ? 2.5 : 3.0}
+        scale={isMobile ? 2.8 : 3.4}
         onPointerOver={() => setHovered(true)}
         onPointerOut={() => setHovered(false)}
         onPointerUp={(e: any) => {

@@ -98,21 +98,34 @@ function renderFrontFace(
   ctx.fillStyle = radGlow;
   ctx.fillRect(cardX, cardY, cardW, 800);
 
-  // Minimal Punch Hole Slot
-  const slotW = 140, slotH = 18;
-  ctx.fillStyle = 'rgba(2, 6, 23, 0.85)';
-  drawRoundedRectPath(ctx, centerX - slotW / 2, cardY + 28, slotW, slotH, 9);
+  // Minimal Punch Hole Slot Indicator
+  const slotW = 150, slotH = 20;
+  ctx.fillStyle = 'rgba(2, 6, 23, 0.95)';
+  drawRoundedRectPath(ctx, centerX - slotW / 2, cardY + 28, slotW, slotH, 10);
   ctx.fill();
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
-  ctx.lineWidth = 1.5;
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+  ctx.lineWidth = 2;
   ctx.stroke();
 
-  // Top University & Tagline
-  ctx.textAlign = 'center';
+  // Header text on LEFT and RIGHT (away from center clip)
   ctx.textBaseline = 'middle';
+  ctx.textAlign = 'left';
+  ctx.fillStyle = '#ffffff';
+  ctx.font = '800 24px "Inter", "Segoe UI", sans-serif';
+  ctx.fillText(profile.university, cardX + 50, cardY + 70);
+
+  ctx.textAlign = 'right';
   ctx.fillStyle = '#38bdf8';
-  ctx.font = '700 18px "JetBrains Mono", monospace';
-  ctx.fillText('UNIVERSITAS RIAU • INFORMATIKA', centerX, cardY + 85);
+  ctx.font = '700 20px "JetBrains Mono", monospace';
+  ctx.fillText(profile.major, cardX + cardW - 50, cardY + 70);
+
+  // Header divider line
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(cardX + 40, cardY + 115);
+  ctx.lineTo(cardX + cardW - 40, cardY + 115);
+  ctx.stroke();
 
   // Large Circular Portrait Frame
   const avatarR = 250;
@@ -145,10 +158,10 @@ function renderFrontFace(
   if (avatarImg) {
     const aW = avatarImg.naturalWidth || avatarImg.width || 460;
     const aH = avatarImg.naturalHeight || avatarImg.height || 460;
-    const cropW = aW * 0.52;
-    const cropH = aH * 0.52;
+    const cropW = aW * 0.68;
+    const cropH = aH * 0.68;
     const cropX = (aW - cropW) / 2;
-    const cropY = aH * 0.07;
+    const cropY = aH * 0.05;
     ctx.drawImage(avatarImg, cropX, cropY, cropW, cropH, centerX - avatarR, avatarY - avatarR, avatarR * 2, avatarR * 2);
   } else {
     ctx.fillStyle = '#1e293b';
@@ -165,72 +178,53 @@ function renderFrontFace(
   ctx.textBaseline = 'middle';
 
   ctx.fillStyle = '#ffffff';
-  ctx.font = '900 88px "Inter", "Segoe UI", sans-serif';
-  ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
-  ctx.shadowBlur = 18;
-  ctx.fillText('RIZKILLAH', centerX, cardY + 750);
+  ctx.font = '900 102px "Inter", "Segoe UI", sans-serif';
+  ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
+  ctx.shadowBlur = 24;
+  ctx.fillText('RIZKILLAH', centerX, cardY + 775);
 
   ctx.fillStyle = '#38bdf8';
-  ctx.font = '900 88px "Inter", "Segoe UI", sans-serif';
-  ctx.fillText('RAMANDA', centerX, cardY + 845);
+  ctx.font = '900 102px "Inter", "Segoe UI", sans-serif';
+  ctx.fillText('RAMANDA', centerX, cardY + 885);
   ctx.shadowBlur = 0;
 
-  // Clean Role Pill
-  const pillW = 460, pillH = 56;
+  // Prominent Role Pill
+  const pillW = 560, pillH = 72;
   const pillX = centerX - pillW / 2;
-  const pillY = cardY + 925;
+  const pillY = cardY + 975;
 
-  ctx.fillStyle = 'rgba(15, 23, 42, 0.75)';
-  ctx.strokeStyle = 'rgba(56, 189, 248, 0.45)';
-  ctx.lineWidth = 2;
-  drawRoundedRectPath(ctx, pillX, pillY, pillW, pillH, 28);
+  ctx.fillStyle = 'rgba(14, 165, 233, 0.18)';
+  ctx.strokeStyle = '#38bdf8';
+  ctx.lineWidth = 3;
+  drawRoundedRectPath(ctx, pillX, pillY, pillW, pillH, 36);
   ctx.fill();
   ctx.stroke();
 
-  ctx.fillStyle = '#e2e8f0';
-  ctx.font = '700 24px "JetBrains Mono", monospace';
-  ctx.fillText('SOFTWARE ENGINEER', centerX, pillY + pillH / 2);
+  ctx.fillStyle = '#ffffff';
+  ctx.font = '800 30px "JetBrains Mono", monospace';
+  ctx.fillText(profile.title, centerX, pillY + pillH / 2);
 
-  // Meta Row & Chips
-  const metaY = cardY + 1040;
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
-  ctx.fillRect(cardX + 80, metaY - 30, cardW - 160, 1.5);
+  // Bottom Detail Row
+  const metaY = cardY + 1115;
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.14)';
+  ctx.fillRect(cardX + 80, metaY, cardW - 160, 2);
 
-  const chipsY = metaY + 25;
-  const chips = [
-    { label: 'HANDLE', val: '@Diki04' },
-    { label: 'STATUS', val: '● ACTIVE' },
-    { label: 'ID PASS', val: profile.idNumber }
-  ];
-  const chipW = 260;
-  const startChipX = centerX - (chipW * 3 + 24 * 2) / 2;
+  ctx.fillStyle = '#34d399';
+  ctx.font = '800 24px "JetBrains Mono", monospace';
+  ctx.fillText('● VERIFIED DEVELOPER', centerX, metaY + 60);
 
-  chips.forEach((c, idx) => {
-    const cx = startChipX + idx * (chipW + 24);
-    ctx.fillStyle = 'rgba(15, 23, 42, 0.6)';
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
-    ctx.lineWidth = 1;
-    drawRoundedRectPath(ctx, cx, chipsY, chipW, 64, 14);
-    ctx.fill();
-    ctx.stroke();
-
-    ctx.fillStyle = '#94a3b8';
-    ctx.font = '700 12px "JetBrains Mono", monospace';
-    ctx.fillText(c.label, cx + chipW / 2, chipsY + 20);
-
-    ctx.fillStyle = c.val.includes('ACTIVE') ? '#34d399' : '#ffffff';
-    ctx.font = '700 16px "JetBrains Mono", monospace';
-    ctx.fillText(c.val, cx + chipW / 2, chipsY + 44);
-  });
+  ctx.fillStyle = '#94a3b8';
+  ctx.font = '700 20px "JetBrains Mono", monospace';
+  ctx.fillText(`@Diki04 • NIM: ${profile.idNumber}`, centerX, metaY + 105);
 
   // Bottom watermark
   ctx.fillStyle = '#475569';
-  ctx.font = '600 14px "JetBrains Mono", monospace';
-  ctx.fillText('PEKANBARU, RIAU • INDONESIA // 2026', centerX, cardY + cardH - 45);
+  ctx.font = '600 16px "JetBrains Mono", monospace';
+  ctx.fillText('PEKANBARU, RIAU • INDONESIA // 2026', centerX, cardY + cardH - 50);
 
   // Outer border
-  ctx.strokeStyle = 'rgba(56, 189, 248, 0.5)';
-  ctx.lineWidth = 3.5;
+  ctx.strokeStyle = 'rgba(56, 189, 248, 0.55)';
+  ctx.lineWidth = 4;
   drawRoundedRectPath(ctx, cardX + 2, cardY + 2, cardW - 4, cardH - 4, radius - 2);
   ctx.stroke();
 
