@@ -13,3 +13,18 @@ export type { SpotlightCardProps } from './SpotlightCard';
 export { GlideSelect, normalizeOptions, findTypeaheadMatch } from './GlideSelect';
 export type { GlideSelectOption, GlideSelectRawOption, GlideSelectProps } from './GlideSelect';
 
+export {
+  BorderGlow,
+  parseHSL,
+  buildGlowVars,
+  buildGradientVars,
+  getCenterOfElement,
+  getEdgeProximity,
+  getCursorAngle,
+  animateValue,
+  easeOutCubic,
+  easeInCubic,
+  BORDER_GLOW_STYLES,
+  DEFAULT_COLORS,
+} from './BorderGlow';
+export type { BorderGlowProps, HslColor, AnimateValueOptions } from './BorderGlow';
