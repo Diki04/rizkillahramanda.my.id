@@ -24,6 +24,11 @@ const ContactCta = dynamic(
   { ssr: true }
 );
 
+const MagicBentoSection = dynamic(
+  () => import('@/modules/home/MagicBentoSection').then((mod) => mod.MagicBentoSection),
+  { ssr: false }
+);
+
 export default function HomePage() {
   return (
     <div className="flex flex-col relative w-full scroll-smooth">
@@ -33,6 +38,7 @@ export default function HomePage() {
       <FeaturedProjects />
       <DevHighlights />
       <ContactCta />
+      <MagicBentoSection />
     </div>
   );
 }
