@@ -71,7 +71,7 @@ export function DevHighlights() {
 
               <SpotlightCard className="p-5 flex items-center justify-between">
                 <div className="flex items-center gap-3.5">
-                  <div className="p-2.5 rounded-xl bg-slate-100 dark:bg-navy-950 border border-slate-200 dark:border-white/[0.08]">
+                  <div className="p-2.5 rounded-xl bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-white/[0.08]">
                     <SiGithub className="w-5 h-5 text-slate-800 dark:text-white" />
                   </div>
                   <div>
@@ -88,7 +88,7 @@ export function DevHighlights() {
                   href="https://github.com/Diki04"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/[0.1] bg-slate-100 dark:bg-navy-900/60 hover:bg-slate-200 dark:hover:bg-white/[0.08] text-xs font-mono text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
+                  className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/[0.1] bg-slate-100 dark:bg-zinc-900/60 hover:bg-slate-200 dark:hover:bg-white/[0.08] text-xs font-mono text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
                 >
                   Visit Profile
                 </a>
