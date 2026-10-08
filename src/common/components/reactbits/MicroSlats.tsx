@@ -141,7 +141,7 @@ const FLUID_SIZE = 96;
 const PRESSURE_STEPS = 16;
 const SPLAT_FORCE = 6900;
 const SPLASH_JETS = 3;
-const PIXEL_BUDGET = 4.5e6;
+const PIXEL_BUDGET = 1920 * 1080;
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
 
@@ -561,7 +561,15 @@ export const MicroSlats = ({
           fallbackCanvas.height = h;
         }
 
-        ctx.fillStyle = backgroundColor || '#000000';
+        const s = settingsRef.current;
+        const currentBg = s?.backgroundColor
+          ? `rgba(${Math.round(s.backgroundColor[0] * 255)}, ${Math.round(s.backgroundColor[1] * 255)}, ${Math.round(s.backgroundColor[2] * 255)}, ${s.backgroundColor[3]})`
+          : (backgroundColor || '#000000');
+        const currentColor = s?.color
+          ? `rgba(${Math.round(s.color[0] * 255)}, ${Math.round(s.color[1] * 255)}, ${Math.round(s.color[2] * 255)}, ${s.color[3]})`
+          : (color || '#4751e6');
+
+        ctx.fillStyle = currentBg;
         ctx.fillRect(0, 0, w, h);
 
         const slatW = slatWidth || 10;
@@ -579,7 +587,7 @@ export const MicroSlats = ({
             const x = c * pitchX;
             const wave = Math.sin(c * 0.12 + r * 0.18 + fallbackTime) * 0.5 + 0.5;
             const alpha = Math.max(0.06, wave * (1 - yNorm * 0.35) * 0.9);
-            ctx.fillStyle = color || '#4751e6';
+            ctx.fillStyle = currentColor;
             ctx.globalAlpha = alpha;
             ctx.fillRect(x, y, slatW, slatH * (0.65 + wave * 0.35));
           }
@@ -802,7 +810,7 @@ export const MicroSlats = ({
       const h = container.clientHeight || rect.height || (typeof window !== 'undefined' ? window.innerHeight : 1);
       width = Math.max(1, w);
       height = Math.max(1, h);
-      renderer.dpr = Math.min(window.devicePixelRatio || 1, 2, Math.sqrt(PIXEL_BUDGET / (width * height)));
+      renderer.dpr = Math.min(window.devicePixelRatio || 1, 1.5, Math.sqrt(PIXEL_BUDGET / (width * height)));
       renderer.setSize(width, height);
       buildFluid();
       start();
@@ -1070,6 +1078,18 @@ export const MicroSlats = ({
     wakeRef.current = start;
     resize();
 
+    const onWindowBlur = () => {
+      if (raf) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      }
+    };
+    const onWindowFocus = () => {
+      start();
+    };
+    window.addEventListener('blur', onWindowBlur);
+    window.addEventListener('focus', onWindowFocus);
+
     return () => {
       alive = false;
       visible = false;
@@ -1080,6 +1100,8 @@ export const MicroSlats = ({
       window.removeEventListener('pointerdown', onPointerDown);
       window.removeEventListener('pointerout', onPointerOut);
       window.removeEventListener('blur', onPointerLeave);
+      window.removeEventListener('blur', onWindowBlur);
+      window.removeEventListener('focus', onWindowFocus);
       document.removeEventListener('visibilitychange', onVisibility);
       wakeRef.current = null;
       disposeFluid();

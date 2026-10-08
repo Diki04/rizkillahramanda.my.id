@@ -230,7 +230,12 @@ export function TechText({
     let intersectionObserver: IntersectionObserver | null = null;
     if (typeof IntersectionObserver !== 'undefined') {
       intersectionObserver = new IntersectionObserver(([entry]) => {
+        const wasVisible = isVisibleRef.current;
         isVisibleRef.current = entry.isIntersecting;
+        if (!wasVisible && entry.isIntersecting) {
+          lastTime = performance.now();
+          animFrameId = requestAnimationFrame(render);
+        }
       });
       intersectionObserver.observe(canvas);
     }
@@ -239,9 +244,8 @@ export function TechText({
     let lastTime = performance.now();
 
     const render = (time: number) => {
-      animFrameId = requestAnimationFrame(render);
-
       if (!isVisibleRef.current) return;
+      animFrameId = requestAnimationFrame(render);
 
       const delta = Math.min(0.1, (time - lastTime) / 1000);
       lastTime = time;
