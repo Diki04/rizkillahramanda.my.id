@@ -135,10 +135,10 @@ export function ProjectManager({
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
       {/* Top action bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-slate-50/80 dark:bg-navy-900/40">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-slate-50/80 dark:bg-zinc-900/40">
         <div>
           <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <FolderGit2 className="w-5 h-5 text-sky-500" />
+            <FolderGit2 className="w-5 h-5 text-slate-900 dark:text-white" />
             <span>{t('projectsTab')}</span>
           </h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 font-mono">
@@ -154,7 +154,7 @@ export function ProjectManager({
               placeholder={isEn ? 'Search projects...' : 'Cari proyek...'}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-8 pr-3 py-1.5 rounded-xl text-xs font-mono border border-slate-200 dark:border-white/[0.1] bg-white dark:bg-navy-950 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-sky-400 w-44 sm:w-56"
+              className="pl-8 pr-3 py-1.5 rounded-xl text-xs font-mono border border-slate-200 dark:border-white/[0.1] bg-white dark:bg-zinc-900 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-white w-44 sm:w-56"
             />
           </div>
 
@@ -168,7 +168,7 @@ export function ProjectManager({
       </div>
 
       {message && (
-        <div className="p-3.5 rounded-xl bg-sky-500/10 border border-sky-500/30 text-xs font-mono text-sky-600 dark:text-sky-400">
+        <div className="p-3.5 rounded-xl bg-zinc-100 dark:bg-white/10 border border-slate-200 dark:border-white/20 text-xs font-mono text-zinc-900 dark:text-white">
           {message}
         </div>
       )}
@@ -187,7 +187,7 @@ export function ProjectManager({
                   setIsCreating(false);
                   setEditingProject(null);
                 }}
-                className="p-1 rounded-lg text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-navy-800"
+                className="p-1 rounded-lg text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-zinc-800"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -205,7 +205,7 @@ export function ProjectManager({
                   onChange={(e) =>
                     setFormState({ ...formState, title: e.target.value })
                   }
-                  className="w-full px-3 py-2 rounded-xl bg-white dark:bg-navy-950 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-sky-400"
+                  className="w-full px-3 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-white"
                 />
               </div>
 
@@ -221,7 +221,7 @@ export function ProjectManager({
                       category: e.target.value as Project['category'],
                     })
                   }
-                  className="w-full px-3 py-2 rounded-xl bg-white dark:bg-navy-950 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-sky-400"
+                  className="w-full px-3 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-white"
                 >
                   <option value="fullstack">Full-Stack</option>
                   <option value="frontend">Front-End</option>
@@ -247,7 +247,7 @@ export function ProjectManager({
                     },
                   })
                 }
-                className="w-full px-3 py-2 rounded-xl bg-white dark:bg-navy-950 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-white resize-none focus:outline-none focus:border-sky-400"
+                className="w-full px-3 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-white resize-none focus:outline-none focus:border-white"
               />
             </div>
 
@@ -267,7 +267,7 @@ export function ProjectManager({
                     },
                   })
                 }
-                className="w-full px-3 py-2 rounded-xl bg-white dark:bg-navy-950 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-white resize-none focus:outline-none focus:border-sky-400"
+                className="w-full px-3 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-white resize-none focus:outline-none focus:border-white"
               />
             </div>
 
@@ -283,7 +283,7 @@ export function ProjectManager({
                   onChange={(e) =>
                     setFormState({ ...formState, image: e.target.value })
                   }
-                  className="w-full px-3 py-2 rounded-xl bg-white dark:bg-navy-950 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-sky-400"
+                  className="w-full px-3 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-white"
                 />
               </div>
 
@@ -296,7 +296,7 @@ export function ProjectManager({
                   value={tagsInput}
                   onChange={(e) => setTagsInput(e.target.value)}
                   placeholder="Next.js, TypeScript, Tailwind"
-                  className="w-full px-3 py-2 rounded-xl bg-white dark:bg-navy-950 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-sky-400"
+                  className="w-full px-3 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-white"
                 />
               </div>
             </div>
@@ -313,7 +313,7 @@ export function ProjectManager({
                   onChange={(e) =>
                     setFormState({ ...formState, githubUrl: e.target.value })
                   }
-                  className="w-full px-3 py-2 rounded-xl bg-white dark:bg-navy-950 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-sky-400"
+                  className="w-full px-3 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-white"
                 />
               </div>
 
@@ -327,7 +327,7 @@ export function ProjectManager({
                   onChange={(e) =>
                     setFormState({ ...formState, demoUrl: e.target.value })
                   }
-                  className="w-full px-3 py-2 rounded-xl bg-white dark:bg-navy-950 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-sky-400"
+                  className="w-full px-3 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-white/[0.08] text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-white"
                 />
               </div>
             </div>
@@ -340,7 +340,7 @@ export function ProjectManager({
                 onChange={(e) =>
                   setFormState({ ...formState, featured: e.target.checked })
                 }
-                className="rounded border-slate-300 dark:border-white/[0.1] text-sky-500"
+                className="rounded border-slate-300 dark:border-white/[0.1] text-zinc-900 dark:text-white accent-black dark:accent-white"
               />
               <label htmlFor="featured" className="text-xs font-mono text-slate-700 dark:text-slate-300 cursor-pointer">
                 {isEn
@@ -403,7 +403,7 @@ export function ProjectManager({
                     href={p.demoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 rounded-lg border border-slate-200 dark:border-white/[0.08] hover:text-sky-500 text-slate-500 transition-colors"
+                    className="p-2 rounded-lg border border-slate-200 dark:border-white/[0.08] hover:text-slate-900 dark:hover:text-white text-slate-500 transition-colors"
                     title="Live Demo"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />
