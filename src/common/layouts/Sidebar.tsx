@@ -86,11 +86,11 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
               <h2 className="text-base font-extrabold text-slate-900 dark:text-white truncate tracking-tight group-hover:text-black dark:group-hover:text-white transition-colors">
                 {mockProfile.name}
               </h2>
-              <BadgeCheck className="w-4 h-4 text-zinc-200 shrink-0" />
+              <BadgeCheck className="w-4 h-4 text-slate-800 dark:text-zinc-200 shrink-0" />
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-white/10 text-zinc-900 dark:text-zinc-200 border border-zinc-200 dark:border-white/20 text-[10px] font-mono font-medium">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-white/10 text-zinc-900 dark:text-zinc-200 border border-zinc-200 dark:border-white/20 text-xs font-mono font-medium">
                 Full-Stack & ML
               </span>
             </div>
@@ -179,7 +179,7 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
         </div>
 
         {/* Copyright */}
-        <p className="text-[11px] text-center font-mono text-slate-400 dark:text-slate-500">
+        <p className="text-xs text-center font-mono text-slate-400 dark:text-slate-500">
           © {new Date().getFullYear()} Rizkillah Ramanda
         </p>
       </div>

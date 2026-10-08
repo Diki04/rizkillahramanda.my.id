@@ -28,9 +28,9 @@ export function MobileHeader() {
           <div>
             <div className="flex items-center gap-1">
               <span className="text-xs font-bold text-slate-900 dark:text-white tracking-tight">{mockProfile.nickname}</span>
-              <BadgeCheck className="w-3.5 h-3.5 text-zinc-200 shrink-0" />
+              <BadgeCheck className="w-3.5 h-3.5 text-slate-800 dark:text-zinc-200 shrink-0" />
             </div>
-            <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400">@Diki04</p>
+            <p className="text-xs font-mono text-slate-500 dark:text-slate-400">@Diki04</p>
           </div>
         </div>
 
