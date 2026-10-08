@@ -73,9 +73,9 @@ export function AdminSettings({
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
       {/* Header Bar */}
-      <div className="p-5 rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-slate-50/80 dark:bg-navy-900/40">
+      <div className="p-5 rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-slate-50/80 dark:bg-zinc-900/40">
         <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-          <Database className="w-5 h-5 text-sky-500" />
+          <Database className="w-5 h-5 text-slate-900 dark:text-white" />
           <span>{t('settings.title')}</span>
         </h2>
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
@@ -95,13 +95,13 @@ export function AdminSettings({
         {/* Database Connectivity Diagnostics */}
         <SpotlightCard className="p-6 space-y-4">
           <div className="flex items-center gap-2 border-b border-slate-200 dark:border-white/[0.06] pb-3">
-            <HardDrive className="w-4 h-4 text-purple-500" />
+            <HardDrive className="w-4 h-4 text-slate-900 dark:text-white" />
             <h3 className="text-sm font-bold text-slate-900 dark:text-white">
               {t('settings.dbConnection')}
             </h3>
           </div>
 
-          <div className="p-4 rounded-xl bg-slate-50 dark:bg-navy-950/60 border border-slate-200 dark:border-white/[0.06] space-y-3">
+          <div className="p-4 rounded-xl bg-slate-50 dark:bg-zinc-900/60 border border-slate-200 dark:border-white/[0.06] space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
                 {isEn ? 'Engine' : 'Mesin Basis Data'}
@@ -125,7 +125,7 @@ export function AdminSettings({
               <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
                 {isEn ? 'Security Scope' : 'Cakupan Keamanan'}
               </span>
-              <span className="text-xs font-mono text-sky-600 dark:text-sky-400">
+              <span className="text-xs font-mono text-zinc-700 dark:text-zinc-300">
                 Row Level Security (RLS)
               </span>
             </div>
@@ -141,7 +141,7 @@ export function AdminSettings({
         {/* Cache Refresh & Data Synchronization */}
         <SpotlightCard className="p-6 space-y-4">
           <div className="flex items-center gap-2 border-b border-slate-200 dark:border-white/[0.06] pb-3">
-            <RefreshCw className="w-4 h-4 text-sky-500" />
+            <RefreshCw className="w-4 h-4 text-slate-900 dark:text-white" />
             <h3 className="text-sm font-bold text-slate-900 dark:text-white">
               {t('settings.cachePurge')}
             </h3>
