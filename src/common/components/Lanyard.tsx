@@ -69,9 +69,8 @@ export default function Lanyard({
         className="w-full h-full pointer-events-auto"
         style={{ pointerEvents: 'auto' }}
       >
-        <ambientLight intensity={Math.PI * 0.9} />
-        <directionalLight position={[5, 8, 6]} intensity={1.5} color="#f0f9ff" />
-        <pointLight position={[3.6, 6.4, 2]} intensity={2.8} color="#38bdf8" distance={12} />
+        <ambientLight intensity={Math.PI} />
+        <directionalLight position={[5, 8, 6]} intensity={1.5} color="white" />
         <Suspense fallback={null}>
           <PhysicsLanyard
             isMobile={isMobile}
@@ -83,19 +82,6 @@ export default function Lanyard({
             anchorPosition={anchorPosition}
           />
           <Environment blur={0.75}>
-            {/* Luminous cyan backlight for the lanyard strap and card top */}
-            <Lightformer
-              intensity={4}
-              color="#38bdf8"
-              position={[3, 5, 2]}
-              scale={[20, 10, 1]}
-            />
-            <Lightformer
-              intensity={3}
-              color="#0284c7"
-              position={[-4, 2, 4]}
-              scale={[15, 15, 1]}
-            />
             <Lightformer
               intensity={2}
               color="white"
