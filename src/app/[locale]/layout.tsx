@@ -6,8 +6,9 @@ import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import '../globals.css';
+import { cookies } from 'next/headers';
 import { ThemeProvider } from '@/common/contexts/ThemeContext';
-import { LayoutProvider } from '@/common/contexts/LayoutContext';
+import { LayoutProvider, type LayoutMode } from '@/common/contexts/LayoutContext';
 import { AppShell } from '@/common/layouts/AppShell';
 import { ScrollProgressBar } from '@/common/components/ScrollProgressBar';
 import { BackToTop } from '@/common/components/BackToTop';
@@ -47,13 +48,16 @@ export default async function RootLayout({
   }
 
   const messages = await getMessages();
+  const cookieStore = cookies();
+  const savedLayout = cookieStore.get('portfolio_layout_mode')?.value;
+  const initialLayoutMode: LayoutMode = savedLayout === 'sidebar' ? 'sidebar' : 'topbar';
 
   return (
     <html lang={locale} suppressHydrationWarning className="dark selection:bg-slate-500/20">
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('portfolio-theme');if(t==='light'){document.documentElement.classList.remove('dark');document.documentElement.classList.add('light');}else{document.documentElement.classList.add('dark');}}catch(e){}})()`,
+            __html: `(function(){try{var t=localStorage.getItem('portfolio-theme');if(t==='light'){document.documentElement.classList.remove('dark');document.documentElement.classList.add('light');}else{document.documentElement.classList.add('dark');}var m=localStorage.getItem('portfolio_layout_mode');if(m&&!document.cookie.includes('portfolio_layout_mode=')){document.cookie='portfolio_layout_mode='+m+'; path=/; max-age=31536000; SameSite=Lax';}}catch(e){}})()`,
           }}
         />
       </head>
@@ -63,7 +67,7 @@ export default async function RootLayout({
       >
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
-            <LayoutProvider>
+            <LayoutProvider initialMode={initialLayoutMode}>
               <GlobalBackground />
               <ScrollProgressBar />
               <CommandPalette />

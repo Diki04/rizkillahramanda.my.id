@@ -245,7 +245,7 @@ export function Hero() {
           <div
             className={cn(
               'hidden lg:flex lg:col-span-4 flex-col items-end justify-center pointer-events-none transition-transform duration-300',
-              isTopbar && 'lg:translate-x-16 xl:translate-x-20 2xl:translate-x-24'
+              isTopbar && 'lg:translate-x-8 xl:translate-x-10 2xl:translate-x-12'
             )}
           >
             {/* Visual Spacer so grid maintains natural desktop height */}
