@@ -1,13 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { Project } from '@/types';
 import { useLocale, useTranslations } from 'next-intl';
 import { SpotlightCard } from '@/common/components/SpotlightCard';
 import { useTheme } from '@/common/contexts/ThemeContext';
-import { Bookmark, Plus, Globe } from 'lucide-react';
+import { Eye } from 'lucide-react';
 import { getTechIcon } from '@/common/utils/techIcons';
+import { useProjectViews } from '@/common/hooks/useProjectViews';
 
 interface ProjectCardProps {
   project: Project;
@@ -21,26 +22,7 @@ export function ProjectCard({ project, onOpenModal }: ProjectCardProps) {
   const isDark = theme === 'dark';
   const isEn = locale === 'en';
 
-  // Interactive local reaction counts
-  const [reactions, setReactions] = useState(
-    project.reactions || [
-      { emoji: '🌐', count: 3 },
-      { emoji: '🤪', count: 3 },
-      { emoji: '🤓', count: 2 },
-    ]
-  );
-  const [userReacted, setUserReacted] = useState(false);
-
-  const handleAddReaction = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (!userReacted) {
-      setReactions((prev) => [
-        ...prev,
-        { emoji: '🚀', count: 1 },
-      ]);
-      setUserReacted(true);
-    }
-  };
+  const { views } = useProjectViews(project.id, project.views || 0);
 
   return (
     <SpotlightCard
@@ -48,7 +30,7 @@ export function ProjectCard({ project, onOpenModal }: ProjectCardProps) {
       className="flex flex-col h-full p-4 sm:p-5 justify-between group transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-slate-300/40 dark:hover:shadow-white/5 hover:border-slate-400 dark:hover:border-white/25 rounded-2xl cursor-pointer bg-white/95 dark:bg-zinc-950/80 border-slate-300/90 dark:border-white/10"
     >
       <div className="space-y-4" onClick={() => onOpenModal(project)}>
-        {/* Thumbnail with Featured Ribbon */}
+        {/* Thumbnail */}
         <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-zinc-900/60 group/img">
           <Image
             src={project.image}
@@ -57,16 +39,6 @@ export function ProjectCard({ project, onOpenModal }: ProjectCardProps) {
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover transition-transform duration-500 group-hover/img:scale-105"
           />
-
-          {/* Yellow Featured Badge in Top Right */}
-          {project.featured && (
-            <div className="absolute top-0 right-0 z-10">
-              <span className="inline-flex items-center gap-1 px-3 py-1 bg-[#facc15] text-black font-mono text-[11px] font-black rounded-bl-xl shadow-md">
-                <Bookmark className="w-3 h-3 fill-black text-black" />
-                <span>{t('featured')}</span>
-              </span>
-            </div>
-          )}
         </div>
 
         {/* Title & Description */}
@@ -96,34 +68,16 @@ export function ProjectCard({ project, onOpenModal }: ProjectCardProps) {
         </div>
       </div>
 
-      {/* Bottom Reactions & View Pills */}
-      <div className="flex items-center gap-2 pt-4 mt-4 border-t border-slate-200 dark:border-white/10 flex-wrap">
-        {/* Views Count Pill */}
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-mono bg-slate-100 dark:bg-zinc-900 text-slate-700 dark:text-zinc-400 border border-slate-200 dark:border-white/10">
-          <Globe className="w-3 h-3 text-slate-500 dark:text-zinc-400" />
-          <span>{project.views || 3}</span>
-        </span>
-
-        {/* Emoji Reactions */}
-        {reactions.map((react, i) => (
-          <span
-            key={i}
-            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-mono bg-slate-100 dark:bg-zinc-900 text-slate-800 dark:text-zinc-300 border border-slate-200 dark:border-white/10"
-          >
-            <span>{react.emoji}</span>
-            <span>{react.count}</span>
+      {/* Bottom Realtime Views Pill */}
+      <div className="flex items-center justify-between pt-4 mt-4 border-t border-slate-200 dark:border-white/10 text-xs font-mono">
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-100 dark:bg-zinc-900 text-slate-700 dark:text-zinc-400 border border-slate-200 dark:border-white/10">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
           </span>
-        ))}
-
-        {/* Interactive Add Reaction Button */}
-        <button
-          type="button"
-          onClick={handleAddReaction}
-          className="flex h-6 w-6 items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 text-slate-600 dark:text-zinc-400 hover:text-black dark:hover:text-white border border-slate-200 dark:border-white/10 transition-colors text-xs font-bold"
-          title="Add reaction"
-        >
-          <Plus className="w-3 h-3" />
-        </button>
+          <Eye className="w-3.5 h-3.5 text-slate-500 dark:text-zinc-400" />
+          <span>{views.toLocaleString()} {t('views')}</span>
+        </span>
       </div>
     </SpotlightCard>
   );
