@@ -78,14 +78,14 @@ export function Hero() {
         <Lanyard
           position={[0, 0, 20]}
           fov={24}
-          anchorPosition={isTopbar ? [3.95, 6.1, 0] : [4.25, 6.4, 0]}
+          anchorPosition={isTopbar ? [4.85, 6.1, 0] : [4.25, 6.4, 0]}
           ropeLength={isTopbar ? 3.9 : 3.65}
           className="pointer-events-auto"
         />
       </div>
 
       {/* Layer 2 (Paling depan): Foreground Typography & Controls */}
-      <Container size="xl" className="relative z-10 pointer-events-none">
+      <Container size="xl" className={cn('relative z-10 pointer-events-none', isTopbar && 'xl:max-w-[1360px] 2xl:max-w-[1440px]')}>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           {/* Left Column: Headline, Bio & CTAs */}
           <div className="lg:col-span-8 flex flex-col items-start gap-5 sm:gap-6 p-6 sm:p-8 lg:p-9 rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-300/90 shadow-xl shadow-slate-900/5 dark:bg-transparent dark:border-transparent dark:shadow-none dark:backdrop-blur-none dark:p-0 pointer-events-auto transition-all duration-300">
@@ -242,7 +242,12 @@ export function Hero() {
           </div>
 
           {/* Right Column: Lanyard Space & Quick Metrics - Desktop only (>= 1024px) */}
-          <div className="hidden lg:flex lg:col-span-4 flex-col items-end justify-center pointer-events-none">
+          <div
+            className={cn(
+              'hidden lg:flex lg:col-span-4 flex-col items-end justify-center pointer-events-none transition-transform duration-300',
+              isTopbar && 'lg:translate-x-12 xl:translate-x-16 2xl:translate-x-20'
+            )}
+          >
             {/* Visual Spacer so grid maintains natural desktop height */}
             <div className="w-full max-w-[420px] xl:max-w-[440px] h-[480px] sm:h-[520px] lg:h-[560px] flex flex-col justify-end pointer-events-none">
               {/* Quick Metrics Below Lanyard */}
