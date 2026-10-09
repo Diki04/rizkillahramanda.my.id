@@ -78,7 +78,7 @@ export function Hero() {
         <Lanyard
           position={[0, 0, 20]}
           fov={24}
-          anchorPosition={isTopbar ? [4.85, 6.1, 0] : [4.25, 6.4, 0]}
+          anchorPosition={isTopbar ? [5.22, 6.1, 0] : [4.25, 6.4, 0]}
           ropeLength={isTopbar ? 3.9 : 3.65}
           className="pointer-events-auto"
         />
@@ -245,7 +245,7 @@ export function Hero() {
           <div
             className={cn(
               'hidden lg:flex lg:col-span-4 flex-col items-end justify-center pointer-events-none transition-transform duration-300',
-              isTopbar && 'lg:translate-x-12 xl:translate-x-16 2xl:translate-x-20'
+              isTopbar && 'lg:translate-x-16 xl:translate-x-20 2xl:translate-x-24'
             )}
           >
             {/* Visual Spacer so grid maintains natural desktop height */}
