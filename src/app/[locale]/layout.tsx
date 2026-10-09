@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
-import { Inter, JetBrains_Mono } from 'next/font/google';
+import { Inter, JetBrains_Mono, Caveat } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -28,6 +28,13 @@ const mono = JetBrains_Mono({
   variable: '--font-mono',
   display: 'swap',
   fallback: ['monospace'],
+});
+
+const caveat = Caveat({
+  subsets: ['latin'],
+  variable: '--font-caveat',
+  display: 'swap',
+  weight: ['500', '700'],
 });
 
 export const metadata: Metadata = {
@@ -63,7 +70,7 @@ export default async function RootLayout({
       </head>
       <body
         suppressHydrationWarning
-        className={`${inter.variable} ${mono.variable} font-sans bg-[#dbd7d7] dark:bg-black text-slate-900 dark:text-slate-100 antialiased min-h-screen flex flex-col relative selection:bg-slate-500/20 transition-colors duration-300`}
+        className={`${inter.variable} ${mono.variable} ${caveat.variable} font-sans bg-[#dbd7d7] dark:bg-black text-slate-900 dark:text-slate-100 antialiased min-h-screen flex flex-col relative selection:bg-slate-500/20 transition-colors duration-300`}
       >
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>

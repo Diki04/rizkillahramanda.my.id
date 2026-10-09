@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl';
 import { Container } from '@/common/components/Container';
 import { Breadcrumb } from '@/common/components/Breadcrumb';
 import { ScrollReveal } from '@/common/components/ScrollReveal';
+import { AboutIntro } from '@/modules/about/AboutIntro';
 import { Education } from '@/modules/about/Education';
 import { CareerJourney } from '@/modules/about/CareerJourney';
 import { SkillsMatrix } from '@/modules/about/SkillsMatrix';
@@ -15,16 +16,9 @@ export default function AboutPage() {
   return (
     <Container className="py-16">
       <Breadcrumb items={[{ label: tNav('about') }]} />
-      <ScrollReveal className="mb-12">
-        <span className="font-mono text-xs uppercase tracking-wider text-slate-900 dark:text-zinc-400 font-semibold">
-          {t('title')}
-        </span>
-        <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white mt-1">
-          {t('heading')}
-        </h1>
-        <p className="text-slate-600 dark:text-slate-400 text-sm mt-2 max-w-2xl leading-relaxed">
-          {t('description')}
-        </p>
+      
+      <ScrollReveal className="mb-16">
+        <AboutIntro />
       </ScrollReveal>
 
       <div className="space-y-16">

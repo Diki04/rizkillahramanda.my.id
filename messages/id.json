@@ -21,8 +21,13 @@
     "downloadCv": "Unduh CV"
   },
   "about": {
-    "title": "Tentang Saya",
-    "subtitle": "Perjalanan di bidang rekayasa perangkat lunak dan komputasi",
+    "title": "Tentang",
+    "subtitle": "Pengenalan singkat mengenai siapa saya.",
+    "introP1": "Saya Rizkillah Ramanda Sinyo, seorang Software Engineer yang berbasis di Pekanbaru, Riau, berdedikasi untuk membangun solusi digital yang berdampak. Saya spesialis dalam pengembangan platform web dan aplikasi full-stack menggunakan tech stack modern, termasuk Next.js, React, TypeScript, Tailwind CSS, serta integrasi kecerdasan buatan (Machine Learning) dengan Python.",
+    "introP2": "Fokus utama saya adalah merancang arsitektur perangkat lunak yang tidak hanya berfungsi tetapi juga terstruktur dengan baik, mudah dipelihara, dan skalabel untuk memenuhi kebutuhan bisnis dan performa sistem. Saya percaya bahwa kode berkualitas tinggi harus berjalan beriringan dengan efisiensi sistem dan kejelasan logis.",
+    "introP3": "Saya memadukan keahlian teknis dengan komunikasi proaktif, berpikir kritis, dan manajemen waktu yang efektif. Saya berkembang dalam lingkungan kolaboratif dan berkomitmen untuk memastikan setiap proyek memberikan hasil optimal dan dampak nyata.",
+    "closing": "Salam hangat,",
+    "signatureName": "rizkillah",
     "heading": "Perjalanan Rekayasa & Profil",
     "description": "Tinjauan mendalam tentang fondasi akademis di Universitas Riau, rekayasa perangkat lunak, keahlian teknis, dan lingkungan kerja pribadi.",
     "bioTitle": "Biografi Singkat",

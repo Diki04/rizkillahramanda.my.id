@@ -21,8 +21,13 @@
     "downloadCv": "Download CV"
   },
   "about": {
-    "title": "About Me",
-    "subtitle": "My journey in software engineering and computational sciences",
+    "title": "About",
+    "subtitle": "A brief introduction to who I am.",
+    "introP1": "I am Rizkillah Ramanda Sinyo, a Software Engineer based in Pekanbaru, Riau, dedicated to building impactful digital solutions. I specialize in modern web platforms and full-stack development using modern tech stacks, including Next.js, React, TypeScript, Tailwind CSS, and AI/Machine Learning integration with Python.",
+    "introP2": "My primary focus is designing software architectures that are not only functional but also well-structured, maintainable, and scalable to meet business and system performance needs. I believe that high-quality code must go hand-in-hand with system efficiency and logical clarity.",
+    "introP3": "I blend technical expertise with proactive communication, critical thinking, and effective time management. I thrive in collaborative environments and am committed to ensuring that every project delivers optimal results and tangible real-world impact.",
+    "closing": "Warm regards,",
+    "signatureName": "rizkillah",
     "heading": "Engineering Journey & Profile",
     "description": "An overview of my academic foundation at Universitas Riau, hands-on software engineering, technical skillset, and personal workstation.",
     "bioTitle": "Brief Biography",

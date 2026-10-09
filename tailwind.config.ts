@@ -51,6 +51,7 @@ const config: Config = {
       fontFamily: {
         sans: ['var(--font-inter)', 'sans-serif'],
         mono: ['var(--font-mono)', 'monospace'],
+        signature: ['var(--font-caveat)', 'Caveat', 'Dancing Script', 'Brush Script MT', 'cursive'],
       },
       animation: {
         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
