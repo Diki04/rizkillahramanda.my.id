@@ -78,8 +78,8 @@ export function Hero() {
         <Lanyard
           position={[0, 0, 20]}
           fov={24}
-          anchorPosition={isTopbar ? [3.85, 6.1, 0] : [3.85, 6.4, 0]}
-          ropeLength={isTopbar ? 4.1 : 5.0}
+          anchorPosition={isTopbar ? [3.95, 6.1, 0] : [4.25, 6.4, 0]}
+          ropeLength={isTopbar ? 3.9 : 3.65}
           className="pointer-events-auto"
         />
       </div>
@@ -88,9 +88,9 @@ export function Hero() {
       <Container size="xl" className="relative z-10 pointer-events-none">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           {/* Left Column: Headline, Bio & CTAs */}
-          <div className="lg:col-span-8 flex flex-col items-start gap-5 sm:gap-6 p-6 sm:p-8 lg:p-9 rounded-3xl bg-white/90 dark:bg-zinc-950/80 backdrop-blur-xl border border-slate-300/90 dark:border-white/10 shadow-xl shadow-slate-900/5 dark:shadow-none pointer-events-auto transition-all duration-300">
+          <div className="lg:col-span-8 flex flex-col items-start gap-5 sm:gap-6 p-6 sm:p-8 lg:p-9 rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-300/90 shadow-xl shadow-slate-900/5 dark:bg-transparent dark:border-transparent dark:shadow-none dark:backdrop-blur-none dark:p-0 pointer-events-auto transition-all duration-300">
             {/* Mobile Profile Photo Card (Replaces 3D Lanyard on Mobile) */}
-            <div className="flex lg:hidden items-center gap-3.5 p-3 rounded-2xl border border-slate-300 dark:border-white/15 bg-slate-100/90 dark:bg-zinc-900/90 shadow-xs backdrop-blur-md pointer-events-auto w-full max-w-sm">
+            <div className="flex lg:hidden items-center gap-3.5 p-3 rounded-2xl border border-slate-300 dark:border-white/15 bg-slate-100/90 dark:bg-zinc-950/90 shadow-xs backdrop-blur-md pointer-events-auto w-full max-w-sm">
               <div className="relative shrink-0">
                 <div className="p-0.5 rounded-2xl bg-gradient-to-tr from-slate-400 via-indigo-600 to-slate-500 dark:from-zinc-600 dark:via-indigo-500 dark:to-zinc-700 shadow-sm">
                   <div className="w-16 h-16 rounded-[14px] overflow-hidden bg-slate-100 dark:bg-zinc-900 relative">
