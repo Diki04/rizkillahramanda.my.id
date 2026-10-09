@@ -6,7 +6,7 @@ import { Achievement } from '@/types';
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import { SpotlightCard } from '@/common/components/SpotlightCard';
-import { ArrowRight, Link2, Plus } from 'lucide-react';
+import { ArrowRight, Link2 } from 'lucide-react';
 import { useTheme } from '@/common/contexts/ThemeContext';
 
 interface AchievementCardProps {
@@ -104,13 +104,6 @@ export function AchievementCard({
                   <Link2 className="w-3.5 h-3.5" />
                 </a>
               )}
-            </div>
-
-            {/* Circular Expand Button Icon */}
-            <div className="pt-0.5">
-              <div className="w-6 h-6 rounded-full border border-slate-300 dark:border-zinc-800 flex items-center justify-center text-slate-500 dark:text-zinc-400 group-hover:border-slate-400 dark:group-hover:border-zinc-600 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
-                <Plus className="w-3.5 h-3.5" />
-              </div>
             </div>
           </div>
         </div>

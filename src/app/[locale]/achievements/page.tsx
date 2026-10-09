@@ -70,7 +70,7 @@ export default function AchievementsPage() {
         </ScrollReveal>
 
         {/* Search & Filter Header (matching reference Screenshot 1) */}
-        <ScrollReveal className="pt-4 space-y-4" delay={0.1}>
+        <ScrollReveal className="relative z-30 pt-4 space-y-4" delay={0.1}>
           <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
             {/* Search Input Bar */}
             <div className="relative flex-1 max-w-md">
@@ -124,7 +124,7 @@ export default function AchievementsPage() {
         {/* Certificate Cards Grid */}
         {filteredAchievements.length > 0 ? (
           <ScrollReveal
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4"
+            className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4"
             delay={0.15}
           >
             {filteredAchievements.map((achievement) => (

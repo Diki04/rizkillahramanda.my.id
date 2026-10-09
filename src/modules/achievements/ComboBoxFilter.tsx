@@ -63,7 +63,10 @@ export function ComboBoxFilter({
   const activeLabel = value || placeholder;
 
   return (
-    <div ref={dropdownRef} className="relative w-full sm:w-56 md:w-60">
+    <div
+      ref={dropdownRef}
+      className={`relative w-full sm:w-56 md:w-60 ${isOpen ? 'z-50' : 'z-20'}`}
+    >
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
