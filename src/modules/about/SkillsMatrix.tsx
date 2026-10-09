@@ -37,7 +37,8 @@ export function SkillsMatrix() {
 
   return (
     <div className="space-y-4">
-      <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+      <h3 className="text-xl sm:text-2xl font-extrabold text-slate-950 dark:text-white flex items-center gap-2.5">
+        <Cpu className="w-6 h-6 text-black dark:text-white shrink-0 transition-colors" />
         <span>{t('skillsTitle')}</span>
       </h3>
 

@@ -7,7 +7,10 @@ export function AboutIntro() {
 
   return React.createElement(
     'section',
-    { className: 'w-full' },
+    {
+      className:
+        'w-full rounded-3xl p-6 sm:p-8 lg:p-10 transition-all duration-300 bg-white/95 backdrop-blur-xl border border-slate-300/90 shadow-xl shadow-slate-900/5 dark:bg-transparent dark:border-transparent dark:shadow-none dark:backdrop-blur-none dark:p-0',
+    },
     React.createElement(
       'div',
       null,

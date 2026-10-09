@@ -9,6 +9,8 @@ import { CareerJourney } from '@/modules/about/CareerJourney';
 import { SkillsMatrix } from '@/modules/about/SkillsMatrix';
 import { DeveloperSetup } from '@/modules/home/DeveloperSetup';
 
+import { Terminal } from 'lucide-react';
+
 export default function AboutPage() {
   const t = useTranslations('about');
   const tNav = useTranslations('nav');
@@ -32,13 +34,16 @@ export default function AboutPage() {
           <SkillsMatrix />
         </ScrollReveal>
         <ScrollReveal>
-          <section>
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
-              {t('devEnvironmentTitle')}
-            </h2>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              {t('devEnvironmentSubtitle')}
-            </p>
+          <section className="space-y-3">
+            <div>
+              <h2 className="text-xl sm:text-2xl font-extrabold text-slate-950 dark:text-white flex items-center gap-2.5">
+                <Terminal className="w-6 h-6 text-black dark:text-white shrink-0 transition-colors" />
+                <span>{t('devEnvironmentTitle')}</span>
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-zinc-400 mt-1">
+                {t('devEnvironmentSubtitle')}
+              </p>
+            </div>
             <DeveloperSetup />
           </section>
         </ScrollReveal>
