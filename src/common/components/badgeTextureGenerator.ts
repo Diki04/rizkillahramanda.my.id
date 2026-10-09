@@ -81,23 +81,23 @@ function renderFrontFace(
   drawRoundedRectPath(ctx, cardX, cardY, cardW, cardH, radius);
   ctx.clip();
 
-  // 1. FULL USER PHOTO (Covers the entire card face)
+  // Photo area height: 970px
+  const photoH = 970;
+  const infoY = cardY + photoH;
+  const infoH = cardH - photoH;
+
+  // 1. FULL USER PHOTO (Original photo cleanly displayed, no effects, no tints, no lighting overlays)
   if (avatarImg) {
     const aW = avatarImg.naturalWidth || avatarImg.width || 460;
     const aH = avatarImg.naturalHeight || avatarImg.height || 460;
-    const cropH = aH * 0.94;
-    const cropW = cropH * (cardW / cardH);
+    const cropH = aH * 0.96;
+    const cropW = cropH * (cardW / photoH);
     const cropX = (aW - cropW) / 2;
     const cropY = aH * 0.02;
-    ctx.drawImage(avatarImg, cropX, cropY, cropW, cropH, cardX, cardY, cardW, cardH);
+    ctx.drawImage(avatarImg, cropX, cropY, cropW, cropH, cardX, cardY, cardW, photoH);
   } else {
-    // Pure Luxury OLED Obsidian Background fallback
-    const cardBg = ctx.createLinearGradient(centerX, cardY, centerX, cardY + cardH);
-    cardBg.addColorStop(0, '#18181b');
-    cardBg.addColorStop(0.4, '#09090b');
-    cardBg.addColorStop(1, '#000000');
-    ctx.fillStyle = cardBg;
-    ctx.fillRect(cardX, cardY, cardW, cardH);
+    ctx.fillStyle = '#18181b';
+    ctx.fillRect(cardX, cardY, cardW, photoH);
   }
 
   // 2. MINIMAL PUNCH HOLE SLOT (No header banner, completely clean top)
@@ -105,78 +105,57 @@ function renderFrontFace(
   ctx.fillStyle = '#000000';
   drawRoundedRectPath(ctx, centerX - slotW / 2, cardY + 28, slotW, slotH, 11);
   ctx.fill();
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
+  ctx.strokeStyle = 'rgba(0, 0, 0, 0.35)';
   ctx.lineWidth = 2.5;
   ctx.stroke();
 
-  // 3. LOWER SCRIM: LOWERED SIGNIFICANTLY SO PHOTO IS MUCH MORE VISIBLE
-  const scrimStartY = cardY + 900;
-  const scrimH = cardH - 900;
-  const scrim = ctx.createLinearGradient(centerX, scrimStartY, centerX, cardY + cardH);
-  scrim.addColorStop(0, 'rgba(3, 7, 18, 0.0)');
-  scrim.addColorStop(0.12, 'rgba(3, 7, 18, 0.82)');
-  scrim.addColorStop(0.30, 'rgba(2, 4, 12, 0.97)');
-  scrim.addColorStop(0.60, 'rgba(1, 2, 8, 0.99)');
-  scrim.addColorStop(1, '#02040a');
-  ctx.fillStyle = scrim;
-  ctx.fillRect(cardX, scrimStartY, cardW, scrimH);
+  // 3. INFORMATION PANEL (Solid obsidian, no gradient wash over photo)
+  ctx.fillStyle = '#05070e';
+  ctx.fillRect(cardX, infoY, cardW, infoH);
 
-  // Glowing Neon Accent Divider across the lowered scrim line
-  const divY = scrimStartY + 45;
-  const divGrad = ctx.createLinearGradient(cardX, divY, cardX + cardW, divY);
-  divGrad.addColorStop(0, 'rgba(56, 189, 248, 0)');
-  divGrad.addColorStop(0.2, 'rgba(56, 189, 248, 0.65)');
-  divGrad.addColorStop(0.5, 'rgba(125, 211, 252, 0.98)');
-  divGrad.addColorStop(0.8, 'rgba(56, 189, 248, 0.65)');
-  divGrad.addColorStop(1, 'rgba(56, 189, 248, 0)');
-  ctx.strokeStyle = divGrad;
-  ctx.lineWidth = 2.5;
+  // Hairline separator between original photo and information panel
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+  ctx.lineWidth = 1.5;
   ctx.beginPath();
-  ctx.moveTo(cardX + 40, divY);
-  ctx.lineTo(cardX + cardW - 40, divY);
+  ctx.moveTo(cardX, infoY);
+  ctx.lineTo(cardX + cardW, infoY);
   ctx.stroke();
 
   // 4. LARGE, CRISP, ULTRA-CONTRAST NAME
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
 
-  ctx.save();
-  ctx.shadowColor = 'rgba(0, 0, 0, 0.98)';
-  ctx.shadowBlur = 28;
-  ctx.shadowOffsetY = 6;
-
   // Line 1: RIZKILLAH
   ctx.fillStyle = '#ffffff';
-  ctx.font = '900 94px "Inter", "Segoe UI", sans-serif';
-  ctx.fillText('RIZKILLAH', centerX, cardY + 1025);
+  ctx.font = '900 88px "Inter", "Segoe UI", sans-serif';
+  ctx.fillText('RIZKILLAH', centerX, infoY + 66);
 
   // Line 2: RAMANDA SINYO
   ctx.fillStyle = '#38bdf8';
-  ctx.font = '900 82px "Inter", "Segoe UI", sans-serif';
-  ctx.fillText('RAMANDA SINYO', centerX, cardY + 1118);
-  ctx.restore();
+  ctx.font = '900 78px "Inter", "Segoe UI", sans-serif';
+  ctx.fillText('RAMANDA SINYO', centerX, infoY + 150);
 
-  // 5. ROLE: "SOFTWARE ENGINEER" (Significantly LARGER in prominent pill)
+  // 5. ROLE: "SOFTWARE ENGINEER" (Prominent pill)
   const rolePillW = 760;
-  const rolePillH = 84;
+  const rolePillH = 78;
   const rolePillX = centerX - rolePillW / 2;
-  const rolePillY = cardY + 1190;
+  const rolePillY = infoY + 195;
 
-  ctx.fillStyle = 'rgba(15, 23, 42, 0.94)';
-  ctx.strokeStyle = 'rgba(56, 189, 248, 0.75)';
+  ctx.fillStyle = 'rgba(15, 23, 42, 0.95)';
+  ctx.strokeStyle = 'rgba(56, 189, 248, 0.7)';
   ctx.lineWidth = 2.5;
-  drawRoundedRectPath(ctx, rolePillX, rolePillY, rolePillW, rolePillH, 42);
+  drawRoundedRectPath(ctx, rolePillX, rolePillY, rolePillW, rolePillH, 39);
   ctx.fill();
   ctx.stroke();
 
   ctx.fillStyle = '#ffffff';
-  ctx.font = '900 44px "JetBrains Mono", monospace';
-  ctx.fillText('SOFTWARE ENGINEER', centerX, rolePillY + 42);
+  ctx.font = '900 42px "JetBrains Mono", monospace';
+  ctx.fillText('SOFTWARE ENGINEER', centerX, rolePillY + 39);
 
   // 6. HIGH-TECH VECTOR BARCODE (Clean, pure white, no extra string text)
-  const bcY = cardY + 1300;
+  const bcY = infoY + 295;
   const bcW = 780;
-  const bcH = 78;
+  const bcH = 72;
   const bcX = centerX - bcW / 2;
 
   ctx.fillStyle = '#ffffff';
@@ -193,13 +172,13 @@ function renderFrontFace(
     pIdx++;
   }
 
-  // 7. BOTTOM LOCATION & CREDENTIAL FOOTER (Clean & clear)
+  // 7. BOTTOM LOCATION FOOTER (Enlarged & high-contrast, // CLASS OF 2026 removed)
   ctx.textAlign = 'center';
-  ctx.fillStyle = '#cbd5e1';
-  ctx.font = 'bold 18px "JetBrains Mono", monospace';
-  ctx.fillText('PEKANBARU, RIAU • INDONESIA // CLASS OF 2026', centerX, cardY + cardH - 38);
+  ctx.fillStyle = '#ffffff';
+  ctx.font = '900 32px "JetBrains Mono", monospace';
+  ctx.fillText('PEKANBARU, RIAU • INDONESIA', centerX, cardY + cardH - 42);
 
-  // 9. OUTER CARD BORDER
+  // 8. OUTER CARD BORDER
   ctx.strokeStyle = 'rgba(56, 189, 248, 0.45)';
   ctx.lineWidth = 3.5;
   drawRoundedRectPath(ctx, cardX + 2, cardY + 2, cardW - 4, cardH - 4, radius - 2);

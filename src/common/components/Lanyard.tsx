@@ -91,28 +91,28 @@ export default function Lanyard({
           />
           <Environment blur={0.75}>
             <Lightformer
-              intensity={1.5}
+              intensity={1}
               color="white"
               position={[0, -1, 5]}
               rotation={[0, 0, Math.PI / 3]}
               scale={[100, 0.1, 1]}
             />
             <Lightformer
-              intensity={1.5}
+              intensity={1}
               color="white"
               position={[-1, -1, 1]}
               rotation={[0, 0, Math.PI / 3]}
               scale={[100, 0.1, 1]}
             />
             <Lightformer
-              intensity={2}
+              intensity={1.2}
               color="white"
               position={[1, 1, 1]}
               rotation={[0, 0, Math.PI / 3]}
               scale={[100, 0.1, 1]}
             />
             <Lightformer
-              intensity={2.5}
+              intensity={1.5}
               color="white"
               position={[-10, 0, 14]}
               rotation={[0, Math.PI / 2, Math.PI / 3]}
@@ -452,10 +452,10 @@ function PhysicsLanyard({
               <meshPhysicalMaterial
                 map={cardMap || cardTexture}
                 map-anisotropy={16}
-                clearcoat={0.3}
-                clearcoatRoughness={0.15}
-                roughness={0.35}
-                metalness={0.04}
+                clearcoat={0}
+                clearcoatRoughness={0}
+                roughness={0.8}
+                metalness={0}
               />
             </mesh>
           )}
