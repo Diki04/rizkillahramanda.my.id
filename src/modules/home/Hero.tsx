@@ -88,9 +88,9 @@ export function Hero() {
       <Container size="xl" className="relative z-10 pointer-events-none">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           {/* Left Column: Headline, Bio & CTAs */}
-          <div className="lg:col-span-8 flex flex-col items-start gap-5 sm:gap-6 pointer-events-none">
+          <div className="lg:col-span-8 flex flex-col items-start gap-5 sm:gap-6 p-6 sm:p-8 lg:p-9 rounded-3xl bg-white/90 dark:bg-zinc-950/80 backdrop-blur-xl border border-slate-300/90 dark:border-white/10 shadow-xl shadow-slate-900/5 dark:shadow-none pointer-events-auto transition-all duration-300">
             {/* Mobile Profile Photo Card (Replaces 3D Lanyard on Mobile) */}
-            <div className="flex lg:hidden items-center gap-3.5 p-3 rounded-2xl border border-slate-300 dark:border-white/15 bg-white/95 dark:bg-zinc-950/90 shadow-md shadow-slate-900/5 backdrop-blur-xl pointer-events-auto w-full max-w-sm">
+            <div className="flex lg:hidden items-center gap-3.5 p-3 rounded-2xl border border-slate-300 dark:border-white/15 bg-slate-100/90 dark:bg-zinc-900/90 shadow-xs backdrop-blur-md pointer-events-auto w-full max-w-sm">
               <div className="relative shrink-0">
                 <div className="p-0.5 rounded-2xl bg-gradient-to-tr from-slate-400 via-indigo-600 to-slate-500 dark:from-zinc-600 dark:via-indigo-500 dark:to-zinc-700 shadow-sm">
                   <div className="w-16 h-16 rounded-[14px] overflow-hidden bg-slate-100 dark:bg-zinc-900 relative">
@@ -226,15 +226,15 @@ export function Hero() {
 
             {/* Quick Metrics on Mobile */}
             <div className="grid grid-cols-3 gap-2.5 text-center pointer-events-auto w-full max-w-sm pt-2 lg:hidden">
-              <div className="p-2.5 rounded-xl bg-white/95 dark:bg-zinc-950/80 backdrop-blur-md border border-slate-300 dark:border-white/[0.08] shadow-xs">
+              <div className="p-2.5 rounded-xl bg-slate-100/90 dark:bg-zinc-900/80 backdrop-blur-md border border-slate-300 dark:border-white/[0.08] shadow-xs">
                 <p className="font-mono text-lg font-black text-black dark:text-white">49</p>
                 <p className="text-[11px] font-mono font-black text-slate-900 dark:text-zinc-200 uppercase tracking-wide">Repos</p>
               </div>
-              <div className="p-2.5 rounded-xl bg-white/95 dark:bg-zinc-950/80 backdrop-blur-md border border-slate-300 dark:border-white/[0.08] shadow-xs">
+              <div className="p-2.5 rounded-xl bg-slate-100/90 dark:bg-zinc-900/80 backdrop-blur-md border border-slate-300 dark:border-white/[0.08] shadow-xs">
                 <p className="font-mono text-lg font-black text-black dark:text-white">24+</p>
                 <p className="text-[11px] font-mono font-black text-slate-900 dark:text-zinc-200 uppercase tracking-wide">Projects</p>
               </div>
-              <div className="p-2.5 rounded-xl bg-white/95 dark:bg-zinc-950/80 backdrop-blur-md border border-slate-300 dark:border-white/[0.08] shadow-xs">
+              <div className="p-2.5 rounded-xl bg-slate-100/90 dark:bg-zinc-900/80 backdrop-blur-md border border-slate-300 dark:border-white/[0.08] shadow-xs">
                 <p className="font-mono text-lg font-black text-black dark:text-white">2+ Yrs</p>
                 <p className="text-[11px] font-mono font-black text-slate-900 dark:text-zinc-200 uppercase tracking-wide">Exp</p>
               </div>
