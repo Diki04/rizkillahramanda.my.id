@@ -40,10 +40,8 @@ export function CareerJourney() {
   const t = useTranslations('about');
   const isEn = locale === 'en';
 
-  // Card 2 is expanded by default to mirror user reference comp
-  const [expandedIds, setExpandedIds] = useState<Record<string, boolean>>({
-    'fullstack-lead': true,
-  });
+  // Default to collapsed (hide details) for all cards
+  const [expandedIds, setExpandedIds] = useState<Record<string, boolean>>({});
 
   const toggleExpand = (id: string) => {
     setExpandedIds((prev) => ({
