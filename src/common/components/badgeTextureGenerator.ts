@@ -109,25 +109,25 @@ function renderFrontFace(
   ctx.lineWidth = 2.5;
   ctx.stroke();
 
-  // 3. LOWER SCRIM (DEEP FROSTED OBSIDIAN GRADIENT FOR MAXIMUM CONTRAST)
-  const scrimStartY = cardY + 710;
-  const scrimH = cardH - 710;
+  // 3. LOWER SCRIM: LOWERED SIGNIFICANTLY SO PHOTO IS MUCH MORE VISIBLE
+  const scrimStartY = cardY + 900;
+  const scrimH = cardH - 900;
   const scrim = ctx.createLinearGradient(centerX, scrimStartY, centerX, cardY + cardH);
   scrim.addColorStop(0, 'rgba(3, 7, 18, 0.0)');
-  scrim.addColorStop(0.14, 'rgba(3, 7, 18, 0.78)');
-  scrim.addColorStop(0.32, 'rgba(2, 4, 12, 0.96)');
-  scrim.addColorStop(0.58, 'rgba(1, 2, 8, 0.99)');
+  scrim.addColorStop(0.12, 'rgba(3, 7, 18, 0.82)');
+  scrim.addColorStop(0.30, 'rgba(2, 4, 12, 0.97)');
+  scrim.addColorStop(0.60, 'rgba(1, 2, 8, 0.99)');
   scrim.addColorStop(1, '#02040a');
   ctx.fillStyle = scrim;
   ctx.fillRect(cardX, scrimStartY, cardW, scrimH);
 
-  // Glowing Neon Accent Divider across the scrim threshold
-  const divY = scrimStartY + 80;
+  // Glowing Neon Accent Divider across the lowered scrim line
+  const divY = scrimStartY + 45;
   const divGrad = ctx.createLinearGradient(cardX, divY, cardX + cardW, divY);
   divGrad.addColorStop(0, 'rgba(56, 189, 248, 0)');
-  divGrad.addColorStop(0.2, 'rgba(56, 189, 248, 0.6)');
+  divGrad.addColorStop(0.2, 'rgba(56, 189, 248, 0.65)');
   divGrad.addColorStop(0.5, 'rgba(125, 211, 252, 0.98)');
-  divGrad.addColorStop(0.8, 'rgba(56, 189, 248, 0.6)');
+  divGrad.addColorStop(0.8, 'rgba(56, 189, 248, 0.65)');
   divGrad.addColorStop(1, 'rgba(56, 189, 248, 0)');
   ctx.strokeStyle = divGrad;
   ctx.lineWidth = 2.5;
@@ -147,53 +147,36 @@ function renderFrontFace(
 
   // Line 1: RIZKILLAH
   ctx.fillStyle = '#ffffff';
-  ctx.font = '900 92px "Inter", "Segoe UI", sans-serif';
-  ctx.fillText('RIZKILLAH', centerX, cardY + 855);
+  ctx.font = '900 94px "Inter", "Segoe UI", sans-serif';
+  ctx.fillText('RIZKILLAH', centerX, cardY + 1025);
 
   // Line 2: RAMANDA SINYO
   ctx.fillStyle = '#38bdf8';
-  ctx.font = '900 80px "Inter", "Segoe UI", sans-serif';
-  ctx.fillText('RAMANDA SINYO', centerX, cardY + 948);
+  ctx.font = '900 82px "Inter", "Segoe UI", sans-serif';
+  ctx.fillText('RAMANDA SINYO', centerX, cardY + 1118);
   ctx.restore();
 
-  // 5. ROLE: "SOFTWARE ENGINEER" (Significantly larger & bolder in glowing glass pill)
-  const rolePillW = 680;
-  const rolePillH = 74;
+  // 5. ROLE: "SOFTWARE ENGINEER" (Significantly LARGER in prominent pill)
+  const rolePillW = 760;
+  const rolePillH = 84;
   const rolePillX = centerX - rolePillW / 2;
-  const rolePillY = cardY + 1018;
+  const rolePillY = cardY + 1190;
 
-  ctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
-  ctx.strokeStyle = 'rgba(56, 189, 248, 0.65)';
+  ctx.fillStyle = 'rgba(15, 23, 42, 0.94)';
+  ctx.strokeStyle = 'rgba(56, 189, 248, 0.75)';
   ctx.lineWidth = 2.5;
-  drawRoundedRectPath(ctx, rolePillX, rolePillY, rolePillW, rolePillH, 37);
+  drawRoundedRectPath(ctx, rolePillX, rolePillY, rolePillW, rolePillH, 42);
   ctx.fill();
   ctx.stroke();
 
   ctx.fillStyle = '#ffffff';
-  ctx.font = '900 34px "JetBrains Mono", monospace';
-  ctx.fillText('SOFTWARE ENGINEER', centerX, rolePillY + 37);
+  ctx.font = '900 44px "JetBrains Mono", monospace';
+  ctx.fillText('SOFTWARE ENGINEER', centerX, rolePillY + 42);
 
-  // 6. CLEARANCE & STATUS BADGE (Replaces NIM box with a clean, high-contrast VIP indicator)
-  const statusPillW = 540;
-  const statusPillH = 48;
-  const statusPillX = centerX - statusPillW / 2;
-  const statusPillY = cardY + 1116;
-
-  ctx.fillStyle = 'rgba(15, 23, 42, 0.88)';
-  ctx.strokeStyle = 'rgba(16, 185, 129, 0.55)';
-  ctx.lineWidth = 2;
-  drawRoundedRectPath(ctx, statusPillX, statusPillY, statusPillW, statusPillH, 24);
-  ctx.fill();
-  ctx.stroke();
-
-  ctx.fillStyle = '#10b981';
-  ctx.font = 'bold 20px "JetBrains Mono", monospace';
-  ctx.fillText('● VERIFIED DEVELOPER // ALL ACCESS', centerX, statusPillY + 24);
-
-  // 7. HIGH-TECH VECTOR BARCODE (Larger, crisp white)
-  const bcY = cardY + 1192;
+  // 6. HIGH-TECH VECTOR BARCODE (Clean, pure white, no extra string text)
+  const bcY = cardY + 1300;
   const bcW = 780;
-  const bcH = 82;
+  const bcH = 78;
   const bcX = centerX - bcW / 2;
 
   ctx.fillStyle = '#ffffff';
@@ -210,16 +193,11 @@ function renderFrontFace(
     pIdx++;
   }
 
-  // Barcode authentication string (Larger & clearer)
+  // 7. BOTTOM LOCATION & CREDENTIAL FOOTER (Clean & clear)
   ctx.textAlign = 'center';
-  ctx.fillStyle = '#38bdf8';
-  ctx.font = 'bold 22px "JetBrains Mono", monospace';
-  ctx.fillText(`* RR - ${profile.idNumber} - 2026 - UNRI *`, centerX, bcY + bcH + 34);
-
-  // 8. BOTTOM LOCATION & CREDENTIAL FOOTER (Larger & clearer)
   ctx.fillStyle = '#cbd5e1';
   ctx.font = 'bold 18px "JetBrains Mono", monospace';
-  ctx.fillText('PEKANBARU, RIAU • INDONESIA // CLASS OF 2026', centerX, cardY + cardH - 35);
+  ctx.fillText('PEKANBARU, RIAU • INDONESIA // CLASS OF 2026', centerX, cardY + cardH - 38);
 
   // 9. OUTER CARD BORDER
   ctx.strokeStyle = 'rgba(56, 189, 248, 0.45)';
