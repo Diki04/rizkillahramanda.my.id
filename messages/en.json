@@ -149,7 +149,21 @@
     "issuedBy": "Issued by",
     "issuedDate": "Year",
     "verifyCredential": "Verify Credential",
-    "viewCertificate": "View Certificate"
+    "viewCertificate": "View Certificate",
+    "searchPlaceholder": "Search...",
+    "filterByType": "Filter by Type",
+    "filterByCategory": "Filter by Category",
+    "allTypes": "All Types",
+    "allCategories": "All Categories",
+    "total": "Total",
+    "viewDetail": "View detail",
+    "credentialId": "Credential ID",
+    "type": "Type",
+    "category": "Category",
+    "issueDate": "Issue Date",
+    "credentialUrl": "Credential URL",
+    "issuedOn": "ISSUED ON",
+    "emptyState": "No achievements match the selected filters."
   },
   "chat": {
     "badge": "Interactive Guestbook",

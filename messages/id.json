@@ -149,7 +149,21 @@
     "issuedBy": "Diterbitkan oleh",
     "issuedDate": "Tahun",
     "verifyCredential": "Verifikasi Pencapaian",
-    "viewCertificate": "Lihat Pencapaian"
+    "viewCertificate": "Lihat Pencapaian",
+    "searchPlaceholder": "Cari...",
+    "filterByType": "Filter berdasarkan Tipe",
+    "filterByCategory": "Filter berdasarkan Kategori",
+    "allTypes": "Semua Tipe",
+    "allCategories": "Semua Kategori",
+    "total": "Total",
+    "viewDetail": "Lihat detail",
+    "credentialId": "ID Kredensial",
+    "type": "Tipe",
+    "category": "Kategori",
+    "issueDate": "Tanggal Terbit",
+    "credentialUrl": "URL Kredensial",
+    "issuedOn": "DITERBITKAN PADA",
+    "emptyState": "Tidak ada pencapaian yang cocok dengan filter yang dipilih."
   },
   "chat": {
     "badge": "Buku Tamu Interaktif",

@@ -42,16 +42,18 @@ export interface Project {
   };
 }
 
-export type AchievementCategory = 'certificate' | 'award' | 'course';
+export type AchievementCategory = 'certificate' | 'award' | 'course' | string;
 
 export interface Achievement {
   id: string;
   title: string;
   issuer: string;
   issueDate: string;
+  credentialId?: string;
   credentialUrl?: string;
   image: string;
   category: AchievementCategory;
+  type?: string;
 }
 
 export interface SkillItem {
