@@ -4,24 +4,30 @@ import { useTranslations } from 'next-intl';
 import { Container } from '@/common/components/Container';
 import { Breadcrumb } from '@/common/components/Breadcrumb';
 import { ScrollReveal } from '@/common/components/ScrollReveal';
+import { Breakline } from '@/common/components/Breakline';
 
-const GitHubStats = dynamic(
-  () => import('@/modules/dashboard/GitHubStats').then((mod) => mod.GitHubStats),
+const UmamiSection = dynamic(
+  () => import('@/modules/dashboard/components/Umami/Umami').then((mod) => mod.UmamiSection),
   { ssr: true }
 );
 
-const MonkeytypeStats = dynamic(
-  () => import('@/modules/dashboard/MonkeytypeStats').then((mod) => mod.MonkeytypeStats),
+const ContributionsSection = dynamic(
+  () => import('@/modules/dashboard/components/Contributions/Contributions').then((mod) => mod.ContributionsSection),
   { ssr: true }
 );
 
-const CodewarsStats = dynamic(
-  () => import('@/modules/dashboard/CodewarsStats').then((mod) => mod.CodewarsStats),
+const CodingActiveSection = dynamic(
+  () => import('@/modules/dashboard/components/CodingActive/CodingActive').then((mod) => mod.CodingActiveSection),
   { ssr: true }
 );
 
-const WakatimeStats = dynamic(
-  () => import('@/modules/dashboard/WakatimeStats').then((mod) => mod.WakatimeStats),
+const CodewarsSection = dynamic(
+  () => import('@/modules/dashboard/components/Codewars/Codewars').then((mod) => mod.CodewarsSection),
+  { ssr: true }
+);
+
+const MonkeytypeSection = dynamic(
+  () => import('@/modules/dashboard/components/Monkeytype/Monkeytype').then((mod) => mod.MonkeytypeSection),
   { ssr: true }
 );
 
@@ -44,18 +50,38 @@ export default function DashboardPage() {
         </p>
       </ScrollReveal>
 
-      <div className="space-y-10">
+      <div className="space-y-4">
+        {/* 1. Umami / Traffic Trends Analytics */}
         <ScrollReveal>
-          <GitHubStats />
+          <UmamiSection />
         </ScrollReveal>
+
+        <Breakline className="my-10" />
+
+        {/* 2. GitHub Contributions & Heatmap */}
         <ScrollReveal>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <MonkeytypeStats />
-            <CodewarsStats />
-          </div>
+          <ContributionsSection />
         </ScrollReveal>
+
+        <Breakline className="my-10" />
+
+        {/* 3. WakaTime / Coding Activity */}
         <ScrollReveal>
-          <WakatimeStats />
+          <CodingActiveSection />
+        </ScrollReveal>
+
+        <Breakline className="my-10" />
+
+        {/* 4. Codewars / Problem Solving */}
+        <ScrollReveal>
+          <CodewarsSection />
+        </ScrollReveal>
+
+        <Breakline className="my-10" />
+
+        {/* 5. Monkeytype / Typing Metrics */}
+        <ScrollReveal>
+          <MonkeytypeSection />
         </ScrollReveal>
       </div>
     </Container>
