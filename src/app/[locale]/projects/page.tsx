@@ -8,27 +8,31 @@ import { ProjectsFilter } from '@/modules/projects/ProjectsFilter';
 import { ProjectCard } from '@/modules/projects/ProjectCard';
 import { ProjectModal } from '@/modules/projects/ProjectModal';
 import { mockProjects } from '@/services/data/mock-projects';
-import { Project, ProjectCategory } from '@/types';
+import { Project, ProjectTypeFilter, ProjectCategoryFilter } from '@/types';
 import { FolderGit2 } from 'lucide-react';
 
 export default function ProjectsPage() {
   const t = useTranslations('projects');
-  const [activeCategory, setActiveCategory] = useState<ProjectCategory>('all');
+  const [activeType, setActiveType] = useState<ProjectTypeFilter>('all');
+  const [activeCategory, setActiveCategory] = useState<ProjectCategoryFilter>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const filteredProjects = useMemo(() => {
     return mockProjects.filter((project) => {
+      const matchType =
+        activeType === 'all' || project.projectType === activeType;
       const matchCategory =
-        activeCategory === 'all' || project.category === activeCategory;
+        activeCategory === 'all' ||
+        project.projectCategory === activeCategory;
       const matchSearch =
         project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         project.tags.some((tag) =>
           tag.toLowerCase().includes(searchQuery.toLowerCase())
         );
-      return matchCategory && matchSearch;
+      return matchType && matchCategory && matchSearch;
     });
-  }, [activeCategory, searchQuery]);
+  }, [activeType, activeCategory, searchQuery]);
 
   return (
     <div className="py-16 md:py-20 space-y-12">
@@ -48,6 +52,8 @@ export default function ProjectsPage() {
         {/* Filter & Search Bar */}
         <ScrollReveal className="pt-4" delay={0.1}>
           <ProjectsFilter
+            activeType={activeType}
+            onSelectType={setActiveType}
             activeCategory={activeCategory}
             onSelectCategory={setActiveCategory}
             searchQuery={searchQuery}

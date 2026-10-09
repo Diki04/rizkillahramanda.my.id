@@ -6,6 +6,15 @@ export interface LocalizedString {
 }
 
 export type ProjectCategory = 'all' | 'fullstack' | 'frontend' | 'ml' | 'other';
+export type ProjectTypeFilter = 'all' | 'web' | 'mobile';
+export type ProjectCategoryFilter = 'all' | 'personal' | 'internship' | 'freelance' | 'competition';
+
+export interface ProjectDetailFeature {
+  title: string;
+  description: string;
+  codeSnippet?: string;
+  bullets?: string[];
+}
 
 export interface Project {
   id: string;
@@ -13,12 +22,24 @@ export interface Project {
   slug: string;
   description: LocalizedString;
   category: 'fullstack' | 'frontend' | 'ml' | 'other';
+  projectType?: 'web' | 'mobile';
+  projectCategory?: 'personal' | 'internship' | 'freelance' | 'competition';
   image: string;
   tags: string[];
   githubUrl: string;
   demoUrl?: string;
   featured: boolean;
   createdAt: string;
+  views?: number;
+  reactions?: { emoji: string; count: number }[];
+  introduction?: LocalizedString;
+  features?: ProjectDetailFeature[];
+  gettingStarted?: {
+    cloneCmd?: string;
+    templateCmd?: string;
+    installCmd?: string;
+    devCmd?: string;
+  };
 }
 
 export type AchievementCategory = 'certificate' | 'award' | 'course';
