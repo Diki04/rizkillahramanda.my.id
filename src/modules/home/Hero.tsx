@@ -78,7 +78,7 @@ export function Hero() {
         <Lanyard
           position={[0, 0, 20]}
           fov={24}
-          anchorPosition={isTopbar ? [3.95, 6.1, 0] : [4.25, 6.4, 0]}
+          anchorPosition={isTopbar ? [4.75, 6.1, 0] : [4.75, 6.4, 0]}
           ropeLength={isTopbar ? 3.9 : 3.65}
           className="pointer-events-auto"
         />
