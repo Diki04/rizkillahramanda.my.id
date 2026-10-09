@@ -48,12 +48,12 @@ export function ProjectDetailView({ project }: ProjectDetailViewProps) {
   const devCmd = project.gettingStarted?.devCmd || 'pnpm dev';
 
   return (
-    <div className="w-full max-w-4xl lg:max-w-5xl mx-auto py-6 sm:py-10 space-y-6 sm:space-y-8">
+    <div className="w-full space-y-6 sm:space-y-8">
       {/* Top Back Link */}
       <div className="w-fit">
         <Link
           href="/projects"
-          className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-black dark:text-zinc-400 dark:hover:text-white transition-colors cursor-pointer group"
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100/90 hover:bg-slate-200/90 dark:bg-white/5 dark:hover:bg-white/10 text-slate-700 hover:text-black dark:text-zinc-300 dark:hover:text-white border border-slate-300/80 dark:border-white/10 text-xs sm:text-sm font-mono font-bold transition-all cursor-pointer group shadow-2xs"
         >
           <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
           <span>{t('back')}</span>

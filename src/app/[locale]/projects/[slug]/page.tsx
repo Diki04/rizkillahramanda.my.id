@@ -50,9 +50,11 @@ export default function ProjectDetailPage({ params: { slug } }: ProjectPageProps
   }
 
   return (
-    <div className="py-6 sm:py-10">
+    <div className="min-h-screen py-4 sm:py-8 lg:py-12">
       <Container size="xl">
-        <ProjectDetailView project={project} />
+        <div className="w-full max-w-5xl mx-auto rounded-3xl bg-white/95 dark:bg-zinc-950/85 backdrop-blur-2xl border border-white/80 dark:border-white/10 ring-1 ring-black/5 dark:ring-white/5 shadow-2xl shadow-slate-300/40 dark:shadow-black/80 p-6 sm:p-10 md:p-12 transition-all duration-300">
+          <ProjectDetailView project={project} />
+        </div>
       </Container>
     </div>
   );
