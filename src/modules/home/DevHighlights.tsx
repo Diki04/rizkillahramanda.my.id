@@ -57,7 +57,7 @@ export function DevHighlights() {
                   <GitBranch className="w-4 h-4 text-slate-900 dark:text-white" />
                   <span>{t('workstationTitle')}</span>
                 </h3>
-                <p className="text-sm text-slate-700 dark:text-slate-300 font-normal">
+                <p className="text-sm text-slate-950 dark:text-slate-300 font-medium">
                   {t('workstationSubtitle')}
                 </p>
               </div>
@@ -78,7 +78,7 @@ export function DevHighlights() {
                     <h4 className="text-xs font-mono font-bold text-slate-950 dark:text-white">
                       Active GitHub Profile
                     </h4>
-                    <p className="text-[11px] font-mono font-semibold text-slate-700 dark:text-slate-300">
+                    <p className="text-[11px] font-mono font-bold text-slate-900 dark:text-slate-300">
                       @Diki04 • 49+ Public Repos
                     </p>
                   </div>
@@ -88,7 +88,7 @@ export function DevHighlights() {
                   href="https://github.com/Diki04"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-white/[0.1] bg-white dark:bg-zinc-900/60 hover:bg-slate-100 dark:hover:bg-white/[0.08] text-xs font-mono font-bold text-slate-900 dark:text-slate-200 hover:text-black dark:hover:text-white transition-colors shadow-xs"
+                  className="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-white/[0.1] bg-white dark:bg-zinc-900/60 hover:bg-slate-100 dark:hover:bg-white/[0.08] text-xs font-mono font-bold text-slate-950 dark:text-slate-200 hover:text-black dark:hover:text-white transition-colors shadow-xs"
                 >
                   Visit Profile
                 </a>

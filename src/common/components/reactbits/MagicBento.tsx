@@ -777,7 +777,7 @@ export const MagicBento: React.FC<BentoProps> = ({
                   'span',
                   {
                     className:
-                      'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono font-bold tracking-wider uppercase text-slate-900 dark:text-zinc-200 bg-slate-100 dark:bg-white/[0.04] border border-slate-300 dark:border-white/[0.08]',
+                      'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono font-extrabold tracking-wider uppercase text-slate-950 dark:text-zinc-100 bg-slate-100 dark:bg-white/[0.04] border border-slate-300 dark:border-white/[0.08] shadow-xs',
                   },
                   card.label
                 )
@@ -787,7 +787,7 @@ export const MagicBento: React.FC<BentoProps> = ({
                   'span',
                   {
                     className:
-                      'inline-flex items-center gap-1.5 text-xs font-mono text-emerald-600 dark:text-emerald-400 font-bold',
+                      'inline-flex items-center gap-1.5 text-xs font-mono text-emerald-700 dark:text-emerald-400 font-extrabold',
                   },
                   React.createElement(
                     'span',
@@ -803,7 +803,7 @@ export const MagicBento: React.FC<BentoProps> = ({
                   React.createElement('span', null, 'ONLINE')
                 )
               : card.icon
-                ? React.createElement('span', { className: 'text-slate-600 dark:text-zinc-400' }, card.icon)
+                ? React.createElement('span', { className: 'text-slate-900 dark:text-zinc-400' }, card.icon)
                 : null
           );
 
@@ -814,7 +814,7 @@ export const MagicBento: React.FC<BentoProps> = ({
               'h3',
               {
                 className: cn(
-                  'card__title font-extrabold text-lg sm:text-xl text-slate-950 dark:text-white tracking-tight mb-2',
+                  'card__title font-black text-lg sm:text-xl text-black dark:text-white tracking-tight mb-2',
                   textAutoHide && 'text-clamp-1'
                 ),
               },
@@ -824,7 +824,7 @@ export const MagicBento: React.FC<BentoProps> = ({
               'p',
               {
                 className: cn(
-                  'card__description text-sm text-slate-700 dark:text-zinc-300 leading-relaxed font-normal',
+                  'card__description text-sm text-slate-950 dark:text-zinc-200 leading-relaxed font-medium',
                   textAutoHide && 'text-clamp-2'
                 ),
               },

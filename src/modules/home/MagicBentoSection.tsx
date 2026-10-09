@@ -72,7 +72,7 @@ export function MagicBentoSection({
           'p',
           {
             className:
-              'mt-2 text-sm sm:text-base text-slate-800 dark:text-zinc-300 leading-relaxed font-medium max-w-2xl',
+              'mt-2 text-sm sm:text-base text-slate-950 dark:text-zinc-200 leading-relaxed font-semibold max-w-2xl',
           },
           subtitle
         )

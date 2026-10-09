@@ -38,7 +38,7 @@ export function ContactCta() {
               {t('headlineSuffix')}
             </h2>
 
-            <p className="text-sm sm:text-base text-slate-800 dark:text-zinc-300 leading-relaxed max-w-xl mx-auto font-medium">
+            <p className="text-sm sm:text-base text-slate-950 dark:text-zinc-200 leading-relaxed max-w-xl mx-auto font-semibold">
               {t('description')}
             </p>
 
@@ -47,11 +47,11 @@ export function ContactCta() {
                 <SpecularButton
                   size="md"
                   baseColor={isDark ? '#18181b' : '#ffffff'}
-                  lineColor={isDark ? '#ffffff' : '#434bce'}
-                  textColor={isDark ? '#ffffff' : '#09090b'}
-                  className="w-full sm:w-auto font-bold shadow-xs"
+                  lineColor={isDark ? '#ffffff' : '#1e1b4b'}
+                  textColor={isDark ? '#ffffff' : '#000000'}
+                  className="w-full sm:w-auto font-bold text-slate-950 dark:text-white shadow-xs"
                 >
-                  <Mail className="w-4 h-4 mr-2" />
+                  <Mail className="w-4 h-4 mr-2 text-slate-950 dark:text-white" />
                   <span>{t('sendMessage')}</span>
                 </SpecularButton>
               </Link>
@@ -59,13 +59,13 @@ export function ContactCta() {
                 <SpecularButton
                   size="md"
                   baseColor={isDark ? '#09090b' : '#ffffff'}
-                  lineColor={isDark ? '#71717a' : '#434bce'}
-                  textColor={isDark ? '#ffffff' : '#09090b'}
-                  className="w-full sm:w-auto font-bold shadow-xs"
+                  lineColor={isDark ? '#71717a' : '#1e1b4b'}
+                  textColor={isDark ? '#ffffff' : '#000000'}
+                  className="w-full sm:w-auto font-bold text-slate-950 dark:text-white shadow-xs"
                 >
-                  <MessageSquare className="w-4 h-4 mr-2 text-slate-600 dark:text-zinc-300" />
+                  <MessageSquare className="w-4 h-4 mr-2 text-slate-900 dark:text-zinc-300" />
                   <span>{t('leaveNote')}</span>
-                  <ArrowUpRight className="w-4 h-4 ml-1 text-slate-500 dark:text-zinc-400" />
+                  <ArrowUpRight className="w-4 h-4 ml-1 text-slate-900 dark:text-zinc-400" />
                 </SpecularButton>
               </Link>
             </div>

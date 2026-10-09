@@ -96,10 +96,10 @@ export function FeaturedProjects() {
 
                     {/* Title & Description */}
                     <div>
-                      <h3 className="text-lg font-bold text-slate-950 dark:text-white group-hover:text-black dark:group-hover:text-zinc-200 transition-colors">
+                      <h3 className="text-lg font-extrabold text-black dark:text-white group-hover:text-black dark:group-hover:text-zinc-200 transition-colors">
                         {project.title}
                       </h3>
-                      <p className="text-sm text-slate-700 dark:text-zinc-300 mt-2 line-clamp-3 leading-relaxed font-normal">
+                      <p className="text-sm text-slate-950 dark:text-zinc-300 mt-2 line-clamp-3 leading-relaxed font-medium">
                         {isEn ? project.description.en : project.description.id}
                       </p>
                     </div>
@@ -111,7 +111,7 @@ export function FeaturedProjects() {
                         return (
                           <span
                             key={tag}
-                            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono bg-slate-100 dark:bg-zinc-900/80 text-slate-900 dark:text-zinc-200 border border-slate-300 dark:border-white/10 hover:border-slate-400 dark:hover:border-white/20 hover:text-black dark:hover:text-white transition-colors font-semibold"
+                            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono bg-slate-100 dark:bg-zinc-900/80 text-slate-950 dark:text-zinc-200 border border-slate-300 dark:border-white/10 hover:border-slate-400 dark:hover:border-white/20 hover:text-black dark:hover:text-white transition-colors font-bold shadow-xs"
                           >
                             <TechIcon className="w-3 h-3 shrink-0" style={{ color }} />
                             <span>{tag}</span>

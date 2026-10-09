@@ -21,10 +21,10 @@ export function DeveloperSetup() {
         return (
           <SpotlightCard key={item.label} className="p-3 sm:p-4 flex flex-col justify-between bg-white/95 dark:bg-zinc-950/80 border-slate-300 dark:border-white/10 shadow-xs">
             <div className="flex items-center gap-2 sm:gap-3 mb-2">
-              <Icon className="w-4 h-4 text-slate-700 dark:text-zinc-400 shrink-0" />
-              <span className="text-[11px] sm:text-xs text-slate-700 dark:text-slate-400 font-mono font-semibold truncate">{item.label}</span>
+              <Icon className="w-4 h-4 text-slate-900 dark:text-zinc-300 shrink-0" />
+              <span className="text-[11px] sm:text-xs text-slate-950 dark:text-slate-300 font-mono font-bold truncate">{item.label}</span>
             </div>
-            <p className="text-xs sm:text-sm font-bold text-slate-950 dark:text-slate-100 leading-snug">{item.value}</p>
+            <p className="text-xs sm:text-sm font-black text-black dark:text-slate-100 leading-snug">{item.value}</p>
           </SpotlightCard>
         );
       })}

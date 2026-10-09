@@ -59,7 +59,7 @@ export function Navbar() {
                     'px-3 py-1.5 rounded-lg transition-all duration-200 text-xs font-mono tracking-wide',
                     active
                       ? 'bg-slate-950 text-white dark:bg-white dark:text-black font-bold shadow-xs'
-                      : 'text-slate-800 dark:text-zinc-400 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 font-medium'
+                      : 'text-slate-950 dark:text-zinc-300 hover:text-black dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 font-semibold'
                   )}
                 >
                   {link.label}
@@ -77,10 +77,10 @@ export function Navbar() {
               href="/admin"
               title="Admin Portal"
               className={cn(
-                'p-2 rounded-lg border transition-all duration-200',
+                'p-2 rounded-lg border transition-all duration-200 shadow-xs',
                 pathname.startsWith('/admin')
-                  ? 'border-slate-400 dark:border-white/30 text-slate-950 dark:text-white bg-slate-100 dark:bg-white/15'
-                  : 'border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-slate-700 dark:text-zinc-400 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 hover:border-slate-400 dark:hover:border-white/20'
+                  ? 'border-slate-400 dark:border-white/30 text-black dark:text-white bg-slate-100 dark:bg-white/15'
+                  : 'border-slate-300 dark:border-white/10 bg-white dark:bg-white/5 text-slate-900 dark:text-zinc-300 hover:text-black dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 hover:border-slate-400 dark:hover:border-white/20'
               )}
             >
               <Shield className="w-4 h-4" />
@@ -90,7 +90,7 @@ export function Navbar() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub Profile"
-              className="p-2 rounded-lg border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-slate-700 dark:text-zinc-400 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 hover:border-slate-400 dark:hover:border-white/20 transition-all duration-200 active:scale-95"
+              className="p-2 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-white/5 text-slate-900 dark:text-zinc-300 hover:text-black dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 hover:border-slate-400 dark:hover:border-white/20 transition-all duration-200 active:scale-95 shadow-xs"
             >
               <Github className="w-4 h-4" />
             </a>
@@ -112,8 +112,8 @@ export function Navbar() {
         {/* Mobile Drawer */}
         {mobileMenuOpen && (
           <div className="md:hidden border-t border-slate-300/90 dark:border-white/10 px-4 py-3 space-y-2">
-            <div className="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-white/10">
-              <span className="text-xs font-mono font-bold text-slate-800 dark:text-zinc-300">Language</span>
+            <div className="flex items-center justify-between pb-2 border-b border-slate-300 dark:border-white/10">
+              <span className="text-xs font-mono font-bold text-slate-950 dark:text-zinc-300">Language</span>
               <LocaleSwitcher />
             </div>
             {navLinks.map((link) => {
@@ -126,28 +126,28 @@ export function Navbar() {
                   className={cn(
                     'block px-3 py-2 rounded-lg text-sm font-mono tracking-wide transition-colors',
                     active
-                      ? 'bg-slate-950 text-white dark:bg-white dark:text-black font-bold'
-                      : 'text-slate-900 dark:text-zinc-300 hover:text-black dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 font-semibold'
+                      ? 'bg-slate-950 text-white dark:bg-white dark:text-black font-extrabold shadow-xs'
+                      : 'text-slate-950 dark:text-zinc-300 hover:text-black dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 font-bold'
                   )}
                 >
                   {link.label}
                 </Link>
               );
             })}
-            <div className="pt-2 border-t border-slate-300/90 dark:border-white/10 flex items-center justify-between">
+            <div className="pt-2 border-t border-slate-300 dark:border-white/10 flex items-center justify-between">
               <Link
                 href="/admin"
                 onClick={() => setMobileMenuOpen(false)}
-                className="inline-flex items-center gap-2 text-xs font-mono text-slate-700 dark:text-zinc-400 hover:text-slate-950 dark:hover:text-white py-1 transition-colors font-bold"
+                className="inline-flex items-center gap-2 text-xs font-mono text-slate-950 dark:text-zinc-400 hover:text-black dark:hover:text-white py-1 transition-colors font-bold"
               >
-                <Shield className="w-3.5 h-3.5 text-slate-700 dark:text-zinc-400" />
+                <Shield className="w-3.5 h-3.5 text-slate-950 dark:text-zinc-400" />
                 <span>Admin Portal</span>
               </Link>
               <a
                 href="https://github.com/Diki04"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs font-mono text-slate-700 dark:text-zinc-400 hover:text-slate-950 dark:hover:text-white inline-flex items-center gap-1.5 transition-colors font-bold"
+                className="text-xs font-mono text-slate-950 dark:text-zinc-400 hover:text-black dark:hover:text-white inline-flex items-center gap-1.5 transition-colors font-bold"
               >
                 <Github className="w-3.5 h-3.5" />
                 <span>@Diki04</span>

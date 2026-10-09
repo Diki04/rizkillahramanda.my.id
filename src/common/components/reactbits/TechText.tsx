@@ -374,12 +374,9 @@ export function TechText({
         const y = baselineY;
         const w = glyph.width;
 
-        // 1. Solid Typography Base (retains high contrast & crisp readability during wave)
-        const solidAlpha = Math.max(0.7, 1 - progress * 0.3);
-        if (solidAlpha > 0.02) {
-          ctx.fillStyle = toRgbaString(color, solidAlpha);
-          ctx.fillText(glyph.char, x, y);
-        }
+        // 1. Solid Typography Base (100% solid opacity for maximum contrast & crisp readability)
+        ctx.fillStyle = toRgbaString(color, 1.0);
+        ctx.fillText(glyph.char, x, y);
 
         // 2. Dashed Vector Paths (transitions in on hover)
         if (progress > 0.02) {

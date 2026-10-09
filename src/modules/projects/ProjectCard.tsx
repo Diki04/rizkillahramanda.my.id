@@ -56,11 +56,11 @@ export function ProjectCard({ project, onOpenModal }: ProjectCardProps) {
 
         {/* Title & Description */}
         <div onClick={() => onOpenModal(project)} className="cursor-pointer">
-          <h3 className="text-base font-semibold text-slate-900 dark:text-white group-hover:text-black dark:group-hover:text-zinc-200 transition-colors flex items-center justify-between gap-2">
+          <h3 className="text-base font-extrabold text-slate-950 dark:text-white group-hover:text-black dark:group-hover:text-zinc-200 transition-colors flex items-center justify-between gap-2">
             <span>{project.title}</span>
-            <Eye className="w-3.5 h-3.5 text-zinc-400 opacity-0 group-hover:opacity-100 group-hover:text-slate-900 dark:group-hover:text-white transition-all shrink-0" />
+            <Eye className="w-3.5 h-3.5 text-zinc-400 opacity-0 group-hover:opacity-100 group-hover:text-slate-950 dark:group-hover:text-white transition-all shrink-0" />
           </h3>
-          <p className="text-sm text-slate-600 dark:text-zinc-400 mt-2 line-clamp-2 leading-relaxed">
+          <p className="text-sm text-slate-950 dark:text-zinc-300 mt-2 line-clamp-2 leading-relaxed font-medium">
             {isEn ? project.description.en : project.description.id}
           </p>
         </div>
@@ -72,15 +72,15 @@ export function ProjectCard({ project, onOpenModal }: ProjectCardProps) {
             return (
               <span
                 key={tag}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono bg-slate-100 dark:bg-zinc-900/80 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-zinc-300 hover:text-black dark:hover:text-white hover:border-slate-300 dark:hover:border-white/20 transition-colors"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono bg-slate-100 dark:bg-zinc-900/80 border border-slate-300 dark:border-white/10 text-slate-950 dark:text-zinc-200 hover:text-black dark:hover:text-white hover:border-slate-400 dark:hover:border-white/20 transition-colors font-bold shadow-xs"
               >
-                <TechIcon className="w-3 h-3 shrink-0" style={{ color }} />
+                <TechIcon className="w-3.5 h-3.5 shrink-0" style={{ color }} />
                 <span>{tag}</span>
               </span>
             );
           })}
           {project.tags.length > 4 && (
-            <span className="px-2 py-1 rounded-md text-xs font-mono bg-slate-100 dark:bg-zinc-900/80 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-zinc-400">
+            <span className="px-2 py-1 rounded-md text-xs font-mono bg-slate-100 dark:bg-zinc-900/80 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-zinc-300 font-bold shadow-xs">
               +{project.tags.length - 4}
             </span>
           )}

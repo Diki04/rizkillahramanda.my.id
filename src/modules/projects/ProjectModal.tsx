@@ -65,22 +65,22 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
 
           {/* Title & Metadata */}
           <div className="space-y-2">
-            <h3 className="text-2xl font-bold text-slate-900 dark:text-white">{project.title}</h3>
-            <div className="flex items-center gap-2 text-xs font-mono text-slate-500 dark:text-zinc-400">
-              <Calendar className="w-3.5 h-3.5 text-zinc-400 dark:text-zinc-400" />
+            <h3 className="text-2xl font-extrabold text-slate-950 dark:text-white">{project.title}</h3>
+            <div className="flex items-center gap-2 text-xs font-mono font-bold text-slate-900 dark:text-zinc-400">
+              <Calendar className="w-3.5 h-3.5 text-slate-800 dark:text-zinc-400" />
               <span>{project.createdAt}</span>
             </div>
           </div>
 
           {/* Description */}
-          <p className="text-sm text-slate-600 dark:text-zinc-300 leading-relaxed">
+          <p className="text-sm text-slate-950 dark:text-zinc-300 leading-relaxed font-medium">
             {isEn ? project.description.en : project.description.id}
           </p>
 
           {/* Technologies */}
           <div className="space-y-2">
-            <span className="text-xs font-mono text-slate-500 dark:text-zinc-400 uppercase tracking-wider flex items-center gap-1.5 font-semibold">
-              <Tag className="w-3.5 h-3.5 text-zinc-400 dark:text-zinc-400" />
+            <span className="text-xs font-mono text-slate-950 dark:text-zinc-400 uppercase tracking-wider flex items-center gap-1.5 font-bold">
+              <Tag className="w-3.5 h-3.5 text-slate-800 dark:text-zinc-400" />
               Tech Stack & Libraries
             </span>
             <div className="flex flex-wrap gap-2">
@@ -89,7 +89,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                 return (
                   <span
                     key={tag}
-                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono bg-slate-100 dark:bg-black text-slate-700 dark:text-zinc-200 border border-slate-200 dark:border-white/[0.08] hover:border-white/30 transition-colors"
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono bg-slate-100 dark:bg-black text-slate-950 dark:text-zinc-200 border border-slate-300 dark:border-white/[0.08] hover:border-slate-400 dark:hover:border-white/30 transition-colors font-bold shadow-xs"
                   >
                     <TechIcon className="w-3.5 h-3.5 shrink-0" style={{ color }} />
                     <span>{tag}</span>

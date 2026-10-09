@@ -277,27 +277,27 @@ export function TechStack() {
           {/* Section Header */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div className="space-y-2">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-slate-300 dark:border-white/20 bg-slate-100 dark:bg-white/10 text-slate-900 dark:text-zinc-200 text-xs font-mono font-medium">
-                <Sparkles className="w-4 h-4" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-slate-300 dark:border-white/20 bg-white/95 dark:bg-white/10 text-slate-950 dark:text-zinc-200 text-xs font-mono font-bold shadow-xs">
+                <Sparkles className="w-4 h-4 text-slate-800 dark:text-zinc-300" />
                 <span>{t('badge')}</span>
               </div>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-950 dark:text-white tracking-tight">
                 {t('title')}
               </h2>
-              <p className="text-sm sm:text-base text-slate-800 dark:text-slate-300 max-w-xl font-medium">
+              <p className="text-sm sm:text-base text-slate-950 dark:text-slate-200 max-w-xl font-semibold">
                 {t('subtitle')}
               </p>
             </div>
 
             {/* Quick Search */}
             <div className="relative w-full md:w-64">
-              <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+              <Search className="w-4 h-4 text-slate-700 dark:text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={t('searchPlaceholder')}
-                className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-300 dark:border-white/[0.08] bg-white/95 dark:bg-zinc-950/80 text-xs font-mono text-slate-950 dark:text-white placeholder-slate-500 focus:outline-none focus:border-slate-800 dark:focus:border-white/40 transition-colors shadow-xs"
+                className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-300 dark:border-white/[0.08] bg-white/95 dark:bg-zinc-950/80 text-xs font-mono font-semibold text-slate-950 dark:text-white placeholder-slate-600 dark:placeholder-slate-400 focus:outline-none focus:border-slate-800 dark:focus:border-white/40 transition-colors shadow-xs"
               />
             </div>
           </div>
@@ -310,8 +310,8 @@ export function TechStack() {
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`px-3.5 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all duration-200 shrink-0 ${
                   selectedCategory === cat.id
-                    ? 'bg-slate-950 text-white dark:bg-white dark:text-black font-bold border border-slate-950 dark:border-white shadow-xs'
-                    : 'bg-white dark:bg-white/[0.04] border border-slate-300 dark:border-white/[0.08] text-slate-800 dark:text-slate-300 hover:text-black dark:hover:text-white hover:bg-slate-100 font-semibold'
+                    ? 'bg-slate-950 text-white dark:bg-white dark:text-black font-extrabold border border-slate-950 dark:border-white shadow-xs'
+                    : 'bg-white dark:bg-white/[0.04] border border-slate-300 dark:border-white/[0.08] text-slate-950 dark:text-slate-200 hover:text-black dark:hover:text-white hover:bg-slate-100 font-bold'
                 }`}
               >
                 {cat.label}
@@ -343,12 +343,12 @@ export function TechStack() {
                   </div>
 
                   {/* Name */}
-                  <span className="font-mono text-xs font-bold text-slate-950 dark:text-slate-100 truncate w-full group-hover:text-black dark:group-hover:text-white transition-colors">
+                  <span className="font-mono text-xs font-black text-black dark:text-slate-100 truncate w-full group-hover:text-black dark:group-hover:text-white transition-colors">
                     {tech.name}
                   </span>
 
                   {/* Level Pill */}
-                  <span className="text-xs font-mono font-semibold text-slate-700 dark:text-slate-300 mt-1">
+                  <span className="text-xs font-mono font-bold text-slate-900 dark:text-slate-300 mt-1">
                     {tech.level}
                   </span>
                 </div>
@@ -357,9 +357,9 @@ export function TechStack() {
           </div>
 
           {filteredTechnologies.length === 0 && (
-            <div className="text-center py-12 border border-dashed border-slate-200 dark:border-white/[0.08] rounded-xl">
-              <Layers className="w-8 h-8 text-slate-400 mx-auto mb-2 opacity-50" />
-              <p className="font-mono text-xs text-slate-500 dark:text-slate-400">
+            <div className="text-center py-12 border border-dashed border-slate-300 dark:border-white/[0.08] rounded-xl bg-white/50 dark:bg-transparent">
+              <Layers className="w-8 h-8 text-slate-600 dark:text-slate-400 mx-auto mb-2 opacity-60" />
+              <p className="font-mono text-xs text-slate-900 dark:text-slate-300 font-semibold">
                 No technologies matching &ldquo;{searchQuery}&rdquo;.
               </p>
             </div>
