@@ -81,150 +81,219 @@ function renderFrontFace(
   drawRoundedRectPath(ctx, cardX, cardY, cardW, cardH, radius);
   ctx.clip();
 
-  // Pure Luxury OLED Obsidian Background
-  const cardBg = ctx.createLinearGradient(centerX, cardY, centerX, cardY + cardH);
-  cardBg.addColorStop(0, '#18181b');
-  cardBg.addColorStop(0.4, '#09090b');
-  cardBg.addColorStop(1, '#000000');
-  ctx.fillStyle = cardBg;
-  ctx.fillRect(cardX, cardY, cardW, cardH);
-
-  // Radial Monochrome Glow behind avatar
-  const glowY = cardY + 410;
-  const radGlow = ctx.createRadialGradient(centerX, glowY, 40, centerX, glowY, 440);
-  radGlow.addColorStop(0, 'rgba(255, 255, 255, 0.15)');
-  radGlow.addColorStop(0.5, 'rgba(255, 255, 255, 0.04)');
-  radGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
-  ctx.fillStyle = radGlow;
-  ctx.fillRect(cardX, cardY, cardW, 800);
-
-  // Minimal Punch Hole Slot Indicator
-  const slotW = 150, slotH = 20;
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.95)';
-  drawRoundedRectPath(ctx, centerX - slotW / 2, cardY + 28, slotW, slotH, 10);
-  ctx.fill();
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
-  ctx.lineWidth = 2;
-  ctx.stroke();
-
-  // Header text on LEFT and RIGHT (away from center clip)
-  ctx.textBaseline = 'middle';
-  ctx.textAlign = 'left';
-  ctx.fillStyle = '#ffffff';
-  ctx.font = '800 24px "Inter", "Segoe UI", sans-serif';
-  ctx.fillText(profile.university, cardX + 50, cardY + 70);
-
-  ctx.textAlign = 'right';
-  ctx.fillStyle = '#d4d4d8';
-  ctx.font = '700 20px "JetBrains Mono", monospace';
-  ctx.fillText(profile.major, cardX + cardW - 50, cardY + 70);
-
-  // Header divider line
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.moveTo(cardX + 40, cardY + 115);
-  ctx.lineTo(cardX + cardW - 40, cardY + 115);
-  ctx.stroke();
-
-  // Large Circular Portrait Frame
-  const avatarR = 250;
-  const avatarY = cardY + 395;
-
-  // Outer Glow Ring
-  ctx.save();
-  ctx.shadowColor = 'rgba(255, 255, 255, 0.35)';
-  ctx.shadowBlur = 35;
-  ctx.strokeStyle = '#ffffff';
-  ctx.lineWidth = 4;
-  ctx.beginPath();
-  ctx.arc(centerX, avatarY, avatarR + 6, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.restore();
-
-  // Inner White Ring
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.85)';
-  ctx.lineWidth = 2.5;
-  ctx.beginPath();
-  ctx.arc(centerX, avatarY, avatarR + 2, 0, Math.PI * 2);
-  ctx.stroke();
-
-  // Draw Avatar
-  ctx.save();
-  ctx.beginPath();
-  ctx.arc(centerX, avatarY, avatarR, 0, Math.PI * 2);
-  ctx.clip();
-
+  // 1. FULL USER PHOTO (Covers the entire card face)
   if (avatarImg) {
     const aW = avatarImg.naturalWidth || avatarImg.width || 460;
     const aH = avatarImg.naturalHeight || avatarImg.height || 460;
-    const cropW = aW * 0.68;
-    const cropH = aH * 0.68;
+    const cropH = aH * 0.94;
+    const cropW = cropH * (cardW / cardH);
     const cropX = (aW - cropW) / 2;
-    const cropY = aH * 0.05;
-    ctx.drawImage(avatarImg, cropX, cropY, cropW, cropH, centerX - avatarR, avatarY - avatarR, avatarR * 2, avatarR * 2);
+    const cropY = aH * 0.02;
+    ctx.drawImage(avatarImg, cropX, cropY, cropW, cropH, cardX, cardY, cardW, cardH);
   } else {
-    ctx.fillStyle = '#18181b';
-    ctx.fillRect(centerX - avatarR, avatarY - avatarR, avatarR * 2, avatarR * 2);
-    ctx.fillStyle = '#a1a1aa';
-    ctx.font = 'bold 36px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('PHOTO', centerX, avatarY);
+    // Pure Luxury OLED Obsidian Background fallback
+    const cardBg = ctx.createLinearGradient(centerX, cardY, centerX, cardY + cardH);
+    cardBg.addColorStop(0, '#18181b');
+    cardBg.addColorStop(0.4, '#09090b');
+    cardBg.addColorStop(1, '#000000');
+    ctx.fillStyle = cardBg;
+    ctx.fillRect(cardX, cardY, cardW, cardH);
   }
-  ctx.restore();
 
-  // Big, Clean, Ultra-Bold Name
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
+  // 2. TOP HEADER FROSTED GLASS BAR
+  const topBarX = cardX + 24;
+  const topBarY = cardY + 20;
+  const topBarW = cardW - 48;
+  const topBarH = 110;
 
-  ctx.fillStyle = '#ffffff';
-  ctx.font = '900 102px "Inter", "Segoe UI", sans-serif';
-  ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
-  ctx.shadowBlur = 24;
-  ctx.fillText('RIZKILLAH', centerX, cardY + 775);
-
-  ctx.fillStyle = '#e4e4e7';
-  ctx.font = '900 102px "Inter", "Segoe UI", sans-serif';
-  ctx.fillText('RAMANDA', centerX, cardY + 885);
-  ctx.shadowBlur = 0;
-
-  // Prominent Role Pill
-  const pillW = 560, pillH = 72;
-  const pillX = centerX - pillW / 2;
-  const pillY = cardY + 975;
-
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
-  ctx.lineWidth = 3;
-  drawRoundedRectPath(ctx, pillX, pillY, pillW, pillH, 36);
+  ctx.save();
+  ctx.fillStyle = 'rgba(8, 14, 28, 0.88)';
+  ctx.strokeStyle = 'rgba(56, 189, 248, 0.35)';
+  ctx.lineWidth = 2;
+  drawRoundedRectPath(ctx, topBarX, topBarY, topBarW, topBarH, 20);
   ctx.fill();
   ctx.stroke();
 
+  // Punch Hole Slot inside Top Bar
+  const slotW = 160, slotH = 22;
+  ctx.fillStyle = '#000000';
+  drawRoundedRectPath(ctx, centerX - slotW / 2, topBarY + 12, slotW, slotH, 11);
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // Top Bar Text (Left & Right)
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'middle';
   ctx.fillStyle = '#ffffff';
-  ctx.font = '800 30px "JetBrains Mono", monospace';
-  ctx.fillText(profile.title, centerX, pillY + pillH / 2);
+  ctx.font = 'bold 22px "Inter", "Segoe UI", sans-serif';
+  ctx.fillText(profile.university, topBarX + 28, topBarY + 52);
 
-  // Bottom Detail Row
-  const metaY = cardY + 1115;
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.18)';
-  ctx.fillRect(cardX + 80, metaY, cardW - 160, 2);
+  ctx.fillStyle = '#38bdf8';
+  ctx.font = '700 15px "JetBrains Mono", monospace';
+  ctx.fillText(profile.faculty, topBarX + 28, topBarY + 80);
+
+  ctx.textAlign = 'right';
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 20px "Inter", "Segoe UI", sans-serif';
+  ctx.fillText(profile.major, topBarX + topBarW - 28, topBarY + 52);
+
+  ctx.fillStyle = '#10b981';
+  ctx.font = 'bold 15px "JetBrains Mono", monospace';
+  ctx.fillText('● OFFICIAL PASS 2026', topBarX + topBarW - 28, topBarY + 80);
+  ctx.restore();
+
+  // 3. LOWER SCRIM (DEEP FROSTED OBSIDIAN GRADIENT FOR MAXIMUM CONTRAST)
+  const scrimStartY = cardY + 680;
+  const scrimH = cardH - 680;
+  const scrim = ctx.createLinearGradient(centerX, scrimStartY, centerX, cardY + cardH);
+  scrim.addColorStop(0, 'rgba(3, 7, 18, 0.0)');
+  scrim.addColorStop(0.15, 'rgba(3, 7, 18, 0.75)');
+  scrim.addColorStop(0.35, 'rgba(2, 4, 12, 0.95)');
+  scrim.addColorStop(0.60, 'rgba(1, 2, 8, 0.99)');
+  scrim.addColorStop(1, '#02040a');
+  ctx.fillStyle = scrim;
+  ctx.fillRect(cardX, scrimStartY, cardW, scrimH);
+
+  // Glowing Neon Accent Divider across the scrim threshold
+  const divY = scrimStartY + 85;
+  const divGrad = ctx.createLinearGradient(cardX, divY, cardX + cardW, divY);
+  divGrad.addColorStop(0, 'rgba(56, 189, 248, 0)');
+  divGrad.addColorStop(0.2, 'rgba(56, 189, 248, 0.55)');
+  divGrad.addColorStop(0.5, 'rgba(125, 211, 252, 0.95)');
+  divGrad.addColorStop(0.8, 'rgba(56, 189, 248, 0.55)');
+  divGrad.addColorStop(1, 'rgba(56, 189, 248, 0)');
+  ctx.strokeStyle = divGrad;
+  ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  ctx.moveTo(cardX + 40, divY);
+  ctx.lineTo(cardX + cardW - 40, divY);
+  ctx.stroke();
+
+  // 4. LARGE, CRISP, ULTRA-CONTRAST NAME
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  ctx.save();
+  ctx.shadowColor = 'rgba(0, 0, 0, 0.98)';
+  ctx.shadowBlur = 28;
+  ctx.shadowOffsetY = 6;
+
+  // Line 1: RIZKILLAH
+  ctx.fillStyle = '#ffffff';
+  ctx.font = '900 88px "Inter", "Segoe UI", sans-serif';
+  ctx.fillText('RIZKILLAH', centerX, cardY + 845);
+
+  // Line 2: RAMANDA SINYO
+  ctx.fillStyle = '#38bdf8';
+  ctx.font = '900 76px "Inter", "Segoe UI", sans-serif';
+  ctx.fillText('RAMANDA SINYO', centerX, cardY + 935);
+  ctx.restore();
+
+  // 5. ROLE & SPECIALIZATION PILL
+  const rolePillW = 680;
+  const rolePillH = 58;
+  const rolePillX = centerX - rolePillW / 2;
+  const rolePillY = cardY + 1000;
+
+  ctx.fillStyle = 'rgba(15, 23, 42, 0.88)';
+  ctx.strokeStyle = 'rgba(56, 189, 248, 0.55)';
+  ctx.lineWidth = 2;
+  drawRoundedRectPath(ctx, rolePillX, rolePillY, rolePillW, rolePillH, 29);
+  ctx.fill();
+  ctx.stroke();
+
+  ctx.fillStyle = '#f8fafc';
+  ctx.font = 'bold 24px "JetBrains Mono", monospace';
+  ctx.fillText('SOFTWARE ENGINEER // FULL-STACK & AI', centerX, rolePillY + 29);
+
+  // 6. LARGE CONTRAST CREDENTIAL / SPECIFICATION BOXES
+  const specBoxW = 415;
+  const specBoxH = 82;
+  const specGap = 20;
+  const startSpecX = centerX - (specBoxW * 2 + specGap) / 2;
+  const specY = cardY + 1085;
+
+  // Box 1: NIM / STUDENT ID (Large, High Contrast)
+  const box1X = startSpecX;
+  ctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
+  ctx.lineWidth = 2;
+  drawRoundedRectPath(ctx, box1X, specY, specBoxW, specBoxH, 16);
+  ctx.fill();
+  ctx.stroke();
+
+  ctx.textAlign = 'left';
+  ctx.fillStyle = '#94a3b8';
+  ctx.font = 'bold 14px "JetBrains Mono", monospace';
+  ctx.fillText('STUDENT ID / NIM', box1X + 24, specY + 26);
 
   ctx.fillStyle = '#ffffff';
-  ctx.font = '800 24px "JetBrains Mono", monospace';
-  ctx.fillText('● VERIFIED DEVELOPER', centerX, metaY + 60);
+  ctx.font = '900 30px "JetBrains Mono", monospace';
+  ctx.fillText(profile.idNumber, box1X + 24, specY + 55);
 
-  ctx.fillStyle = '#a1a1aa';
-  ctx.font = '700 20px "JetBrains Mono", monospace';
-  ctx.fillText(`@Diki04 • NIM: ${profile.idNumber}`, centerX, metaY + 105);
+  ctx.textAlign = 'right';
+  ctx.fillStyle = '#38bdf8';
+  ctx.font = 'bold 15px "JetBrains Mono", monospace';
+  ctx.fillText('TI • UNRI', box1X + specBoxW - 20, specY + 41);
 
-  // Bottom watermark
-  ctx.fillStyle = '#71717a';
-  ctx.font = '600 16px "JetBrains Mono", monospace';
-  ctx.fillText('PEKANBARU, RIAU • INDONESIA // 2026', centerX, cardY + cardH - 50);
+  // Box 2: CLEARANCE / STATUS (Large, High Contrast)
+  const box2X = startSpecX + specBoxW + specGap;
+  ctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
+  ctx.strokeStyle = 'rgba(16, 185, 129, 0.5)';
+  ctx.lineWidth = 2;
+  drawRoundedRectPath(ctx, box2X, specY, specBoxW, specBoxH, 16);
+  ctx.fill();
+  ctx.stroke();
 
-  // Outer border
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
-  ctx.lineWidth = 4;
+  ctx.textAlign = 'left';
+  ctx.fillStyle = '#94a3b8';
+  ctx.font = 'bold 14px "JetBrains Mono", monospace';
+  ctx.fillText('ACCESS CLEARANCE', box2X + 24, specY + 26);
+
+  ctx.fillStyle = '#10b981';
+  ctx.font = '900 25px "JetBrains Mono", monospace';
+  ctx.fillText('● VERIFIED DEV', box2X + 24, specY + 55);
+
+  ctx.textAlign = 'right';
+  ctx.fillStyle = '#a7f3d0';
+  ctx.font = 'bold 15px "JetBrains Mono", monospace';
+  ctx.fillText('LEVEL 01', box2X + specBoxW - 20, specY + 41);
+
+  // 7. MODERN HIGH-TECH VECTOR BARCODE
+  const bcY = cardY + 1195;
+  const bcW = 740;
+  const bcH = 68;
+  const bcX = centerX - bcW / 2;
+
+  ctx.fillStyle = '#ffffff';
+  const pattern = [2, 1, 3, 1, 1, 4, 2, 1, 3, 2, 1, 2, 4, 1, 2, 3, 1, 2, 1, 3, 2, 4, 1, 2, 1, 3, 1, 2, 4, 2, 1, 3, 1, 2, 1, 4, 2, 1, 3, 2, 1, 2, 3, 1, 4, 2, 1, 2, 3, 1, 1, 4];
+  let curX = bcX;
+  let pIdx = 0;
+  while (curX < bcX + bcW) {
+    const barW = pattern[pIdx % pattern.length] * 2.3;
+    const isGap = pIdx % 2 === 1;
+    if (!isGap) {
+      ctx.fillRect(curX, bcY, Math.min(barW, bcX + bcW - curX), bcH);
+    }
+    curX += barW + 1.8;
+    pIdx++;
+  }
+
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#38bdf8';
+  ctx.font = 'bold 18px "JetBrains Mono", monospace';
+  ctx.fillText(`* RR - ${profile.idNumber} - 2026 - UNRI *`, centerX, bcY + bcH + 28);
+
+  // 8. BOTTOM LOCATION & CREDENTIAL FOOTER
+  ctx.fillStyle = '#94a3b8';
+  ctx.font = 'bold 15px "JetBrains Mono", monospace';
+  ctx.fillText('PEKANBARU, RIAU • INDONESIA // CLASS OF 2026', centerX, cardY + cardH - 35);
+
+  // 9. OUTER CARD BORDER
+  ctx.strokeStyle = 'rgba(56, 189, 248, 0.45)';
+  ctx.lineWidth = 3.5;
   drawRoundedRectPath(ctx, cardX + 2, cardY + 2, cardW - 4, cardH - 4, radius - 2);
   ctx.stroke();
 
