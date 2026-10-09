@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
@@ -9,8 +9,6 @@ import { SpotlightCard } from '@/common/components/SpotlightCard';
 import { Badge } from '@/common/components/Badge';
 import { Button } from '@/common/components/Button';
 import { mockProjects } from '@/services/data/mock-projects';
-import { Project } from '@/types';
-import { ProjectModal } from '@/modules/projects/ProjectModal';
 import { ArrowUpRight, Github, ExternalLink, Eye } from 'lucide-react';
 import { getTechIcon } from '@/common/utils/techIcons';
 import { ScrollReveal } from '@/common/components/ScrollReveal';
@@ -24,7 +22,6 @@ export function FeaturedProjects() {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
   const isEn = locale === 'en';
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const featured = mockProjects.filter((p) => p.featured).slice(0, 3);
 
@@ -69,7 +66,6 @@ export function FeaturedProjects() {
                       ? 'border-transparent dark:border-transparent bg-transparent dark:bg-transparent hover:border-transparent dark:hover:border-transparent'
                       : 'hover:-translate-y-1.5 hover:shadow-xl hover:shadow-slate-300/40 dark:hover:shadow-white/5 hover:border-slate-400 dark:hover:border-white/30'
                   )}
-                  onClick={() => setSelectedProject(project)}
                 >
                   <div className="space-y-4">
                     {/* Project Image Banner */}
@@ -126,15 +122,16 @@ export function FeaturedProjects() {
                     className="flex items-center gap-2 pt-5 mt-4 border-t border-slate-200 dark:border-white/10"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <Button
-                      onClick={() => setSelectedProject(project)}
-                      variant="outline"
-                      size="sm"
-                      className="flex-1 text-xs font-bold bg-white hover:bg-slate-100 border-slate-300 text-slate-950 dark:bg-zinc-900/80 dark:border-white/10 dark:text-zinc-200 dark:hover:text-white dark:hover:bg-zinc-800 dark:hover:border-white/20 transition-colors shadow-xs"
-                    >
-                      <Eye className="w-3.5 h-3.5 mr-1.5" />
-                      <span>Detail</span>
-                    </Button>
+                    <Link href={`/projects/${project.slug}`} className="flex-1">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="w-full text-xs font-bold bg-white hover:bg-slate-100 border-slate-300 text-slate-950 dark:bg-zinc-900/80 dark:border-white/10 dark:text-zinc-200 dark:hover:text-white dark:hover:bg-zinc-800 dark:hover:border-white/20 transition-colors shadow-xs"
+                      >
+                        <Eye className="w-3.5 h-3.5 mr-1.5" />
+                        <span>Detail</span>
+                      </Button>
+                    </Link>
                     {project.demoUrl && (
                       <a
                         href={project.demoUrl}
@@ -194,12 +191,6 @@ export function FeaturedProjects() {
           </div>
         </div>
       </Container>
-
-      {/* Project Detail Modal */}
-      <ProjectModal
-        project={selectedProject}
-        onClose={() => setSelectedProject(null)}
-      />
     </ScrollReveal>
   );
 }

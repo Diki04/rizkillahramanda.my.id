@@ -18,12 +18,6 @@ export const mockProjects: Project[] = [
     demoUrl: 'https://rizkillahramanda.my.id',
     featured: true,
     createdAt: '2026-10-01',
-    views: 1240,
-    reactions: [
-      { emoji: '🌐', count: 18 },
-      { emoji: '🔥', count: 24 },
-      { emoji: '⚡', count: 15 },
-    ],
     introduction: {
       en: 'A high-performance personal developer portfolio and telemetry platform built with Next.js App Router and TypeScript. It features interactive 3D WebGL lanyard physics, monochrome aesthetics, and real-time GitHub activity aggregation persisted with Supabase PostgreSQL and bilingual next-intl localization.',
       id: 'Platform portofolio pengembang dan telemetri performa tinggi yang dibangun dengan Next.js App Router dan TypeScript. Menghadirkan simulasi fisika 3D WebGL lanyard interaktif, estetika monochrome OLED murni, serta agregasi aktivitas GitHub real-time dengan Supabase PostgreSQL dan lokalisasi bilingual next-intl.',
@@ -80,12 +74,6 @@ export const mockProjects: Project[] = [
     demoUrl: 'https://pantau-pangan-pku.vercel.app',
     featured: true,
     createdAt: '2026-04-30',
-    views: 890,
-    reactions: [
-      { emoji: '🌾', count: 14 },
-      { emoji: '📊', count: 21 },
-      { emoji: '🚀', count: 9 },
-    ],
     introduction: {
       en: 'A public commodity price monitoring platform enabling citizens to inspect real-time market inflation and food supply price fluctuations across Pekanbaru districts.',
       id: 'Platform pemantauan harga komoditas publik yang memungkinkan masyarakat memantau inflasi pasar dan fluktuasi harga pangan pokok di berbagai pasar wilayah Pekanbaru secara real-time.',
@@ -123,11 +111,6 @@ export const mockProjects: Project[] = [
     githubUrl: 'https://github.com/Diki04/Human-Action-Recognition-Deep-Learning-Based-Image-Classification-System',
     featured: true,
     createdAt: '2026-03-02',
-    views: 650,
-    reactions: [
-      { emoji: '🤖', count: 16 },
-      { emoji: '👁️', count: 28 },
-    ],
     introduction: {
       en: 'An advanced computer vision system leveraging Deep Convolutional Neural Networks (CNNs) to accurately classify human activities and video frames.',
       id: 'Sistem computer vision mutakhir yang memanfaatkan Deep Convolutional Neural Networks (CNNs) untuk mengklasifikasikan aktivitas fisik manusia dari rekaman video.',
@@ -166,11 +149,6 @@ export const mockProjects: Project[] = [
     demoUrl: 'https://membangun-aplikasi-react-dengan-red.vercel.app',
     featured: false,
     createdAt: '2026-09-20',
-    views: 520,
-    reactions: [
-      { emoji: '⚛️', count: 22 },
-      { emoji: '📦', count: 11 },
-    ],
     introduction: {
       en: 'A robust client-side React application demonstrating state management patterns, async thunks, and automated test coverage.',
       id: 'Aplikasi React client-side yang mendemonstrasikan arsitektur state management terukur, async thunks, dan cakupan automated unit testing.',
@@ -197,11 +175,6 @@ export const mockProjects: Project[] = [
     githubUrl: 'https://github.com/Diki04',
     featured: true,
     createdAt: '2026-05-15',
-    views: 740,
-    reactions: [
-      { emoji: '📱', count: 19 },
-      { emoji: '⚡', count: 12 },
-    ],
     introduction: {
       en: 'A mobile companion app integrating RFID hardware attendance scanners, real-time presence logging, and automated attendance reports.',
       id: 'Aplikasi mobile terintegrasi dengan perangkat keras pemindai absensi RFID, pencatatan kehadiran real-time, dan pelaporan absensi otomatis.',
@@ -228,11 +201,6 @@ export const mockProjects: Project[] = [
     githubUrl: 'https://github.com/Diki04/Sentiment-Analysis-of-Roblox-App-Reviews-on-Google-Play-Store',
     featured: false,
     createdAt: '2026-02-23',
-    views: 430,
-    reactions: [
-      { emoji: '🎮', count: 15 },
-      { emoji: '📊', count: 9 },
-    ],
     introduction: {
       en: 'An NLP analysis project scraping and classifying mobile gaming sentiment to extract user experience trends.',
       id: 'Proyek analisis NLP yang mengekstrak dan mengklasifikasikan sentimen review mobile gaming untuk memetakan tren kepuasan pengguna.',

@@ -38,15 +38,25 @@ CREATE TABLE IF NOT EXISTS public.guestbook_messages (
   "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- 4. Enable Row Level Security (RLS)
+-- 4. Project Views Table (Real Visitor Counter)
+CREATE TABLE IF NOT EXISTS public.project_views (
+  slug TEXT PRIMARY KEY,
+  views INTEGER NOT NULL DEFAULT 0,
+  "updatedAt" TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- 5. Enable Row Level Security (RLS)
 ALTER TABLE public.projects ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.achievements ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.guestbook_messages ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.project_views ENABLE ROW LEVEL SECURITY;
 
--- 5. Policies for Public Read Access
+-- 6. Policies for Public Read Access
 CREATE POLICY "Allow public read for projects" ON public.projects FOR SELECT USING (true);
 CREATE POLICY "Allow public read for achievements" ON public.achievements FOR SELECT USING (true);
 CREATE POLICY "Allow public read for guestbook" ON public.guestbook_messages FOR SELECT USING (true);
+CREATE POLICY "Allow public read for project_views" ON public.project_views FOR SELECT USING (true);
+CREATE POLICY "Allow public upsert for project_views" ON public.project_views FOR ALL USING (true);
 
 -- 6. Policy for Public Insert on Guestbook
 CREATE POLICY "Allow public insert for guestbook" ON public.guestbook_messages FOR INSERT WITH CHECK (true);

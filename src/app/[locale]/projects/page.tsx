@@ -6,9 +6,8 @@ import { Container } from '@/common/components/Container';
 import { ScrollReveal } from '@/common/components/ScrollReveal';
 import { ProjectsFilter } from '@/modules/projects/ProjectsFilter';
 import { ProjectCard } from '@/modules/projects/ProjectCard';
-import { ProjectModal } from '@/modules/projects/ProjectModal';
 import { mockProjects } from '@/services/data/mock-projects';
-import { Project, ProjectTypeFilter, ProjectCategoryFilter } from '@/types';
+import { ProjectTypeFilter, ProjectCategoryFilter } from '@/types';
 import { FolderGit2 } from 'lucide-react';
 
 export default function ProjectsPage() {
@@ -16,7 +15,6 @@ export default function ProjectsPage() {
   const [activeType, setActiveType] = useState<ProjectTypeFilter>('all');
   const [activeCategory, setActiveCategory] = useState<ProjectCategoryFilter>('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const filteredProjects = useMemo(() => {
     return mockProjects.filter((project) => {
@@ -65,11 +63,7 @@ export default function ProjectsPage() {
         {filteredProjects.length > 0 ? (
           <ScrollReveal className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4" delay={0.2}>
             {filteredProjects.map((project) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                onOpenModal={setSelectedProject}
-              />
+              <ProjectCard key={project.id} project={project} />
             ))}
           </ScrollReveal>
         ) : (
@@ -80,12 +74,6 @@ export default function ProjectsPage() {
           </ScrollReveal>
         )}
       </Container>
-
-      {/* Detail Modal */}
-      <ProjectModal
-        project={selectedProject}
-        onClose={() => setSelectedProject(null)}
-      />
     </div>
   );
 }

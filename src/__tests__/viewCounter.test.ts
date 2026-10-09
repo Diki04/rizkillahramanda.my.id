@@ -1,24 +1,24 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import {
-  getViewCount,
-  incrementViewCount,
+  fetchProjectViews,
+  recordRealProjectView,
 } from '@/common/hooks/useProjectViews';
 
-describe('useProjectViews utility', () => {
-  let store: Record<string, string> = {};
+describe('Real Project Views Utility', () => {
+  let sessionStore: Record<string, string> = {};
 
   beforeEach(() => {
-    store = {};
-    const mockLocalStorage = {
-      getItem: (key: string) => store[key] || null,
+    sessionStore = {};
+    const mockSessionStorage = {
+      getItem: (key: string) => sessionStore[key] || null,
       setItem: (key: string, val: string) => {
-        store[key] = val;
+        sessionStore[key] = val;
       },
       clear: () => {
-        store = {};
+        sessionStore = {};
       },
       removeItem: (key: string) => {
-        delete store[key];
+        delete sessionStore[key];
       },
     };
 
@@ -28,37 +28,53 @@ describe('useProjectViews utility', () => {
       removeEventListener: vi.fn(),
     };
 
-    vi.stubGlobal('localStorage', mockLocalStorage);
+    vi.stubGlobal('sessionStorage', mockSessionStorage);
     vi.stubGlobal('window', mockWindow);
-    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ json: () => Promise.resolve({}) }));
   });
 
   afterEach(() => {
     vi.unstubAllGlobals();
   });
 
-  it('returns fallback view count when no stored view exists', () => {
-    const views = getViewCount('test-proj-1', 42);
-    expect(views).toBe(42);
+  it('fetches real project view count from api', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({ success: true, slug: 'proj-demo', views: 5 }),
+      })
+    );
+
+    const count = await fetchProjectViews('proj-demo');
+    expect(count).toBe(5);
   });
 
-  it('increments view count in localStorage and returns updated number', () => {
-    const updated = incrementViewCount('test-proj-1', 10);
-    expect(updated).toBe(11);
+  it('records real project view once per session and returns updated count', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({ success: true, slug: 'proj-new', views: 1 }),
+      })
+    );
 
-    const stored = getViewCount('test-proj-1', 0);
-    expect(stored).toBe(11);
-  });
-
-  it('dispatches custom event on increment', () => {
-    incrementViewCount('test-proj-2', 50);
+    const count = await recordRealProjectView('proj-new');
+    expect(count).toBe(1);
+    expect(sessionStore['viewed_project_proj-new']).toBe('1');
     expect(window.dispatchEvent).toHaveBeenCalled();
   });
 
-  it('preserves higher value when multiple increments occur', () => {
-    incrementViewCount('test-proj-3', 100);
-    const second = incrementViewCount('test-proj-3', 100);
-    expect(second).toBe(102);
-    expect(getViewCount('test-proj-3', 0)).toBe(102);
+  it('does not re-post view if already viewed in the same session', async () => {
+    sessionStore['viewed_project_already-viewed'] = '1';
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve({ success: true, slug: 'already-viewed', views: 10 }),
+    });
+    vi.stubGlobal('fetch', fetchMock);
+
+    const count = await recordRealProjectView('already-viewed');
+    expect(count).toBe(10);
+    // Should have called GET fetchProjectViews, not POST /api/projects/views
+    expect(fetchMock).toHaveBeenCalledWith('/api/projects/views?slug=already-viewed');
   });
 });

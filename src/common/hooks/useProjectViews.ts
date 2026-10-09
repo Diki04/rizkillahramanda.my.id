@@ -1,97 +1,120 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 
-const STORAGE_KEY = 'portfolio_project_views_map';
-const VIEW_UPDATE_EVENT = 'portfolio_view_updated';
+const VIEW_UPDATE_EVENT = 'portfolio_real_view_updated';
+
+// Cache for views across components in the current page session
+const memoryViewsCache: Record<string, number> = {};
 
 /**
- * Reads the latest recorded views for a project from localStorage.
+ * Fetch all views or a single project's real views from the server API.
  */
-export function getViewCount(projectId: string, fallback = 0): number {
-  if (typeof window === 'undefined') return fallback;
+export async function fetchProjectViews(slug?: string): Promise<number | Record<string, number>> {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return fallback;
-    const map = JSON.parse(raw);
-    if (typeof map[projectId] === 'number') {
-      return Math.max(map[projectId], fallback);
+    const url = slug ? `/api/projects/views?slug=${encodeURIComponent(slug)}` : '/api/projects/views';
+    const res = await fetch(url);
+    if (!res.ok) return slug ? (memoryViewsCache[slug] || 0) : memoryViewsCache;
+    const json = await res.json();
+    if (slug) {
+      const count = json.views ?? 0;
+      memoryViewsCache[slug] = count;
+      return count;
     }
+    const map = json.views ?? {};
+    Object.assign(memoryViewsCache, map);
+    return map;
   } catch {
-    // fallback
+    return slug ? (memoryViewsCache[slug] || 0) : memoryViewsCache;
   }
-  return fallback;
 }
 
 /**
- * Increments view count for a project in localStorage and broadcasts to all subscribers.
+ * Record a real view for a project (counts once per session per project to prevent spamming).
  */
-export function incrementViewCount(projectId: string, fallback = 0): number {
-  if (typeof window === 'undefined') return fallback;
+export async function recordRealProjectView(slug: string): Promise<number> {
+  if (typeof window === 'undefined') return memoryViewsCache[slug] || 0;
+
+  const sessionKey = `viewed_project_${slug}`;
+  const alreadyViewed = sessionStorage.getItem(sessionKey);
+
+  // If already counted in this session, just return the current cached/fetched count
+  if (alreadyViewed) {
+    const current = (await fetchProjectViews(slug)) as number;
+    return current;
+  }
+
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    const map: Record<string, number> = raw ? JSON.parse(raw) : {};
-    const current = typeof map[projectId] === 'number' ? Math.max(map[projectId], fallback) : fallback;
-    const updated = current + 1;
-    map[projectId] = updated;
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(map));
-
-    // Broadcast update across the client session
-    window.dispatchEvent(
-      new CustomEvent(VIEW_UPDATE_EVENT, {
-        detail: { projectId, views: updated },
-      })
-    );
-
-    // Non-blocking best-effort sync with API
-    fetch('/api/projects/views', {
+    sessionStorage.setItem(sessionKey, '1');
+    const res = await fetch('/api/projects/views', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ projectId, views: updated }),
-    }).catch(() => {
-      // ignore
+      body: JSON.stringify({ slug }),
     });
 
-    return updated;
-  } catch {
-    return fallback + 1;
+    if (res.ok) {
+      const json = await res.json();
+      const newCount = json.views ?? (memoryViewsCache[slug] || 0) + 1;
+      memoryViewsCache[slug] = newCount;
+
+      window.dispatchEvent(
+        new CustomEvent(VIEW_UPDATE_EVENT, {
+          detail: { slug, views: newCount },
+        })
+      );
+      return newCount;
+    }
+  } catch (error) {
+    console.error('Failed to record real view:', error);
   }
+
+  return memoryViewsCache[slug] || 0;
 }
 
 /**
- * React hook to subscribe to realtime view count changes for a given project.
+ * React Hook to subscribe to real project views.
+ * If autoRecord is true (used on project detail page), it records a view upon mounting.
  */
-export function useProjectViews(projectId?: string, initialViews = 0) {
-  const [views, setViews] = useState<number>(() => {
-    if (!projectId) return initialViews;
-    return getViewCount(projectId, initialViews);
-  });
+export function useProjectViews(slug?: string, autoRecord = false) {
+  const [views, setViews] = useState<number>(() => (slug ? memoryViewsCache[slug] || 0 : 0));
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!projectId) return;
+    if (!slug) return;
 
-    // Sync on mount with localStorage
-    const saved = getViewCount(projectId, initialViews);
-    setViews(saved);
+    let isMounted = true;
 
+    // 1. Fetch current real count
+    fetchProjectViews(slug).then((count) => {
+      if (isMounted) {
+        setViews(count as number);
+        setLoading(false);
+      }
+    });
+
+    // 2. If autoRecord is enabled, record this visit
+    if (autoRecord) {
+      recordRealProjectView(slug).then((updatedCount) => {
+        if (isMounted && typeof updatedCount === 'number') {
+          setViews(updatedCount);
+        }
+      });
+    }
+
+    // 3. Listen to real-time events when view count updates
     const handleUpdate = (e: Event) => {
-      const customEvent = e as CustomEvent<{ projectId: string; views: number }>;
-      if (customEvent.detail?.projectId === projectId) {
+      const customEvent = e as CustomEvent<{ slug: string; views: number }>;
+      if (customEvent.detail?.slug === slug && isMounted) {
         setViews(customEvent.detail.views);
       }
     };
 
     window.addEventListener(VIEW_UPDATE_EVENT, handleUpdate);
     return () => {
+      isMounted = false;
       window.removeEventListener(VIEW_UPDATE_EVENT, handleUpdate);
     };
-  }, [projectId, initialViews]);
+  }, [slug, autoRecord]);
 
-  const increment = useCallback(() => {
-    if (!projectId) return;
-    const next = incrementViewCount(projectId, views);
-    setViews(next);
-  }, [projectId, views]);
-
-  return { views, increment };
+  return { views, loading };
 }
