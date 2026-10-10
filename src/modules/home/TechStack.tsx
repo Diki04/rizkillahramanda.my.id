@@ -271,7 +271,10 @@ export function TechStack() {
   });
 
   return (
-    <ScrollReveal id="tech-stack" className="py-20 border-y border-slate-200 dark:border-white/[0.08] bg-slate-50/50 dark:bg-zinc-950/40 relative">
+    <ScrollReveal
+      id="tech-stack"
+      className="min-h-[calc(100vh-5rem)] flex flex-col justify-center py-16 md:py-20 border-y border-slate-200 dark:border-white/[0.08] bg-slate-50/50 dark:bg-zinc-950/40 relative"
+    >
       <Container size="xl">
         <div className="flex flex-col gap-8">
           {/* Section Header */}

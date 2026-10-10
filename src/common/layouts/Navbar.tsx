@@ -32,7 +32,7 @@ export function Navbar() {
 
   return (
     <header className="sticky top-3 sm:top-4 z-50 w-full px-3 sm:px-6 pointer-events-none transition-all duration-300">
-      <div className="mx-auto max-w-6xl rounded-2xl border border-slate-300 dark:border-white/10 bg-white/95 dark:bg-black/75 backdrop-blur-xl shadow-lg shadow-slate-900/5 dark:shadow-black/50 pointer-events-auto transition-colors duration-300">
+      <div className="mx-auto max-w-6xl 2xl:max-w-7xl rounded-2xl border border-slate-300 dark:border-white/10 bg-white/95 dark:bg-black/75 backdrop-blur-xl shadow-lg shadow-slate-900/5 dark:shadow-black/50 pointer-events-auto transition-colors duration-300">
         <div className="px-3.5 sm:px-6 flex h-14 sm:h-16 items-center justify-between">
           {/* Logo Brand */}
           <Link

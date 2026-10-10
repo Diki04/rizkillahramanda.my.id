@@ -3,6 +3,9 @@ import { mockProjects } from '@/services/data/mock-projects';
 import { mockAchievements } from '@/services/data/mock-achievements';
 import { Project, Achievement, ChatMessage } from '@/types';
 
+// In-memory messages store when database is offline or not configured (defaults to 100% empty)
+const localMessages: ChatMessage[] = [];
+
 export const dataProvider = {
   // Projects
   async getProjects(): Promise<Project[]> {
@@ -118,25 +121,10 @@ export const dataProvider = {
     }
   },
 
-  // Guestbook Messages
+  // Guestbook Messages (100% authentic data, zero mock seeds)
   async getMessages(): Promise<ChatMessage[]> {
-    const fallbackMessages: ChatMessage[] = [
-      {
-        id: 'msg-1',
-        name: 'Satria Bahari',
-        message: 'Keren banget portofolionya! Keep inspiring bro!',
-        createdAt: '2026-10-06T10:30:00Z',
-      },
-      {
-        id: 'msg-2',
-        name: 'Teman UNRI',
-        message: 'Semangat terus kuliah Teknik Informatikanya!',
-        createdAt: '2026-10-05T14:20:00Z',
-      },
-    ];
-
     if (!isSupabaseConfigured || !supabase) {
-      return fallbackMessages;
+      return [...localMessages];
     }
 
     try {
@@ -146,13 +134,13 @@ export const dataProvider = {
         .order('createdAt', { ascending: false })
         .limit(50);
 
-      if (error || !data || data.length === 0) {
-        return fallbackMessages;
+      if (error || !data) {
+        return [];
       }
 
       return data as ChatMessage[];
     } catch {
-      return fallbackMessages;
+      return [];
     }
   },
 
@@ -165,6 +153,7 @@ export const dataProvider = {
     };
 
     if (!isSupabaseConfigured || !supabase) {
+      localMessages.unshift(newMsg);
       return { success: true, data: newMsg };
     }
 
@@ -184,6 +173,10 @@ export const dataProvider = {
 
   async deleteMessage(id: string): Promise<{ success: boolean; error?: string }> {
     if (!isSupabaseConfigured || !supabase) {
+      const idx = localMessages.findIndex((m) => m.id === id);
+      if (idx !== -1) {
+        localMessages.splice(idx, 1);
+      }
       return { success: true };
     }
 

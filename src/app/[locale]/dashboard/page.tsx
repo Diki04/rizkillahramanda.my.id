@@ -31,7 +31,7 @@ export default function DashboardPage() {
   const tNav = useTranslations('nav');
 
   return (
-    <Container className="py-16">
+    <Container size="xl" className="min-h-[calc(100vh-5rem)] py-12 md:py-16">
       <Breadcrumb items={[{ label: tNav('dashboard') }]} />
       <ScrollReveal className="mb-12">
         <span className="font-mono text-xs uppercase tracking-wider text-slate-900 dark:text-zinc-400 font-semibold">

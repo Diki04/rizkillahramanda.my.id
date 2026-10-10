@@ -13,4 +13,29 @@ describe('dataProvider hybrid resilient fallback', () => {
     expect(Array.isArray(achievements)).toBe(true);
     expect(achievements.length).toBeGreaterThan(0);
   });
+
+  it('should return empty guestbook array without mock data initially', async () => {
+    const messages = await dataProvider.getMessages();
+    expect(Array.isArray(messages)).toBe(true);
+    expect(messages.length).toBe(0);
+  });
+
+  it('should post and retrieve authentic message dynamically without mock data', async () => {
+    const postRes = await dataProvider.postMessage({
+      name: 'Authentic User',
+      message: 'Genuine test feedback',
+    });
+    expect(postRes.success).toBe(true);
+    expect(postRes.data?.name).toBe('Authentic User');
+
+    const updated = await dataProvider.getMessages();
+    expect(updated.length).toBe(1);
+    expect(updated[0].name).toBe('Authentic User');
+
+    if (postRes.data?.id) {
+      await dataProvider.deleteMessage(postRes.data.id);
+    }
+    const cleared = await dataProvider.getMessages();
+    expect(cleared.length).toBe(0);
+  });
 });

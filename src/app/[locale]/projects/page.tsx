@@ -33,7 +33,7 @@ export default function ProjectsPage() {
   }, [activeType, activeCategory, searchQuery]);
 
   return (
-    <div className="py-16 md:py-20 space-y-12">
+    <div className="min-h-[calc(100vh-5rem)] flex flex-col justify-start py-12 md:py-16 space-y-12">
       <Container size="xl">
         {/* Header */}
         <ScrollReveal className="space-y-3 max-w-2xl">

@@ -68,7 +68,7 @@ export function AchievementDetailModal({
         <motion.div
           layoutId={`card-${achievement.id}`}
           onClick={(e) => e.stopPropagation()}
-          className="relative z-[10000] flex max-w-5xl w-full flex-col md:flex-row overflow-hidden rounded-2xl md:rounded-3xl bg-white dark:bg-zinc-950 border border-slate-200 dark:border-white/10 shadow-2xl max-h-[92vh] overflow-y-auto"
+          className="relative z-[10000] flex max-w-5xl 2xl:max-w-6xl w-full flex-col md:flex-row overflow-hidden rounded-2xl md:rounded-3xl bg-white dark:bg-zinc-950 border border-slate-200 dark:border-white/10 shadow-2xl max-h-[92vh] overflow-y-auto"
         >
           {/* Close Button */}
           <button

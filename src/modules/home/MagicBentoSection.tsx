@@ -34,7 +34,7 @@ export function MagicBentoSection({
       id,
       'aria-label': title,
       className: cn(
-        'relative py-16 sm:py-20 lg:py-24 border-t border-slate-300 dark:border-white/[0.08] bg-slate-100/60 dark:bg-black text-slate-950 dark:text-white overflow-hidden',
+        'relative min-h-[calc(100vh-5rem)] flex flex-col justify-center py-16 sm:py-20 lg:py-24 border-t border-slate-300 dark:border-white/[0.08] bg-slate-100/60 dark:bg-black text-slate-950 dark:text-white overflow-hidden',
         className
       ),
     },
@@ -46,7 +46,7 @@ export function MagicBentoSection({
     React.createElement(
       'div',
       {
-        className: 'w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col gap-8 sm:gap-10',
+        className: 'w-full max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12 relative z-10 flex flex-col gap-8 sm:gap-10',
       },
       React.createElement(
         'div',

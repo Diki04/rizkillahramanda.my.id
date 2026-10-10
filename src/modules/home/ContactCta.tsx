@@ -17,7 +17,7 @@ export function ContactCta() {
   return (
     <ScrollReveal
       id="contact-cta"
-      className="py-20 border-t border-slate-200 dark:border-white/[0.08] min-h-[50vh] flex flex-col justify-center relative overflow-hidden"
+      className="py-16 md:py-24 border-t border-slate-200 dark:border-white/[0.08] min-h-[calc(100vh-5rem)] flex flex-col justify-center relative overflow-hidden"
     >
       <Container size="xl">
         <div className="relative rounded-3xl border border-slate-300 dark:border-white/[0.1] bg-white/95 dark:bg-gradient-to-b dark:from-zinc-900/60 dark:to-zinc-950/80 backdrop-blur-xl p-6 sm:p-12 md:p-14 text-center overflow-hidden shadow-lg shadow-slate-900/5 dark:shadow-none">

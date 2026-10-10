@@ -16,7 +16,7 @@ export default function AboutPage() {
   const tNav = useTranslations('nav');
 
   return (
-    <Container className="py-16">
+    <Container size="xl" className="min-h-[calc(100vh-5rem)] py-12 md:py-16">
       <Breadcrumb items={[{ label: tNav('about') }]} />
       
       <ScrollReveal className="mb-16">
