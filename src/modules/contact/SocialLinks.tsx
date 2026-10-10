@@ -1,13 +1,15 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { SpotlightCard } from '@/common/components/SpotlightCard';
-import { Mail, Github, Linkedin, MapPin, Copy, Check, ExternalLink } from 'lucide-react';
+import { Mail, Github, Linkedin, MapPin, Copy, Check, ArrowUpRight } from 'lucide-react';
 import { mockProfile } from '@/services/data/mock-profile';
 
 export function SocialLinks() {
   const t = useTranslations('contact');
+  const locale = useLocale();
+  const isEn = locale === 'en';
   const [copied, setCopied] = useState(false);
 
   const copyEmail = () => {
@@ -35,13 +37,13 @@ export function SocialLinks() {
               </a>
               <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 flex items-center gap-1 mt-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                Siap menerima penawaran proyek &amp; kolaborasi
+                {isEn ? 'Available for projects & collaboration' : 'Siap menerima penawaran proyek & kolaborasi'}
               </span>
             </div>
           </div>
           <button
             onClick={copyEmail}
-            title="Salin email ke clipboard"
+            title={isEn ? 'Copy email' : 'Salin email'}
             className="p-2.5 rounded-xl bg-slate-100 dark:bg-black border border-slate-200 dark:border-white/[0.08] hover:border-slate-400 dark:hover:border-white/30 text-slate-600 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-white transition-all shadow-xs"
           >
             {copied ? (
@@ -63,33 +65,54 @@ export function SocialLinks() {
             <p className="text-xs font-mono text-slate-500 dark:text-zinc-400 font-medium">{t('locationLabel')}</p>
             <p className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">{mockProfile.location}</p>
             <p className="text-xs font-mono text-slate-600 dark:text-zinc-400">
-              Waktu Lokal: WIB (UTC+7) • Terbuka untuk Remote, On-site, &amp; Hybrid
+              {isEn
+                ? 'Local Time: WIB (UTC+7) • Available for Remote, On-site & Hybrid'
+                : 'Waktu Lokal: WIB (UTC+7) • Terbuka untuk Remote, On-site, & Hybrid'}
             </p>
           </div>
         </div>
       </SpotlightCard>
 
-      {/* Social Links Cards (Tight, crisp, zero excessive whitespace) */}
+      {/* Social Links Cards (High-polish, symmetric bento-style cards) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <a
           href={mockProfile.github}
           target="_blank"
           rel="noopener noreferrer"
-          className="group block"
+          className="group block h-full"
         >
-          <SpotlightCard className="p-4 sm:p-5 hover:border-slate-400 dark:hover:border-white/30 transition-all space-y-2">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Github className="w-4 h-4 text-slate-900 dark:text-white" />
-                <span className="text-xs font-mono font-bold text-slate-900 dark:text-white group-hover:text-black dark:group-hover:text-white">GitHub</span>
+          <SpotlightCard className="p-4 sm:p-5 h-full hover:border-slate-400 dark:hover:border-white/30 transition-all duration-300">
+            <div className="flex flex-col justify-between h-full space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="p-2.5 rounded-xl bg-slate-100 dark:bg-black border border-slate-200 dark:border-white/[0.08] text-slate-900 dark:text-white shadow-xs group-hover:scale-105 group-hover:border-slate-400 dark:group-hover:border-white/20 transition-all">
+                  <Github className="w-5 h-5" />
+                </div>
+                <div className="p-1.5 rounded-lg text-slate-400 dark:text-zinc-500 group-hover:text-slate-900 dark:group-hover:text-white group-hover:bg-slate-100 dark:group-hover:bg-white/[0.06] transition-all">
+                  <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </div>
               </div>
-              <ExternalLink className="w-3.5 h-3.5 text-slate-400 dark:text-zinc-500 group-hover:text-slate-900 dark:group-hover:text-white transition-colors" />
-            </div>
-            <p className="text-xs font-mono text-slate-600 dark:text-zinc-400 leading-snug">
-              Jelajahi open-source &amp; repositori publik
-            </p>
-            <div className="pt-1">
-              <span className="text-[11px] font-mono font-medium text-slate-500 dark:text-zinc-400">@Diki04</span>
+
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-bold font-mono text-slate-900 dark:text-white group-hover:underline">
+                    GitHub
+                  </span>
+                  <span className="text-[11px] font-mono px-2 py-0.5 rounded-md bg-slate-100 dark:bg-white/[0.06] border border-slate-200 dark:border-white/10 text-slate-600 dark:text-zinc-400 font-medium">
+                    @Diki04
+                  </span>
+                </div>
+                <p className="text-xs font-mono text-slate-500 dark:text-zinc-400 leading-snug">
+                  {isEn ? 'Open-source repositories' : 'Repositori & open-source'}
+                </p>
+              </div>
+
+              <div className="pt-2.5 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-zinc-400">
+                <span>{isEn ? '49+ Repos' : '49+ Repositori'}</span>
+                <span className="text-emerald-600 dark:text-emerald-400 flex items-center gap-1 font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                  {isEn ? 'Active' : 'Aktif'}
+                </span>
+              </div>
             </div>
           </SpotlightCard>
         </a>
@@ -98,21 +121,40 @@ export function SocialLinks() {
           href={mockProfile.linkedin}
           target="_blank"
           rel="noopener noreferrer"
-          className="group block"
+          className="group block h-full"
         >
-          <SpotlightCard className="p-4 sm:p-5 hover:border-slate-400 dark:hover:border-white/30 transition-all space-y-2">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Linkedin className="w-4 h-4 text-slate-900 dark:text-white" />
-                <span className="text-xs font-mono font-bold text-slate-900 dark:text-white group-hover:text-black dark:group-hover:text-white">LinkedIn</span>
+          <SpotlightCard className="p-4 sm:p-5 h-full hover:border-slate-400 dark:hover:border-white/30 transition-all duration-300">
+            <div className="flex flex-col justify-between h-full space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="p-2.5 rounded-xl bg-slate-100 dark:bg-black border border-slate-200 dark:border-white/[0.08] text-slate-900 dark:text-white shadow-xs group-hover:scale-105 group-hover:border-slate-400 dark:group-hover:border-white/20 transition-all">
+                  <Linkedin className="w-5 h-5" />
+                </div>
+                <div className="p-1.5 rounded-lg text-slate-400 dark:text-zinc-500 group-hover:text-slate-900 dark:group-hover:text-white group-hover:bg-slate-100 dark:group-hover:bg-white/[0.06] transition-all">
+                  <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </div>
               </div>
-              <ExternalLink className="w-3.5 h-3.5 text-slate-400 dark:text-zinc-500 group-hover:text-slate-900 dark:group-hover:text-white transition-colors" />
-            </div>
-            <p className="text-xs font-mono text-slate-600 dark:text-zinc-400 leading-snug">
-              Terhubung secara profesional
-            </p>
-            <div className="pt-1">
-              <span className="text-[11px] font-mono font-medium text-slate-500 dark:text-zinc-400">in/rizkillah-ramanda-sinyo</span>
+
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-bold font-mono text-slate-900 dark:text-white group-hover:underline">
+                    LinkedIn
+                  </span>
+                  <span className="text-[11px] font-mono px-2 py-0.5 rounded-md bg-slate-100 dark:bg-white/[0.06] border border-slate-200 dark:border-white/10 text-slate-600 dark:text-zinc-400 font-medium truncate max-w-[120px]">
+                    in/rizkillah
+                  </span>
+                </div>
+                <p className="text-xs font-mono text-slate-500 dark:text-zinc-400 leading-snug">
+                  {isEn ? 'Professional network' : 'Jejaring & karir profesional'}
+                </p>
+              </div>
+
+              <div className="pt-2.5 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-zinc-400">
+                <span>{isEn ? 'Network' : 'Koneksi'}</span>
+                <span className="text-emerald-600 dark:text-emerald-400 flex items-center gap-1 font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                  {isEn ? 'Connected' : 'Terhubung'}
+                </span>
+              </div>
             </div>
           </SpotlightCard>
         </a>
