@@ -29,7 +29,7 @@ import { isSupabaseConfigured } from '@/services/supabase/client';
 
 type AdminTab = 'overview' | 'projects' | 'achievements' | 'messages' | 'settings';
 
-export default function AdminPage() {
+export default function DikillahAdminPage() {
   const t = useTranslations('admin');
   const locale = useLocale();
   const isEn = locale === 'en';

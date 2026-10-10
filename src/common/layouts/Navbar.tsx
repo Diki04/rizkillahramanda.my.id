@@ -6,7 +6,7 @@ import { Link, usePathname } from '@/i18n/routing';
 import { ThemeToggle } from '@/common/components/ThemeToggle';
 import { LocaleSwitcher } from '@/common/components/LocaleSwitcher';
 import { LayoutToggle } from '@/common/components/LayoutToggle';
-import { Menu, X, Github, Shield } from 'lucide-react';
+import { Menu, X, Github } from 'lucide-react';
 import { cn } from '@/common/utils/cn';
 
 export function Navbar() {
@@ -73,18 +73,6 @@ export function Navbar() {
             <LayoutToggle />
             <LocaleSwitcher />
             <ThemeToggle />
-            <Link
-              href="/admin"
-              title="Admin Portal"
-              className={cn(
-                'p-2 rounded-lg border transition-all duration-200 shadow-xs',
-                pathname.startsWith('/admin')
-                  ? 'border-slate-400 dark:border-white/30 text-black dark:text-white bg-slate-100 dark:bg-white/15'
-                  : 'border-slate-300 dark:border-white/10 bg-white dark:bg-white/5 text-slate-900 dark:text-zinc-300 hover:text-black dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 hover:border-slate-400 dark:hover:border-white/20'
-              )}
-            >
-              <Shield className="w-4 h-4" />
-            </Link>
             <a
               href="https://github.com/Diki04"
               target="_blank"
@@ -134,15 +122,7 @@ export function Navbar() {
                 </Link>
               );
             })}
-            <div className="pt-2 border-t border-slate-300 dark:border-white/10 flex items-center justify-between">
-              <Link
-                href="/admin"
-                onClick={() => setMobileMenuOpen(false)}
-                className="inline-flex items-center gap-2 text-xs font-mono text-slate-950 dark:text-zinc-400 hover:text-black dark:hover:text-white py-1 transition-colors font-bold"
-              >
-                <Shield className="w-3.5 h-3.5 text-slate-950 dark:text-zinc-400" />
-                <span>Admin Portal</span>
-              </Link>
+            <div className="pt-2 border-t border-slate-300 dark:border-white/10 flex items-center justify-end">
               <a
                 href="https://github.com/Diki04"
                 target="_blank"

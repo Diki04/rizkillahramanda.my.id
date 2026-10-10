@@ -13,7 +13,6 @@ import {
   MessageSquare,
   Mail,
   Link2,
-  Shield,
   BadgeCheck,
   Github,
   Linkedin,
@@ -44,7 +43,6 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
     { href: '/links', label: t('links'), icon: Link2 },
     { href: '/chat', label: t('chat'), icon: MessageSquare },
     { href: '/contact', label: t('contact'), icon: Mail },
-    { href: '/admin', label: 'Admin', icon: Shield },
   ];
 
   const isActive = (path: string) => {

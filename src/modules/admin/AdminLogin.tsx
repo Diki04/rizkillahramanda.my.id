@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { SpotlightCard } from '@/common/components/SpotlightCard';
 import { Button } from '@/common/components/Button';
-import { Shield, KeyRound, AlertCircle } from 'lucide-react';
+import { Shield, KeyRound, AlertCircle, Eye, EyeOff, Lock } from 'lucide-react';
 
 interface AdminLoginProps {
   onSuccess: () => void;
@@ -13,6 +13,7 @@ interface AdminLoginProps {
 export function AdminLogin({ onSuccess }: AdminLoginProps) {
   const t = useTranslations('admin');
   const [passcode, setPasscode] = useState('');
+  const [showPasscode, setShowPasscode] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -50,19 +51,19 @@ export function AdminLogin({ onSuccess }: AdminLoginProps) {
     <div className="max-w-md mx-auto pt-10">
       <SpotlightCard className="p-8 space-y-6">
         <div className="text-center space-y-2">
-          <div className="inline-flex p-3 rounded-2xl bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-white/20 text-slate-900 dark:text-white mb-2">
-            <Shield className="w-6 h-6" />
+          <div className="inline-flex p-3 rounded-2xl bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-white/20 text-slate-900 dark:text-white mb-2 shadow-xs">
+            <Lock className="w-6 h-6" />
           </div>
           <h2 className="text-xl font-bold text-slate-900 dark:text-white">{t('title')}</h2>
           <p className="text-xs font-mono text-slate-600 dark:text-slate-400">
-            Hanya dapat diakses oleh pemilik portofolio (Rizkillah Ramanda).
+            Akses portal aman khusus pengelola portofolio.
           </p>
         </div>
 
         {error && (
-          <div className="flex items-center gap-2 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 dark:text-red-400 text-xs font-mono">
-            <AlertCircle className="w-4 h-4 shrink-0" />
-            <span>{error}</span>
+          <div className="flex items-start gap-2.5 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400 text-xs font-mono">
+            <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+            <span className="leading-relaxed">{error}</span>
           </div>
         )}
 
@@ -74,13 +75,25 @@ export function AdminLogin({ onSuccess }: AdminLoginProps) {
             <div className="relative">
               <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" />
               <input
-                type="password"
+                type={showPasscode ? 'text' : 'password'}
                 required
                 value={passcode}
-                onChange={(e) => setPasscode(e.target.value)}
+                onChange={(e) => {
+                  setPasscode(e.target.value);
+                  if (error) setError(null);
+                }}
                 placeholder="Masukkan passcode admin..."
-                className="w-full pl-9 pr-3.5 py-2.5 rounded-xl bg-white dark:bg-zinc-900 border border-slate-300 dark:border-white/[0.1] text-sm font-mono text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-slate-800 dark:focus:border-white/50 focus:ring-1 focus:ring-slate-400/20 dark:focus:ring-white/50 transition-all"
+                autoComplete="current-password"
+                className="w-full pl-9 pr-10 py-2.5 rounded-xl bg-white dark:bg-zinc-900 border border-slate-300 dark:border-white/[0.1] text-sm font-mono text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-slate-800 dark:focus:border-white/50 focus:ring-1 focus:ring-slate-400/20 dark:focus:ring-white/50 transition-all"
               />
+              <button
+                type="button"
+                onClick={() => setShowPasscode(!showPasscode)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:text-zinc-500 dark:hover:text-zinc-300 transition-colors"
+                aria-label={showPasscode ? 'Sembunyikan passcode' : 'Tampilkan passcode'}
+              >
+                {showPasscode ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
             </div>
           </div>
 

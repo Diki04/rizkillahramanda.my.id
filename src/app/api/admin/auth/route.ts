@@ -5,6 +5,10 @@ import {
   getExpectedSessionToken,
   verifyRequestAuth,
   SESSION_COOKIE_NAME,
+  getClientIp,
+  checkRateLimit,
+  recordFailedAttempt,
+  resetRateLimit,
 } from '@/services/auth/adminAuth';
 
 export async function GET(request: Request) {
@@ -14,24 +18,63 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
+    const ip = getClientIp(request);
+    const rateLimit = checkRateLimit(ip);
+
+    if (!rateLimit.allowed) {
+      const minutes = Math.ceil((rateLimit.retryAfterSeconds || 900) / 60);
+      return NextResponse.json(
+        {
+          success: false,
+          error: `Terlalu banyak percobaan gagal. Akses diblokir selama ${minutes} menit untuk alasan keamanan.`,
+        },
+        {
+          status: 429,
+          headers: {
+            'Retry-After': String(rateLimit.retryAfterSeconds || 900),
+          },
+        }
+      );
+    }
+
     const body = await request.json();
     const { passcode } = body;
 
+    // Artificial delay to thwart automated high-speed brute force attacks
+    await new Promise((resolve) => setTimeout(resolve, 600));
+
     if (!passcode || !isValidPasscode(passcode)) {
+      const failure = recordFailedAttempt(ip);
+      if (failure.blocked) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: 'Batas percobaan terlampaui. Akses Anda sementara diblokir selama 15 menit.',
+          },
+          { status: 429 }
+        );
+      }
+
       return NextResponse.json(
-        { success: false, error: 'Kunci rahasia admin salah.' },
+        {
+          success: false,
+          error: `Kunci rahasia admin salah. Sisa percobaan: ${failure.remainingAttempts}`,
+        },
         { status: 401 }
       );
     }
+
+    // Reset rate limiter on successful authentication
+    resetRateLimit(ip);
 
     const sessionToken = getExpectedSessionToken();
     const cookieStore = cookies();
     cookieStore.set(SESSION_COOKIE_NAME, sessionToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
+      sameSite: 'strict',
       path: '/',
-      maxAge: 60 * 60 * 24 * 7, // 7 days
+      maxAge: 60 * 60 * 12, // 12 hours session lifetime
     });
 
     return NextResponse.json({ success: true, message: 'Autentikasi berhasil.' });
@@ -48,7 +91,7 @@ export async function DELETE() {
   cookieStore.set(SESSION_COOKIE_NAME, '', {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
+    sameSite: 'strict',
     path: '/',
     maxAge: 0,
   });

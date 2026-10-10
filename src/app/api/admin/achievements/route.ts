@@ -2,8 +2,14 @@ import { NextResponse } from 'next/server';
 import { dataProvider } from '@/services/supabase/dataProvider';
 import { verifyRequestAuth, isValidPasscode } from '@/services/auth/adminAuth';
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    if (!verifyRequestAuth(request)) {
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized: Sesi admin tidak valid.' },
+        { status: 401 }
+      );
+    }
     const achievements = await dataProvider.getAchievements();
     return NextResponse.json({ success: true, data: achievements });
   } catch (error: any) {

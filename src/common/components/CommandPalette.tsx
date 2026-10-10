@@ -12,7 +12,6 @@ import {
   MessageSquare,
   Mail,
   Link2,
-  ShieldAlert,
   PanelLeft,
   PanelTop,
   X,
@@ -94,13 +93,6 @@ export function CommandPalette() {
       category: 'Navigation',
       icon: Mail,
       action: () => router.push('/contact'),
-    },
-    {
-      id: 'nav-admin',
-      name: 'Admin Management Portal',
-      category: 'Navigation',
-      icon: ShieldAlert,
-      action: () => router.push('/admin'),
     },
     {
       id: 'layout-sidebar',
