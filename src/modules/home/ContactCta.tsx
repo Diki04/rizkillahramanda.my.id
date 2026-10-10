@@ -7,7 +7,7 @@ import { SpecularButton } from '@/common/components/reactbits';
 import { ScrollReveal } from '@/common/components/ScrollReveal';
 import { useTheme } from '@/common/contexts/ThemeContext';
 import { Link } from '@/i18n/routing';
-import { Mail, MessageSquare, ArrowUpRight, Sparkles, MapPin, Clock, CheckCircle } from 'lucide-react';
+import { Mail, MessageSquare, ArrowUpRight, Sparkles, MapPin, CheckCircle } from 'lucide-react';
 import { mockProfile } from '@/services/data/mock-profile';
 
 export function ContactCta() {
@@ -48,10 +48,6 @@ export function ContactCta() {
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-slate-300 dark:border-white/10 bg-slate-100/80 dark:bg-white/[0.04] text-xs font-mono text-slate-800 dark:text-zinc-300">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                 <span>Pekanbaru, ID (WIB / UTC+7)</span>
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-slate-300 dark:border-white/10 bg-slate-100/80 dark:bg-white/[0.04] text-xs font-mono text-slate-800 dark:text-zinc-300">
-                <Clock className="w-3 h-3 text-slate-600 dark:text-zinc-400" />
-                <span>Respons Cepat &lt; 24 Jam</span>
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-slate-300 dark:border-white/10 bg-slate-100/80 dark:bg-white/[0.04] text-xs font-mono text-slate-800 dark:text-zinc-300">
                 <CheckCircle className="w-3 h-3 text-emerald-500" />

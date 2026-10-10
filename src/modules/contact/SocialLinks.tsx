@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { SpotlightCard } from '@/common/components/SpotlightCard';
-import { Mail, Github, Linkedin, MapPin, Copy, Check, ExternalLink, Clock } from 'lucide-react';
+import { Mail, Github, Linkedin, MapPin, Copy, Check, ExternalLink } from 'lucide-react';
 import { mockProfile } from '@/services/data/mock-profile';
 
 export function SocialLinks() {
@@ -17,7 +17,7 @@ export function SocialLinks() {
   };
 
   return (
-    <div className="flex flex-col justify-between h-full min-h-[440px] lg:min-h-[520px] space-y-4">
+    <div className="flex flex-col space-y-4">
       {/* Email Card with Copy button */}
       <SpotlightCard className="p-5 sm:p-6">
         <div className="flex items-start justify-between gap-4">
@@ -69,25 +69,28 @@ export function SocialLinks() {
         </div>
       </SpotlightCard>
 
-      {/* Response Guarantee & Social Links */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
+      {/* Social Links Cards (Tight, crisp, zero excessive whitespace) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <a
           href={mockProfile.github}
           target="_blank"
           rel="noopener noreferrer"
-          className="block h-full"
+          className="group block"
         >
-          <SpotlightCard className="p-5 hover:border-slate-400 dark:hover:border-white/30 transition-all h-full flex flex-col justify-between">
+          <SpotlightCard className="p-4 sm:p-5 hover:border-slate-400 dark:hover:border-white/30 transition-all space-y-2">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <Github className="w-5 h-5 text-slate-900 dark:text-white" />
-                <span className="text-xs font-mono font-bold text-slate-900 dark:text-white">GitHub</span>
+              <div className="flex items-center gap-2">
+                <Github className="w-4 h-4 text-slate-900 dark:text-white" />
+                <span className="text-xs font-mono font-bold text-slate-900 dark:text-white group-hover:text-black dark:group-hover:text-white">GitHub</span>
               </div>
-              <ExternalLink className="w-3.5 h-3.5 text-slate-400 dark:text-zinc-500" />
+              <ExternalLink className="w-3.5 h-3.5 text-slate-400 dark:text-zinc-500 group-hover:text-slate-900 dark:group-hover:text-white transition-colors" />
             </div>
-            <p className="text-xs font-mono text-slate-500 dark:text-zinc-400 mt-2">
+            <p className="text-xs font-mono text-slate-600 dark:text-zinc-400 leading-snug">
               Jelajahi open-source &amp; repositori publik
             </p>
+            <div className="pt-1">
+              <span className="text-[11px] font-mono font-medium text-slate-500 dark:text-zinc-400">@Diki04</span>
+            </div>
           </SpotlightCard>
         </a>
 
@@ -95,30 +98,24 @@ export function SocialLinks() {
           href={mockProfile.linkedin}
           target="_blank"
           rel="noopener noreferrer"
-          className="block h-full"
+          className="group block"
         >
-          <SpotlightCard className="p-5 hover:border-slate-400 dark:hover:border-white/30 transition-all h-full flex flex-col justify-between">
+          <SpotlightCard className="p-4 sm:p-5 hover:border-slate-400 dark:hover:border-white/30 transition-all space-y-2">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <Linkedin className="w-5 h-5 text-slate-900 dark:text-white" />
-                <span className="text-xs font-mono font-bold text-slate-900 dark:text-white">LinkedIn</span>
+              <div className="flex items-center gap-2">
+                <Linkedin className="w-4 h-4 text-slate-900 dark:text-white" />
+                <span className="text-xs font-mono font-bold text-slate-900 dark:text-white group-hover:text-black dark:group-hover:text-white">LinkedIn</span>
               </div>
-              <ExternalLink className="w-3.5 h-3.5 text-slate-400 dark:text-zinc-500" />
+              <ExternalLink className="w-3.5 h-3.5 text-slate-400 dark:text-zinc-500 group-hover:text-slate-900 dark:group-hover:text-white transition-colors" />
             </div>
-            <p className="text-xs font-mono text-slate-500 dark:text-zinc-400 mt-2">
+            <p className="text-xs font-mono text-slate-600 dark:text-zinc-400 leading-snug">
               Terhubung secara profesional
             </p>
+            <div className="pt-1">
+              <span className="text-[11px] font-mono font-medium text-slate-500 dark:text-zinc-400">in/rizkillah-ramanda-sinyo</span>
+            </div>
           </SpotlightCard>
         </a>
-      </div>
-
-      {/* Response Time Badge */}
-      <div className="p-3.5 rounded-2xl bg-slate-100/80 dark:bg-zinc-900/40 border border-slate-200 dark:border-white/[0.06] text-xs font-mono text-slate-600 dark:text-zinc-400 flex items-center justify-between">
-        <span className="flex items-center gap-2">
-          <Clock className="w-3.5 h-3.5 text-slate-500 dark:text-zinc-400" />
-          <span>Waktu Respons Cepat:</span>
-        </span>
-        <span className="font-bold text-slate-900 dark:text-white">&lt; 24 Jam Kerja</span>
       </div>
     </div>
   );

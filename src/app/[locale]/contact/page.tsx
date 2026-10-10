@@ -33,7 +33,7 @@ export default function ContactPage() {
         </ScrollReveal>
 
         {/* Content Grid */}
-        <ScrollReveal className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch" delay={0.15}>
+        <ScrollReveal className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start" delay={0.15}>
           <div className="lg:col-span-5 flex flex-col">
             <SocialLinks />
           </div>
