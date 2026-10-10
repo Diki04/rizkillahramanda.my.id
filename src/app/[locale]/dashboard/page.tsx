@@ -6,11 +6,6 @@ import { Breadcrumb } from '@/common/components/Breadcrumb';
 import { ScrollReveal } from '@/common/components/ScrollReveal';
 import { Breakline } from '@/common/components/Breakline';
 
-const UmamiSection = dynamic(
-  () => import('@/modules/dashboard/components/Umami/Umami').then((mod) => mod.UmamiSection),
-  { ssr: true }
-);
-
 const ContributionsSection = dynamic(
   () => import('@/modules/dashboard/components/Contributions/Contributions').then((mod) => mod.ContributionsSection),
   { ssr: true }
@@ -51,35 +46,28 @@ export default function DashboardPage() {
       </ScrollReveal>
 
       <div className="space-y-4">
-        {/* 1. Umami / Traffic Trends Analytics */}
-        <ScrollReveal>
-          <UmamiSection />
-        </ScrollReveal>
-
-        <Breakline className="my-10" />
-
-        {/* 2. GitHub Contributions & Heatmap */}
+        {/* 1. GitHub Contributions & Heatmap */}
         <ScrollReveal>
           <ContributionsSection />
         </ScrollReveal>
 
         <Breakline className="my-10" />
 
-        {/* 3. WakaTime / Coding Activity */}
+        {/* 2. Coding Activity & Repository Languages */}
         <ScrollReveal>
           <CodingActiveSection />
         </ScrollReveal>
 
         <Breakline className="my-10" />
 
-        {/* 4. Codewars / Problem Solving */}
+        {/* 3. Codewars / Problem Solving */}
         <ScrollReveal>
           <CodewarsSection />
         </ScrollReveal>
 
         <Breakline className="my-10" />
 
-        {/* 5. Monkeytype / Typing Metrics */}
+        {/* 4. Monkeytype / Typing Metrics */}
         <ScrollReveal>
           <MonkeytypeSection />
         </ScrollReveal>

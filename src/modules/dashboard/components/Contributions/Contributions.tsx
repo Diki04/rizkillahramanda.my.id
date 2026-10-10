@@ -60,7 +60,7 @@ export const ContributionsSection = () => {
           bestDay={bestDay}
           average={average}
         />
-        <ContributionsCalendar weeks={weeks} />
+        <ContributionsCalendar weeks={weeks} months={data?.months} />
         <GitHubRecentCommits />
       </div>
     </section>
