@@ -34,7 +34,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
         {/* Main Content Container */}
         <div className="flex-1 flex flex-col min-w-0 overflow-x-hidden scroll-smooth">
-          <main className="flex-1 relative z-10 w-full">
+          <main className="flex-1 relative z-10 w-full flex flex-col">
             {children}
           </main>
           <Footer />
@@ -47,7 +47,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen relative z-10 flex flex-col bg-transparent text-slate-900 dark:text-slate-100 selection:bg-white/20 selection:text-white scroll-smooth transition-colors duration-300">
       <Navbar />
-      <main className="flex-1 relative z-10 w-full">{children}</main>
+      <main className="flex-1 relative z-10 w-full flex flex-col">{children}</main>
       <Footer />
     </div>
   );

@@ -7,7 +7,8 @@ import { SpecularButton } from '@/common/components/reactbits';
 import { ScrollReveal } from '@/common/components/ScrollReveal';
 import { useTheme } from '@/common/contexts/ThemeContext';
 import { Link } from '@/i18n/routing';
-import { Mail, MessageSquare, ArrowUpRight, Sparkles } from 'lucide-react';
+import { Mail, MessageSquare, ArrowUpRight, Sparkles, MapPin, Clock, CheckCircle } from 'lucide-react';
+import { mockProfile } from '@/services/data/mock-profile';
 
 export function ContactCta() {
   const t = useTranslations('contactCta');
@@ -17,14 +18,14 @@ export function ContactCta() {
   return (
     <ScrollReveal
       id="contact-cta"
-      className="py-16 md:py-24 border-t border-slate-200 dark:border-white/[0.08] min-h-[calc(100vh-5rem)] flex flex-col justify-center relative overflow-hidden"
+      className="py-12 md:py-20 border-t border-slate-200 dark:border-white/[0.08] min-h-[calc(100vh-5rem)] flex flex-col justify-center relative overflow-hidden"
     >
       <Container size="xl">
-        <div className="relative rounded-3xl border border-slate-300 dark:border-white/[0.1] bg-white/95 dark:bg-gradient-to-b dark:from-zinc-900/60 dark:to-zinc-950/80 backdrop-blur-xl p-6 sm:p-12 md:p-14 text-center overflow-hidden shadow-lg shadow-slate-900/5 dark:shadow-none">
+        <div className="relative rounded-3xl border border-slate-300 dark:border-white/[0.1] bg-white/95 dark:bg-gradient-to-b dark:from-zinc-900/60 dark:to-zinc-950/80 backdrop-blur-xl p-6 sm:p-12 md:p-16 text-center overflow-hidden shadow-lg shadow-slate-900/5 dark:shadow-none max-w-4xl 2xl:max-w-5xl mx-auto">
           {/* Subtle monochrome ambient glow */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-white/[0.04] rounded-full blur-3xl pointer-events-none" />
 
-          <div className="relative z-10 max-w-2xl mx-auto space-y-6">
+          <div className="relative z-10 max-w-3xl mx-auto space-y-6">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-slate-300 dark:border-white/20 bg-slate-100 dark:bg-white/[0.06] text-slate-950 dark:text-white text-xs font-mono font-bold shadow-xs">
               <Sparkles className="w-3.5 h-3.5 text-slate-800 dark:text-zinc-300" />
               <span>{t('badge')}</span>
@@ -38,11 +39,27 @@ export function ContactCta() {
               {t('headlineSuffix')}
             </h2>
 
-            <p className="text-sm sm:text-base text-slate-950 dark:text-zinc-200 leading-relaxed max-w-xl mx-auto font-semibold">
+            <p className="text-sm sm:text-base text-slate-950 dark:text-zinc-200 leading-relaxed max-w-2xl mx-auto font-semibold">
               {t('description')}
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2 w-full">
+            {/* Quick status & availability pills */}
+            <div className="flex flex-wrap items-center justify-center gap-2.5 pt-1">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-slate-300 dark:border-white/10 bg-slate-100/80 dark:bg-white/[0.04] text-xs font-mono text-slate-800 dark:text-zinc-300">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span>Pekanbaru, ID (WIB / UTC+7)</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-slate-300 dark:border-white/10 bg-slate-100/80 dark:bg-white/[0.04] text-xs font-mono text-slate-800 dark:text-zinc-300">
+                <Clock className="w-3 h-3 text-slate-600 dark:text-zinc-400" />
+                <span>Respons Cepat &lt; 24 Jam</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-slate-300 dark:border-white/10 bg-slate-100/80 dark:bg-white/[0.04] text-xs font-mono text-slate-800 dark:text-zinc-300">
+                <CheckCircle className="w-3 h-3 text-emerald-500" />
+                <span>Full-time &amp; Proyek</span>
+              </span>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-3 w-full">
               <Link href="/contact" className="w-full sm:w-auto">
                 <SpecularButton
                   size="md"
