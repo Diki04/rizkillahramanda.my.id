@@ -18,6 +18,8 @@ export const mockProfile: Profile = {
   email: 'rizkillahramanda@gmail.com',
   github: 'https://github.com/Diki04',
   linkedin: 'https://www.linkedin.com/in/rizkillah-ramanda-sinyo/',
+  instagram: 'https://instagram.com/rizkillah_ramanda',
+  tiktok: 'https://tiktok.com/@diki.ramanda',
   website: 'https://rizkillahramanda.my.id',
   stats: {
     yearsOfExperience: '2+ Years',
