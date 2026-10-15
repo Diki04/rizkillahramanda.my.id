@@ -29,6 +29,7 @@ export function ProjectsFilter({
     { id: 'all', label: t('typeAll') },
     { id: 'web', label: t('typeWeb') },
     { id: 'mobile', label: t('typeMobile') },
+    { id: 'ai', label: t('typeAi') },
   ];
 
   const categoryOptions: { id: ProjectCategoryFilter; label: string }[] = [

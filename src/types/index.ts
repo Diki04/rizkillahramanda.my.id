@@ -6,7 +6,7 @@ export interface LocalizedString {
 }
 
 export type ProjectCategory = 'all' | 'fullstack' | 'frontend' | 'ml' | 'other';
-export type ProjectTypeFilter = 'all' | 'web' | 'mobile';
+export type ProjectTypeFilter = 'all' | 'web' | 'mobile' | 'ai';
 export type ProjectCategoryFilter = 'all' | 'personal' | 'internship' | 'freelance' | 'competition';
 
 export interface ProjectDetailFeature {
@@ -22,7 +22,7 @@ export interface Project {
   slug: string;
   description: LocalizedString;
   category: 'fullstack' | 'frontend' | 'ml' | 'other';
-  projectType?: 'web' | 'mobile';
+  projectType?: 'web' | 'mobile' | 'ai';
   projectCategory?: 'personal' | 'internship' | 'freelance' | 'competition';
   image: string;
   tags: string[];

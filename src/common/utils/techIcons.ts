@@ -31,42 +31,182 @@ import {
   SiScikitlearn,
   SiPandas,
   SiNumpy,
+  SiKotlin,
+  SiAndroid,
+  SiFirebase,
+  SiVite,
+  SiGreensock,
+  SiFramer,
+  SiThreedotjs,
+  SiWebgl,
+  SiPhp,
+  SiLaravel,
+  SiVuedotjs,
+  SiJupyter,
+  SiLeaflet,
+  SiGooglemaps,
+  SiJsonwebtokens,
+  SiChartdotjs,
+  SiNestjs,
+  SiBun,
+  SiSwiper,
+  SiMyanimelist,
+  SiAlpinedotjs,
+  SiReactquery,
+  SiGoogleplay,
+  SiMaterialdesign,
+  SiYii,
+  SiPnpm,
 } from 'react-icons/si';
-import { Code2 } from 'lucide-react';
+import {
+  Brain,
+  Bot,
+  Sparkles,
+  Cpu,
+  Layers,
+  Network,
+  Activity,
+  CreditCard,
+  Code2,
+} from 'lucide-react';
 
-interface TechIconDef {
+export interface TechIconDef {
   icon: IconType | any;
   color: string;
 }
 
 const TECH_MAP: Record<string, TechIconDef> = {
+  // Frontend & Frameworks
   react: { icon: SiReact, color: '#61DAFB' },
   'react.js': { icon: SiReact, color: '#61DAFB' },
+  'react 19': { icon: SiReact, color: '#61DAFB' },
+  'react native': { icon: SiReact, color: '#61DAFB' },
   'next.js': { icon: SiNextdotjs, color: '#FFFFFF' },
+  'next.js 14': { icon: SiNextdotjs, color: '#FFFFFF' },
+  'next.js 15': { icon: SiNextdotjs, color: '#FFFFFF' },
+  'next.js 16': { icon: SiNextdotjs, color: '#FFFFFF' },
   nextjs: { icon: SiNextdotjs, color: '#FFFFFF' },
+  'next-intl': { icon: SiNextdotjs, color: '#38BDF8' },
+  nextauth: { icon: SiNextdotjs, color: '#FFFFFF' },
+  vue: { icon: SiVuedotjs, color: '#4FC08D' },
+  'vue 3': { icon: SiVuedotjs, color: '#4FC08D' },
+  'vue.js': { icon: SiVuedotjs, color: '#4FC08D' },
+  'vue.js 3': { icon: SiVuedotjs, color: '#4FC08D' },
+  pinia: { icon: SiVuedotjs, color: '#4FC08D' },
+  vite: { icon: SiVite, color: '#646CFF' },
+  bun: { icon: SiBun, color: '#FBF0DF' },
   typescript: { icon: SiTypescript, color: '#3178C6' },
   javascript: { icon: SiJavascript, color: '#F7DF1E' },
   'tailwind css': { icon: SiTailwindcss, color: '#38BDF8' },
+  'tailwind css v4': { icon: SiTailwindcss, color: '#38BDF8' },
   tailwind: { icon: SiTailwindcss, color: '#38BDF8' },
   tailwindcss: { icon: SiTailwindcss, color: '#38BDF8' },
-  redux: { icon: SiRedux, color: '#764ABC' },
-  'redux toolkit': { icon: SiRedux, color: '#764ABC' },
+  alpine: { icon: SiAlpinedotjs, color: '#8BC0D0' },
+  'alpine.js': { icon: SiAlpinedotjs, color: '#8BC0D0' },
+  html: { icon: SiHtml5, color: '#E34F26' },
+  html5: { icon: SiHtml5, color: '#E34F26' },
+  css: { icon: SiCss, color: '#1572B6' },
+  css3: { icon: SiCss, color: '#1572B6' },
+
+  // Mobile
+  kotlin: { icon: SiKotlin, color: '#7F52FF' },
+  android: { icon: SiAndroid, color: '#3DDC84' },
+  'jetpack compose': { icon: SiAndroid, color: '#3DDC84' },
+  'material design': { icon: SiMaterialdesign, color: '#757575' },
+  'material design 3': { icon: SiMaterialdesign, color: '#757575' },
+
+  // Animations & UI Libraries
+  'framer motion': { icon: SiFramer, color: '#0055FF' },
+  framer: { icon: SiFramer, color: '#0055FF' },
+  gsap: { icon: SiGreensock, color: '#88CE02' },
+  greensock: { icon: SiGreensock, color: '#88CE02' },
+  'three.js': { icon: SiThreedotjs, color: '#FFFFFF' },
+  'react three fiber': { icon: SiThreedotjs, color: '#FFFFFF' },
+  webgl: { icon: SiWebgl, color: '#990000' },
+  lanyard: { icon: SiThreedotjs, color: '#FFFFFF' },
+  confetti: { icon: Sparkles, color: '#F59E0B' },
+  swiper: { icon: SiSwiper, color: '#6332F6' },
+  'swiper.js': { icon: SiSwiper, color: '#6332F6' },
+  lucide: { icon: Sparkles, color: '#F59E0B' },
+
+  // Backend & APIs
   'node.js': { icon: SiNodedotjs, color: '#339933' },
   nodejs: { icon: SiNodedotjs, color: '#339933' },
   node: { icon: SiNodedotjs, color: '#339933' },
   express: { icon: SiExpress, color: '#FFFFFF' },
   'express.js': { icon: SiExpress, color: '#FFFFFF' },
-  python: { icon: SiPython, color: '#3776AB' },
+  'express 5': { icon: SiExpress, color: '#FFFFFF' },
+  nestjs: { icon: SiNestjs, color: '#E0234E' },
+  'nestjs 11': { icon: SiNestjs, color: '#E0234E' },
   fastapi: { icon: SiFastapi, color: '#009688' },
-  pytorch: { icon: SiPytorch, color: '#EE4C2C' },
-  tensorflow: { icon: SiTensorflow, color: '#FF6F00' },
-  opencv: { icon: SiOpencv, color: '#5C3EE8' },
+  php: { icon: SiPhp, color: '#777BB4' },
+  laravel: { icon: SiLaravel, color: '#FF2D20' },
+  yii: { icon: SiYii, color: '#0073BC' },
+  'yii2 advanced': { icon: SiYii, color: '#0073BC' },
+  'rest api': { icon: Network, color: '#06B6D4' },
+  api: { icon: Network, color: '#06B6D4' },
+  jwt: { icon: SiJsonwebtokens, color: '#D63AFF' },
+  'jwt auth': { icon: SiJsonwebtokens, color: '#D63AFF' },
+
+  // State Management & Data Fetching
+  redux: { icon: SiRedux, color: '#764ABC' },
+  'redux toolkit': { icon: SiRedux, color: '#764ABC' },
+  zustand: { icon: Layers, color: '#4338CA' },
+  'tanstack query': { icon: SiReactquery, color: '#FF4154' },
+  'react query': { icon: SiReactquery, color: '#FF4154' },
+
+  // Databases & ORMs
   postgresql: { icon: SiPostgresql, color: '#4169E1' },
   postgres: { icon: SiPostgresql, color: '#4169E1' },
   supabase: { icon: SiSupabase, color: '#3ECF8E' },
   mongodb: { icon: SiMongodb, color: '#47A248' },
   mysql: { icon: SiMysql, color: '#4479A1' },
   prisma: { icon: SiPrisma, color: '#2D3748' },
+  'prisma orm': { icon: SiPrisma, color: '#2D3748' },
+  indexeddb: { icon: Layers, color: '#10B981' },
+  firebase: { icon: SiFirebase, color: '#FFCA28' },
+  'firebase auth': { icon: SiFirebase, color: '#FFCA28' },
+  'firebase admin': { icon: SiFirebase, color: '#FFCA28' },
+  fcm: { icon: SiFirebase, color: '#FFCA28' },
+
+  // AI & Machine Learning
+  python: { icon: SiPython, color: '#3776AB' },
+  'python 3.11': { icon: SiPython, color: '#3776AB' },
+  'artificial intelligence': { icon: Brain, color: '#A855F7' },
+  ai: { icon: Brain, color: '#A855F7' },
+  'machine learning': { icon: Brain, color: '#A855F7' },
+  ml: { icon: Brain, color: '#A855F7' },
+  'deep learning': { icon: Brain, color: '#A855F7' },
+  cnn: { icon: Brain, color: '#A855F7' },
+  nlp: { icon: Bot, color: '#06B6D4' },
+  'natural language processing': { icon: Bot, color: '#06B6D4' },
+  'whisper ai': { icon: Bot, color: '#10B981' },
+  pytorch: { icon: SiPytorch, color: '#EE4C2C' },
+  tensorflow: { icon: SiTensorflow, color: '#FF6F00' },
+  keras: { icon: SiTensorflow, color: '#FF6F00' },
+  opencv: { icon: SiOpencv, color: '#5C3EE8' },
+  'scikit-learn': { icon: SiScikitlearn, color: '#F7931E' },
+  pandas: { icon: SiPandas, color: '#150458' },
+  numpy: { icon: SiNumpy, color: '#013243' },
+  jupyter: { icon: SiJupyter, color: '#F37626' },
+  nltk: { icon: SiPython, color: '#3776AB' },
+
+  // Maps, Charts, OCR, Payment & Tools
+  gis: { icon: SiLeaflet, color: '#199900' },
+  leaflet: { icon: SiLeaflet, color: '#199900' },
+  'google maps': { icon: SiGooglemaps, color: '#4285F4' },
+  chart: { icon: SiChartdotjs, color: '#FF6384' },
+  highcharts: { icon: SiChartdotjs, color: '#FF6384' },
+  recharts: { icon: SiChartdotjs, color: '#22C55E' },
+  tesseract: { icon: Sparkles, color: '#38BDF8' },
+  ocr: { icon: Sparkles, color: '#38BDF8' },
+  qris: { icon: CreditCard, color: '#0284C7' },
+  midtrans: { icon: CreditCard, color: '#0284C7' },
+  payment: { icon: CreditCard, color: '#0284C7' },
+  pwa: { icon: Sparkles, color: '#5A0FC8' },
+  monorepo: { icon: Layers, color: '#6366F1' },
+  telemetry: { icon: Activity, color: '#EF4444' },
+  rul: { icon: Activity, color: '#EF4444' },
   docker: { icon: SiDocker, color: '#2496ED' },
   git: { icon: SiGit, color: '#F05032' },
   github: { icon: SiGithub, color: '#FFFFFF' },
@@ -74,15 +214,23 @@ const TECH_MAP: Record<string, TechIconDef> = {
   postman: { icon: SiPostman, color: '#FF6C37' },
   vercel: { icon: SiVercel, color: '#FFFFFF' },
   figma: { icon: SiFigma, color: '#F24E1E' },
-  html: { icon: SiHtml5, color: '#E34F26' },
-  html5: { icon: SiHtml5, color: '#E34F26' },
-  css: { icon: SiCss, color: '#1572B6' },
-  css3: { icon: SiCss, color: '#1572B6' },
   vitest: { icon: SiVitest, color: '#FCC72B' },
-  'scikit-learn': { icon: SiScikitlearn, color: '#F7931E' },
-  pandas: { icon: SiPandas, color: '#150458' },
-  numpy: { icon: SiNumpy, color: '#013243' },
+  'google play': { icon: SiGoogleplay, color: '#414141' },
+  myanimelist: { icon: SiMyanimelist, color: '#2E51A2' },
+  jikan: { icon: SiMyanimelist, color: '#2E51A2' },
+  pnpm: { icon: SiPnpm, color: '#F69220' },
+  'pnpm workspace': { icon: SiPnpm, color: '#F69220' },
+  'react quill': { icon: SiReact, color: '#61DAFB' },
+  quill: { icon: Sparkles, color: '#2563EB' },
+  tiptap: { icon: Sparkles, color: '#2563EB' },
+  mpdf: { icon: SiPhp, color: '#777BB4' },
+  coroutines: { icon: SiKotlin, color: '#7F52FF' },
+  flow: { icon: SiKotlin, color: '#7F52FF' },
+  scraper: { icon: SiPython, color: '#3776AB' },
 };
+
+// Sort keys by descending length so that more specific keys match first during substring check
+const SORTED_KEYS = Object.keys(TECH_MAP).sort((a, b) => b.length - a.length);
 
 export function getTechIcon(name: string): TechIconDef {
   const normalized = name.toLowerCase().trim();
@@ -90,8 +238,8 @@ export function getTechIcon(name: string): TechIconDef {
     return TECH_MAP[normalized];
   }
 
-  // Substring matching
-  for (const key of Object.keys(TECH_MAP)) {
+  // Substring matching by longest key first
+  for (const key of SORTED_KEYS) {
     if (normalized.includes(key)) {
       return TECH_MAP[key];
     }

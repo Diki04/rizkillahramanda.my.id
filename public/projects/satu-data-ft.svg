@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256"><g transform="translate(-46.85 -46.85) scale(1.366)">
+  <title id="t-symbol">Satu Data FT Symbol</title>
+  <g id="symbol">
+    <polygon points="131.5,89.98 131.5,38.06 204.14,80.0 159.18,105.96" fill="#B91C1C"/>
+    <polygon points="162.68,112.02 207.64,86.06 207.64,169.94 162.68,143.98" fill="#B91C1C"/>
+    <polygon points="159.18,150.04 204.14,176.0 131.5,217.94 131.5,166.02" fill="#B91C1C"/>
+    <polygon points="124.5,166.02 124.5,217.94 51.86,176.0 96.82,150.04" fill="#18171D"/>
+    <polygon points="93.32,143.98 48.36,169.94 48.36,86.06 93.32,112.02" fill="#18171D"/>
+    <polygon points="96.82,105.96 51.86,80.0 124.5,38.06 124.5,89.98" fill="#18171D"/>
+    <!-- Central Monogram FT -->
+    <path d="M 103 108 L 123 108 L 123 115.5 L 110.5 115.5 L 110.5 124 L 120 124 L 120 131.5 L 110.5 131.5 L 110.5 148 L 103 148 Z" fill="#B91C1C"/>
+    <path d="M 126 108 L 153 108 L 153 115.5 L 143.25 115.5 L 143.25 148 L 135.75 148 L 135.75 115.5 L 126 115.5 Z" fill="#B91C1C"/>
+  </g>
+</g></svg>
