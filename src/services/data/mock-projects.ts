@@ -112,11 +112,11 @@ export const mockProjects: Project[] = [
   },
   {
     id: 'proj-3',
-    title: 'Zakrenz Premium Birthday Experience',
+    title: 'Interactive Birthday Celebration Website',
     slug: 'birthday-website',
     description: {
-      en: 'Cinematic multi-phase birthday celebration web experience powered by React 19, GSAP timeline choreography, dynamic 3D greeting envelopes, custom audio soundscapes, and confetti particle physics.',
-      id: 'Aplikasi web perayaan ulang tahun sinematik multi-fase berbasis React 19 dengan koreografi animasi GSAP yang halus, amplop ucapan 3D dinamis, integrasi pemutar musik latar, dan efek partikel konfeti.',
+      en: 'Cinematic multi-phase birthday celebration web experience powered by React 19, GSAP timeline choreography, dynamic 3D greeting envelopes, flying wishes, and confetti particle physics.',
+      id: 'Aplikasi web perayaan ulang tahun sinematik multi-fase berbasis React 19 dengan koreografi animasi GSAP yang halus, amplop ucapan 3D dinamis, fitur harapan terbang, dan efek partikel konfeti.',
     },
     category: 'frontend',
     projectType: 'web',
@@ -127,8 +127,8 @@ export const mockProjects: Project[] = [
     featured: false,
     createdAt: '2026-06-15',
     introduction: {
-      en: 'A high-aesthetic front-end web project crafted to deliver an emotional, cinematic milestone greeting. Built in collaboration with Zakrenzdev, the application orchestrates multi-stage interactions—from teaser envelopes and memory photo stacks to synchronized fireworks and ambient acoustic playback.',
-      id: 'Proyek frontend web dengan estetika tinggi yang dirancang untuk menyampaikan ucapan selamat ulang tahun yang berkesan dan sinematik. Dibangun berkolaborasi dengan Zakrenzdev, aplikasi ini mengatur interaksi bertahap—mulai dari pembukaan amplop misteri, album foto kenangan interaktif, hingga kembang api dan alunan musik latar.',
+      en: 'A high-aesthetic front-end web project crafted entirely from scratch to deliver an emotional, cinematic milestone birthday celebration. The application orchestrates seamless multi-phase storytelling—transitioning through an opening teaser, a personalized journey timeline, an interactive 3D envelope, flying wishes, floating balloons, dynamic confetti bursts, and ambient background music.',
+      id: 'Proyek web frontend dengan estetika tinggi yang dirancang sepenuhnya dari awal untuk merayakan hari ulang tahun secara sinematik dan berkesan. Aplikasi ini mengatur pengalaman multi-fase yang imersif—mulai dari layar pembuka, lini masa perjalanan kenangan, amplop interaktif 3D, fitur harapan terbang (Flying Wish), balon animasi, partikel konfeti, serta pemutar musik latar.',
     },
     features: [
       {
@@ -136,17 +136,17 @@ export const mockProjects: Project[] = [
         description: 'Smooth timeline state transitions orchestrated using GreenSock (GSAP):',
         codeSnippet: 'gsap.timeline({ defaults: { ease: "power3.out" } })',
         bullets: [
-          'Envelope unsealing with 3D CSS perspective transforms',
-          'Dynamic typography staging with typewriter kinetic reveal',
+          '5-phase progressive flow: Cover -> Intro -> Journey -> Envelope -> Greeting Card',
+          'Interactive 3D CSS perspective transforms on envelope unsealing',
         ],
       },
       {
-        title: '🎵 Web Audio Synced Atmosphere',
-        description: 'Harmonious background soundtrack playback with customizable audio controls and fade-in/fade-out dynamics.',
+        title: '🎈 Interactive Flying Wish & Floating Balloons',
+        description: 'Interactive "Make a Wish" feature where submitted text dissolves into floating particles across the screen with dynamic SVG balloons.',
       },
       {
-        title: '✨ Canvas Confetti & Burst Physics',
-        description: 'High-performance particle engine producing realistic gravity, wind drag, and celebratory color palettes.',
+        title: '🎵 Web Audio Synced Atmosphere & Confetti',
+        description: 'Atmospheric audio playback with dedicated mute/unmute controls and confetti bursts celebrating the finale.',
       },
     ],
     gettingStarted: {
