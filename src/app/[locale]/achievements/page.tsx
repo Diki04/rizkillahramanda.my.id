@@ -123,10 +123,7 @@ export default function AchievementsPage() {
 
         {/* Certificate Cards Grid */}
         {filteredAchievements.length > 0 ? (
-          <ScrollReveal
-            className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4"
-            delay={0.15}
-          >
+          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
             {filteredAchievements.map((achievement) => (
               <AchievementCard
                 key={achievement.id}
@@ -134,7 +131,7 @@ export default function AchievementsPage() {
                 onOpenModal={setSelectedAchievement}
               />
             ))}
-          </ScrollReveal>
+          </div>
         ) : (
           <ScrollReveal className="py-20 text-center rounded-2xl border border-dashed border-slate-300 dark:border-zinc-800 bg-slate-50/50 dark:bg-zinc-900/40">
             <p className="font-mono text-sm text-slate-500 dark:text-zinc-400">

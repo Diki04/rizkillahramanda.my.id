@@ -21,7 +21,7 @@ export function ScrollReveal({
       id={id}
       initial={{ opacity: 0, y: 35, filter: 'blur(4px)' }}
       whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-      viewport={{ once: false, amount: 0.12 }}
+      viewport={{ once: true, amount: 'some' }}
       transition={{
         duration: 0.65,
         delay,
@@ -47,7 +47,7 @@ export function ScrollItem({
     <motion.div
       initial={{ opacity: 0, y: 25, scale: 0.98 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, amount: 0.15 }}
+      viewport={{ once: true, amount: 'some' }}
       transition={{
         duration: 0.5,
         delay,

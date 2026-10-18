@@ -61,11 +61,11 @@ export default function ProjectsPage() {
 
         {/* Projects Grid */}
         {filteredProjects.length > 0 ? (
-          <ScrollReveal className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4" delay={0.2}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
             {filteredProjects.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}
-          </ScrollReveal>
+          </div>
         ) : (
           <ScrollReveal className="py-20 text-center rounded-2xl border border-slate-200 dark:border-white/[0.06] bg-slate-100 dark:bg-black/40">
             <p className="font-mono text-sm text-slate-500 dark:text-slate-400">
