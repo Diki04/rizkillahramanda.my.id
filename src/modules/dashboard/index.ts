@@ -6,7 +6,7 @@ export * from './CodewarsStats';
 export * from './MonkeytypeStats';
 export * from './WakatimeStats';
 
-// Satriabahari modular components
+// Modular dashboard components
 export * from './components/SectionHeading';
 export * from './components/SectionSubHeading';
 export * from './components/OverviewItem';
